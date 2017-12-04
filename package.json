@@ -1,8 +1,14 @@
 {
     "name": "orion-ui",
+    "license": "ISC",
+    "version": "0.0.1",
+    "description": "Orion Experience",
     "scripts": {
-        "build": "webpack",
-        "start": "webpack-dev-server"
+        "clean": "rimraf dist",
+        "build": "webpack --config webpack.config.prod.js",
+        "dev": "node devServer",
+        "start": "npm-run-all clean dev",
+        "lint": "eslint src/js"
     },
     "dependencies": {
         "react": "^16.2.0",
@@ -24,7 +30,12 @@
         "extract-text-webpack-plugin": "^3.0.2",
         "file-loader": "^1.1.5",
         "html-webpack-plugin": "^2.30.1",
+        "npm-run-all": "^4.1.2",
+        "rimraf": "^2.6.2",
         "webpack": "^3.10.0",
-        "webpack-dev-server": "^2.9.5"
+        "webpack-dev-server": "^2.9.5",
+        "webpack-encoding-plugin": "^0.2.1",
+        "webpack-hot-middleware": "^2.21.0",
+        "write-file-webpack-plugin": "^4.2.0"
     }
 }
