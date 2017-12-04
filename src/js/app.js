@@ -9,8 +9,8 @@ export default class App extends Component {
     return (
       <div>
         <UserStages />
-
-        Orion XP.
+        
+        Orion  XP.
         <img src={ logo } alt='Pacifico Sul' />
       </div>
     );

@@ -15,12 +15,11 @@ const paths = {
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  entry: {
-    index: [`webpack-dev-server/client?http:${HOT_SERVER_URL}`, 'webpack/hot/only-dev-server', path.join(paths.JS, 'app.js')]
-  },
+  entry: [`webpack-dev-server/client?http:${HOT_SERVER_URL}`, 'webpack/hot/only-dev-server', path.join(paths.JS, 'app.js')],
   output: {
     path: paths.DIST,
-    filename: 'app.bundle.js'
+    filename: '[name].js',
+    publicPath: `${HOT_SERVER_URL}/`
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -45,8 +44,11 @@ module.exports = {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract({ use: 'css-loader', }), exclude: /node_modules/ },
-      { test: /\.(png|jpg|gif)$/, loader: 'file-loader', exclude: /node_modules/ },
+      { test: /\.css$/, loader: 'css-loader', exclude: /node_modules/ },
+      {
+        test: /\.(ttf|eot|svg|woff(2)|png|jpg|jpeg|gif?)(\?[a-z0-9=&.]+)?$/,
+        use: ['file-loader?name=./[hash].[ext]']
+      }
     ]
   },
 };
