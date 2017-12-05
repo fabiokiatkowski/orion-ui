@@ -20,7 +20,7 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case GET: {
-      console.log(action.data);
+      console.log("Life is a loop =(");
       return Object.assign(state, action.data);
     }
     default:

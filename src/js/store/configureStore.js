@@ -1,9 +1,6 @@
-// import configureStoreDev from './configureStore.dev';
-// import configureStoreProd from './configureStore.prod';
-let loaded = null;
+import configureStoreDev from './configureStore.dev';
+import configureStoreProd from './configureStore.prod';
 
-loaded = (process.env.NODE_ENV === 'production') ?
-  require('./configureStore.prod') : //eslint-disable-line
-  require('./configureStore.dev'); //eslint-disable-line
-const toExport = loaded;
-export default toExport;
+console.log(process.env.NODE_ENV);
+console.log(configureStoreDev);
+export default (process.env.NODE_ENV === 'production') ? configureStoreProd : configureStoreDev;

@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../css/style.css';
 import UserStages from './containers/UserStages';
-import reducer from './redux/modules/reducer';
 import createStore from './store/configureStore';
 
 const store = createStore();
