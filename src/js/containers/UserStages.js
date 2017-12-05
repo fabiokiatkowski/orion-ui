@@ -1,65 +1,59 @@
 import React from 'react';
-import _ from 'lodash';
-import GetAsync from '../requests';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import StageComponent from '../components/StageComponent';
 import SearchField from '../components/SearchField';
 import UserInfo from '../components/UserInfo';
+import { getSync } from '../redux/modules/userInfo';
 
-export default class UserStages extends React.Component {
+const mapStateToProps = state => ({
+  user: state.userInfo
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return { getSync: bindActionCreators(getSync, dispatch) };
+};
+
+class UserStages extends React.Component {
   constructor() {
     super();
-    this.state = {
-      userInfo: {
-        user: {
-          id: 0,
-          name: '',
-          nickname: ''
-        },
-        stages: [{
-          stageId: 0,
-          stageName: '',
-          stageLeadTime: 0.0,
-        },
-        ]
-      },
-      searchString: ''
-    };
+    this.state = { virtualSearchString: '' };
   }
-
   componentDidMount() {
-    if (this.state.searchString) {
-      GetAsync(this.state.searchString).then(data => this.setState(data));
+    const { searchString } = this.props.user;
+    const { getSync } = this.props;
+    if (searchString) {
+      getAsync(searchString);
     }
   }
 
   handleChange(e) {
-    this.setState({ searchString: e.target.value }, () => {
-      _.debounce(
-        () => GetAsync(this.state.searchString)
-          .then(data => this.setState(data)),
-        8
-      );
-    });
+    this.props.getSync(e.target.value);
+    this.setState({ virtualSearchString: e.target.value });
   }
 
   render() {
+    const { virtualSearchString } = this.state;
+    const { userInfo } = this.props.user;
     return (
       <div className="container">
         <SearchField
           onChange={e => this.handleChange(e)}
-          searchString={this.state.searchString}
+          searchString={virtualSearchString}
         />
         <div className="panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title">
-              <UserInfo user={this.state.userInfo.user} />
+              <UserInfo user={userInfo.user} />
             </h3>
           </div>
           <div className="panel-body">
-            <StageComponent stages={this.state.userInfo.stages} />
+            <StageComponent stages={userInfo.stages} />
           </div>
         </div>
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserStages);

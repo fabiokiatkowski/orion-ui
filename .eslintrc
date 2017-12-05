@@ -16,7 +16,8 @@
         "ignoreTemplateLiterals": true,
         "ignoreRegExpLiterals": true
       }
-    ]
+    ],
+    "linebreak-style": ["error", "windows"]
   },
   "env": {
     "jest": true,
