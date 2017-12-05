@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import '../css/style.css';
-import logo from '../assets/logotype.png';
-import UserStages from './containers/UserStages.js';
+import UserStages from './containers/UserStages';
 
-export default class App extends Component {
-  render() {
-    return (
-      <div>
-        <UserStages />
-        
-        Orion  XP.
-        <img src={ logo } alt='Pacifico Sul' />
-      </div>
-    );
-  }
-}
+const App = (props) => {
+  return (
+    <div>
+      <UserStages />
+      Orion  XP.
+      <img src={props.logo} alt="Pacifico Sul" />
+    </div>
+  );
+};
 
-render(<App />, document.getElementById('app'));
+App.propTypes = {
+  logo: PropTypes.string.isRequired
+};
+
+ReactDOM.render(<App logo="../assets/logotype.png" />, document.getElementById('app'));

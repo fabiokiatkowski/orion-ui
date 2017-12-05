@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function UserInfo (props) {
+const UserInfo = (props) => {
   return (
     <nav className="navbar navbar-default">
       <div className="container-fluid" >
@@ -9,4 +10,14 @@ export default function UserInfo (props) {
       </div>
     </nav>
   );
-}
+};
+
+UserInfo.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    nickname: PropTypes.string
+  }).isRequired
+};
+
+export default UserInfo;

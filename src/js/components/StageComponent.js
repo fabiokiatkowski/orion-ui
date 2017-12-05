@@ -1,10 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function StageComponent(props) {
+const StageComponent = (props) => {
   const listStage = props.stages.map((stage) => {
-    return <li key={stage.stageId.toString()} className="list-group-item">{stage.stageName}</li>
+    return <li key={stage.stageId.toString()} className="list-group-item">{stage.stageName}</li>;
   });
   return (
     <ul className="list-group">{listStage}</ul>
   );
-}
+};
+
+StageComponent.propTypes = {
+  stages: PropTypes.arrayOf(PropTypes.any).isRequired
+};
+
+export default StageComponent;
