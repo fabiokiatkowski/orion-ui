@@ -11,14 +11,18 @@
         "lint": "eslint src/js"
     },
     "dependencies": {
+        "bootstrap": "^3.3.7",
         "lodash": "^4.17.4",
+        "node-sass": "^4.7.2",
         "prop-types": "^15.6.0",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "react-redux": "^5.0.6",
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.2.0"
+        "redux-thunk": "^2.2.0",
+        "sass-loader": "^6.0.6",
+        "style-loader": "^0.19.0"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",

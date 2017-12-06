@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../css/style.css';
 import UserStages from './containers/UserStages';
 import createStore from './store/configureStore';

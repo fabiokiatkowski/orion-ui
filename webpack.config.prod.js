@@ -45,8 +45,11 @@ module.exports = {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract({use: 'css-loader',}), exclude: /node_modules/ },
-      { test: /\.(png|jpg|gif)$/, loader: 'file-loader', exclude: /node_modules/},
+      { test: /\.css$/, loader: ExtractTextPlugin.extract({ use: 'css-loader' }), },
+      {
+        test: /\.(ttf|eot|svg|woff|woff(2)|png|jpg|jpeg|gif?)(\?[a-z0-9=&.]+)?$/,
+        loader: ['file-loader?name=./[hash].[ext]']
+      }
     ]
   },
 };
