@@ -1,31 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import PropTypes from 'prop-types';
+import '../../node_modules/ag-grid/dist/styles/ag-grid.css';
+import '../../node_modules/ag-grid/dist/styles/ag-theme-bootstrap.css';
+import '../../node_modules/ag-grid/dist/styles/compiled-icons.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-import '../css/style.css';
-import UserStages from './containers/UserStages';
+// import UserStages from './containers/UserStages';
+// import GridBeta from './containers/GridBeta';
+import AgGridXp from './containers/AgGridXP';
 import createStore from './store/configureStore';
 
 const store = createStore();
 
-const App = (props) => {
+const App = () => {
   return (
     <div>
-      <UserStages />
-      Orion  XP.
-      <img src={props.logo} alt="Pacifico Sul" />
+      <AgGridXp />
     </div>
   );
 };
 
-App.propTypes = {
-  logo: PropTypes.string.isRequired
-};
-
 ReactDOM.render(
   <Provider store={store}>
-    <App logo="../assets/logotype.png" />
+    <App />
   </Provider>,
   document.getElementById('app')
 );

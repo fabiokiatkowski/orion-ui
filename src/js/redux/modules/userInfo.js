@@ -20,7 +20,6 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case GET: {
-      console.log("Life is a loop =(");
       return Object.assign(state, action.data);
     }
     default:
@@ -30,7 +29,7 @@ export default function reducer(state = initialState, action = {}) {
 
 export function getSync(userId) {
   return (dispatch) => {
-    fetch(`http://192.168.0.193:8080/users/${userId}/stages`)
+    fetch(`http://192.168.1.120:8080/kotlin-connection/users/${userId}/stages`)
       .then(response => response.json())
       .then(data => dispatch({
         type: GET,
