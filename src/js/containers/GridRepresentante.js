@@ -25,13 +25,15 @@ const columns = [{
   name: 'Nome',
   filterable: true,
   resizable: true,
-  hidden: false
+  hidden: false,
+  filterRenderer: Filters.AutoCompleteFilter
 }, {
   key: 'regiao',
   name: 'Nome',
   filterable: true,
   resizable: true,
-  hidden: false
+  hidden: false,
+  filterRenderer: Filters.SingleSelectFilter
 }, {
   key: 'totalPedido',
   name: 'Nome',
