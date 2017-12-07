@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import '../../node_modules/ag-grid/dist/styles/ag-grid.css';
-import '../../node_modules/ag-grid/dist/styles/ag-theme-bootstrap.css';
-import '../../node_modules/ag-grid/dist/styles/compiled-icons.css';
+import '../../node_modules/react-grid-layout/css/styles.css';
+import '../../node_modules/react-resizable/css/styles.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 // import UserStages from './containers/UserStages';
 import GridBeta from './containers/GridBeta';
 import CustomGridBeta from './containers/CustomGridBeta';
 import GridRepresentante from './containers/GridRepresentante';
+import PanelRepresentantes from './containers/PanelRepresentantes';
 import AgGridXp from './containers/AgGridXP';
 import createStore from './store/configureStore';
 
@@ -18,10 +18,7 @@ const App = () => {
   return (
     <div>
       <GridRepresentante />
-      <CustomGridBeta />
-      <div style={{ height: '40px' }} />
-      <GridBeta />
-      <AgGridXp />
+      <PanelRepresentantes />
     </div>
   );
 };

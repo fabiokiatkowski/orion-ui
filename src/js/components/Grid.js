@@ -64,12 +64,13 @@ export default class Grid extends Component {
   render() {
     return (
       <ReactDataGrid
+        minWidth={this.props.width}
+        minHeight={this.props.height}
         onGridSort={this.handleGridSort}
         columns={this.getColumns()}
         rowGetter={this.rowGetter}
         enableCellSelect
         rowsCount={this.getSize()}
-        minHeight={500}
         onAddFilter={this.handleFilterChange}
         onClearFilters={this.onClearFilters}
         getValidFilterValues={this.getValidFilterValues}

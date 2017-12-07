@@ -71,7 +71,7 @@ export default class GridBeta extends React.Component {
       }
     ];
 
-    const rows = this.createRows(1000);
+    const rows = this.createRows(1000000);
     this.state = { rows, filters: {}, sortColumn: null, sortDirection: null }
   }
 
