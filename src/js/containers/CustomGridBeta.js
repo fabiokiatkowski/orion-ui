@@ -115,7 +115,7 @@ export default class GridBeta extends React.Component {
   };
 
   handleGridSort = (sortColumn, sortDirection) => {
-    this.setState({ sortColumn,  sortDirection });
+    this.setState({ sortColumn,  sortDirection }); //eslint-disable-line
   };
 
   handleFilterChange = (filter) => {

@@ -7,11 +7,17 @@ export default class Grid extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      columnsDef: props.columns,
       rows: props.data,
+      columnsDef: props.columns,
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
       filters: {},
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data.length !== this.props.data.length) {
+      this.setState({ rows: nextProps.data });
     }
   }
 

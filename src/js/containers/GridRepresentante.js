@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Grid from '../components/Grid';
+import { list } from '../redux/modules/representante';
 
 const columns = [{
   key: 'name',
@@ -9,24 +12,27 @@ const columns = [{
   hidden: false
 }];
 
-const tempData = [
-  { name: "João" },
-  { name: "Malaquias" },
-  { name: "Jozoias" },
-  { name: "Jizf" },
-  { name: "foo" },
-  { name: "bar" },
-  { name: "Matheues" }
-]
+const mapStateToProps = state => ({
+  data: state.representante.data
+});
 
-export default class GridRepresentante extends Component {
+const mapDispatchToProps = dispatch => ({
+  list: bindActionCreators(list, dispatch)
+});
+
+class GridRepresentante extends Component {
+  componentDidMount() {
+    this.props.list();
+  }
+
   render() {
-    return(
+    return (
       <Grid
-        data={tempData}
+        data={this.props.data}
         columns={columns}
       />
     );
-  } 
-  
+  }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(GridRepresentante);
