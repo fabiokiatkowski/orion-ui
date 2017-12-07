@@ -8,6 +8,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 // import UserStages from './containers/UserStages';
 import GridBeta from './containers/GridBeta';
 import CustomGridBeta from './containers/CustomGridBeta';
+import GridRepresentante from './containers/GridRepresentante';
 import AgGridXp from './containers/AgGridXP';
 import createStore from './store/configureStore';
 
@@ -16,6 +17,7 @@ const store = createStore();
 const App = () => {
   return (
     <div>
+      <GridRepresentante />
       <CustomGridBeta />
       <div style={{ height: '40px' }} />
       <GridBeta />
