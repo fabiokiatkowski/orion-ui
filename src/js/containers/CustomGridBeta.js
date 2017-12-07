@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDataGrid from 'react-data-grid';
-import { Data } from 'react-data-grid-addons';
+import { Data, Filters } from 'react-data-grid-addons';
 import Toolbar from '../components/Toolbar';
 
 export default class GridBeta extends React.Component {
@@ -10,49 +10,60 @@ export default class GridBeta extends React.Component {
       {
         key: 'id',
         name: 'ID',
-        width: 80,
+        width: 120,
         filterable: true,
-        sortable: true
+        filterRenderer: Filters.NumericFilter,
+        resizable: true
       },
       {
         key: 'task',
         name: 'Title',
         filterable: true,
-        sortable: true
+        resizable: true
       },
       {
         key: 'priority',
         name: 'Priority',
         filterable: true,
-        sortable: true
+        filterRenderer: Filters.MultiSelectFilter,
+        resizable: true
       },
       {
         key: 'issueType',
         name: 'Issue Type',
         filterable: true,
-        sortable: true
+        filterRenderer: Filters.SingleSelectFilter,
+        resizable: true
+      },
+      {
+        key: 'developer',
+        name: 'Developer',
+        filterable: true,
+        filterRenderer: Filters.AutoCompleteFilter,
+        resizable: true
       },
       {
         key: 'complete',
         name: '% Complete',
         filterable: true,
-        sortable: true
+        filterRenderer: Filters.NumericFilter,
+        resizable: true
       },
       {
         key: 'startDate',
         name: 'Start Date',
         filterable: true,
-        sortable: true
+        resizable: true
       },
       {
         key: 'completeDate',
         name: 'Expected Complete',
         filterable: true,
-        sortable: true
+        resizable: true
       }
     ];
 
-    const rows = this.createRows();
+    const rows = this.createRows(1000);
     this.state = { rows, filters: {}, sortColumn: null, sortDirection: null }
   }
 
@@ -72,15 +83,21 @@ export default class GridBeta extends React.Component {
     return this.getRows().length;
   };
 
-  createRows = () => {
+  getValidFilterValues = (columnId) => {
+    const values = this.state.rows.map(r => r[columnId]);
+    return values.filter((item, i, a) => { return i === a.indexOf(item); });
+  };
+
+  createRows = (numberOfRows) => {
     const rows = [];
-    for (let i = 1; i < 1000; i += 1) {
+    for (let i = 1; i < numberOfRows; i++) {
       rows.push({
         id: i,
-        task: `Task   ${i}`,
+        task: `Task ${i}`,
         complete: Math.min(100, Math.round(Math.random() * 110)),
         priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 3) + 1)],
         issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 3) + 1)],
+        developer: ['James', 'Tim', 'Daniel', 'Alan'][Math.floor((Math.random() * 3) + 1)],
         startDate: this.getRandomDate(new Date(2015, 3, 1), new Date()),
         completeDate: this.getRandomDate(new Date(), new Date(2016, 0, 1))
       });
@@ -118,6 +135,7 @@ export default class GridBeta extends React.Component {
         minHeight={500}
         onAddFilter={this.handleFilterChange}
         onClearFilters={this.onClearFilters}
+        getValidFilterValues={this.getValidFilterValues}
         toolbar={<Toolbar />}
       />);
   }
