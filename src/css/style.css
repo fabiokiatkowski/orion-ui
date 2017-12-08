@@ -6,3 +6,8 @@ body {
   margin: 0;
   padding: 30px;
 }
+
+/* hack */
+.react-grid-Grid{
+  min-height: 100% !important;
+}

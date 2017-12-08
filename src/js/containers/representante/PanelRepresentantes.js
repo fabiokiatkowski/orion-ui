@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
+import ResizableBox from '../../components/ResizableBox';
 import GridRepresentante from './GridRepresentante';
 
 const ReactGridLayout = WidthProvider(RGL);
@@ -10,7 +11,7 @@ export default class PanelRepresentantes extends Component {
     this.state = {
       layout: [
         {
-          i: 'a', x: 1, y: 0, w: 12, h: 3
+          i: 'a', x: 1, y: 0, w: 1, h: 1
         },
         {
           i: 'b', x: 1, y: 0, w: 3, h: 10
@@ -32,15 +33,16 @@ export default class PanelRepresentantes extends Component {
       <ReactGridLayout
         className="layout"
         layout={this.state.layout}
-        onLayoutChange={this.onLayoutChange}
         isDraggable
         isResizable
         items={3}
-        onResizeStop={(e) => { console.log(e)}}
+        rowHeight={30}
+        cols={12}
+        onLayoutChange={this.onLayoutChange}
       >
-        <div key="a">
-          <GridRepresentante height="500" width="100" />
-        </div>
+        <ResizableBox key="a">
+          <GridRepresentante />
+        </ResizableBox>
         <div key="b">
           <GridRepresentante />
         </div>

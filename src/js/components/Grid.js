@@ -64,8 +64,7 @@ export default class Grid extends Component {
   render() {
     return (
       <ReactDataGrid
-        minWidth={this.props.width}
-        minHeight={this.props.height}
+        minHeight={this.props.minHeight}
         onGridSort={this.handleGridSort}
         columns={this.getColumns()}
         rowGetter={this.rowGetter}

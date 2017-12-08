@@ -21,8 +21,7 @@ class GridRepresentante extends Component {
   render() {
     return (
       <Grid
-        height={this.props.height}
-        width={this.props.width}
+        minHeight={this.props.minHeight}
         data={this.props.data}
         columns={columns}
       />
