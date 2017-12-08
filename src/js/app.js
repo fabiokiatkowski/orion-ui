@@ -12,8 +12,7 @@ const store = createStore();
 
 const App = () => {
   return (
-    <div>
-      <GridRepresentante />
+    <div>      
       <PanelRepresentantes />
     </div>
   );
