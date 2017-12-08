@@ -1,10 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const renderToggleFilterButton = (onToggleFilter) => {
+  return (
+    <button type="button" className="btn" onClick={onToggleFilter}>
+      Filtros
+    </button>
+  );
+};
+
 const Toolbar = (props) => {
   return (
-    <div className="box">
-      <button type="button" className="btn" onClick={props.onToggleFilter} />
+    <div className="react-grid-Toolbar">
+      <div className="tools">
+        {renderToggleFilterButton(props.onToggleFilter)}
+      </div>
     </div>
   );
 };

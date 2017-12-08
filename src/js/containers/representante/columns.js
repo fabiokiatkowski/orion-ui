@@ -3,11 +3,11 @@ import { Filters } from 'react-data-grid-addons';
 const columns = [{
   key: 'numeroPedido',
   name: 'Numero Pedido',
-  filterRenderer: Filters.NumericFilter,
   filterable: true,
   resizable: true,
   hidden: false,
-  locked: true
+  locked: true,
+  sortable: true,
 }, {
   key: 'codigoRepresentante',
   name: 'Codigo Representante',
@@ -29,42 +29,47 @@ const columns = [{
 }, {
   key: 'situacao',
   name: 'Situacao',
-  filterRenderer: Filters.NumericFilter,
   filterable: true,
   resizable: true,
   hidden: false,
+  sortable: true
 }, {
   key: 'empresa',
   name: 'empresa',
   filterable: true,
   resizable: true,
   hidden: false,
-  filterRenderer: Filters.AutoCompleteFilter
+  filterRenderer: Filters.AutoCompleteFilter,
+  sortable: true
 }, {
   key: 'regiao',
   name: 'Região',
   filterable: true,
   resizable: true,
   hidden: false,
-  filterRenderer: Filters.SingleSelectFilter
+  filterRenderer: Filters.SingleSelectFilter,
+  sortable: true,
 }, {
   key: 'codigoPeriodo',
   name: 'Codigo Periodo',
   filterable: true,
   resizable: true,
   hidden: false,
+  sortable: true
 }, {
   key: 'descricaoPeriodo',
   name: 'Descricao Periodo',
   filterable: true,
   resizable: true,
   hidden: false,
+  sortable: true
 }, {
   key: 'totalPedido',
   name: 'Total Pedido',
   filterable: true,
   resizable: true,
-  hidden: false
+  hidden: false,
+  sortable: true
 }];
 
 export default columns;

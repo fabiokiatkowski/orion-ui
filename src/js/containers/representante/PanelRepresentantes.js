@@ -11,20 +11,19 @@ export default class PanelRepresentantes extends Component {
     this.state = {
       layout: [
         {
-          i: 'a', x: 1, y: 0, w: 12, h: 2
+          i: 'a', x: 1, y: 0, w: 12, h: 18, draggableHandle: '.react-grid-dragHandle-a'
         },
         {
-          i: 'b', x: 0, y: 2, w: 4, h: 2
+          i: 'b', x: 0, y: 21, w: 4, h: 12
         },
         {
-          i: 'c', x: 4, y: 2, w: 8, h: 2
+          i: 'c', x: 4, y: 21, w: 8, h: 12
         }
       ]
     };
   }
 
-  onLayoutChange = (layout) => {
-    console.log(layout);
+  onLayoutChange = () => {
     /* TODO estudar problemas que disparar esse evento pode causar na performance */
     window.dispatchEvent(new Event('resize'));
   }
@@ -37,17 +36,23 @@ export default class PanelRepresentantes extends Component {
         isDraggable
         isResizable
         items={3}
-        rowHeight={200}
+        rowHeight={20}
         cols={12}
         onLayoutChange={this.onLayoutChange}
+        draggableCancel=".react-grid-Main"
       >
-        <ResizableBox key="a">
+        <ResizableBox
+          key="a"
+          data-grid={{
+            i: 'a', x: 1, y: 0, w: 12, h: 18
+          }}
+        >
           <GridRepresentante />
         </ResizableBox>
-        <ResizableBox key="b">
+        <ResizableBox key="b" draggableHandle=".react-grid-dragHandle-b">
           <GridRepresentante />
         </ResizableBox>
-        <ResizableBox key="c">
+        <ResizableBox key="c" draggableHandle=".react-grid-dragHandle-c">
           <GridRepresentante />
         </ResizableBox>
       </ReactGridLayout>

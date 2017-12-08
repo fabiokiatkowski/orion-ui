@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import '../../node_modules/react-grid-layout/css/styles.css';
 import '../../node_modules/react-resizable/css/styles.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
-import GridRepresentante from './containers/representante/GridRepresentante';
 import PanelRepresentantes from './containers/representante/PanelRepresentantes';
 import createStore from './store/configureStore';
 
