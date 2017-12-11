@@ -11,7 +11,7 @@ export default class PanelRepresentantes extends Component {
     this.state = {
       layout: [
         {
-          i: 'a', x: 1, y: 0, w: 12, h: 18, draggableHandle: '.react-grid-dragHandle-a'
+          i: 'a', x: 1, y: 0, w: 12, h: 18
         },
         {
           i: 'b', x: 0, y: 21, w: 4, h: 12
@@ -49,10 +49,10 @@ export default class PanelRepresentantes extends Component {
         >
           <GridRepresentante />
         </ResizableBox>
-        <ResizableBox key="b" draggableHandle=".react-grid-dragHandle-b">
+        <ResizableBox key="b">
           <GridRepresentante />
         </ResizableBox>
-        <ResizableBox key="c" draggableHandle=".react-grid-dragHandle-c">
+        <ResizableBox key="c">
           <GridRepresentante />
         </ResizableBox>
       </ReactGridLayout>

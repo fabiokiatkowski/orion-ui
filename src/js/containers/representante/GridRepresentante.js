@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Grid from '../../components/Grid';
-import { list } from '../../redux/modules/representante';
+import { list, setCurrentRow } from '../../redux/modules/representante';
 import columns from './columns';
 
 const mapStateToProps = state => ({
-  data: state.representante.data
+  data: state.representante.data,
+  currentRow: state.representante.currentRow
 });
 
 const mapDispatchToProps = dispatch => ({
-  list: bindActionCreators(list, dispatch)
+  list: bindActionCreators(list, dispatch),
+  // setCurrentRow: bindActionCreators(setCurrentRow, dispatch)
 });
 
 class GridRepresentante extends Component {
@@ -21,6 +23,7 @@ class GridRepresentante extends Component {
   render() {
     return (
       <Grid
+        setCurrentRow={this.props.setCurrentRow}
         minHeight={this.props.minHeight}
         data={this.props.data}
         columns={columns}

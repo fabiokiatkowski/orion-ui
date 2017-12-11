@@ -11,7 +11,7 @@ const store = createStore();
 
 const App = () => {
   return (
-    <div>      
+    <div>
       <PanelRepresentantes />
     </div>
   );
@@ -23,4 +23,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
-
