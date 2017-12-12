@@ -70,6 +70,7 @@ const columns = [{
   resizable: true,
   hidden: false,
   sortable: true
-}];
+},
+];
 
 export default columns;

@@ -24,9 +24,7 @@
         "react-sizeme": "^2.3.6",
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.2.0",
-        "sass-loader": "^6.0.6",
-        "style-loader": "^0.19.0"
+        "redux-thunk": "^2.2.0"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",
@@ -52,6 +50,8 @@
         "webpack-dev-server": "^2.9.5",
         "webpack-encoding-plugin": "^0.2.1",
         "webpack-hot-middleware": "^2.21.0",
-        "write-file-webpack-plugin": "^4.2.0"
+        "write-file-webpack-plugin": "^4.2.0",
+        "sass-loader": "^6.0.6",
+        "style-loader": "^0.19.0"
     }
 }
