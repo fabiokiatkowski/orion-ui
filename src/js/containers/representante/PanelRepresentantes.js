@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import { Tabs, Tab } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
 import ResizableBox from '../../components/ResizableGridWrapper';
 import GridRepresentante from './GridRepresentante';
 
@@ -74,7 +75,15 @@ export default class PanelRepresentantes extends Component {
   }
 
   renderConsultaDiaDia = () => {
-    return (<h1>Consulta dia a dia</h1>);
+    return (
+      <div>
+        <h1>Consulta dia a dia</h1>
+        <DatePicker
+          dateFormat="DD/MM/YYYY"
+          onBlur={() => {}}
+        />
+      </div>
+    );
   }
 
   render() {
