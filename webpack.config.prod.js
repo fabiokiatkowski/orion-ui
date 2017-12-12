@@ -47,7 +47,6 @@ module.exports = {
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
       {
         test: /\.scss$/,
-        include: path.join(__dirname, 'public/css'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader?minimize=true', 'sass-loader']

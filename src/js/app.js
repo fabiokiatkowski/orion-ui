@@ -3,15 +3,18 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import PanelRepresentantes from './containers/representante/PanelRepresentantes';
 import createStore from './store/configureStore';
+import Page, { PageContent } from './containers/Page';
 import '../css/style.scss';
 
 const store = createStore();
 
 const App = () => {
   return (
-    <div>
-      <PanelRepresentantes />
-    </div>
+    <Page title="Painel Representantes" id="activity-index">
+      <PageContent>
+        <PanelRepresentantes />
+      </PageContent>
+    </Page>
   );
 };
 

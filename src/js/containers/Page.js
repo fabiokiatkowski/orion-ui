@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Header from '../components/Header';
 import LeftNav from '../components/SideBarNav';
 
-class Page extends Component {
+export default class Page extends Component {
   componentDidMount() {
     /* Create redux to set title */
     // this.props.dispatch(app.setTitle(this.props.title));
@@ -35,14 +37,8 @@ class Page extends Component {
     return (
       <div id="app-container" className={!leftNavOpen ? 'is-full-page' : ''}>
         <Header id="header" title={title} onMenuClicked={this.toggleMenu()}>
-          { header }
+          {header}
         </Header>
-        <div
-          id="left-nav-overlay"
-          className={!leftNavOpen ? 'is-visible' : ''}
-          onClick={() => {}}
-          onKeyUp={this.toggleMenu}
-        />
         <LeftNav />
         <section id="page-container">
           <div id={this.props.id} title={null} className={`page ${this.props.className}`}>
@@ -57,3 +53,29 @@ class Page extends Component {
     );
   }
 }
+
+const PageContent = (props) => {
+  return (
+    <nav className="nav page-menu">
+      {props.children}
+    </nav>
+  );
+};
+
+PageContent.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+const PageMenu = (props) => {
+  return (
+    <nav className="nav page-menu">
+      {props.children}
+    </nav>
+  );
+};
+
+PageMenu.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+export { PageContent, PageMenu };
