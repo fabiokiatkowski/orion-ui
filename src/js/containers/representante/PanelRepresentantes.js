@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
+import { Tabs, Tab } from 'react-bootstrap';
 import ResizableBox from '../../components/ResizableGridWrapper';
 import GridRepresentante from './GridRepresentante';
 
@@ -19,7 +20,9 @@ export default class PanelRepresentantes extends Component {
         {
           i: 'c', x: 4, y: 21, w: 8, h: 12
         }
-      ]
+      ],
+      tabMainKey: 1,
+      tabChildKey: 11
     };
   }
 
@@ -28,7 +31,15 @@ export default class PanelRepresentantes extends Component {
     window.dispatchEvent(new Event('resize'));
   }
 
-  render() {
+  handleTabMainSelect = (tabMainKey) => {
+    this.setState({ tabMainKey });
+  }
+
+  handleTabChildSelect = (tabChildKey) => {
+    this.setState({ tabChildKey });
+  }
+
+  renderRepresentante = () => {
     return (
       <ReactGridLayout
         className="layout"
@@ -36,17 +47,12 @@ export default class PanelRepresentantes extends Component {
         isDraggable
         isResizable
         items={3}
-        rowHeight={20}
+        rowHeight={16}
         cols={12}
         onLayoutChange={this.onLayoutChange}
         draggableCancel=".react-grid-Main"
       >
-        <ResizableBox
-          key="a"
-          data-grid={{
-            i: 'a', x: 1, y: 0, w: 12, h: 18
-          }}
-        >
+        <ResizableBox key="a">
           <GridRepresentante />
         </ResizableBox>
         <ResizableBox key="b">
@@ -56,6 +62,49 @@ export default class PanelRepresentantes extends Component {
           <GridRepresentante />
         </ResizableBox>
       </ReactGridLayout>
+    );
+  }
+
+  renderPedidos = () => {
+    return (<h1>Pedidos</h1>);
+  }
+
+  renderTodosRepresentantes = () => {
+    return (<h1>Todos Representantes</h1>);
+  }
+
+  renderConsultaDiaDia = () => {
+    return (<h1>Consulta dia a dia</h1>);
+  }
+
+  render() {
+    return (
+      <Tabs activeKey={this.state.tabMainKey} onSelect={this.handleTabMainSelect} id="controlled-tab-pai">
+        <Tab eventKey={1} title="Consultas">
+          <Tabs activeKey={this.state.tabSearchKey} onSelect={this.handleTabSearchSelect} id="controlled-tab-3" >
+            <Tab eventKey={21} title="Consulta dia a dia">
+              {this.renderConsultaDiaDia()}
+            </Tab>
+            <Tab eventKey={22} title="Consulta no periodo">
+              <h1>...</h1>
+            </Tab>
+          </Tabs>
+          <Tabs activeKey={this.state.tabChildKey} onSelect={this.handleTabChildSelect} id="controlled-tab-2">
+            <Tab eventKey={11} title="Representante">
+              {this.renderRepresentante()}
+            </Tab>
+            <Tab eventKey={12} title="Pedidos">
+              {this.renderPedidos()}
+            </Tab>
+            <Tab eventKey={13} title="Todos Representantes">
+              {this.renderTodosRepresentantes()}
+            </Tab>
+          </Tabs>
+        </Tab>
+        <Tab eventKey={2} title="Pedidos não integrados">
+          Não implementado ainda...
+        </Tab>
+      </Tabs>
     );
   }
 }
