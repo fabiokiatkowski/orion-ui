@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import { Tabs, Tab, Form, FormGroup, ControlLabel, Col, Checkbox } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
-import ResizableBox from '../../components/ResizableGridWrapper';
-import GridRepresentante from './GridRepresentante';
+import ResizableBox from '../components/ResizableGridWrapper';
+import GridRepresentante from './representante/GridRepresentante';
 
 const ReactGridLayout = WidthProvider(RGL);
 
