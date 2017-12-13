@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
-import { Tabs, Tab, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Tabs, Tab, Form, FormGroup, ControlLabel } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import ResizableBox from '../components/ResizableGridWrapper';
-import ToogleCheckbox from '../components/ToogleCheckbox';
 import GridRepresentante from './representante/GridRepresentante';
 
 const ReactGridLayout = WidthProvider(RGL);
@@ -89,31 +88,9 @@ export default class PanelRepresentantes extends Component {
           </FormGroup>
           <FormGroup controlId="formInlineCheck1">
             <ControlLabel>Agrupar</ControlLabel>
-            <ToogleCheckbox
-              width="100%"
-              onClick={this.onClick}
-              active={this.state.active}
-              size="lg"
-              on={<span>Sim</span>}
-              off={<span>Não</span>}
-              onstyleClassName="success"
-              offstyleClassName="danger"
-              handlestyle="default"
-            />
           </FormGroup>
           <FormGroup controlId="formInlineCheck2">
             <ControlLabel>Pedidos no sistema</ControlLabel>
-            <ToogleCheckbox
-              width="100%"
-              onClick={this.onClick}
-              active={this.state.active}
-              size="lg"
-              on={<span>Sim</span>}
-              off={<span>Não</span>}
-              onstyleClassName="success"
-              offstyleClassName="danger"
-              handlestyle="default"
-            />
           </FormGroup>
         </Form>
       </div>
