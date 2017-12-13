@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
-import { Tabs, Tab, Form, FormGroup, ControlLabel, Col, Checkbox } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
+import { Tabs, Tab, Form, FormGroup, ControlLabel } from 'react-bootstrap';
+import DatePicker from 'react-bootstrap-date-picker';
 import ResizableBox from '../components/ResizableGridWrapper';
 import GridRepresentante from './representante/GridRepresentante';
 
@@ -87,12 +87,7 @@ export default class PanelRepresentantes extends Component {
       <Form inline>
         <FormGroup controlId="formControlsText">
           <ControlLabel>Name</ControlLabel>
-          <DatePicker
-            selected={this.state.startDate}
-            onChange={this.handleDatePickerChange}
-            className="form-control"
-            style={{ width: '100%' }}
-          />
+          <DatePicker />
         </FormGroup>
       </Form>
     );

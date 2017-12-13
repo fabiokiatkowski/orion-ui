@@ -32,4 +32,7 @@ class GridPedidosRecebidos extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GridPedidosRecebidos);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GridPedidosRecebidos);

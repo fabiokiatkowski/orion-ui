@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import PanelRepresentantes from './containers/representante/PanelRepresentantes';
+import PanelRepresentantes from './containers/PanelRepresentantes';
 import createStore from './store/configureStore';
-import Page, { PageContent } from './components/Page';
+import Page from './components/Page';
 import '../css/style.scss';
 
 const store = createStore();
