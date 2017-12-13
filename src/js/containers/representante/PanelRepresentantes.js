@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab, Form, FormGroup, ControlLabel, Col, Checkbox } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import ResizableBox from '../../components/ResizableGridWrapper';
 import GridRepresentante from './GridRepresentante';
@@ -25,6 +25,8 @@ export default class PanelRepresentantes extends Component {
       tabMainKey: 1,
       tabChildKey: 11
     };
+
+    this.handleDatePickerChange = this.handleDatePickerChange.bind(this);
   }
 
   onLayoutChange = () => {
@@ -38,6 +40,12 @@ export default class PanelRepresentantes extends Component {
 
   handleTabChildSelect = (tabChildKey) => {
     this.setState({ tabChildKey });
+  }
+
+  handleDatePickerChange(date) {
+    this.setState({
+      startDate: date
+    });
   }
 
   renderRepresentante = () => {
@@ -76,13 +84,17 @@ export default class PanelRepresentantes extends Component {
 
   renderConsultaDiaDia = () => {
     return (
-      <div>
-        <h1>Consulta dia a dia</h1>
-        <DatePicker
-          dateFormat="DD/MM/YYYY"
-          onBlur={() => {}}
-        />
-      </div>
+      <Form inline>
+        <FormGroup controlId="formControlsText">
+          <ControlLabel>Name</ControlLabel>
+          <DatePicker
+            selected={this.state.startDate}
+            onChange={this.handleDatePickerChange}
+            className="form-control"
+            style={{ width: '100%' }}
+          />
+        </FormGroup>
+      </Form>
     );
   }
 
