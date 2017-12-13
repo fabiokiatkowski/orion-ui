@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
@@ -24,7 +24,7 @@ const Header = (props) => {
           </NavDropdown>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={1} href="#">User</NavItem>
+          <NavItem eventKey={1} href="#">User {props.currentUser.foo}</NavItem>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
