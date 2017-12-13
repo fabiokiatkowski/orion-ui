@@ -51,6 +51,7 @@ class PanelRepresentantes extends Component {
   }
 
   handleOnChageDate = (value, formattedValue) => {
+    this.setState({ dateFilter: value });
     this.props.listByDate(formattedValue);
   }
 
@@ -105,6 +106,7 @@ class PanelRepresentantes extends Component {
               Data
             </ControlLabel>
             <DatePicker
+              value={this.state.dateFilter}
               dateFormat="DD-MM-YYYY"
               onChange={this.handleOnChageDate}
             />
