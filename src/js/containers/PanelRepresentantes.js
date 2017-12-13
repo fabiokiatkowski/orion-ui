@@ -8,6 +8,7 @@ import { listByDate } from '../redux/modules/representante';
 import ResizableBox from '../components/ResizableGridWrapper';
 import FlipCard from '../components/FlipCard';
 import GridRepresentante from './representante/GridRepresentante';
+import GridPedidosRecebidos from './pedidosRecebidos/GridPedidosRecebidos';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -71,7 +72,7 @@ class PanelRepresentantes extends Component {
         isDraggable
         isResizable
         items={3}
-        rowHeight={16}
+        rowHeight={12}
         cols={12}
         onLayoutChange={this.onLayoutChange}
         draggableCancel=".react-grid-Main"
@@ -80,10 +81,10 @@ class PanelRepresentantes extends Component {
           <GridRepresentante />
         </ResizableBox>
         <ResizableBox key="b">
-          <GridRepresentante />
+          <GridPedidosRecebidos />
         </ResizableBox>
         <ResizableBox key="c">
-          <GridRepresentante />
+          <GridPedidosRecebidos />
         </ResizableBox>
       </ReactGridLayout>
     );
@@ -99,37 +100,39 @@ class PanelRepresentantes extends Component {
 
   renderConsultaDiaDia = () => {
     return (
-      <div className="box">
-        <Form inline>
-          <FormGroup controlId="formInlineDate">
-            <ControlLabel className="panel-representates-data-label">
-              Data
-            </ControlLabel>
-            <DatePicker
-              value={this.state.dateFilter}
-              dateFormat="DD-MM-YYYY"
-              onChange={this.handleOnChageDate}
-            />
-          </FormGroup>
-          <FormGroup controlId="formInlineCheck1">
-            <FlipCard
-              dataOff="Agrupar"
-              dataOn="Agrupar"
-              handleToggle={this.handleCheckboxAgrupar}
-              id="checkboxAgrupar"
-              checked={this.state.checkboxAgrupar}
-            />
-          </FormGroup>
-          <FormGroup controlId="formInlineCheck2">
-            <FlipCard
-              dataOff="Pedidos no sistema"
-              dataOn="Pedidos no sistema"
-              handleToggle={this.handleCheckboxPedidos}
-              id="checkboxPedidos"
-              checked={this.state.checkboxPedidos}
-            />
-          </FormGroup>
-        </Form>
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <Form inline>
+            <FormGroup controlId="formInlineDate">
+              <ControlLabel className="panel-representates-data-label">
+                Data
+              </ControlLabel>
+              <DatePicker
+                value={this.state.dateFilter}
+                dateFormat="DD-MM-YYYY"
+                onChange={this.handleOnChageDate}
+              />
+            </FormGroup>
+            <FormGroup controlId="formInlineCheck1">
+              <FlipCard
+                dataOff="Agrupar"
+                dataOn="Agrupar"
+                handleToggle={this.handleCheckboxAgrupar}
+                id="checkboxAgrupar"
+                checked={this.state.checkboxAgrupar}
+              />
+            </FormGroup>
+            <FormGroup controlId="formInlineCheck2">
+              <FlipCard
+                dataOff="Pedidos no sistema"
+                dataOn="Pedidos no sistema"
+                handleToggle={this.handleCheckboxPedidos}
+                id="checkboxPedidos"
+                checked={this.state.checkboxPedidos}
+              />
+            </FormGroup>
+          </Form>
+        </div>
       </div>
     );
   }

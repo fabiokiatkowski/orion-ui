@@ -8,7 +8,8 @@ const columns = [
     resizable: true,
     hidden: false,
     filterRenderer: Filters.AutoCompleteFilter,
-    sortable: true
+    sortable: true,
+    locked: true
   },
   {
     key: 'estado',
@@ -17,7 +18,8 @@ const columns = [
     resizable: true,
     hidden: false,
     filterRenderer: Filters.AutoCompleteFilter,
-    sortable: true
+    sortable: true,
+    locked: true
   },
   {
     key: 'codRepresentante',
