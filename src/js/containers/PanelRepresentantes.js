@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { listByDate } from '../redux/modules/representante';
 import ResizableBox from '../components/ResizableGridWrapper';
+import FlipCard from '../components/FlipCard';
 import GridRepresentante from './representante/GridRepresentante';
 
 const ReactGridLayout = WidthProvider(RGL);
@@ -30,17 +31,15 @@ class PanelRepresentantes extends Component {
         }
       ],
       tabMainKey: 1,
-      tabChildKey: 11
+      tabChildKey: 11,
+      checkboxPedidos: false,
+      checkboxAgrupar: false
     };
   }
 
   onLayoutChange = () => {
     /* TODO estudar problemas que disparar esse evento pode causar na performance */
     window.dispatchEvent(new Event('resize'));
-  }
-
-  onClick = () => {
-    this.setState({ active: !this.state.active });
   }
 
   handleTabMainSelect = (tabMainKey) => {
@@ -53,6 +52,14 @@ class PanelRepresentantes extends Component {
 
   handleOnChageDate = (value, formattedValue) => {
     this.props.listByDate(formattedValue);
+  }
+
+  handleCheckboxAgrupar = () => {
+    this.setState({ checkboxAgrupar: !this.state.checkboxAgrupar });
+  }
+
+  handleCheckboxPedidos = () => {
+    this.setState({ checkboxPedidos: !this.state.checkboxPedidos });
   }
 
   renderRepresentante = () => {
@@ -94,17 +101,31 @@ class PanelRepresentantes extends Component {
       <div className="box">
         <Form inline>
           <FormGroup controlId="formInlineDate">
-            <ControlLabel>Data</ControlLabel>
+            <ControlLabel className="panel-representates-data-label">
+              Data
+            </ControlLabel>
             <DatePicker
               dateFormat="DD-MM-YYYY"
               onChange={this.handleOnChageDate}
             />
           </FormGroup>
           <FormGroup controlId="formInlineCheck1">
-            <ControlLabel>Agrupar</ControlLabel>
+            <FlipCard
+              dataOff="Agrupar"
+              dataOn="Agrupar"
+              handleToggle={this.handleCheckboxAgrupar}
+              id="checkboxAgrupar"
+              checked={this.state.checkboxAgrupar}
+            />
           </FormGroup>
           <FormGroup controlId="formInlineCheck2">
-            <ControlLabel>Pedidos no sistema</ControlLabel>
+            <FlipCard
+              dataOff="Pedidos no sistema"
+              dataOn="Pedidos no sistema"
+              handleToggle={this.handleCheckboxPedidos}
+              id="checkboxPedidos"
+              checked={this.state.checkboxPedidos}
+            />
           </FormGroup>
         </Form>
       </div>
