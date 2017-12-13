@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropsTypes from 'prop-types';
 import Grid from '../../components/Grid';
 import { list, setCurrentRow } from '../../redux/modules/pedidosRecebidos';
 import columns from './columns';
@@ -16,6 +17,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class GridPedidosRecebidos extends Component {
+  static propTypes = {
+    list: PropsTypes.func.isRequired,
+    setCurrentRow: PropsTypes.func.isRequired,
+    minHeight: PropsTypes.number.isRequired,
+    data: PropsTypes.object.isRequired //eslint-disable-line
+  };
+
   componentDidMount() {
     this.props.list();
   }

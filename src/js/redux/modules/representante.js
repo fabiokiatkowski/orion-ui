@@ -208,13 +208,13 @@ export function list() {
   };
 }
 
-// export function list() {
-//   return (dispatch) => {
-//     fetch('http://192.168.0.193:8080/hello/mysql/pedidosRecebidos/datafiltro')
-//       .then(response => response.json())
-//       .then(data => dispatch({
-//         type: LIST,
-//         data
-//       }));
-//   };
-// }
+export function listByDate(dateFilter) {
+  return (dispatch) => {
+    fetch(`http://192.168.0.193:8080/api/representantes/mysql/totalPedidosRecebidos/datafiltro/${dateFilter}`)
+      .then(response => response.json())
+      .then(data => dispatch({
+        type: LIST,
+        data
+      }));
+  };
+}

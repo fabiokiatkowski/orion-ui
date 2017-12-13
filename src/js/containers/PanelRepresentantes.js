@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import { Tabs, Tab, Form, FormGroup, ControlLabel } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { listByDate } from '../redux/modules/representante';
 import ResizableBox from '../components/ResizableGridWrapper';
 import GridRepresentante from './representante/GridRepresentante';
 
 const ReactGridLayout = WidthProvider(RGL);
 
-export default class PanelRepresentantes extends Component {
+const mapDispatchToProps = dispatch => ({
+  listByDate: bindActionCreators(listByDate, dispatch),
+});
+
+class PanelRepresentantes extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,6 +49,10 @@ export default class PanelRepresentantes extends Component {
 
   handleTabChildSelect = (tabChildKey) => {
     this.setState({ tabChildKey });
+  }
+
+  handleOnChageDate = (value, formattedValue) => {
+    this.props.listByDate(formattedValue);
   }
 
   renderRepresentante = () => {
@@ -84,7 +95,10 @@ export default class PanelRepresentantes extends Component {
         <Form inline>
           <FormGroup controlId="formInlineDate">
             <ControlLabel>Data</ControlLabel>
-            <DatePicker />
+            <DatePicker
+              dateFormat="DD-MM-YYYY"
+              onChange={this.handleOnChageDate}
+            />
           </FormGroup>
           <FormGroup controlId="formInlineCheck1">
             <ControlLabel>Agrupar</ControlLabel>
@@ -128,3 +142,5 @@ export default class PanelRepresentantes extends Component {
     );
   }
 }
+
+export default connect(null, mapDispatchToProps)(PanelRepresentantes);
