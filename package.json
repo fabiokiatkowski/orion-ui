@@ -15,6 +15,7 @@
         "bootstrap-toggle": "^2.2.2",
         "bourbon": "^4.3.4",
         "bourbon-neat": "^1.9.0",
+        "classnames": "^2.2.5",
         "font-awesome": "^4.7.0",
         "lodash": "^4.17.4",
         "node-sass": "^4.7.2",

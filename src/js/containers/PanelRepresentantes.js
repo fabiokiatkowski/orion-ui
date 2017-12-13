@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
-import { Tabs, Tab, Form, FormGroup, ControlLabel } from 'react-bootstrap';
+import { Tabs, Tab, Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import ResizableBox from '../components/ResizableGridWrapper';
+import ToogleCheckbox from '../components/ToogleCheckbox';
 import GridRepresentante from './representante/GridRepresentante';
 
 const ReactGridLayout = WidthProvider(RGL);
@@ -25,13 +26,15 @@ export default class PanelRepresentantes extends Component {
       tabMainKey: 1,
       tabChildKey: 11
     };
-
-    this.handleDatePickerChange = this.handleDatePickerChange.bind(this);
   }
 
   onLayoutChange = () => {
     /* TODO estudar problemas que disparar esse evento pode causar na performance */
     window.dispatchEvent(new Event('resize'));
+  }
+
+  onClick = () => {
+    this.setState({ active: !this.state.active });
   }
 
   handleTabMainSelect = (tabMainKey) => {
@@ -40,12 +43,6 @@ export default class PanelRepresentantes extends Component {
 
   handleTabChildSelect = (tabChildKey) => {
     this.setState({ tabChildKey });
-  }
-
-  handleDatePickerChange(date) {
-    this.setState({
-      startDate: date
-    });
   }
 
   renderRepresentante = () => {
@@ -84,12 +81,42 @@ export default class PanelRepresentantes extends Component {
 
   renderConsultaDiaDia = () => {
     return (
-      <Form inline>
-        <FormGroup controlId="formControlsText">
-          <ControlLabel>Name</ControlLabel>
-          <DatePicker />
-        </FormGroup>
-      </Form>
+      <div className="box">
+        <Form inline>
+          <FormGroup controlId="formInlineDate">
+            <ControlLabel>Data</ControlLabel>
+            <DatePicker />
+          </FormGroup>
+          <FormGroup controlId="formInlineCheck1">
+            <ControlLabel>Agrupar</ControlLabel>
+            <ToogleCheckbox
+              width="100%"
+              onClick={this.onClick}
+              active={this.state.active}
+              size="lg"
+              on={<span>Sim</span>}
+              off={<span>Não</span>}
+              onstyleClassName="success"
+              offstyleClassName="danger"
+              handlestyle="default"
+            />
+          </FormGroup>
+          <FormGroup controlId="formInlineCheck2">
+            <ControlLabel>Pedidos no sistema</ControlLabel>
+            <ToogleCheckbox
+              width="100%"
+              onClick={this.onClick}
+              active={this.state.active}
+              size="lg"
+              on={<span>Sim</span>}
+              off={<span>Não</span>}
+              onstyleClassName="success"
+              offstyleClassName="danger"
+              handlestyle="default"
+            />
+          </FormGroup>
+        </Form>
+      </div>
     );
   }
 
