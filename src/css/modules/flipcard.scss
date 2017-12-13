@@ -1,20 +1,16 @@
+/* Baseado em um componente que fiz para outro projeto, com algumas gambis nesse css, precisa de refatoração */
+
 .toolbar {
-  display: flex;
-  padding: {
-    left: 10px;
-    right: 15px;
+
+  @media only screen and (max-width : 800px) {
+    display: none;
   }
 
-  &__search {
-    flex: 4;
-  }
+  position: relative;
+  top: -15px;
+  padding-left: 10px;
 
   &__button {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    padding: 10px 10px 0px 10px;
-    margin-bottom: 10px;
     min-width: calc(13em + 15px);
     max-width: calc(13em + 15px);
   }
