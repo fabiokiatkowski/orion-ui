@@ -1,5 +1,3 @@
-import { Filters } from 'react-data-grid-addons';
-
 const columns = [
   {
     key: 'apelido',
@@ -7,8 +5,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
-    sortable: true
+    sortable: true,
+    locked: true
   },
   {
     key: 'estado',
@@ -16,8 +14,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
-    sortable: true
+    sortable: true,
+    locked: true
   },
   {
     key: 'codRepresentante',
@@ -25,7 +23,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -34,7 +31,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -43,7 +39,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -52,7 +47,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -61,7 +55,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -70,7 +63,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -79,7 +71,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -88,7 +79,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -97,7 +87,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -106,7 +95,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -115,7 +103,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -124,7 +111,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -133,7 +119,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -142,7 +127,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -151,7 +135,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -160,7 +143,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
   {
@@ -169,7 +151,6 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    filterRenderer: Filters.AutoCompleteFilter,
     sortable: true
   },
 ];

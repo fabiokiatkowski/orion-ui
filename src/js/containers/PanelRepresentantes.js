@@ -8,6 +8,7 @@ import { listByDate } from '../redux/modules/representante';
 import ResizableBox from '../components/ResizableGridWrapper';
 import FlipCard from '../components/FlipCard';
 import GridRepresentante from './representante/GridRepresentante';
+import GridPedidosRecebidos from './pedidosRecebidos/GridPedidosRecebidos';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -71,7 +72,7 @@ class PanelRepresentantes extends Component {
         isDraggable
         isResizable
         items={3}
-        rowHeight={16}
+        rowHeight={12}
         cols={12}
         onLayoutChange={this.onLayoutChange}
         draggableCancel=".react-grid-Main"
@@ -80,10 +81,10 @@ class PanelRepresentantes extends Component {
           <GridRepresentante />
         </ResizableBox>
         <ResizableBox key="b">
-          <GridRepresentante />
+          <GridPedidosRecebidos />
         </ResizableBox>
         <ResizableBox key="c">
-          <GridRepresentante />
+          <GridPedidosRecebidos />
         </ResizableBox>
       </ReactGridLayout>
     );

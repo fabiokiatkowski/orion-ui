@@ -73,7 +73,7 @@ export default class Grid extends Component {
         onAddFilter={this.handleFilterChange}
         onClearFilters={this.onClearFilters}
         getValidFilterValues={this.getValidFilterValues}
-        toolbar={<Toolbar />}
+        toolbar={<Toolbar enableFilter />}
       />
     );
   }
