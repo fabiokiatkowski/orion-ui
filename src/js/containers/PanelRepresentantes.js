@@ -151,8 +151,8 @@ class PanelRepresentantes extends Component {
             </FormGroup>
             <FormGroup controlId="formInlineCheck2">
               <FlipCard
-                dataOff="Pedidos no sistema"
-                dataOn="Pedidos não carregados"
+                dataOff="Pedidos não Importados"
+                dataOn="Pedidos Importados"
                 handleToggle={this.handleCheckboxPedidos}
                 id="checkboxPedidos"
                 checked={this.state.checkboxPedidos}

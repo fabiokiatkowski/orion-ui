@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const EncodingPlugin = require('webpack-encoding-plugin');
@@ -20,6 +21,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, 'index.html'),
     }),
+    new CleanWebpackPlugin([
+      'dist'
+    ]),
     new ExtractTextPlugin('style.bundle.css'),
     new webpack.DefinePlugin({
       'process.env': {
