@@ -3,33 +3,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropsTypes from 'prop-types';
 import Grid from '../../components/Grid';
-import { list, setCurrentRow } from '../../redux/modules/representante';
 import columns from './columns';
 
 const mapStateToProps = state => ({
-  data: state.representante.data,
-  currentRow: state.representante.currentRow
-});
-
-const mapDispatchToProps = dispatch => ({
-  list: bindActionCreators(list, dispatch),
-  // setCurrentRow: bindActionCreators(setCurrentRow, dispatch)
+  data: state.representante.data
 });
 
 class GridRepresentante extends Component {
   static propTypes = {
-    list: PropsTypes.func.isRequired,
-    setCurrentRow: PropsTypes.func,
     minHeight: PropsTypes.number.isRequired,
     data: PropsTypes.array.isRequired //eslint-disable-line
-  }
-
-  static defaultProps = {
-    setCurrentRow: () => {}
-  }
-
-  componentDidMount() {
-    this.props.list('foo');
   }
 
   render() {
@@ -39,9 +22,10 @@ class GridRepresentante extends Component {
         minHeight={this.props.minHeight}
         data={this.props.data}
         columns={columns}
+        handleRowChange={this.props.handleRowChange}
       />
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GridRepresentante);
+export default connect(mapStateToProps, null)(GridRepresentante);

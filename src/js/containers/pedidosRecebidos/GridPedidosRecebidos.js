@@ -3,42 +3,25 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropsTypes from 'prop-types';
 import Grid from '../../components/Grid';
-import { list, setCurrentRow } from '../../redux/modules/pedidosRecebidos';
 import columns from './columns';
 
 const mapStateToProps = state => ({
-  data: state.representante.data,
-  currentRow: state.representante.currentRow
-});
-
-const mapDispatchToProps = dispatch => ({
-  list: bindActionCreators(list, dispatch),
-  // setCurrentRow: bindActionCreators(setCurrentRow, dispatch)
+  data: state.pedidosRecebidos.data
 });
 
 class GridPedidosRecebidos extends Component {
   static propTypes = {
-    list: PropsTypes.func.isRequired,
-    setCurrentRow: PropsTypes.func,
     minHeight: PropsTypes.number.isRequired,
     data: PropsTypes.array.isRequired //eslint-disable-line
   };
 
-  static defaultProps = {
-    setCurrentRow: () => {}
-  }
-
-  componentDidMount() {
-    this.props.list();
-  }
-
   render() {
     return (
       <Grid
-        setCurrentRow={this.props.setCurrentRow}
         minHeight={this.props.minHeight}
         data={this.props.data}
         columns={columns}
+        handleRowChange={() => {}}
       />
     );
   }
@@ -46,5 +29,5 @@ class GridPedidosRecebidos extends Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(GridPedidosRecebidos);

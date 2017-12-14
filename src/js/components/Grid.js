@@ -12,6 +12,7 @@ export default class Grid extends Component {
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
       filters: {},
+      rowIdx: 0
     };
   }
 
@@ -24,6 +25,14 @@ export default class Grid extends Component {
   onClearFilters = () => {
     this.setState({ filters: {} });
   };
+
+  onCellSelected = ({rowIdx, idx}) => {
+    if(this.state.rowIdx !== rowIdx) {
+      const data = this.state.rows[rowIdx];
+      this.props.handleRowChange(data);
+      this.setState({ rowIdx });
+    }
+  }
 
   getColumns = () => {
     return this.state.columnsDef.filter(column => !column.hidden);
@@ -68,12 +77,12 @@ export default class Grid extends Component {
         onGridSort={this.handleGridSort}
         columns={this.getColumns()}
         rowGetter={this.rowGetter}
-        enableCellSelect
         rowsCount={this.getSize()}
         onAddFilter={this.handleFilterChange}
         onClearFilters={this.onClearFilters}
         getValidFilterValues={this.getValidFilterValues}
         toolbar={<Toolbar enableFilter />}
+        onCellSelected={this.onCellSelected}
       />
     );
   }

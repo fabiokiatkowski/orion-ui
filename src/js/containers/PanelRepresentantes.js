@@ -5,6 +5,7 @@ import DatePicker from 'react-bootstrap-date-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { listByDate } from '../redux/modules/representante';
+import { list } from '../redux/modules/pedidosRecebidos';
 import ResizableBox from '../components/ResizableGridWrapper';
 import FlipCard from '../components/FlipCard';
 import GridRepresentante from './representante/GridRepresentante';
@@ -14,6 +15,7 @@ const ReactGridLayout = WidthProvider(RGL);
 
 const mapDispatchToProps = dispatch => ({
   listByDate: bindActionCreators(listByDate, dispatch),
+  list: bindActionCreators(list, dispatch),
 });
 
 class PanelRepresentantes extends Component {
@@ -22,13 +24,10 @@ class PanelRepresentantes extends Component {
     this.state = {
       layout: [
         {
-          i: 'a', x: 1, y: 0, w: 12, h: 18
+          i: 'representantes', x: 1, y: 0, w: 12, h: 18
         },
         {
-          i: 'b', x: 0, y: 21, w: 4, h: 12
-        },
-        {
-          i: 'c', x: 4, y: 21, w: 8, h: 12
+          i: 'pedidosRecebidos', x: 0, y: 21, w: 12, h: 12
         }
       ],
       tabMainKey: 1,
@@ -38,9 +37,30 @@ class PanelRepresentantes extends Component {
     };
   }
 
+  componentDidMount() {
+    listByDate('14-12-2017'); // Usar moment pra formatar o dia atual
+  }
+
+  listByDate = (dateFilterFormatted) => {
+    if (dateFilterFormatted) {
+      this.props.listByDate(
+        this.state.dateFilterFormatted,
+        this.state.checkboxPedidos,
+        this.state.checkboxAgrupar
+      );
+    }    
+  }
+
   onLayoutChange = () => {
     /* TODO estudar problemas que disparar esse evento pode causar na performance */
     window.dispatchEvent(new Event('resize'));
+  }
+
+
+  handleRowChange = (data) => {
+    const { codigoPeriodo, codigoRepresentante } = data;
+    const { dateFilterFormatted } = this.state;
+    this.props.list(codigoPeriodo, codigoRepresentante, dateFilterFormatted);
   }
 
   handleTabMainSelect = (tabMainKey) => {
@@ -56,34 +76,18 @@ class PanelRepresentantes extends Component {
       dateFilter: value,
       dateFilterFormatted: formattedValue
     });
-
-    this.props.listByDate(formattedValue,
-      this.state.checkboxPedidos,
-      this.state.checkboxAgrupar
-    );
+    listByDate(formattedValue);
   }
 
   handleCheckboxAgrupar = () => {
     this.setState({ checkboxAgrupar: !this.state.checkboxAgrupar }, () => {
-      if (this.state.dateFilterFormatted) {
-        this.props.listByDate(
-          this.state.dateFilterFormatted,
-          this.state.checkboxPedidos,
-          this.state.checkboxAgrupar
-        );
-      }
+      listByDate(this.state.dateFilterFormatted)
     });
   }
 
   handleCheckboxPedidos = () => {
     this.setState({ checkboxPedidos: !this.state.checkboxPedidos }, () => {
-      if (this.state.dateFilterFormatted) {
-        this.props.listByDate(
-          this.state.dateFilterFormatted,
-          this.state.checkboxPedidos,
-          this.state.checkboxAgrupar
-        );
-      }
+      listByDate(this.state.dateFilterFormatted)
     });
   }
 
@@ -100,13 +104,12 @@ class PanelRepresentantes extends Component {
         onLayoutChange={this.onLayoutChange}
         draggableCancel=".react-grid-Main"
       >
-        <ResizableBox key="a">
-          <GridRepresentante />
+        <ResizableBox key="representantes">
+          <GridRepresentante 
+            handleRowChange={this.handleRowChange}
+          />
         </ResizableBox>
-        <ResizableBox key="b">
-          <GridPedidosRecebidos />
-        </ResizableBox>
-        <ResizableBox key="c">
+        <ResizableBox key="pedidosRecebidos">
           <GridPedidosRecebidos />
         </ResizableBox>
       </ReactGridLayout>
