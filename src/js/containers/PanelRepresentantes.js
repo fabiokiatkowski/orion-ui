@@ -34,7 +34,7 @@ class PanelRepresentantes extends Component {
       tabMainKey: 1,
       tabChildKey: 11,
       checkboxPedidos: false,
-      checkboxAgrupar: false
+      checkboxAgrupar: true
     };
   }
 
@@ -52,16 +52,39 @@ class PanelRepresentantes extends Component {
   }
 
   handleOnChageDate = (value, formattedValue) => {
-    this.setState({ dateFilter: value });
-    this.props.listByDate(formattedValue);
+    this.setState({
+      dateFilter: value,
+      dateFilterFormatted: formattedValue
+    });
+
+    this.props.listByDate(formattedValue,
+      this.state.checkboxPedidos,
+      this.state.checkboxAgrupar
+    );
   }
 
   handleCheckboxAgrupar = () => {
-    this.setState({ checkboxAgrupar: !this.state.checkboxAgrupar });
+    this.setState({ checkboxAgrupar: !this.state.checkboxAgrupar }, () => {
+      if (this.state.dateFilterFormatted) {
+        this.props.listByDate(
+          this.state.dateFilterFormatted,
+          this.state.checkboxPedidos,
+          this.state.checkboxAgrupar
+        );
+      }
+    });
   }
 
   handleCheckboxPedidos = () => {
-    this.setState({ checkboxPedidos: !this.state.checkboxPedidos });
+    this.setState({ checkboxPedidos: !this.state.checkboxPedidos }, () => {
+      if (this.state.dateFilterFormatted) {
+        this.props.listByDate(
+          this.state.dateFilterFormatted,
+          this.state.checkboxPedidos,
+          this.state.checkboxAgrupar
+        );
+      }
+    });
   }
 
   renderRepresentante = () => {
@@ -108,15 +131,16 @@ class PanelRepresentantes extends Component {
                 Data
               </ControlLabel>
               <DatePicker
-                value={this.state.dateFilter}
+                value={this.state.dateFilter || new Date().toISOString()}
                 dateFormat="DD-MM-YYYY"
                 onChange={this.handleOnChageDate}
+                todayButtonLabel
               />
             </FormGroup>
             <FormGroup controlId="formInlineCheck1">
               <FlipCard
                 dataOff="Agrupar"
-                dataOn="Agrupar"
+                dataOn="Desagrupar"
                 handleToggle={this.handleCheckboxAgrupar}
                 id="checkboxAgrupar"
                 checked={this.state.checkboxAgrupar}
@@ -125,7 +149,7 @@ class PanelRepresentantes extends Component {
             <FormGroup controlId="formInlineCheck2">
               <FlipCard
                 dataOff="Pedidos no sistema"
-                dataOn="Pedidos no sistema"
+                dataOn="Pedidos não carregados"
                 handleToggle={this.handleCheckboxPedidos}
                 id="checkboxPedidos"
                 checked={this.state.checkboxPedidos}

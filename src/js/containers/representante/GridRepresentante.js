@@ -19,9 +19,13 @@ const mapDispatchToProps = dispatch => ({
 class GridRepresentante extends Component {
   static propTypes = {
     list: PropsTypes.func.isRequired,
-    setCurrentRow: PropsTypes.func.isRequired,
+    setCurrentRow: PropsTypes.func,
     minHeight: PropsTypes.number.isRequired,
-    data: PropsTypes.object.isRequired //eslint-disable-line
+    data: PropsTypes.array.isRequired //eslint-disable-line
+  }
+
+  static defaultProps = {
+    setCurrentRow: () => {}
   }
 
   componentDidMount() {

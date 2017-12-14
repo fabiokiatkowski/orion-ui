@@ -208,9 +208,17 @@ export function list() {
   };
 }
 
-export function listByDate(dateFilter) {
+const getQueryString = (url, dateFilter, mostrarPedidoSistema, agrupar) => {
+  return `${url}?dataFiltro=${dateFilter}&mostrarPedidos=${mostrarPedidoSistema}&agrupar=${agrupar}`;
+};
+
+export function listByDate(dateFilter, mostrarPedidoSistema, agrupar) {
+  const url = 'http://192.168.0.193:8080/api/representantes/mysql/totalPedidosRecebidos';
+
+  console.log(getQueryString(url, dateFilter, mostrarPedidoSistema, agrupar));
+
   return (dispatch) => {
-    fetch(`http://192.168.0.193:8080/api/representantes/mysql/totalPedidosRecebidos/datafiltro/${dateFilter}`)
+    fetch(getQueryString(url, dateFilter, mostrarPedidoSistema, agrupar))
       .then(response => response.json())
       .then(data => dispatch({
         type: LIST,
