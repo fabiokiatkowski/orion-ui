@@ -99,37 +99,39 @@ class PanelRepresentantes extends Component {
 
   renderConsultaDiaDia = () => {
     return (
-      <div className="box">
-        <Form inline>
-          <FormGroup controlId="formInlineDate">
-            <ControlLabel className="panel-representates-data-label">
-              Data
-            </ControlLabel>
-            <DatePicker
-              value={this.state.dateFilter}
-              dateFormat="DD-MM-YYYY"
-              onChange={this.handleOnChageDate}
-            />
-          </FormGroup>
-          <FormGroup controlId="formInlineCheck1">
-            <FlipCard
-              dataOff="Agrupar"
-              dataOn="Agrupar"
-              handleToggle={this.handleCheckboxAgrupar}
-              id="checkboxAgrupar"
-              checked={this.state.checkboxAgrupar}
-            />
-          </FormGroup>
-          <FormGroup controlId="formInlineCheck2">
-            <FlipCard
-              dataOff="Pedidos no sistema"
-              dataOn="Pedidos no sistema"
-              handleToggle={this.handleCheckboxPedidos}
-              id="checkboxPedidos"
-              checked={this.state.checkboxPedidos}
-            />
-          </FormGroup>
-        </Form>
+      <div className="panel panel-default panel-representates">
+        <div className="panel-body">
+          <Form inline>
+            <FormGroup controlId="formInlineDate">
+              <ControlLabel className="panel-representates-data-label">
+                Data
+              </ControlLabel>
+              <DatePicker
+                value={this.state.dateFilter}
+                dateFormat="DD-MM-YYYY"
+                onChange={this.handleOnChageDate}
+              />
+            </FormGroup>
+            <FormGroup controlId="formInlineCheck1">
+              <FlipCard
+                dataOff="Agrupar"
+                dataOn="Agrupar"
+                handleToggle={this.handleCheckboxAgrupar}
+                id="checkboxAgrupar"
+                checked={this.state.checkboxAgrupar}
+              />
+            </FormGroup>
+            <FormGroup controlId="formInlineCheck2">
+              <FlipCard
+                dataOff="Pedidos no sistema"
+                dataOn="Pedidos no sistema"
+                handleToggle={this.handleCheckboxPedidos}
+                id="checkboxPedidos"
+                checked={this.state.checkboxPedidos}
+              />
+            </FormGroup>
+          </Form>
+        </div>
       </div>
     );
   }
