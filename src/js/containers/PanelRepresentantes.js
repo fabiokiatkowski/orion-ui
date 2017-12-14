@@ -33,18 +33,19 @@ class PanelRepresentantes extends Component {
       tabMainKey: 1,
       tabChildKey: 11,
       checkboxPedidos: false,
-      checkboxAgrupar: true
+      checkboxAgrupar: true,
+      dateFilterFormatted: '14-12-2017' // Usar moment pra formatar o dia atual
     };
   }
 
   componentDidMount() {
-    listByDate('14-12-2017'); // Usar moment pra formatar o dia atual
+    this.listByDate(this.state.dateFilterFormatted); 
   }
 
   listByDate = (dateFilterFormatted) => {
     if (dateFilterFormatted) {
       this.props.listByDate(
-        this.state.dateFilterFormatted,
+        dateFilterFormatted,
         this.state.checkboxPedidos,
         this.state.checkboxAgrupar
       );
@@ -76,18 +77,18 @@ class PanelRepresentantes extends Component {
       dateFilter: value,
       dateFilterFormatted: formattedValue
     });
-    listByDate(formattedValue);
+    this.listByDate(formattedValue);
   }
 
   handleCheckboxAgrupar = () => {
     this.setState({ checkboxAgrupar: !this.state.checkboxAgrupar }, () => {
-      listByDate(this.state.dateFilterFormatted)
+      this.listByDate(this.state.dateFilterFormatted)
     });
   }
 
   handleCheckboxPedidos = () => {
     this.setState({ checkboxPedidos: !this.state.checkboxPedidos }, () => {
-      listByDate(this.state.dateFilterFormatted)
+      this.listByDate(this.state.dateFilterFormatted)
     });
   }
 
