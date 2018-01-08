@@ -39,7 +39,12 @@ class PanelRepresentantes extends Component {
   }
 
   componentDidMount() {
-    this.listByDate(this.state.dateFilterFormatted); 
+    this.listByDate(this.state.dateFilterFormatted);
+  }
+
+  onLayoutChange = () => {
+    /* TODO estudar problemas que disparar esse evento pode causar na performance */
+    window.dispatchEvent(new Event('resize'));
   }
 
   listByDate = (dateFilterFormatted) => {
@@ -49,14 +54,8 @@ class PanelRepresentantes extends Component {
         this.state.checkboxPedidos,
         this.state.checkboxAgrupar
       );
-    }    
+    }
   }
-
-  onLayoutChange = () => {
-    /* TODO estudar problemas que disparar esse evento pode causar na performance */
-    window.dispatchEvent(new Event('resize'));
-  }
-
 
   handleRowChange = (data) => {
     const { codigoPeriodo, codigoRepresentante } = data;
