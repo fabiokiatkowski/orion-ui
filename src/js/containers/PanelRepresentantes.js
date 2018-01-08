@@ -105,7 +105,7 @@ class PanelRepresentantes extends Component {
         draggableCancel=".react-grid-Main"
       >
         <ResizableBox key="representantes">
-          <GridRepresentante 
+          <GridRepresentante
             handleRowChange={this.handleRowChange}
           />
         </ResizableBox>

@@ -7,6 +7,9 @@ const config = require(`./${CONFIG_FILE}`); // eslint-disable-line
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,
+  headers: {
+    'Service-Worker-Allowed': '/'
+  },
   historyApiFallback: true,
   // It suppress error shown in console, so it has to be set to false.
   quiet: false,

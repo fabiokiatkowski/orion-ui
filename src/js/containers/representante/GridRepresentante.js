@@ -9,23 +9,21 @@ const mapStateToProps = state => ({
   data: state.representante.data
 });
 
-class GridRepresentante extends Component {
-  static propTypes = {
-    minHeight: PropsTypes.number.isRequired,
-    data: PropsTypes.array.isRequired //eslint-disable-line
-  }
+const GridRepresentante = (props) => {
+  return (
+    <Grid
+      setCurrentRow={props.setCurrentRow}
+      minHeight={props.minHeight}
+      data={props.data}
+      columns={columns}
+      handleRowChange={props.handleRowChange}
+    />
+  );
+};
 
-  render() {
-    return (
-      <Grid
-        setCurrentRow={this.props.setCurrentRow}
-        minHeight={this.props.minHeight}
-        data={this.props.data}
-        columns={columns}
-        handleRowChange={this.props.handleRowChange}
-      />
-    );
-  }
+GridRepresentante.propTypes = {
+  minHeight: PropsTypes.number.isRequired,
+  data: PropsTypes.array.isRequired //eslint-disable-line
 }
 
 export default connect(mapStateToProps, null)(GridRepresentante);
