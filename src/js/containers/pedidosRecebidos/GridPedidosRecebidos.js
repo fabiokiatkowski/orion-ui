@@ -17,7 +17,7 @@ const GridPedidosRecebidos = (props) => {
       handleRowChange={() => {}}
     />
   );
-}
+};
 
 GridPedidosRecebidos.propTypes = {
   minHeight: PropsTypes.number.isRequired,
