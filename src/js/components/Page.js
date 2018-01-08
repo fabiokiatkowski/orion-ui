@@ -32,6 +32,10 @@ export default class Page extends Component {
   }
 }
 
+Page.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
 const PageContent = (props) => {
   return (
     <nav className="nav page-menu">

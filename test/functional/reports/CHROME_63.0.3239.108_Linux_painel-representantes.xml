@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites errors="0"
             failures="0"
-            tests="5">
+            tests="6">
 
   <testsuite name="painel-representantes"
     errors="0" failures="0" hostname="" id="" package="painel-representantes" skipped="0"
-    tests="5" time="4.891" timestamp="Mon, 08 Jan 2018 17:12:44 GMT">
+    tests="6" time="5.270" timestamp="Mon, 08 Jan 2018 18:31:38 GMT">
   
-    <testcase name="login sucess" classname="painel-representantes" time="2.619" assertions="1">
+    <testcase name="login sucess" classname="painel-representantes" time="2.626" assertions="1">
 
     
     </testcase>
   
-    <testcase name="change date" classname="painel-representantes" time="0.9540" assertions="7">
+    <testcase name="change date" classname="painel-representantes" time="1.043" assertions="7">
 
     
 
@@ -21,15 +21,6 @@
     
 
     
-
-    
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="filter test" classname="painel-representantes" time="0.9350" assertions="3">
 
     
 
@@ -38,14 +29,30 @@
     
     </testcase>
   
-    <testcase name="agroup data" classname="painel-representantes" time="0.3270" assertions="2">
+    <testcase name="filter test" classname="painel-representantes" time="0.9480" assertions="3">
+
+    
 
     
 
     
     </testcase>
   
-    <testcase name="end " classname="painel-representantes" time="0.05600" assertions="0">
+    <testcase name="agroup data" classname="painel-representantes" time="0.3240" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="more filters" classname="painel-representantes" time="0.2710" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="end " classname="painel-representantes" time="0.05800" assertions="0">
     </testcase>
   
 

@@ -1,5 +1,3 @@
-import { Filters } from 'react-data-grid-addons';
-
 const columns = [
   {
     key: 'numeroPedido',

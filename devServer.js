@@ -8,7 +8,7 @@ new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,
   headers: {
-    'Service-Worker-Allowed': '/'
+    'Service-Worker-Allowed': 'http://192.168.1.120:8080/'
   },
   historyApiFallback: true,
   // It suppress error shown in console, so it has to be set to false.

@@ -90,6 +90,24 @@ module.exports = {
       );
   },
 
+  'more filters': (browser) => {
+    browser
+      .setValue('//*[@id="controlled-tab-2-pane-11"]/div/div[1]/div/div[2]/div/div[1]/div[2]/div/div[2]/div[1]/div/input', 'sc')
+      .getText(
+        '//*[@id="controlled-tab-2-pane-11"]/div/div[1]/div/div[2]/div/div[2]/div/div/div/div[1]/div[7]/div/div/span/div',
+        (result) => {
+          browser.assert.equal(result.value, 'LAERCIO');
+        }
+      )
+      .setValue('//*[@id="controlled-tab-2-pane-11"]/div/div[1]/div/div[2]/div/div[1]/div[2]/div/div[4]/div[1]/div/input', 'am')
+      .getText(
+        '//*[@id="controlled-tab-2-pane-11"]/div/div[1]/div/div[2]/div/div[2]/div/div/div/div[1]/div[7]/div/div/span/div',
+        (result) => {
+          browser.assert.equal(result.value, 'JEANCARLOS');
+        }
+      );
+  },
+
   'end ': (browser) => {
     browser.end();
   }

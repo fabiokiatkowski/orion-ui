@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
+import PropsTypes from 'prop-types';
 import ReactDataGrid from 'react-data-grid';
 import { Data } from 'react-data-grid-addons';
 import Toolbar from './Toolbar';
 
 export default class Grid extends Component {
+  static propTypes = {
+    data: PropsTypes.array, //eslint-disable-line
+    columns: PropsTypes.array, //eslint-disable-line
+    handleRowChange: PropsTypes.func,
+    minHeight: PropsTypes.number
+  }
+
+  static defaultProps = {
+    data: [],
+    columns: [],
+    handleRowChange: () => {},
+    minHeight: 50
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +32,7 @@ export default class Grid extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    /* Aqui esta o erro */
     if (nextProps.data.length !== this.props.data.length) {
       this.setState({ rows: nextProps.data });
     }
@@ -26,8 +42,8 @@ export default class Grid extends Component {
     this.setState({ filters: {} });
   };
 
-  onCellSelected = ({rowIdx, idx}) => {
-    if(this.state.rowIdx !== rowIdx) {
+  onCellSelected = ({ rowIdx }) => {
+    if (this.state.rowIdx !== rowIdx) {
       const data = this.state.rows[rowIdx];
       this.props.handleRowChange(data);
       this.setState({ rowIdx });

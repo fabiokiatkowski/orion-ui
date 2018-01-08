@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import PropsTypes from 'prop-types';
 
 class FlipCard extends Component {
+  static propTypes = {
+    dataOff: PropsTypes.string.isRequired,
+    dataOn: PropsTypes.string.isRequired,
+    id: PropsTypes.string.isRequired,
+    handleToggle: PropsTypes.func.isRequired,
+    checked: PropsTypes.bool.isRequired
+  }
+
   renderLabel = () => {
     return (
       // eslint-disable-next-line

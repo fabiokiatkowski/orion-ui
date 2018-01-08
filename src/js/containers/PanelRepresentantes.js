@@ -4,6 +4,7 @@ import { Tabs, Tab, Form, FormGroup, ControlLabel } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { listByDate } from '../redux/modules/representante';
 import { list } from '../redux/modules/pedidosRecebidos';
 import ResizableBox from '../components/ResizableGridWrapper';
@@ -19,6 +20,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class PanelRepresentantes extends Component {
+  static propTypes = {
+    listByDate: PropTypes.func.isRequired,
+    list: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +40,7 @@ class PanelRepresentantes extends Component {
       tabChildKey: 11,
       checkboxPedidos: false,
       checkboxAgrupar: true,
-      dateFilterFormatted: '14-12-2017' // Usar moment pra formatar o dia atual
+      dateFilterFormatted: '08-01-2018' // Usar moment pra formatar o dia atual
     };
   }
 
@@ -81,13 +87,13 @@ class PanelRepresentantes extends Component {
 
   handleCheckboxAgrupar = () => {
     this.setState({ checkboxAgrupar: !this.state.checkboxAgrupar }, () => {
-      this.listByDate(this.state.dateFilterFormatted)
+      this.listByDate(this.state.dateFilterFormatted);
     });
   }
 
   handleCheckboxPedidos = () => {
     this.setState({ checkboxPedidos: !this.state.checkboxPedidos }, () => {
-      this.listByDate(this.state.dateFilterFormatted)
+      this.listByDate(this.state.dateFilterFormatted);
     });
   }
 
@@ -137,7 +143,6 @@ class PanelRepresentantes extends Component {
                 value={this.state.dateFilter || new Date().toISOString()}
                 dateFormat="DD-MM-YYYY"
                 onChange={this.handleOnChageDate}
-                todayButtonLabel
               />
             </FormGroup>
             <FormGroup controlId="formInlineCheck1">

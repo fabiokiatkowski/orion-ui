@@ -8,6 +8,7 @@
         "build": "webpack --config webpack.config.prod.js",
         "dev": "node devServer",
         "start": "npm-run-all clean dev",
+        "start:test": "WEBPACK_CONFIG=webpack.config.test npm-run-all clean dev",
         "lint": "eslint src/js",
         "postinstall" : "node nightwatch.conf.js",
         "test:functional": "./node_modules/.bin/nightwatch"
