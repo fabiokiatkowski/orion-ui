@@ -8,7 +8,7 @@ const findOctober = (text, browser) => {
         }
       });
     });
-}
+};
 
 module.exports = {
   'login sucess': (browser) => {

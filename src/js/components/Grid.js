@@ -32,8 +32,7 @@ export default class Grid extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    /* Aqui esta o erro */
-    if (nextProps.data.length !== this.props.data.length) {
+    if (nextProps.data !== this.props.data) {
       this.setState({ rows: nextProps.data });
     }
   }
