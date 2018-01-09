@@ -1,22 +1,40 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { createLogger} from 'redux-logger'; //eslint-disable-line
+import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
+import createHistory from 'history/createBrowserHistory';
+import { createLogger } from 'redux-logger';
 import rootReducer from '../redux/modules/reducer';
+
+export const history = createHistory();
+
+const initialState = {};
+const enhancers = [];
+const middleware = [
+  thunk,
+  routerMiddleware(history)
+];
 
 const DEV = process.env.NODE_ENV === 'development';
 
-const logger = createLogger({ collapse: true });
-
-const finalStoreProd = compose(applyMiddleware(thunk))(createStore);
-const finalStoreDev = compose(applyMiddleware(thunk, logger))(createStore);
-
-module.exports = function configureStore(initialState) {
-  const store = (DEV) ? finalStoreDev(rootReducer, initialState) :
-    finalStoreProd(rootReducer, initialState);
-
-  if (DEV && module.hot) {
-    module.hot.accept('../redux/modules/reducer', () =>
-      store.replaceReducer(require('../redux/modules/reducer').default)); //eslint-disable-line
+if (DEV) {
+  const { devToolExtension } = window;
+  if (typeof devToolExtension === 'function') {
+    enhancers.push(devToolExtension());
   }
-  return store;
-};
+
+  const logger = createLogger({ collapse: true });
+  middleware.push(logger);
+}
+
+const composeEnhancers = compose(
+  applyMiddleware(...middleware),
+  ...enhancers
+);
+
+const store = createStore(
+  rootReducer,
+  initialState,
+  composeEnhancers
+);
+
+export default store;

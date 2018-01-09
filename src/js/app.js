@@ -1,24 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import PanelRepresentantes from './containers/PanelRepresentantes';
-import createStore from './store/configureStore';
+import { ConnectedRouter } from 'react-router-redux';
+import store, { history } from './store/configureStore';
 import Page from './components/Page';
 import '../css/style.scss';
 
-const store = createStore();
-
-const App = () => {
-  return (
-    <Page title="Painel Representantes">
-      <PanelRepresentantes />
-    </Page>
-  );
-};
-
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <div>
+        <Page />
+      </div>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('app')
 );
