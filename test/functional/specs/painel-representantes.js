@@ -1,5 +1,6 @@
 const findOctober = (text, browser) => {
-  browser.waitForElementVisible('.datepicker-previous-wrapper')
+  browser
+    .waitForElementVisible('.datepicker-previous-wrapper')
     .click('.datepicker-previous-wrapper', () => {
       browser.getText('.popover-title > .text-center > span', (result) => {
         if (result.value !== 'October 2017') {
@@ -7,7 +8,7 @@ const findOctober = (text, browser) => {
         }
       });
     });
-};
+}
 
 module.exports = {
   'login sucess': (browser) => {
@@ -75,6 +76,7 @@ module.exports = {
     browser
       .useXpath()
       .click('//*[@id="controlled-tab-3-pane-21"]/div/div/form/div[2]/div/div/label')
+      .pause(300)
       .getText(
         '//*[@id="controlled-tab-2-pane-11"]/div/div[1]/div/div[2]/div/div[2]/div/div/div/div[1]/div[8]/div/div/span/div',
         (result) => {
@@ -82,6 +84,7 @@ module.exports = {
         }
       )
       .click('//*[@id="controlled-tab-3-pane-21"]/div/div/form/div[2]/div/div/label')
+      .pause(300)
       .getText(
         '//*[@id="controlled-tab-2-pane-11"]/div/div[1]/div/div[2]/div/div[2]/div/div/div/div[1]/div[8]/div/div/span/div',
         (result) => {
