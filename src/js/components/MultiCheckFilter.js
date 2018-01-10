@@ -24,6 +24,7 @@ export default class MultiCheckFilter extends Component {
   getOptions = (newProps) => {
     const props = newProps || this.props;
     let options = props.getValidFilterValues(props.column.key);
+    console.log(options);
     options = options.map((o) => {
       if (typeof o === 'string') {
         return { value: o, label: o };

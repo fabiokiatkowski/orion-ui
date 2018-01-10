@@ -63,8 +63,15 @@ export default class Grid extends Component {
   };
 
   getValidFilterValues = (columnId) => {
-    const values = this.getRows().map(r => r[columnId]);
-    return values.filter((item, i, a) => { return i === a.indexOf(item); });
+    const virtualState = this.state;
+    delete virtualState.filters[columnId];
+    console.log(virtualState);
+    const rows = Data.Selectors.getRows(virtualState);
+    console.log(rows);
+    const values = rows.map(r => r[columnId]);
+    return values.filter((item, i, a) => {
+      return i === a.indexOf(item);
+    });
   };
 
   handleFilterChange = (filter) => {
