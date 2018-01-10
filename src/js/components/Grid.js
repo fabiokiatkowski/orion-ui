@@ -27,7 +27,8 @@ export default class Grid extends Component {
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
       filters: {},
-      rowIdx: 0
+      rowIdx: 0,
+      virtualRows: props.data
     };
   }
 
@@ -62,7 +63,7 @@ export default class Grid extends Component {
   };
 
   getValidFilterValues = (columnId) => {
-    const values = this.state.rows.map(r => r[columnId]);
+    const values = this.getRows().map(r => r[columnId]);
     return values.filter((item, i, a) => { return i === a.indexOf(item); });
   };
 

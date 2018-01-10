@@ -1,0 +1,29 @@
+.tether-element {
+    $tethe-background: #fff;
+    $tethe-arrow-background: #fff;
+    $tethe-border-color: darken($grey-light, 10%);
+    $tethe-arrow-border-color: darken($tethe-border-color, 10%);
+  
+    background: $tethe-background;
+    color: $text;
+    border-radius: $radius;
+    border: 1px solid $tethe-border-color;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.13);
+    z-index: 9999;
+  
+    &.tether-target-attached-left {
+      margin-right: 5px;
+    }
+  
+    &.tether-target-attached-right {
+      margin-left: 5px;
+    }
+  
+    &.tether-target-attached-top {
+      margin-bottom: 5px;
+    }
+  
+    &.tether-target-attached-bottom {
+      margin-top: 5px;
+    }
+  }

@@ -1,3 +1,6 @@
+import { Filters } from 'react-data-grid-addons';
+import MultiCheckFilter from '../../components/MultiCheckFilter';
+
 const columns = [
   {
     key: 'numeroPedido',
@@ -5,7 +8,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'estado',
@@ -13,7 +17,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: Filters.MultiSelectFilter
   },
   {
     key: 'situacao',
@@ -29,7 +34,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'regiao',
@@ -37,7 +43,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'codigoRepresentante',
