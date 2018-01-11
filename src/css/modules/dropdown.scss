@@ -7,17 +7,17 @@
     margin: $dropdown-padding;
     margin-bottom: 0;
     color: $header-text-color;
-    border-bottom: 1px solid lighten($header-text-color, 15%);
     min-height: 30px;
 
     .dropdown-portal-title {
-      width: 70%;
+      width: 60%;
+      min-width: 200px;
       display: inline-block;
     }
 
     .dropdown-portal-buttons {
       float: right;
-      width: 30%;
+      width: 120px;
       text-align: right;
       
       .glyphicon {
@@ -27,7 +27,7 @@
       .glyphicon-thumbs-up {
         color: green;
       }
-      
+
       .glyphicon-remove {
         color: red;
       }

@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../components/Dropdown';
 import DropdownSearch from '../components/DropdownSearch';
 import { isEmptyArray } from '../utils/arrays';
+import Types from '../utils/filterTypes';
 
 export default class MultiCheckFilter extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       options: this.getOptions(),
       selected: [],
-      advancedFilter: false
+      advancedFilter: false,
+      advancedFilters: []
     };
   }
 
@@ -45,22 +46,23 @@ export default class MultiCheckFilter extends Component {
       return null;
     });
     options.push({ value: '__selectall__', label: 'SELECIONAR TODOS' });
-    options.sort(this.compareStrings);
+    if (props.column.type === Types.NUMBER) {
+      options.sort(this.compareNumber);
+    } else {
+      options.sort(this.compareText);
+    }
     return options;
   }
 
-  compareStrings = (a, b) => {
+  compareText = (a, b) => {
     const valueA = a.value;
     const valueB = b.value;
-
     if (valueA === '__selectall__') {
       return -1;
     }
-
     if (valueB === '__selectall__') {
       return 1;
     }
-
     if (valueA < valueB) {
       return -1;
     }
@@ -70,8 +72,16 @@ export default class MultiCheckFilter extends Component {
     return 0;
   }
 
-  toogleFilterType = () => {
-    this.setState({ advancedFilter: !this.state.advancedFilter });
+  compareNumber = (a, b) => {
+    const valueA = a.value;
+    const valueB = b.value;
+    if (valueA === '__selectall__') {
+      return -1;
+    }
+    if (valueB === '__selectall__') {
+      return 1;
+    }
+    return valueA - valueB;
   }
 
   filterValues = (row, columnFilter, columnKey) => {
@@ -131,6 +141,27 @@ export default class MultiCheckFilter extends Component {
     );
   };
 
+  renderHeaderTitle = () => {
+    const isAdvanced = this.state.advancedFilter;
+    return (
+      <div>
+        <a
+          className={!isAdvanced ? 'is-active' : ''}
+          onClick={() => this.setState({ advancedFilter: false })}
+        >
+          Filtros
+        </a>
+        <span> | </span>
+        <a
+          className={isAdvanced ? 'is-active' : ''}
+          onClick={() => this.setState({ advancedFilter: true })}
+        >
+          Avançado
+        </a>
+      </div>
+    );
+  };
+
   renderDropdownWithItems = () => {
     return (
       <DropdownSearch
@@ -144,7 +175,55 @@ export default class MultiCheckFilter extends Component {
   }
 
   renderAdvancedFilter = () => {
-    return <div><h1>Vai dar trampo</h1></div>;
+    const textFilter = () => {
+      return (
+        <div>
+          <h3> Filtros coluna {this.props.column.key} </h3>
+          <div className="form-inline">
+            <div className="form-group mx-sm-3 mb-2">
+              <select id="selectFilter" className="form-control">
+                <option selected>Menor que</option>
+                <option>Maior que</option>
+                <option>Contem</option>
+              </select>
+            </div>
+            <div className="form-group mx-sm-3 mb-2">
+              <input type="text" className="form-control" id="inputFilterValue" placeholder="Valor" />
+            </div>
+          </div>
+
+          <div className="form-inline">
+            <div className="form-group mx-sm-3 mb-2">
+              <select id="selectFilter" className="form-control">
+                <option selected>Menor que</option>
+                <option>Maior que</option>
+                <option>Contem</option>
+              </select>
+            </div>
+            <div className="form-group mx-sm-3 mb-2">
+              <input type="text" className="form-control" id="inputFilterValue" placeholder="Valor" />
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const numberFilter = () => {
+      return (
+        <div>
+          <h6> Filtros de numero </h6>
+          {this.props.column.key}
+        </div>
+      );
+    };
+
+    const { type } = this.props.column;
+    return (
+      <div>
+        {type === Types.TEXT && textFilter()}
+        {type === Types.NUMBER && numberFilter()}
+      </div>
+    );
   }
 
   render() {
@@ -153,14 +232,15 @@ export default class MultiCheckFilter extends Component {
       <Dropdown
         onShowDropdown={this.onOpen}
         onConfirm={this.onConfirm}
-        toogleType={this.toogleFilterType}
       >
         <DropdownToggle className="box-control">
           <span className="icon">
             <i className="fa fa-plus" />
           </span>
         </DropdownToggle>
-        <DropdownHeader>{isAdvanced ? 'Fitro Avançado' : 'Fitros'}</DropdownHeader>
+        <DropdownHeader>
+          {this.renderHeaderTitle()}
+        </DropdownHeader>
         {!isAdvanced ?
           this.renderDropdownWithItems() : this.renderAdvancedFilter()}
       </Dropdown>

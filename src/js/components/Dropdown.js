@@ -13,19 +13,22 @@ const DropdownHeader = (props) => {
         {props.children}
       </div>
       <div className="dropdown-portal-buttons">
-        {props.toogleType &&
-          <a onClick={props.toogleType}>
-            <i className="glyphicon glyphicon-refresh" />
-          </a>
-        }
         {props.onConfirm &&
-          <a onClick={props.onConfirm}>
-            <i className="glyphicon glyphicon-thumbs-up" />
-          </a>
+          <button
+            type="button"
+            className="btn btn-success btn-sm"
+            onClick={props.onConfirm}
+          >
+            OK
+          </button>
         }
-        <a onClick={props.onClose}>
-          <i className="glyphicon glyphicon-remove" />
-        </a>
+        <button
+          type="button"
+          className="btn btn-danger btn-sm"
+          onClick={props.onClose}
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );
@@ -78,15 +81,13 @@ class Dropdown extends Component {
   static propTypes = {
     onHiddenDropdown: PropTypes.func,
     onShowDropdown: PropTypes.func,
-    onConfirm: PropTypes.func,
-    toogleType: PropTypes.func
+    onConfirm: PropTypes.func
   }
 
   static defaultProps = {
     onHiddenDropdown: () => {},
     onShowDropdown: () => {},
-    onConfirm: null,
-    toogleType: null
+    onConfirm: null
   }
 
   constructor(props) {
