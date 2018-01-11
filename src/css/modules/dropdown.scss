@@ -73,10 +73,10 @@
         }
 
         &.is-active {
-          &:after {
+          &:before {
             font-family: FontAwesome;
             content: "\f00c";
-            float: right;
+            float: left;
             color: green;
           }
         }
