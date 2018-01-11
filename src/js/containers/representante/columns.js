@@ -1,5 +1,5 @@
-import { Filters } from 'react-data-grid-addons';
 import MultiCheckFilter from '../../components/MultiCheckFilter';
+import Types from '../../utils/filterTypes';
 
 const columns = [
   {
@@ -9,7 +9,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.NUMBER
   },
   {
     key: 'estado',
@@ -18,14 +19,15 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.TEXT
   },
   {
     key: 'situacao',
     name: 'Situacao',
     filterable: true,
     resizable: true,
-    hidden: false,
+    hidden: true,
     sortable: true,
     filterRenderer: MultiCheckFilter
   },
@@ -36,7 +38,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.TEXT
   },
   {
     key: 'regiao',
@@ -45,7 +48,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.TEXT
   },
   {
     key: 'codigoRepresentante',
@@ -54,7 +58,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.NUMBER
   },
   {
     key: 'apelido',
@@ -63,7 +68,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.TEXT
   },
   {
     key: 'quantidadePedido',
@@ -72,7 +78,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.NUMBER
   },
   {
     key: 'totalPedido',
@@ -81,7 +88,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.NUMBER
   },
   {
     key: 'codigoPeriodo',
@@ -90,7 +98,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.NUMBER
   },
   {
     key: 'descricaoPeriodo',
@@ -99,7 +108,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    type: Types.TEXT
   },
 ];
 

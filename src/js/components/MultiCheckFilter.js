@@ -6,9 +6,11 @@ import { isEmptyArray } from '../utils/arrays';
 export default class MultiCheckFilter extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       options: this.getOptions(),
-      selected: []
+      selected: [],
+      advancedFilter: false
     };
   }
 
@@ -19,6 +21,16 @@ export default class MultiCheckFilter extends Component {
   onOpen = () => {
     this.setState({ options: this.getOptions() });
   }
+
+  onConfirm = () => {
+    const { selected } = this.state;
+    this.props.onChange({
+      filterTerm: selected,
+      column: this.props.column,
+      rawValue: selected,
+      filterValues: this.filterValues
+    });
+  };
 
   getOptions = (newProps) => {
     const props = newProps || this.props;
@@ -32,7 +44,34 @@ export default class MultiCheckFilter extends Component {
       }
       return null;
     });
+    options.push({ value: '__selectall__', label: 'SELECIONAR TODOS' });
+    options.sort(this.compareStrings);
     return options;
+  }
+
+  compareStrings = (a, b) => {
+    const valueA = a.value;
+    const valueB = b.value;
+
+    if (valueA === '__selectall__') {
+      return -1;
+    }
+
+    if (valueB === '__selectall__') {
+      return 1;
+    }
+
+    if (valueA < valueB) {
+      return -1;
+    }
+    if (valueA > valueB) {
+      return 1;
+    }
+    return 0;
+  }
+
+  toogleFilterType = () => {
+    this.setState({ advancedFilter: !this.state.advancedFilter });
   }
 
   filterValues = (row, columnFilter, columnKey) => {
@@ -47,69 +86,83 @@ export default class MultiCheckFilter extends Component {
     return true;
   }
 
+  addOption = (e, item) => {
+    const newSelected = [...this.state.selected, item.value];
+    this.setState({ selected: newSelected });
+  };
+
+  removeOption = (e, item) => {
+    const newSelected = this.state.selected.filter(x => x !== item.value);
+    this.setState({ selected: newSelected });
+  };
+
+  selectAll = (isUsing) => {
+    if (isUsing) {
+      this.setState({ selected: [] });
+    } else {
+      const options = this.state.options.map(o => o.value);
+      this.setState({ selected: options });
+    }
+  }
+
+  isUsingOption = (item) => {
+    return this.state.selected.some(s => s === item.value);
+  };
+
+  toggleOption = (e, isUsing, item) => {
+    if (item.value === '__selectall__') {
+      this.selectAll(isUsing);
+    } else if (isUsing) {
+      this.removeOption(e, item);
+    } else {
+      this.addOption(e, item);
+    }
+  };
+
+  renderDropdownItem = (item) => {
+    const isUsing = this.isUsingOption(item);
+    return (
+      <a
+        className={isUsing ? 'is-active' : ''}
+        onClick={e => this.toggleOption(e, isUsing, item)}
+      >
+        {item.label}
+      </a>
+    );
+  };
+
+  renderDropdownWithItems = () => {
+    return (
+      <DropdownSearch
+        placeholder="Pesquisar"
+        filterKeys={['value']}
+        data={this.state.options}
+      >
+        <DropdownBody renderItem={this.renderDropdownItem} />
+      </DropdownSearch>
+    );
+  }
+
+  renderAdvancedFilter = () => {
+    return <div><h1>Vai dar trampo</h1></div>;
+  }
+
   render() {
-    const addOption = (e, item) => {
-      const newSelected = [...this.state.selected, item.value];
-      this.setState({ selected: newSelected });
-    };
-
-    const removeOption = (e, item) => {
-      const newSelected = this.state.selected.filter(x => x !== item.value);
-      this.setState({ selected: newSelected });
-    };
-
-    const isUsingOption = (item) => {
-      return this.state.selected.some(s => s === item.value);
-    };
-
-    const onConfirm = () => {
-      const { selected } = this.state;
-      this.props.onChange({
-        filterTerm: selected,
-        column: this.props.column,
-        rawValue: selected,
-        filterValues: this.filterValues
-      });
-    };
-
-    const toggleOption = (e, isUsing, item) => {
-      if (isUsing) {
-        removeOption(e, item);
-      } else {
-        addOption(e, item);
-      }
-    };
-
-    const renderDropdownItem = (item) => {
-      const isUsing = isUsingOption(item);
-      return (
-        <a
-          className={isUsing ? 'is-active' : ''}
-          onClick={e => toggleOption(e, isUsing, item)}
-        >
-          {item.label}
-        </a>
-      );
-    };
-
+    const isAdvanced = this.state.advancedFilter;
     return (
       <Dropdown
         onShowDropdown={this.onOpen}
-        onConfirm={onConfirm}
+        onConfirm={this.onConfirm}
+        toogleType={this.toogleFilterType}
       >
         <DropdownToggle className="box-control">
           <span className="icon">
             <i className="fa fa-plus" />
           </span>
         </DropdownToggle>
-        <DropdownHeader>Fitros</DropdownHeader>
-        <DropdownSearch
-          placeholder="Pesquisar"
-          filterKeys={['value']}
-          data={this.state.options}
-        >
-          <DropdownBody renderItem={renderDropdownItem} />
-        </DropdownSearch>
+        <DropdownHeader>{isAdvanced ? 'Fitro Avançado' : 'Fitros'}</DropdownHeader>
+        {!isAdvanced ?
+          this.renderDropdownWithItems() : this.renderAdvancedFilter()}
       </Dropdown>
     );
   }

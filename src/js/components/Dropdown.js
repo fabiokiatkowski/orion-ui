@@ -5,6 +5,7 @@ import isFunction from 'lodash/fp/isFunction';
 import { Link } from 'react-router';
 import * as arrays from '../utils/arrays';
 
+/* TODO: Refactor this to dropdownheader receive buttons */
 const DropdownHeader = (props) => {
   return (
     <div className="dropdown-portal-header">
@@ -12,8 +13,13 @@ const DropdownHeader = (props) => {
         {props.children}
       </div>
       <div className="dropdown-portal-buttons">
+        {props.toogleType &&
+          <a onClick={props.toogleType}>
+            <i className="glyphicon glyphicon-refresh" />
+          </a>
+        }
         {props.onConfirm &&
-          <a href="javascript: void(0)" onClick={props.onConfirm}>
+          <a onClick={props.onConfirm}>
             <i className="glyphicon glyphicon-thumbs-up" />
           </a>
         }
@@ -72,13 +78,15 @@ class Dropdown extends Component {
   static propTypes = {
     onHiddenDropdown: PropTypes.func,
     onShowDropdown: PropTypes.func,
-    onConfirm: PropTypes.func
+    onConfirm: PropTypes.func,
+    toogleType: PropTypes.func
   }
 
   static defaultProps = {
     onHiddenDropdown: () => {},
     onShowDropdown: () => {},
     onConfirm: null,
+    toogleType: null
   }
 
   constructor(props) {
@@ -131,6 +139,7 @@ class Dropdown extends Component {
       if (child.type === DropdownHeader && !child.props.onClose) {
         return React.cloneElement(child, {
           onConfirm: this.props.onConfirm ? this.onConfirm : null,
+          toogleType: this.props.toogleType,
           onClose: this.close
         });
       }

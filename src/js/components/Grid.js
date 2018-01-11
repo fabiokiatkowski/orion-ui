@@ -27,8 +27,7 @@ export default class Grid extends Component {
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
       filters: {},
-      rowIdx: 0,
-      virtualRows: props.data
+      rowIdx: 0
     };
   }
 
