@@ -1,59 +1,64 @@
 .dropdown-portal {
   $dropdown-padding: 8px 10px;
-
   min-width: 18em;
 
-  z-index: calc(inherit) + 1;
-  opacity: 1;
-
-  .dropdown-header {
-    $header-text-color: white;
+  .dropdown-portal-header {
+    $header-text-color: black;
     margin: $dropdown-padding;
     margin-bottom: 0;
     color: $header-text-color;
     border-bottom: 1px solid lighten($header-text-color, 15%);
     min-height: 30px;
 
-    .dropdown-title {
-      width: 90%;
-      text-align: center;
+    .dropdown-portal-title {
+      width: 70%;
       display: inline-block;
     }
 
-    .dropdown-close {
+    .dropdown-portal-buttons {
       float: right;
-      width: 15px;
-      a {
-        .fa {
-          line-height: 20px;
-          font-size: 14px;
-          float: right;
-          color: lighten($header-text-color, 10%);
-          &:hover {
-            color: $text;
-          }
-        }
+      width: 30%;
+      text-align: right;
+      
+      .glyphicon {
+        padding-left: 5px; 
+      }
+
+      .glyphicon-thumbs-up {
+        color: green;
+      }
+      
+      .glyphicon-remove {
+        color: red;
       }
     }
   }
 
-  .dropdown-search {
+  .dropdown-portal-search {
     > .search-input {
       padding: $dropdown-padding;
       padding-bottom: 0px;
     }
   }
 
-  .dropdown-body {
+  .dropdown-portal-body {
     max-height: 250px;
     overflow: auto;
     padding: $dropdown-padding;
     padding-top: 0px;
     margin-top: 8px;
 
+    li:nth-child(2n) {
+      background-color: #eee;
+    }
+
+    ul {
+      padding-left: 0px;
+    }
+
     li {
       text-align: left;
-
+      list-style-type: none;
       a {
         display: block;
         position: relative;
@@ -63,8 +68,8 @@
         background-color: transparent;
 
         &:hover {
-          background-color: $primary;
-          color: $text-invert !important;
+          background-color: #eee;
+          text-decoration: initial;
         }
 
         &.is-active {
@@ -72,6 +77,7 @@
             font-family: FontAwesome;
             content: "\f00c";
             float: right;
+            color: green;
           }
         }
       }

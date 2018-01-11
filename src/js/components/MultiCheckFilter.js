@@ -17,14 +17,12 @@ export default class MultiCheckFilter extends Component {
   }
 
   onOpen = () => {
-    console.log(this);
     this.setState({ options: this.getOptions() });
   }
 
   getOptions = (newProps) => {
     const props = newProps || this.props;
     let options = props.getValidFilterValues(props.column.key);
-    console.log(options);
     options = options.map((o) => {
       if (typeof o === 'string') {
         return { value: o, label: o };
@@ -53,27 +51,25 @@ export default class MultiCheckFilter extends Component {
     const addOption = (e, item) => {
       const newSelected = [...this.state.selected, item.value];
       this.setState({ selected: newSelected });
-      this.props.onChange({
-        filterTerm: newSelected,
-        column: this.props.column,
-        rawValue: newSelected,
-        filterValues: this.filterValues
-      });
     };
 
     const removeOption = (e, item) => {
       const newSelected = this.state.selected.filter(x => x !== item.value);
       this.setState({ selected: newSelected });
-      this.props.onChange({
-        filterTerm: newSelected,
-        column: this.props.column,
-        rawValue: newSelected,
-        filterValues: this.filterValues
-      });
     };
 
     const isUsingOption = (item) => {
       return this.state.selected.some(s => s === item.value);
+    };
+
+    const onConfirm = () => {
+      const { selected } = this.state;
+      this.props.onChange({
+        filterTerm: selected,
+        column: this.props.column,
+        rawValue: selected,
+        filterValues: this.filterValues
+      });
     };
 
     const toggleOption = (e, isUsing, item) => {
@@ -99,6 +95,7 @@ export default class MultiCheckFilter extends Component {
     return (
       <Dropdown
         onShowDropdown={this.onOpen}
+        onConfirm={onConfirm}
       >
         <DropdownToggle className="box-control">
           <span className="icon">

@@ -18,7 +18,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: Filters.MultiSelectFilter
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'situacao',
@@ -26,7 +26,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'empresa',
@@ -52,7 +53,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'apelido',
@@ -60,7 +62,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'quantidadePedido',
@@ -68,7 +71,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'totalPedido',
@@ -76,7 +80,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'codigoPeriodo',
@@ -84,7 +89,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
   {
     key: 'descricaoPeriodo',
@@ -92,7 +98,8 @@ const columns = [
     filterable: true,
     resizable: true,
     hidden: false,
-    sortable: true
+    sortable: true,
+    filterRenderer: MultiCheckFilter
   },
 ];
 

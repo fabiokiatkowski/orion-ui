@@ -7,13 +7,18 @@ import * as arrays from '../utils/arrays';
 
 const DropdownHeader = (props) => {
   return (
-    <div className="dropdown-header">
-      <div className="dropdown-title">
+    <div className="dropdown-portal-header">
+      <div className="dropdown-portal-title">
         {props.children}
       </div>
-      <div className="dropdown-close">
-        <a href="javascript: void(0)" onClick={props.onClose}>
-          <i className="fa fa-close" />
+      <div className="dropdown-portal-buttons">
+        {props.onConfirm &&
+          <a href="javascript: void(0)" onClick={props.onConfirm}>
+            <i className="glyphicon glyphicon-thumbs-up" />
+          </a>
+        }
+        <a onClick={props.onClose}>
+          <i className="glyphicon glyphicon-remove" />
         </a>
       </div>
     </div>
@@ -33,7 +38,7 @@ const DropdownBody = (props) => {
   const items = data.map(renderItem);
 
   return (
-    <div className="dropdown-body">
+    <div className="dropdown-portal-body">
       {items &&
         <ul>
           {items}
@@ -48,7 +53,7 @@ const DropdownToggle = (props) => {
   return (
     <a
       onClick={props.onClick}
-      className={`dropdown-toggle ${props.className}`}
+      className={`dropdown-portal-toggle ${props.className}`}
     >
       {props.children}
     </a>
@@ -66,12 +71,14 @@ DropdownToggle.defaultProps = {
 class Dropdown extends Component {
   static propTypes = {
     onHiddenDropdown: PropTypes.func,
-    onShowDropdown: PropTypes.func
+    onShowDropdown: PropTypes.func,
+    onConfirm: PropTypes.func
   }
 
   static defaultProps = {
     onHiddenDropdown: () => {},
-    onShowDropdown: () => {}
+    onShowDropdown: () => {},
+    onConfirm: null,
   }
 
   constructor(props) {
@@ -79,10 +86,9 @@ class Dropdown extends Component {
     this.state = { isOpen: false };
   }
 
-  close = () => {
-    if (this.state.isOpen) {
-      this.setState({ isOpen: false });
-    }
+  onConfirm = () => {
+    this.props.onConfirm();
+    this.close();
   }
 
   toggle = (e) => {
@@ -94,6 +100,12 @@ class Dropdown extends Component {
       this.props.onHiddenDropdown();
     } else {
       this.props.onShowDropdown();
+    }
+  }
+
+  close = () => {
+    if (this.state.isOpen) {
+      this.setState({ isOpen: false });
     }
   }
 
@@ -117,7 +129,10 @@ class Dropdown extends Component {
     childrens = childrens.map((child) => {
       hasHeader = hasHeader || (child.type === DropdownHeader);
       if (child.type === DropdownHeader && !child.props.onClose) {
-        return React.cloneElement(child, { onClose: this.close });
+        return React.cloneElement(child, {
+          onConfirm: this.props.onConfirm ? this.onConfirm : null,
+          onClose: this.close
+        });
       }
       return child;
     });
@@ -138,7 +153,7 @@ class Dropdown extends Component {
         {toggles}
         {isOpen && childrens &&
           <ReactPageClick notify={this.close}>
-            <div className={`dropdown dropdown-portal ${(hasHeader ? 'has-header' : '')}`} style={style}>
+            <div className={`dropdown-portal ${(hasHeader ? 'has-header' : '')}`} style={style}>
               {childrens}
             </div>
           </ReactPageClick>

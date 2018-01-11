@@ -39,7 +39,7 @@ export default class DropdownSearch extends Component {
       return child;
     });
     return (
-      <div className="dropdown-search">
+      <div className="dropdown-portal-search">
         <div className="search-input">
           <input
             className="form-control"
