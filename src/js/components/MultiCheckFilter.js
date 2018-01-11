@@ -11,7 +11,13 @@ export default class MultiCheckFilter extends Component {
       options: this.getOptions(),
       selected: [],
       advancedFilter: false,
-      advancedFilters: []
+      advancedFilters: [
+        {
+          advancedFilterOption: 1,
+          advancedFilterType: 1,
+          advancedFilterValue: null
+        }
+      ]
     };
   }
 
@@ -84,15 +90,64 @@ export default class MultiCheckFilter extends Component {
     return valueA - valueB;
   }
 
+  validateFiltersText = (value) => {
+    let actualCondition = true;
+    console.log('value', value);
+    this.state.advancedFilters.forEach((a) => {
+      const loopValue = a.advancedFilterValue;
+      let loopCondition = true;
+
+      console.log('a.advancedFilterType', a.advancedFilterType);
+      console.log('a.advancedFilterType', a.advancedFilterType === '2');
+
+      if (!loopValue) {
+        loopCondition = true;
+        console.log(loopValue, 'XMLHttpRequestUpload');
+      } else if (a.advancedFilterType == 1) {
+        loopCondition = value.includes(loopValue.toUpperCase());
+        console.log(a.advancedFilterType);
+      } else if (a.advancedFilterType == 2) {
+        const stringA = String(value).trim();
+        const stringB = String(loopValue.toUpperCase()).trim();
+        loopCondition = (stringA === stringB);
+        console.log(value, loopValue.toUpperCase());
+        console.log(loopCondition, 'equals');
+      }
+
+      console.log(loopValue);
+      console.log(actualCondition, 'actualCondition');
+      console.log(loopCondition, 'loopCondition');
+
+      if (a.advancedFilterOption == 1) {
+        actualCondition = actualCondition && loopCondition;
+      }
+      if (a.advancedFilterOption == 2) {
+        actualCondition = actualCondition || loopCondition;
+      }
+    });
+
+    console.log(actualCondition, 'actualCondition');
+
+    return actualCondition;
+  }
+
   filterValues = (row, columnFilter, columnKey) => {
-    if (columnFilter === null) {
-      return false;
+    const value = row[columnKey];
+    if (this.state.advancedFilter) {
+      if (this.props.column.type === Types.TEXT) {
+        return this.validateFiltersText(value.toUpperCase());
+      }
+    } else {
+      if (columnFilter === null) {
+        return false;
+      }
+      if (!isEmptyArray(columnFilter.filterTerm)) {
+        return columnFilter.filterTerm.some((filterTerm) => {
+          return filterTerm === value;
+        });
+      }
     }
-    if (!isEmptyArray(columnFilter.filterTerm)) {
-      return columnFilter.filterTerm.some((filterTerm) => {
-        return filterTerm === row[columnKey];
-      });
-    }
+
     return true;
   }
 
@@ -174,35 +229,94 @@ export default class MultiCheckFilter extends Component {
     );
   }
 
+  renderAdvancedFilters = () => {
+    const { advancedFilters } = this.state;
+    const handleChange = (e, idx) => {
+      const filters = this.state.advancedFilters;
+      filters[idx][e.target.id] = e.target.value;
+      this.setState({ advancedFilters: filters });
+    };
+    return advancedFilters && advancedFilters.map((a, idx) => {
+      const key = idx;
+      return (
+        <div className="form-inline" key={`filters-${key}`}>
+          {idx > 0 &&
+            <div className="form-group mx-sm-3 mb-2">
+              <select
+                value={this.state.advancedFilters[idx].advancedFilterOption}
+                onChange={e => handleChange(e, idx)}
+                id="advancedFilterOption"
+                className="form-control"
+              >
+                <option value={1}>e</option>
+                <option value={2}>ou</option>
+              </select>
+            </div>
+          }
+          <div className="form-group mx-sm-3 mb-2">
+            <select
+              value={this.state.advancedFilters[idx].advancedFilterType}
+              onChange={e => handleChange(e, idx)}
+              id="advancedFilterType"
+              className="form-control"
+            >
+              <option value={1}>Contem</option>
+              <option value={2}>Igual</option>
+              <option value={3}>Nao faz nada</option>
+            </select>
+          </div>
+          <div className="form-group mx-sm-3 mb-2">
+            <input
+              value={this.state.advancedFilters[idx].advancedFilterValue}
+              type="text"
+              className="form-control"
+              id="advancedFilterValue"
+              placeholder="Valor"
+              onChange={e => handleChange(e, idx)}
+            />
+          </div>
+        </div>
+      );
+    });
+  }
+
   renderAdvancedFilter = () => {
+    const addFilter = () => {
+      const virtual = this.state.advancedFilters;
+      virtual.push({
+        advancedFilterOption: 1,
+        advancedFilterType: 1,
+        advancedFilterValue: null
+      });
+      this.setState({ advancedFilters: virtual });
+    };
+
+    const removeFilter = () => {
+      const virtual = this.state.advancedFilters;
+      virtual.pop();
+      this.setState({ advancedFilters: virtual });
+    };
+
     const textFilter = () => {
       return (
-        <div>
+        <div className="advanced-filter">
           <h3> Filtros coluna {this.props.column.key} </h3>
-          <div className="form-inline">
-            <div className="form-group mx-sm-3 mb-2">
-              <select id="selectFilter" className="form-control">
-                <option selected>Menor que</option>
-                <option>Maior que</option>
-                <option>Contem</option>
-              </select>
-            </div>
-            <div className="form-group mx-sm-3 mb-2">
-              <input type="text" className="form-control" id="inputFilterValue" placeholder="Valor" />
-            </div>
-          </div>
-
-          <div className="form-inline">
-            <div className="form-group mx-sm-3 mb-2">
-              <select id="selectFilter" className="form-control">
-                <option selected>Menor que</option>
-                <option>Maior que</option>
-                <option>Contem</option>
-              </select>
-            </div>
-            <div className="form-group mx-sm-3 mb-2">
-              <input type="text" className="form-control" id="inputFilterValue" placeholder="Valor" />
-            </div>
+          {this.renderAdvancedFilters()}
+          <div className="advanced-filter-buttons">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={addFilter}
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={removeFilter}
+            >
+              Remove
+            </button>
           </div>
         </div>
       );
