@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropsTypes from 'prop-types';
 import Grid from '../../components/Grid';
 import columns from './columns';
-import ColumnPersist from '../../utils';
+import ColumnPersist from '../../utils/gridColumns';
 
 const mapStateToProps = state => ({
   data: state.representante.data

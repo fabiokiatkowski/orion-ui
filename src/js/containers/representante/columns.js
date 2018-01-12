@@ -132,7 +132,7 @@ const columns = [
     type: Types.TEXT,
     order: 10,
     draggable: true
-  },
+  }
 ];
 
 export default columns;

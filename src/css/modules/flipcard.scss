@@ -84,12 +84,12 @@
     
     &:after {
       content: attr(data-tg-on);
-      background: #02C66F;
+      background: #337ab7;
       transform: rotateY(-180deg);
     }
     
     &:before {
-      background: #FF3A19;
+      background: #7a7a7a;
       content: attr(data-tg-off);
     }
 
@@ -106,7 +106,7 @@
     &:after {
       transform: rotateY(0);
       left: 0;
-      background: #7FC6A6;
+      background: #337ab7;;
     }
     
     &:active:after {
