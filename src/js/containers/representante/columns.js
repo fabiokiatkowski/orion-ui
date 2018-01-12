@@ -10,7 +10,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.NUMBER
+    type: Types.NUMBER,
+    order: 0,
+    locked: true
   },
   {
     key: 'estado',
@@ -20,16 +22,20 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.TEXT
+    type: Types.TEXT,
+    order: 1,
+    locked: true
   },
   {
     key: 'situacao',
     name: 'Situacao',
     filterable: true,
     resizable: true,
-    hidden: true,
+    hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter
+    filterRenderer: MultiCheckFilter,
+    order: 2,
+    draggable: true
   },
   {
     key: 'empresa',
@@ -39,7 +45,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.TEXT
+    type: Types.TEXT,
+    order: 3,
+    draggable: true
   },
   {
     key: 'regiao',
@@ -49,7 +57,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.TEXT
+    type: Types.TEXT,
+    order: 4,
+    draggable: true
   },
   {
     key: 'codigoRepresentante',
@@ -59,7 +69,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.NUMBER
+    type: Types.NUMBER,
+    order: 5,
+    draggable: true
   },
   {
     key: 'apelido',
@@ -69,7 +81,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.TEXT
+    type: Types.TEXT,
+    order: 6,
+    draggable: true
   },
   {
     key: 'quantidadePedido',
@@ -79,7 +93,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.NUMBER
+    type: Types.NUMBER,
+    order: 7,
+    draggable: true
   },
   {
     key: 'totalPedido',
@@ -89,7 +105,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.NUMBER
+    type: Types.NUMBER,
+    order: 8,
+    draggable: true
   },
   {
     key: 'codigoPeriodo',
@@ -99,7 +117,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.NUMBER
+    type: Types.NUMBER,
+    order: 9,
+    draggable: true
   },
   {
     key: 'descricaoPeriodo',
@@ -109,7 +129,9 @@ const columns = [
     hidden: false,
     sortable: true,
     filterRenderer: MultiCheckFilter,
-    type: Types.TEXT
+    type: Types.TEXT,
+    order: 10,
+    draggable: true
   },
 ];
 

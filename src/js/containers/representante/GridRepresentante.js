@@ -3,10 +3,25 @@ import { connect } from 'react-redux';
 import PropsTypes from 'prop-types';
 import Grid from '../../components/Grid';
 import columns from './columns';
+import ColumnPersist from '../../utils';
 
 const mapStateToProps = state => ({
   data: state.representante.data
 });
+
+const keyAcess = 'oreon-xp.gridRepresentatesColumns';
+
+const saveColumns = (json) => {
+  ColumnPersist.save(keyAcess, json);
+};
+
+const getColumns = () => {
+  return ColumnPersist.get(keyAcess);
+};
+
+const deleteColumns = () => {
+  ColumnPersist.delete(keyAcess);
+};
 
 const GridRepresentante = (props) => {
   return (
@@ -14,8 +29,9 @@ const GridRepresentante = (props) => {
       setCurrentRow={props.setCurrentRow}
       minHeight={props.minHeight}
       data={props.data}
-      columns={columns}
+      columns={getColumns() ? getColumns() : columns}
       handleRowChange={props.handleRowChange}
+      persistColumns={saveColumns}
     />
   );
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropsTypes from 'prop-types';
 import ReactDataGrid from 'react-data-grid';
-import { Data } from 'react-data-grid-addons';
+import { Data, DraggableHeader } from 'react-data-grid-addons';
 import Toolbar from './Toolbar';
 
 export default class Grid extends Component {
@@ -23,7 +23,7 @@ export default class Grid extends Component {
     super(props);
     this.state = {
       rows: props.data,
-      columnsDef: props.columns,
+      columnsDef: this.getColumns(props.columns),
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
       filters: {},
@@ -49,8 +49,34 @@ export default class Grid extends Component {
     }
   }
 
-  getColumns = () => {
-    return this.state.columnsDef.filter(column => !column.hidden);
+  onColumnResize = (index, newWidth) => {
+    const newColumns = this.state.columnsDef;
+    newColumns[index].width = newWidth;
+    this.props.persistColumns(newColumns);
+  }
+
+  onHeaderDrop = (source, target) => {
+    const columns = this.state.columnsDef;
+    const columnsSourceIndex = columns
+      .findIndex(i => i.key === source);
+    const columnTardeIndex = columns
+      .findIndex(i => i.key === target);
+    columns.splice(
+      columnTardeIndex,
+      0,
+      columns.splice(columnsSourceIndex, 1)[0]
+    );
+    const newState = { ...this.state, columnsDef: columns };
+    this.setState({ ...this.state, columnsDef: [] });
+    this.setState(newState);
+    this.props.persistColumns(columns);
+  }
+
+  getColumns = (columnsDef) => {
+    const columns = columnsDef
+      .filter(column => !column.hidden);
+      // .sort((a, b) => a.order - b.order);
+    return columns;
   }
 
   getRows = () => {
@@ -90,18 +116,23 @@ export default class Grid extends Component {
 
   render() {
     return (
-      <ReactDataGrid
-        minHeight={this.props.minHeight}
-        onGridSort={this.handleGridSort}
-        columns={this.getColumns()}
-        rowGetter={this.rowGetter}
-        rowsCount={this.getSize()}
-        onAddFilter={this.handleFilterChange}
-        onClearFilters={this.onClearFilters}
-        getValidFilterValues={this.getValidFilterValues}
-        toolbar={<Toolbar enableFilter />}
-        onCellSelected={this.onCellSelected}
-      />
+      <DraggableHeader.DraggableContainer
+        onHeaderDrop={this.onHeaderDrop}
+      >
+        <ReactDataGrid
+          minHeight={this.props.minHeight}
+          onGridSort={this.handleGridSort}
+          columns={this.state.columnsDef}
+          rowGetter={this.rowGetter}
+          rowsCount={this.getSize()}
+          onAddFilter={this.handleFilterChange}
+          onClearFilters={this.onClearFilters}
+          getValidFilterValues={this.getValidFilterValues}
+          toolbar={<Toolbar enableFilter />}
+          onCellSelected={this.onCellSelected}
+          onColumnResize={this.onColumnResize}
+        />
+      </DraggableHeader.DraggableContainer>
     );
   }
 }

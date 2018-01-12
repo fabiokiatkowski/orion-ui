@@ -92,31 +92,19 @@ export default class MultiCheckFilter extends Component {
 
   validateFiltersText = (value) => {
     let actualCondition = true;
-    console.log('value', value);
     this.state.advancedFilters.forEach((a) => {
       const loopValue = a.advancedFilterValue;
       let loopCondition = true;
 
-      console.log('a.advancedFilterType', a.advancedFilterType);
-      console.log('a.advancedFilterType', a.advancedFilterType === '2');
-
       if (!loopValue) {
         loopCondition = true;
-        console.log(loopValue, 'XMLHttpRequestUpload');
       } else if (a.advancedFilterType == 1) {
         loopCondition = value.includes(loopValue.toUpperCase());
-        console.log(a.advancedFilterType);
       } else if (a.advancedFilterType == 2) {
         const stringA = String(value).trim();
         const stringB = String(loopValue.toUpperCase()).trim();
         loopCondition = (stringA === stringB);
-        console.log(value, loopValue.toUpperCase());
-        console.log(loopCondition, 'equals');
       }
-
-      console.log(loopValue);
-      console.log(actualCondition, 'actualCondition');
-      console.log(loopCondition, 'loopCondition');
 
       if (a.advancedFilterOption == 1) {
         actualCondition = actualCondition && loopCondition;
@@ -126,12 +114,11 @@ export default class MultiCheckFilter extends Component {
       }
     });
 
-    console.log(actualCondition, 'actualCondition');
-
     return actualCondition;
   }
 
   filterValues = (row, columnFilter, columnKey) => {
+    console.log(this.props);
     const value = row[columnKey];
     if (this.state.advancedFilter) {
       if (this.props.column.type === Types.TEXT) {
