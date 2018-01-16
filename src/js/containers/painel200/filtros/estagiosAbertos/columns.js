@@ -1,6 +1,6 @@
 import MultiCheckFilter from '../../../../components/MultiCheckFilter';
 import Types from '../../../../utils/filterTypes';
-import SummarySum from "../../../../components/SummarySum";
+import SummarySum from '../../../../components/SummarySum';
 
 const columns = [
   {
