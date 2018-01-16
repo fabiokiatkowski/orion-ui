@@ -19,7 +19,7 @@ const getQueryString = (url, periodo, representante, dataInicio, dataFim) => {
 };
 
 export function list(periodo, representante, dataInicio, dataFim) {
-  const url = 'http://192.168.1.120:8080/orion-server/api/representantes/mysql/pedidosRecebidos';
+  const url = 'http://localhost:8080/orion-server/api/representantes/mysql/pedidosRecebidos';
   return (dispatch) => {
     fetch(getQueryString(url, periodo, representante, dataInicio, dataFim))
       .then(response => response.json())

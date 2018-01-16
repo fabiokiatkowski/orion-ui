@@ -7,17 +7,22 @@ import Toolbar from './Toolbar';
 
 export default class Grid extends Component {
   static propTypes = {
-    data: PropTypes.array, //eslint-disable-line
-    columns: PropTypes.array, //eslint-disable-line
-    handleRowChange: PropTypes.func,
-    minHeight: PropTypes.number
+    data: PropsTypes.array, //eslint-disable-line
+    columns: PropsTypes.array, //eslint-disable-line
+    handleRowChange: PropsTypes.func,
+    minHeight: PropsTypes.number,
+    onRowsSelected: PropsTypes.func,
+    onRowsDeselected: PropsTypes.func,
+    indexes: PropsTypes.array, //eslint-disable-line
   }
 
   static defaultProps = {
     data: [],
     columns: [],
     handleRowChange: () => {},
-    minHeight: 50
+    minHeight: 50,
+    onRowsSelected: () => {},
+    onRowsDeselected: () => {}
   }
 
   constructor(props) {
@@ -132,6 +137,14 @@ export default class Grid extends Component {
           toolbar={<Toolbar enableFilter />}
           onCellSelected={this.onCellSelected}
           onColumnResize={this.onColumnResize}
+          rowSelection={{
+            showCheckbox: true,
+            onRowsSelected: this.props.onRowsSelected,
+            onRowsDeselected: this.props.onRowsDeselected,
+            selectBy: {
+              indexes: this.props.indexes
+            }
+          }}
         />
       </DraggableHeader.DraggableContainer>
     );
