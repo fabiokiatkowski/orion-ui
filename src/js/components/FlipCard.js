@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class FlipCard extends Component {
   static propTypes = {
-    dataOff: PropsTypes.string.isRequired,
-    dataOn: PropsTypes.string.isRequired,
-    id: PropsTypes.string.isRequired,
-    handleToggle: PropsTypes.func.isRequired,
-    checked: PropsTypes.bool.isRequired
+    dataOff: PropTypes.string.isRequired,
+    dataOn: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    handleToggle: PropTypes.func.isRequired,
+    checked: PropTypes.bool.isRequired
   }
 
   renderLabel = () => {

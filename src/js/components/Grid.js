@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import PropsTypes from 'prop-types';
-import ReactDataGrid from 'react-data-grid';
+import PropTypes from 'prop-types';
+// import ReactDataGrid from 'react-data-grid';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
+import ReactDataGrid from '../../dependencies/react-data-grid';
 import Toolbar from './Toolbar';
 
 export default class Grid extends Component {

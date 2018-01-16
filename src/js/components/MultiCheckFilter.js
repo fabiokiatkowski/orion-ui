@@ -118,7 +118,6 @@ export default class MultiCheckFilter extends Component {
   }
 
   filterValues = (row, columnFilter, columnKey) => {
-    console.log(this.props);
     const value = row[columnKey];
     if (this.state.advancedFilter) {
       if (this.props.column.type === Types.TEXT) {

@@ -1,5 +1,6 @@
 import MultiCheckFilter from '../../components/MultiCheckFilter';
 import Types from '../../utils/filterTypes';
+import SummarySum from '../../components/SummarySum';
 
 const columns = [
   {
@@ -11,8 +12,7 @@ const columns = [
     sortable: true,
     filterRenderer: MultiCheckFilter,
     type: Types.NUMBER,
-    order: 0,
-    locked: true
+    order: 0
   },
   {
     key: 'estado',
@@ -24,7 +24,6 @@ const columns = [
     filterRenderer: MultiCheckFilter,
     type: Types.TEXT,
     order: 1,
-    locked: true
   },
   {
     key: 'situacao',
@@ -95,7 +94,8 @@ const columns = [
     filterRenderer: MultiCheckFilter,
     type: Types.NUMBER,
     order: 7,
-    draggable: true
+    draggable: true,
+    summary: SummarySum
   },
   {
     key: 'totalPedido',
@@ -107,7 +107,8 @@ const columns = [
     filterRenderer: MultiCheckFilter,
     type: Types.NUMBER,
     order: 8,
-    draggable: true
+    draggable: true,
+    summary: SummarySum
   },
   {
     key: 'codigoPeriodo',

@@ -1,0 +1,4 @@
+Pasta para testar alteracoes em projetos clonados,
+Essas alteracoes devem ser temporarias, sempre tentar fazer pull request nos projetos originais.
+
+react-data-grid -> fork com alteracoes -> https://github.com/paulorsouza/react-data-grid -> versao forkada 3.0.3
