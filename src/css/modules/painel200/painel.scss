@@ -1,0 +1,19 @@
+.container200 {
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  display: grid;
+  grid-template-columns: 30% 40%;
+  grid-gap: 2px;
+  grid-auto-rows: 43vh;
+}
+
+.container200 > div {
+  border: 1px dotted black;
+  padding: 1em;
+}
+
+.result200 {
+  grid-column: 2 / 4;
+  grid-row: 1 / 3;
+}

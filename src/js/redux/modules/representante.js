@@ -19,7 +19,7 @@ const getQueryString = (url, dateFilter, mostrarPedidoSistema, agrupar) => {
 };
 
 export function listByDate(dateFilter, mostrarPedidoSistema, agrupar) {
-  const url = 'http://192.168.1.120:8080/orion-server/api/representantes/mysql/totalPedidosRecebidos';
+  const url = 'http://localhost:8080/orion-server/api/representantes/mysql/totalPedidosRecebidos';
   return (dispatch) => {
     fetch(getQueryString(url, dateFilter, mostrarPedidoSistema, agrupar))
       .then(response => response.json())
