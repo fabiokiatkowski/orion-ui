@@ -25,7 +25,7 @@ const SummaryCount = (props) => {
 
   return (
     <div>
-      {rowsCount}
+      Contagem: {rowsCount}
     </div>
   );
 };
@@ -35,7 +35,7 @@ const SummaryDistinctCount = (props) => {
 
   return (
     <div>
-      {distinctCount(rowsCount, rowGetter, column)}
+      Contagem dist.: {distinctCount(rowsCount, rowGetter, column)}
     </div>
   );
 };
@@ -45,7 +45,7 @@ const SummaryAverage = (props) => {
 
   return (
     <div>
-      {average(rowsCount, rowGetter, column)}
+      Media: {average(rowsCount, rowGetter, column)}
     </div>
   );
 };
@@ -56,7 +56,7 @@ const SummarySum = (props) => {
 
   return (
     <div>
-      {sum(rowsCount, rowGetter, column)}
+      Soma: {sum(rowsCount, rowGetter, column)}
     </div>
   );
 };
