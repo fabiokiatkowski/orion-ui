@@ -1,11 +1,12 @@
 import React from 'react';
+import NumeralFormat from './NumeralFormat';
 
 const sum = (rowsCount, rowGetter, column) => {
   let result = 0;
   for (let index = 0; index < rowsCount; index += 1) {
     result += rowGetter(index)[column.key];
   }
-  return result;
+  return <NumeralFormat valor={result} />;
 };
 
 const average = (rowsCount, rowGetter, column) => {
