@@ -5,7 +5,7 @@ import DropdownSearch from '../components/DropdownSearch';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
 
-export default class MultiCheckFilter extends Component {
+export default class SuperFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {

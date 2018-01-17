@@ -1,4 +1,4 @@
-import MultiCheckFilter from '../../components/MultiCheckFilter';
+import SuperFilter from '../../components/SuperFilter';
 import Types from '../../utils/filterTypes';
 import SummarySum from '../../components/SummarySum';
 
@@ -10,7 +10,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 0,
     locked: true
@@ -22,7 +22,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 1
   },
@@ -33,7 +33,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     order: 2,
     draggable: true
   },
@@ -44,7 +44,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 3,
     draggable: true
@@ -56,7 +56,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 4,
     draggable: true
@@ -68,7 +68,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 5,
     draggable: true
@@ -80,7 +80,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 6,
     draggable: true
@@ -92,7 +92,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 7,
     draggable: true,
@@ -105,7 +105,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 8,
     draggable: true,
@@ -118,7 +118,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 9,
     draggable: true
@@ -130,7 +130,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 10,
     draggable: true

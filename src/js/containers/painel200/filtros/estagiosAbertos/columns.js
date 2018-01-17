@@ -1,4 +1,4 @@
-import MultiCheckFilter from '../../../../components/MultiCheckFilter';
+import SuperFilter from '../../../../components/SuperFilter';
 import Types from '../../../../utils/filterTypes';
 
 const columns = [
@@ -10,7 +10,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 1,
     locked: true
@@ -22,7 +22,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 2
   },
@@ -33,7 +33,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     //  formatter: NumberFomatter,
     order: 3
@@ -46,7 +46,7 @@ const columns = [
     width: 150,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 4
   },
@@ -58,7 +58,7 @@ const columns = [
     width: 150,
     hidden: false,
     sortable: true,
-    filterRenderer: MultiCheckFilter,
+    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 5
   }
