@@ -1,7 +1,7 @@
 import SuperFilter from '../../../../components/SuperFilter';
 import Types from '../../../../utils/filterTypes';
 import { SummarySum } from '../../../../components/Summary';
-import IntegerFormat from '../../../../components/IntegerFormat';
+import IntegerFormat from '../../../../components/NumeralFormat';
 
 const columns = [
   {
@@ -40,7 +40,6 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     summary: SummarySum,
-    //  formatter: NumberFomatter,
     order: 3
   },
   {
