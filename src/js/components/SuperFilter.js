@@ -4,6 +4,7 @@ import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../compo
 import DropdownSearch from '../components/DropdownSearch';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
+import { TextOptions, NumberOptions } from '../utils/filterOptions';
 
 export default class SuperFilter extends Component {
   constructor(props) {
@@ -63,6 +64,20 @@ export default class SuperFilter extends Component {
     return options;
   }
 
+  getFilterOptions = () => {
+    const options = [];
+    if (this.props.column.type === Types.NUMBER) {
+      NumberOptions.forEach((v, k) => {
+        options.push(<option value={k}>{v}</option>);
+      });
+    } else if (this.props.column.type === Types.TEXT) {
+      TextOptions.forEach((v, k) => {
+        options.push(<option value={k}>{v}</option>);
+      });
+    }
+    return options;
+  }
+
   compareText = (a, b) => {
     const valueA = a.value;
     const valueB = b.value;
@@ -99,20 +114,85 @@ export default class SuperFilter extends Component {
       const loopValue = a.advancedFilterValue;
       let loopCondition = true;
 
-      if (!loopValue) {
-        loopCondition = true;
-      } else if (a.advancedFilterType == 1) {
-        loopCondition = value.includes(loopValue.toUpperCase());
-      } else if (a.advancedFilterType == 2) {
-        const stringA = String(value).trim();
-        const stringB = String(loopValue.toUpperCase()).trim();
-        loopCondition = (stringA === stringB);
+      if (loopValue) {
+        switch (a.advancedFilterType) {
+          case 'CONTAINS': {
+            loopCondition = value.includes(loopValue.toUpperCase());
+            break;
+          }
+          case 'EQUAL': {
+            const stringA = String(value).trim();
+            const stringB = String(loopValue.toUpperCase()).trim();
+            loopCondition = (stringA === stringB);
+            break;
+          }
+          case 'NOT_CONTAINS': {
+            loopCondition = !value.includes(loopValue.toUpperCase());
+            break;
+          }
+          case 'NOT_EQUAL': {
+            const stringA = String(value).trim();
+            const stringB = String(loopValue.toUpperCase()).trim();
+            loopCondition = (stringA !== stringB);
+            break;
+          }
+          default:
+            break;
+        }
       }
 
-      if (a.advancedFilterOption == 1) {
+      if (a.advancedFilterOption === 'AND') {
         actualCondition = actualCondition && loopCondition;
       }
-      if (a.advancedFilterOption == 2) {
+      if (a.advancedFilterOption === 'OR') {
+        actualCondition = actualCondition || loopCondition;
+      }
+    });
+
+    return actualCondition;
+  }
+
+  validateFiltersNumber = (value) => {
+    let actualCondition = true;
+    this.state.advancedFilters.forEach((a) => {
+      const loopValue = a.advancedFilterValue;
+      let loopCondition = true;
+
+      if (loopValue) {
+        switch (a.advancedFilterType) {
+          case 'EQUAL': {
+            loopCondition = value === loopValue;
+            break;
+          }
+          case 'NOT_EQUAL': {
+            loopCondition = value !== loopValue;
+            break;
+          }
+          case 'GREATER_THAN': {
+            loopCondition = value > loopValue;
+            break;
+          }
+          case 'EQUAL_GREATER_THAN': {
+            loopCondition = value >= loopValue;
+            break;
+          }
+          case 'LESS_THAN': {
+            loopCondition = value < loopValue;
+            break;
+          }
+          case 'EQUAL_LESS_THAN': {
+            loopCondition = value <= loopValue;
+            break;
+          }
+          default:
+            break;
+        }
+      }
+
+      if (a.advancedFilterOption === 'AND') {
+        actualCondition = actualCondition && loopCondition;
+      }
+      if (a.advancedFilterOption === 'OR') {
         actualCondition = actualCondition || loopCondition;
       }
     });
@@ -231,6 +311,8 @@ export default class SuperFilter extends Component {
       filters[idx][e.target.id] = e.target.value;
       this.setState({ advancedFilters: filters });
     };
+    const options = this.getFilterOptions();
+
     return advancedFilters && advancedFilters.map((a, idx) => {
       const key = idx;
       return (
@@ -243,8 +325,8 @@ export default class SuperFilter extends Component {
                 id="advancedFilterOption"
                 className="form-control"
               >
-                <option value={1}>e</option>
-                <option value={2}>ou</option>
+                <option value="AND">e</option>
+                <option value="OR">ou</option>
               </select>
             </div>
           }
@@ -255,9 +337,7 @@ export default class SuperFilter extends Component {
               id="advancedFilterType"
               className="form-control"
             >
-              <option value={1}>Contem</option>
-              <option value={2}>Igual</option>
-              <option value={3}>Nao faz nada</option>
+              {options}
             </select>
           </div>
           <div className="form-group mx-sm-3 mb-2">
@@ -292,46 +372,26 @@ export default class SuperFilter extends Component {
       this.setState({ advancedFilters: virtual });
     };
 
-    const textFilter = () => {
-      return (
-        <div className="advanced-filter">
-          <h3> Filtros coluna {this.props.column.key} </h3>
-          {this.renderAdvancedFilters()}
-          <div className="advanced-filter-buttons">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={addFilter}
-            >
-              Add
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={removeFilter}
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-      );
-    };
-
-    const numberFilter = () => {
-      return (
-        <div>
-          <h6> Filtros de numero </h6>
-          {this.props.column.key}
-        </div>
-      );
-    };
-
-    const { type } = this.props.column;
-
     return (
-      <div>
-        {type === Types.TEXT && textFilter()}
-        {type === Types.NUMBER && numberFilter()}
+      <div className="advanced-filter">
+        <h3> Filtros coluna {this.props.column.key} </h3>
+        {this.renderAdvancedFilters()}
+        <div className="advanced-filter-buttons">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={addFilter}
+          >
+            Add
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={removeFilter}
+          >
+            Remove
+          </button>
+        </div>
       </div>
     );
   }
