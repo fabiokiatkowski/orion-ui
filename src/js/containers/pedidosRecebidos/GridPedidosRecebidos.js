@@ -15,6 +15,7 @@ const GridPedidosRecebidos = (props) => {
       data={props.data}
       columns={columns}
       handleRowChange={() => {}}
+      enableSummary
     />
   );
 };

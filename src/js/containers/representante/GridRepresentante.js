@@ -32,6 +32,7 @@ const GridRepresentante = (props) => {
       columns={getColumns() ? getColumns() : columns}
       handleRowChange={props.handleRowChange}
       persistColumns={saveColumns}
+      enableSummary
     />
   );
 };
