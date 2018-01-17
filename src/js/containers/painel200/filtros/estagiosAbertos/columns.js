@@ -1,5 +1,7 @@
 import SuperFilter from '../../../../components/SuperFilter';
 import Types from '../../../../utils/filterTypes';
+import SummarySum from '../../../../components/SummarySum';
+import IntegerFormat from '../../../../components/IntegerFormat';
 
 const columns = [
   {
@@ -24,6 +26,7 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
+    summary: SummarySum,
     order: 2
   },
   {
@@ -35,6 +38,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
+    formatter: IntegerFormat,
+    summary: SummarySum,
     //  formatter: NumberFomatter,
     order: 3
   },
