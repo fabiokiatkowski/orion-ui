@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Types from '../utils/filterTypes';
+import IntegerFormat from '../components/NumeralFormat';
 
 class SummarySum extends Component {
   state = { teste: 'teste' }
@@ -12,6 +14,11 @@ class SummarySum extends Component {
   }
 
   render() {
+    if (this.props.column.type === Types.NUMBER) {
+      return (<IntegerFormat
+        valor={this.count()}
+      />);
+    }
     return <div>{this.count()}</div>;
   }
 }
