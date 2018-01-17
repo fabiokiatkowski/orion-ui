@@ -9,7 +9,35 @@ const sum = (rowsCount, rowGetter, column) => {
 };
 
 const average = (rowsCount, rowGetter, column) => {
-  return rowsCount ? (rowsCount, rowGetter, column) / rowsCount : 0;
+  return rowsCount ? sum(rowsCount, rowGetter, column) / rowsCount : 0;
+};
+
+const distinctCount = (rowsCount, rowGetter, column) => {
+  const set = new Set([]);
+  for (let index = 0; index < rowsCount; index += 1) {
+    set.add(rowGetter(index)[column.key]);
+  }
+  return set.size;
+};
+
+const SummaryCount = (props) => {
+  const { rowsCount } = props;
+
+  return (
+    <div>
+      {rowsCount}
+    </div>
+  );
+};
+
+const SummaryDistinctCount = (props) => {
+  const { rowsCount, rowGetter, column } = props;
+
+  return (
+    <div>
+      {distinctCount(rowsCount, rowGetter, column)}
+    </div>
+  );
 };
 
 const SummaryAverage = (props) => {
@@ -33,5 +61,5 @@ const SummarySum = (props) => {
   );
 };
 
-export { SummarySum, SummaryAverage };
+export { SummarySum, SummaryAverage, SummaryCount, SummaryDistinctCount };
 

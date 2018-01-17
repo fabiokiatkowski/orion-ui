@@ -1,6 +1,6 @@
 import SuperFilter from '../../components/SuperFilter';
 import Types from '../../utils/filterTypes';
-import { SummarySum, SummaryAverage } from '../../components/Summary';
+import { SummarySum, SummaryAverage, SummaryCount, SummaryDistinctCount } from '../../components/Summary';
 
 const columns = [
   {
@@ -24,7 +24,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 1
+    order: 1,
+    summary: SummaryCount
   },
   {
     key: 'situacao',
@@ -35,7 +36,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     order: 2,
-    draggable: true
+    draggable: true,
+    summary: SummaryDistinctCount
   },
   {
     key: 'empresa',
