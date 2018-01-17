@@ -36,7 +36,7 @@ export const listaEstagio = () => {
         type: LIST,
         data: res.data
       }))
-      .catch(err => console.error(err));
+      .catch(err => err);
   };
 };
 
