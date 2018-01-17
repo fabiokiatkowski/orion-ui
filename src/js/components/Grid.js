@@ -8,13 +8,13 @@ import CustomHeaderCell from './CustomHeaderCell';
 
 export default class Grid extends Component {
   static propTypes = {
-    data: PropsTypes.array, //eslint-disable-line
-    columns: PropsTypes.array, //eslint-disable-line
-    handleRowChange: PropsTypes.func,
-    minHeight: PropsTypes.number,
-    onRowsSelected: PropsTypes.func,
-    onRowsDeselected: PropsTypes.func,
-    indexes: PropsTypes.array, //eslint-disable-line
+    data: PropTypes.array, //eslint-disable-line
+    columns: PropTypes.array, //eslint-disable-line
+    handleRowChange: PropTypes.func,
+    minHeight: PropTypes.number,
+    onRowsSelected: PropTypes.func,
+    onRowsDeselected: PropTypes.func,
+    indexes: PropTypes.array, //eslint-disable-line
   }
 
   static defaultProps = {
