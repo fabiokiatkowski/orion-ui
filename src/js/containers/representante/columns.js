@@ -1,6 +1,6 @@
 import SuperFilter from '../../components/SuperFilter';
 import Types from '../../utils/filterTypes';
-import SummarySum from '../../components/SummarySum';
+import { SummarySum, SummaryAverage } from '../../components/Summary';
 
 const columns = [
   {
@@ -109,7 +109,7 @@ const columns = [
     type: Types.NUMBER,
     order: 8,
     draggable: true,
-    summary: SummarySum
+    summary: SummaryAverage
   },
   {
     key: 'codigoPeriodo',
@@ -121,7 +121,8 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 9,
-    draggable: true
+    draggable: true,
+    summary: SummaryAverage
   },
   {
     key: 'descricaoPeriodo',

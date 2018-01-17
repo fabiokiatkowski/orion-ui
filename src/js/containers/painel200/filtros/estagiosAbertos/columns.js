@@ -1,6 +1,6 @@
 import SuperFilter from '../../../../components/SuperFilter';
 import Types from '../../../../utils/filterTypes';
-import SummarySum from '../../../../components/SummarySum';
+import { SummarySum } from '../../../../components/Summary';
 import IntegerFormat from '../../../../components/IntegerFormat';
 
 const columns = [
