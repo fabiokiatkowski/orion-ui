@@ -1,4 +1,4 @@
-import axios from '../../../../axios-orion';
+import axios from '../../../axios-orion';
 
 export const LIST = 'estagiosAbertos/LIST';
 export const ESTAGIOS_CHECKED = 'estagiosAbertos/ESTAGIOS_CHECKED';

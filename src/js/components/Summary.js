@@ -6,7 +6,7 @@ const sum = (rowsCount, rowGetter, column) => {
   for (let index = 0; index < rowsCount; index += 1) {
     result += rowGetter(index)[column.key];
   }
-  return <NumeralFormat valor={result} />;
+  return result;
 };
 
 const average = (rowsCount, rowGetter, column) => {
@@ -57,7 +57,7 @@ const SummarySum = (props) => {
 
   return (
     <div>
-      Soma: {sum(rowsCount, rowGetter, column)}
+      Soma: <NumeralFormat valor={sum(rowsCount, rowGetter, column)} />
     </div>
   );
 };
