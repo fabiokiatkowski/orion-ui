@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import joinClasses from 'classnames';
 import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../components/Dropdown';
 import DropdownSearch from '../components/DropdownSearch';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
 
-export default class MultiCheckFilter extends Component {
+export default class SuperFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +18,8 @@ export default class MultiCheckFilter extends Component {
           advancedFilterType: 1,
           advancedFilterValue: null
         }
-      ]
+      ],
+      hasFilter: false
     };
   }
 
@@ -31,6 +33,7 @@ export default class MultiCheckFilter extends Component {
 
   onConfirm = () => {
     const { selected } = this.state;
+    this.setState({ hasFilter: this.hasFilter() });
     this.props.onChange({
       filterTerm: selected,
       column: this.props.column,
@@ -169,6 +172,12 @@ export default class MultiCheckFilter extends Component {
       this.addOption(e, item);
     }
   };
+
+  hasFilter = () => {
+    const { advancedFilter, advancedFilters, selected } = this.state;
+    return (!advancedFilter && selected.length > 0) ||
+      (advancedFilter && advancedFilters.some(x => x.advancedFilterValue));
+  }
 
   renderDropdownItem = (item) => {
     const isUsing = this.isUsingOption(item);
@@ -318,6 +327,7 @@ export default class MultiCheckFilter extends Component {
     };
 
     const { type } = this.props.column;
+
     return (
       <div>
         {type === Types.TEXT && textFilter()}
@@ -328,6 +338,12 @@ export default class MultiCheckFilter extends Component {
 
   render() {
     const isAdvanced = this.state.advancedFilter;
+    const { hasFilter } = this.state;
+    const className = joinClasses({
+      'fa fa-filter': !hasFilter,
+      'fa fa-filter-active': hasFilter
+    });
+
     return (
       <Dropdown
         onShowDropdown={this.onOpen}
@@ -335,7 +351,7 @@ export default class MultiCheckFilter extends Component {
       >
         <DropdownToggle className="box-control">
           <span className="icon">
-            <i className="fa fa-plus" />
+            <i className={className} aria-hidden="true" />
           </span>
         </DropdownToggle>
         <DropdownHeader>

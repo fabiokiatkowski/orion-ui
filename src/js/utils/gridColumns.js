@@ -1,4 +1,4 @@
-import MultiCheckFilter from '../components/MultiCheckFilter';
+import SuperFilter from '../components/SuperFilter';
 
 const ColumnPersist = {
   save: (key, value) => {
