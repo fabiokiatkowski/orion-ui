@@ -2,49 +2,45 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropsTypes from 'prop-types';
-import { listaEstagio } from '../../../redux/modules/painel200/filtros/estagiosAbertos';
+import { listaEstagio, marcarEstagio, desmarcarEstagio } from '../../../redux/modules/painel200/filtros/estagiosAbertos';
 
 import GridEstagiosAbertos from '../filtros/estagiosAbertos/GridEstagiosAbertos';
 
 const mapStateToProps = state => ({
-  data: state.filtrosEstagiosAbertos.data
+  data: state.filtrosEstagiosAbertos.data,
+  selectedEstagios: state.filtrosEstagiosAbertos.estagiosMarcados
 });
 
 const mapDispatchToProps = dispatch => ({
   list: bindActionCreators(listaEstagio, dispatch),
+  marcarEstagio: bindActionCreators(marcarEstagio, dispatch),
+  desmarcarEstagio: bindActionCreators(desmarcarEstagio, dispatch),
 });
 
 
-class Painel200 extends Component {
+class PainelEstagiosAbertos extends Component {
   state = {
-    selectedRow: [],
-    selectedEstagios: []
+    selectedRow: []
   };
   componentDidMount() {
     this.props.list();
   }
   onRowsSelectedHandler = (rows) => {
+    this.props.marcarEstagio(rows);
     const currentState = {
       ...this.state
     };
     const newIds = currentState.selectedRow.concat(rows.map(r => r.rowIdx));
-    const newEstagios = currentState.selectedEstagios.concat(rows.map(r =>
-      r.row.codigoEstagio));
-    this.setState({ selectedRow: newIds, selectedEstagios: newEstagios });
+    this.setState({ selectedRow: newIds });
   };
   onRowsDeselectedHandler = (rows) => {
+    this.props.desmarcarEstagio(rows);
     const rowIndexes = rows.map(r => r.rowIdx);
-    const rowEstagio = rows.map(r => r.row.codigoEstagio);
-    const currentState = {
-      ...this.state
-    };
-    const newIndexesState = currentState.selectedRow.filter(i =>
+    const newIndexesState = this.state.selectedRow.filter(i =>
       rowIndexes.indexOf(i) === -1);
-    const newEstagioState = currentState.selectedEstagios.filter(i =>
-      rowEstagio.indexOf(i) === -1);
     this.setState({
-      selectedRow: newIndexesState,
-      selectedEstagios: newEstagioState
+      ...this.state,
+      selectedRow: newIndexesState
     });
   }
   render() {
@@ -59,9 +55,6 @@ class Painel200 extends Component {
             onRowsDeselected={this.onRowsDeselectedHandler}
             indexes={this.state.selectedRow}
           />
-          <p>Estágios selecionados:
-            <strong>{this.state.selectedEstagios.join()}</strong>
-          </p>
         </div>
         <div>Two</div>
         <div className="result200">three</div>
@@ -70,13 +63,16 @@ class Painel200 extends Component {
   }
 }
 
-Painel200.propTypes = {
+PainelEstagiosAbertos.propTypes = {
   list: PropsTypes.func.isRequired,
+  marcarEstagio: PropsTypes.func.isRequired,
+  desmarcarEstagio: PropsTypes.func.isRequired,
+  selectedEstagios: PropsTypes.array.isRequired, //eslint-disable-line
   data: PropsTypes.array.isRequired //eslint-disable-line
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Painel200);
+)(PainelEstagiosAbertos);
 

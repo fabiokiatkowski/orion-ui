@@ -1,6 +1,7 @@
 import MultiCheckFilter from '../../../../components/MultiCheckFilter';
 import Types from '../../../../utils/filterTypes';
 import SummarySum from '../../../../components/SummarySum';
+import IntegerFormat from '../../../../components/IntegerFormat';
 
 const columns = [
   {
@@ -37,6 +38,7 @@ const columns = [
     sortable: true,
     filterRenderer: MultiCheckFilter,
     type: Types.NUMBER,
+    formatter: IntegerFormat,
     summary: SummarySum,
     //  formatter: NumberFomatter,
     order: 3
