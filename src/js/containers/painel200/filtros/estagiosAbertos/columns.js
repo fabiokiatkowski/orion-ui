@@ -26,6 +26,7 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
+    formatter: IntegerFormat,
     summary: SummarySum,
     order: 2
   },

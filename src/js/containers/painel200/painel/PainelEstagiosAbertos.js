@@ -86,9 +86,11 @@ class PainelEstagiosAbertos extends Component {
             indexes={this.state.estagiosSelectedRow}
           />
           <button
+            className="btn btn-default pull-right btn-margin-top"
             onClick={() => this.props
               .listarPeriodos(this.props.selectedEstagios.join())}
-          >Consultar Periodos
+          >
+            Consultar Periodos
           </button>
         </div>
         <div>
@@ -99,6 +101,12 @@ class PainelEstagiosAbertos extends Component {
             onRowsDeselected={this.onPeriodoRowsDeselectedHandler}
             indexes={this.state.periodosSelectedRow}
           />
+          <button
+            className="btn btn-default pull-right btn-margin-top"
+            onClick={() => {}}
+          >
+            Consultar Ordens
+          </button>
         </div>
         <div className="result200">three</div>
       </div>

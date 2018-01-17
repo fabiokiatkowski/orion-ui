@@ -18,20 +18,8 @@ const columns = [
     locked: true
   },
   {
-    key: 'quantidadePecas',
-    name: 'Peças',
-    filterable: true,
-    resizable: true,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
-    type: Types.NUMBER,
-    summary: SummarySum,
-    order: 2
-  },
-  {
     key: 'quantidadeOrdens',
-    name: 'Ordens',
+    name: 'OP',
     filterable: true,
     resizable: true,
     hidden: false,
@@ -41,6 +29,19 @@ const columns = [
     formatter: IntegerFormat,
     summary: SummarySum,
     order: 3
+  },
+  {
+    key: 'quantidadePecas',
+    name: 'Peças',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    formatter: IntegerFormat,
+    summary: SummarySum,
+    order: 2
   }
 ];
 

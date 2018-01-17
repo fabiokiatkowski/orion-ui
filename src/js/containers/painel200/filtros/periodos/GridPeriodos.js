@@ -14,9 +14,10 @@ const GridPeriodos = (props) => {
       onRowsSelected={props.onRowsSelected}
       onRowsDeselected={props.onRowsDeselected}
       indexes={props.indexes}
+      enableSummary
     />
   );
-}
+};
 
 GridPeriodos.propTypes = {
   setCurrentRow: PropsTypes.func.isRequired,

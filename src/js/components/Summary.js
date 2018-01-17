@@ -57,7 +57,7 @@ const SummarySum = (props) => {
 
   return (
     <div>
-      Soma: <NumeralFormat valor={sum(rowsCount, rowGetter, column)} />
+      Total: <NumeralFormat valor={sum(rowsCount, rowGetter, column)} />
     </div>
   );
 };
