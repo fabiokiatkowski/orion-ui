@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link, Route } from 'react-router-dom';
 import PanelRepresentantes from '../containers/PanelRepresentantes';
-import Painel200 from '../containers/painel200/painel/Painel200';
+import PainelEstagiosAbertos from '../containers/painel200/painel/PainelEstagiosAbertos';
 
 const Header = (props) => {
   return (
@@ -50,7 +50,7 @@ const Header = (props) => {
       </Navbar>
       <main>
         <Route exact path="/" render={() => <div />} />
-        <Route exact path="/tela200" component={Painel200} />
+        <Route exact path="/tela200" component={PainelEstagiosAbertos} />
         <Route exact path="/painelRepresentantes" component={PanelRepresentantes} />
       </main>
     </div>
