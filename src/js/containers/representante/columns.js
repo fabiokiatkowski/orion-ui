@@ -12,7 +12,8 @@ const columns = [
     sortable: true,
     filterRenderer: MultiCheckFilter,
     type: Types.NUMBER,
-    order: 0
+    order: 0,
+    locked: true
   },
   {
     key: 'estado',
@@ -23,7 +24,7 @@ const columns = [
     sortable: true,
     filterRenderer: MultiCheckFilter,
     type: Types.TEXT,
-    order: 1,
+    order: 1
   },
   {
     key: 'situacao',

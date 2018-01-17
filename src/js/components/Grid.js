@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import Toolbar from './Toolbar';
+import CustomHeaderCell from './CustomHeaderCell';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -132,6 +133,7 @@ export default class Grid extends Component {
           toolbar={<Toolbar enableFilter />}
           onCellSelected={this.onCellSelected}
           onColumnResize={this.onColumnResize}
+          headerRenderer={CustomHeaderCell}
         />
       </DraggableHeader.DraggableContainer>
     );

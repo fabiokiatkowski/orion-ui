@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import joinClasses from 'classnames';
-import MultiCheckFilter from './MultiCheckFilter';
 
 const DEFINE_SORT = {
   ASC: 'ASC',
@@ -68,13 +67,13 @@ class CustomHeaderCell extends React.Component {
         onClick={this.onClick}
         style={{ cursor: 'pointer' }}
       >
-        {this.getFilter()}
+        <span className="filter-icon">{this.getFilter()}</span>
         <span className="pull-right">{this.getSortByText()}</span>
         {this.props.column.name}
+       
       </div>
     );
   }
 }
 
-module.exports = CustomHeaderCell;
-module.exports.DEFINE_SORT = DEFINE_SORT;
+export default CustomHeaderCell;

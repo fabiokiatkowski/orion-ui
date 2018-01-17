@@ -8794,7 +8794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        return React.cloneElement(_this.props.renderer, { column: _this.props.column, height: _this.props.height });
 	      }
-	      return _this.props.renderer({ column: _this.props.column });
+	      return _this.props.renderer(_this.props);
 	    }, _this.getStyle = function () {
 	      return {
 	        width: _this.props.column.width,
@@ -10676,7 +10676,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      return columnMetrics;
 	    }, _this.getColumnPosition = function (column) {
-	      console.log('position', column);
 	      var columnMetrics = _this.getColumnMetrics();
 	      var pos = -1;
 	      columnMetrics.columns.forEach(function (c, idx) {
@@ -10928,7 +10927,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.cells = [];
 	  },
 	  onScroll: function onScroll(e) {
-	    console.log('teste');
 	    if (ReactDOM.findDOMNode(this) !== e.target) {
 	      return;
 	    }
@@ -10937,7 +10935,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var scrollTop = e.target.scrollTop;
 	    var scroll = { scrollTop: scrollTop, scrollLeft: scrollLeft };
 	    this._scroll = scroll;
-	    console.log(scroll);
 	    this.props.onScroll(scroll);
 	  },
 	  getStyle: function getStyle() {
@@ -10988,7 +10985,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  setScrollLeft: function setScrollLeft(scrollLeft) {
 	    var _this2 = this;
 
-	    console.log(this, scrollLeft);
 	    this.props.columns.forEach(function (column, i) {
 	      if (column.locked) {
 	        _this2.cells[i].setScrollLeft(scrollLeft);
@@ -11012,7 +11008,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    var cells = this.getCells();
-	    console.log(this.onScroll);
 	    return _react2['default'].createElement(
 	      'div',
 	      _extends({}, this.getKnownDivProps(), {
@@ -11160,7 +11155,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          onHeaderDrop: this.props.onHeaderDrop,
 	          onScroll: this.onHeaderScroll,
 	          getValidFilterValues: this.props.getValidFilterValues,
-	          cellMetaData: this.props.cellMetaData
+	          cellMetaData: this.props.cellMetaData,
+	          headerRenderer: this.props.headerRenderer
 	        }),
 	        this.props.rowsCount >= 1 || this.props.rowsCount === 0 && !this.props.emptyRowsView ? React.createElement(
 	          'div',
@@ -11253,7 +11249,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this._scrollLeft = undefined;
 	  },
 	  onScroll: function onScroll(props) {
-	    console.log('props', props);
 	    if (this._scrollLeft !== props.scrollLeft) {
 	      this._scrollLeft = props.scrollLeft;
 	      this._onScroll();
@@ -11264,14 +11259,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (this._scrollLeft !== scrollLeft) {
 	      this._scrollLeft = scrollLeft;
 	      this.header.setScrollLeft(scrollLeft);
-	      console.log(this);
 	      var canvas = ReactDOM.findDOMNode(this.viewport.canvas);
 	      canvas.scrollLeft = scrollLeft;
 	      this.viewport.canvas.setScrollLeft(scrollLeft);
 	    }
 	  },
 	  _onScroll: function _onScroll() {
-	    console.log(this);
 	    if (this._scrollLeft !== undefined) {
 	      this.header.setScrollLeft(this._scrollLeft);
 	      if (this.viewport) {
@@ -11402,7 +11395,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          sortDirection: _this.props.sortDirection,
 	          onSort: _this.props.onSort,
 	          onScroll: _this.props.onScroll,
-	          getValidFilterValues: _this.props.getValidFilterValues
+	          getValidFilterValues: _this.props.getValidFilterValues,
+	          headerRenderer: _this.props.headerRenderer
 	        }));
 	      });
 	      return headerRows;
@@ -11514,7 +11508,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  SORTABLE: 0,
 	  FILTERABLE: 1,
 	  NONE: 2,
-	  CHECKBOX: 3
+	  CHECKBOX: 3,
+	  CUSTOM: 4
 	};
 
 	module.exports = HeaderCellType;
@@ -11590,6 +11585,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return nextProps.width !== this.props.width || nextProps.height !== this.props.height || nextProps.columns !== this.props.columns || !shallowEqual(nextProps.style, this.props.style) || this.props.sortColumn !== nextProps.sortColumn || this.props.sortDirection !== nextProps.sortDirection;
 	  },
 	  getHeaderCellType: function getHeaderCellType(column) {
+	    if (this.props.headerRenderer) {
+	      return HeaderCellType.CUSTOM;
+	    }
+
 	    if (column.filterable) {
 	      if (this.props.filterable) return HeaderCellType.FILTERABLE;
 	    }
@@ -11609,6 +11608,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var sortDirection = this.props.sortColumn === column.key ? this.props.sortDirection : SortableHeaderCell.DEFINE_SORT.NONE;
 	    return React.createElement(SortableHeaderCell, { columnKey: column.key, onSort: this.props.onSort, sortDirection: sortDirection });
 	  },
+	  getCustomHeaderCell: function getCustomHeaderCell(column) {
+	    var sortDirection = this.props.sortColumn === column.key ? this.props.sortDirection : SortableHeaderCell.DEFINE_SORT.NONE;
+	    var HeaderRenderer = this.props.headerRenderer;
+	    return React.createElement(HeaderRenderer, _extends({}, this.props, {
+	      onChange: this.props.onFilterChange,
+	      onSort: this.props.onSort,
+	      sortDirection: sortDirection
+	    }));
+	  },
 	  getHeaderRenderer: function getHeaderRenderer(column) {
 	    var renderer = void 0;
 	    if (column.headerRenderer && !this.props.filterable) {
@@ -11621,6 +11629,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          break;
 	        case HeaderCellType.FILTERABLE:
 	          renderer = this.getFilterableHeaderCell(column);
+	          break;
+	        case HeaderCellType.CUSTOM:
+	          renderer = this.getCustomHeaderCell(column);
 	          break;
 	        default:
 	          break;
@@ -12698,9 +12709,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  getHeaderRows: function getHeaderRows() {
 	    var _this6 = this;
 
-	    var rows = [{ ref: function ref(node) {
+	    var rows = [{
+	      ref: function ref(node) {
 	        return _this6.row = node;
-	      }, height: this.props.headerRowHeight || this.props.rowHeight, rowType: 'header' }];
+	      },
+	      height: this.props.headerRowHeight || this.props.rowHeight,
+	      rowType: 'header',
+	      onFilterChange: this.props.onAddFilter
+	    }];
 	    if (this.state.canFilter === true) {
 	      rows.push({
 	        ref: function ref(node) {
