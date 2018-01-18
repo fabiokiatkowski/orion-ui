@@ -5,8 +5,8 @@ import IntegerFormat from '../../../../components/NumeralFormat';
 
 const columns = [
   {
-    key: 'estagioComDescricao',
-    name: 'Estágio',
+    key: 'periodoComDescricao',
+    name: 'Periodo',
     width: 200,
     filterable: true,
     resizable: true,
@@ -18,21 +18,8 @@ const columns = [
     locked: true
   },
   {
-    key: 'quantidadeOrdensAProduzir',
+    key: 'quantidadeOrdens',
     name: 'OP',
-    filterable: true,
-    resizable: true,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
-    type: Types.NUMBER,
-    formatter: IntegerFormat,
-    summary: SummarySum,
-    order: 2
-  },
-  {
-    key: 'quantidadePecasAProduzir',
-    name: 'Peças',
     filterable: true,
     resizable: true,
     hidden: false,
@@ -44,28 +31,17 @@ const columns = [
     order: 3
   },
   {
-    key: 'descricaoAgrupador',
-    name: 'Agrupador',
+    key: 'quantidadePecas',
+    name: 'Peças',
     filterable: true,
     resizable: true,
-    width: 150,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
-    type: Types.TEXT,
-    order: 4
-  },
-  {
-    key: 'responsavelEstagio',
-    name: 'Responsável',
-    filterable: true,
-    resizable: true,
-    width: 150,
     hidden: false,
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    order: 5
+    formatter: IntegerFormat,
+    summary: SummarySum,
+    order: 2
   }
 ];
 

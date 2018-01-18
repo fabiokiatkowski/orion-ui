@@ -1,4 +1,5 @@
 import React from 'react';
+import NumeralFormat from './NumeralFormat';
 
 const sum = (rowsCount, rowGetter, column) => {
   let result = 0;
@@ -56,7 +57,7 @@ const SummarySum = (props) => {
 
   return (
     <div>
-      Soma: {sum(rowsCount, rowGetter, column)}
+      Total: <NumeralFormat valor={sum(rowsCount, rowGetter, column)} />
     </div>
   );
 };
