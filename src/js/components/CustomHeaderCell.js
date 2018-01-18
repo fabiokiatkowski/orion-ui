@@ -36,11 +36,17 @@ SelectAll.defaultProps = {
 
 class CustomHeaderCell extends React.Component {
   static propTypes = {
-    columnKey: PropTypes.string.isRequired,
-    column: PropTypes.shape({ name: PropTypes.node }),
+    column: PropTypes.object,
     onSort: PropTypes.func.isRequired,
-    sortDirection: PropTypes.oneOf(Object.keys(DEFINE_SORT))
+    sortDirection: PropTypes.oneOf(Object.keys(DEFINE_SORT)),
+    onFilterChange: PropTypes.func
   };
+
+  static defaultProps = {
+    column: { key: '' },
+    sortDirection: DEFINE_SORT.NONE,
+    onFilterChange: () => {}
+  }
 
   onClick = () => {
     let direction;
@@ -68,7 +74,10 @@ class CustomHeaderCell extends React.Component {
   getFilter = () => {
     if (this.props.column.filterRenderer !== undefined) {
       const FilterRenderer = this.props.column.filterRenderer;
-      return <FilterRenderer {...this.props} onChange={this.props.onFilterChange} />;
+      return (<FilterRenderer
+        {...this.props}
+        onChange={this.props.onFilterChange}
+      />);
     }
     return null;
   }

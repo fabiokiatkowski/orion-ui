@@ -7,12 +7,9 @@ import Grid from '../../../components/Grid';
 const GridOrdens = (props) => {
   return (
     <Grid
-      setCurrentRow={props.setCurrentRow}
       minHeight={props.minHeight}
       data={props.data}
       columns={columns}
-      onRowsSelected={props.onRowsSelected}
-      onRowsDeselected={props.onRowsDeselected}
       indexes={props.indexes}
       enableSummary={false}
     />
@@ -20,9 +17,6 @@ const GridOrdens = (props) => {
 };
 
 GridOrdens.propTypes = {
-  setCurrentRow: PropsTypes.func.isRequired,
-  onRowsSelected: PropsTypes.func.isRequired,
-  onRowsDeselected: PropsTypes.func.isRequired,
   minHeight: PropsTypes.number.isRequired,
   indexes: PropsTypes.array.isRequired, //eslint-disable-line
   data: PropsTypes.array.isRequired //eslint-disable-line

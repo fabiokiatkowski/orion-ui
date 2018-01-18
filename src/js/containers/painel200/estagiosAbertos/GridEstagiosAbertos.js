@@ -6,7 +6,6 @@ import columns from './columns';
 const GridEstagiosAbertos = (props) => {
   return (
     <Grid
-      setCurrentRow={props.setCurrentRow}
       minHeight={props.minHeight}
       data={props.data}
       columns={columns}
@@ -19,7 +18,6 @@ const GridEstagiosAbertos = (props) => {
 };
 
 GridEstagiosAbertos.propTypes = {
-  setCurrentRow: PropsTypes.func.isRequired,
   minHeight: PropsTypes.number.isRequired,
   onRowsSelected: PropsTypes.func.isRequired,
   onRowsDeselected: PropsTypes.func.isRequired,

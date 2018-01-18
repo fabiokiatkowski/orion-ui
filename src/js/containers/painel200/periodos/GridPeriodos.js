@@ -7,7 +7,6 @@ import Grid from '../../../components/Grid';
 const GridPeriodos = (props) => {
   return (
     <Grid
-      setCurrentRow={props.setCurrentRow}
       minHeight={props.minHeight}
       data={props.data}
       columns={columns}
@@ -21,7 +20,6 @@ const GridPeriodos = (props) => {
 };
 
 GridPeriodos.propTypes = {
-  setCurrentRow: PropsTypes.func.isRequired,
   onRowsSelected: PropsTypes.func.isRequired,
   onRowsDeselected: PropsTypes.func.isRequired,
   minHeight: PropsTypes.number.isRequired,
