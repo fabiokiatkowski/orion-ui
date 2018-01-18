@@ -63,7 +63,7 @@ class PainelEstagiosAbertos extends Component {
       periodosSelectedRow: []
     });
   }
-  //#endregion 
+  //#endregion
   //#region periodos row handlers
   onPeriodoRowsSelectedHandler = (rows) => {
     this.props.marcarPeriodo(rows);

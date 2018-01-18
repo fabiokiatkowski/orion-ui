@@ -120,7 +120,7 @@ const reducer = (state = initalState, action = {}) => {
           ...state.ordens,
           data: action.data
         }
-      }
+      };
     }
     default:
       return state;
