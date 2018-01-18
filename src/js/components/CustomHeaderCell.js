@@ -32,8 +32,12 @@ class CustomHeaderCell extends React.Component {
         direction = DEFINE_SORT.NONE;
         break;
     }
+
+    console.log(direction);
+    console.log(this.props);
+
     this.props.onSort(
-      this.props.columnKey,
+      this.props.column.key,
       direction
     );
   };
@@ -70,10 +74,10 @@ class CustomHeaderCell extends React.Component {
         <span className="filter-icon">{this.getFilter()}</span>
         <span className="pull-right">{this.getSortByText()}</span>
         {this.props.column.name}
-       
       </div>
     );
   }
 }
 
+module.exports.DEFINE_SORT = DEFINE_SORT;
 export default CustomHeaderCell;
