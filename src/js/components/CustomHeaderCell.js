@@ -8,6 +8,32 @@ const DEFINE_SORT = {
   NONE: 'NONE'
 };
 
+const SelectAll = (props) => {
+  return (
+    <div className="react-grid-checkbox-container checkbox-align">
+      <input
+        className="react-grid-checkbox"
+        type="checkbox"
+        name="select-all-checkbox"
+        id="select-all-checkbox"
+        ref={props.inputRef}
+        onChange={props.onChange}
+      />
+      <label htmlFor="select-all-checkbox" className="react-grid-checkbox-label" />
+    </div>
+  );
+};
+
+SelectAll.propTypes = {
+  onChange: PropTypes.func,
+  inputRef: PropTypes.func
+};
+
+SelectAll.defaultProps = {
+  onChange: () => {},
+  inputRef: () => {}
+};
+
 class CustomHeaderCell extends React.Component {
   static propTypes = {
     columnKey: PropTypes.string.isRequired,
@@ -33,9 +59,6 @@ class CustomHeaderCell extends React.Component {
         break;
     }
 
-    console.log(direction);
-    console.log(this.props);
-
     this.props.onSort(
       this.props.column.key,
       direction
@@ -58,13 +81,12 @@ class CustomHeaderCell extends React.Component {
     return this.props.sortDirection === 'NONE' ? '' : String.fromCharCode(unicodeKeys[this.props.sortDirection]);
   };
 
-  render() {
-    const className = joinClasses({
-      'react-grid-HeaderCell-sortable': true,
-      'react-grid-HeaderCell-sortable--ascending': this.props.sortDirection === 'ASC',
-      'react-grid-HeaderCell-sortable--descending': this.props.sortDirection === 'DESC'
-    });
-
+  renderHeader = (className) => {
+    if (this.props.column.key === 'select-row') {
+      return (
+        <SelectAll {...this.props} />
+      );
+    }
     return (
       <div
         className={className}
@@ -77,7 +99,20 @@ class CustomHeaderCell extends React.Component {
       </div>
     );
   }
+
+  render() {
+    const className = joinClasses({
+      'react-grid-HeaderCell-sortable': true,
+      'react-grid-HeaderCell-sortable--ascending': this.props.sortDirection === 'ASC',
+      'react-grid-HeaderCell-sortable--descending': this.props.sortDirection === 'DESC'
+    });
+
+    return (
+      <div>
+        { this.renderHeader(className) }
+      </div>
+    );
+  }
 }
 
-module.exports.DEFINE_SORT = DEFINE_SORT;
 export default CustomHeaderCell;
