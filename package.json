@@ -13,6 +13,29 @@
         "postinstall": "node nightwatch.conf.js",
         "test:functional": "./node_modules/.bin/nightwatch"
     },
+    "jest": {
+        "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js",
+        "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+        "testFileExtensions": [
+            "js"
+        ],
+        "moduleFileExtensions": [
+            "js",
+            "json"
+        ],
+        "unmockedModulePathPatterns": [
+            "<rootDir>/node_modules/react",
+            "<rootDir>/node_modules/react-dom",
+            "<rootDir>/node_modules/redux",
+            "<rootDir>/node_modules/fbjs",
+            "<rootDir>/node_modules/enzyme",
+            "<rootDir>/node_modules/react-addons-test-utils",
+            "<rootDir>/node_modules/immutable/",
+            "<rootDir>/node_modules/lodash",
+            "<rootDir>/node_modules/moment",
+            "<rootDir>/node_modules/classnames"
+        ]
+    },
     "dependencies": {
         "axios": "^0.17.1",
         "bootstrap": "^3.3.7",
@@ -39,7 +62,8 @@
         "react-tether": "^0.6.0",
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.2.0"
+        "redux-thunk": "^2.2.0",
+        "moment": "^2.20.1"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",
@@ -51,6 +75,7 @@
         "babel-preset-stage-1": "^6.24.1",
         "clean-webpack-plugin": "^0.1.17",
         "css-loader": "^0.28.7",
+        "enzyme": "^3.3.0",
         "eslint": "^4.12.1",
         "eslint-config-airbnb": "^16.1.0",
         "eslint-plugin-babel": "^4.1.2",
@@ -60,6 +85,8 @@
         "extract-text-webpack-plugin": "^3.0.2",
         "file-loader": "^1.1.5",
         "html-webpack-plugin": "^2.30.1",
+        "jest": "^22.1.2",
+        "jest-cli": "^22.1.2",
         "nightwatch": "^0.9.19",
         "node-sass": "^4.7.2",
         "npm-run-all": "^4.1.2",

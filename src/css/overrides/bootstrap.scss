@@ -1,0 +1,39 @@
+.navbar-inverse .navbar-brand {
+  color: $pacifico-brand;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  font-size: 14px;
+  color: #337ab7;
+}
+
+main {
+  .panel-body {
+    background-color: #eee;
+  }
+  
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background-color: #cdcdcd;
+    color: black;
+    font-weight: 700;
+    border: 1px solid #7a7a7a;
+  }
+  
+  .nav-tabs {
+    border-bottom: 1px solid #7a7a7a;
+  }
+  
+  .form-control {
+    height: 2.2em;
+    font-size: inherit;
+  }
+  
+  .input-group-addon {
+    font-size: inherit;
+  }
+  
+  .nav > li > a {
+    padding: 5px 10px;
+  }
+
+}

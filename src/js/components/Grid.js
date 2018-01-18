@@ -61,24 +61,28 @@ export default class Grid extends Component {
   onColumnResize = (index, newWidth) => {
     const newColumns = this.state.columnsDef;
     newColumns[index].width = newWidth;
-    this.props.persistColumns(newColumns);
+    // this.setState({ ...this.state, columnsDef: newColumns });;
+    this.persistColumns(newColumns);
   }
 
   onHeaderDrop = (source, target) => {
     const columns = this.state.columnsDef;
     const columnsSourceIndex = columns
       .findIndex(i => i.key === source);
-    const columnTardeIndex = columns
+    const columnTargetIndex = columns
       .findIndex(i => i.key === target);
-    columns.splice(
-      columnTardeIndex,
-      0,
-      columns.splice(columnsSourceIndex, 1)[0]
-    );
+    // columns.splice(
+    //   columnTargetIndex,
+    //   0,
+    //   columns.splice(columnsSourceIndex, 1)[0]
+    // );
+    columns[columnsSourceIndex].order = columnTargetIndex;
+    columns[columnTargetIndex].order = columnsSourceIndex;
+
     const newState = { ...this.state, columnsDef: columns };
     this.setState({ ...this.state, columnsDef: [] });
     this.setState(newState);
-    this.props.persistColumns(columns);
+    this.persistColumns(columns);
   }
 
   getColumns = (columnsDef) => {
@@ -103,6 +107,17 @@ export default class Grid extends Component {
       return i === a.indexOf(item);
     });
   };
+
+  persistColumns = (columns) => {
+    const preferences = columns.map((c) => {
+      return (new Map([
+        [c.key, JSON.stringify({
+          width: c.width,
+          order: c.order
+        })]]));
+    });
+    this.props.persistColumns(preferences);
+  }
 
   handleFilterChange = (filter) => {
     const newFilters = { ...this.state.filters };
@@ -132,6 +147,7 @@ export default class Grid extends Component {
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
           columns={this.state.columnsDef}
+          rowHeight={30}
           rowGetter={this.rowGetter}
           rowsCount={this.getSize()}
           onAddFilter={this.handleFilterChange}
