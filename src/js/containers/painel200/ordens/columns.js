@@ -14,7 +14,8 @@ const columns = [
     filterRenderer: SuperFilter,
     formatter: IntegerFormat,
     type: Types.NUMBER,
-    order: 1
+    order: 1,
+    locked: true
   },
   {
     key: 'ordemPrincipal',
@@ -26,7 +27,8 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
-    order: 2
+    order: 2,
+    locked: true
   },
   {
     key: 'referenciaPeca',
@@ -37,7 +39,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 3
+    order: 3,
+    locked: true
   },
   {
     key: 'codDesPeriodo',
@@ -48,7 +51,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 4
+    order: 4,
+    locked: true
   },
   {
     key: 'proconfItem',
@@ -59,7 +63,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 5
+    order: 5,
+    locked: true
   },
   {
     key: 'descrColecao',
@@ -70,7 +75,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 6
+    order: 6,
+    locked: true
   },
   {
     key: 'descodEstagio',
@@ -81,7 +87,8 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 7
+    order: 7,
+    locked: true
   },
   {
     key: 'tempoDesdeEstagio',
@@ -301,6 +308,214 @@ const columns = [
     formatter: IntegerFormat,
     summary: SummarySum,
     order: 25
+  },
+  {
+    key: 'qtdeSegunda',
+    name: 'Qtde. Segunda',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    formatter: IntegerFormat,
+    summary: SummarySum,
+    order: 26
+  },
+  {
+    key: 'qtdePerda',
+    name: 'Qtde. Perda',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    formatter: IntegerFormat,
+    summary: SummarySum,
+    order: 27
+  },
+  {
+    key: 'qtdeConserto',
+    name: 'Qtde. Conserto',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    formatter: IntegerFormat,
+    summary: SummarySum,
+    order: 28
+  },
+  {
+    key: 'qtdePendente',
+    name: 'Qtde. Pendente',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    formatter: IntegerFormat,
+    summary: SummarySum,
+    order: 29
+  },
+  {
+    key: 'artigoCotas',
+    name: 'Artigo de Cotas',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 30
+  },
+  {
+    key: 'opMesmaRefCor',
+    name: 'OP. mesma Ref/Cor',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 31
+  },
+  {
+    key: 'cancelouOp',
+    name: 'Cancelou OP',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 32
+  },
+  {
+    key: 'ordemServicoCostura',
+    name: 'Ordem de Serviço de Costura',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    formatter: IntegerFormat,
+    order: 33
+  },
+  {
+    key: 'ordemServiço',
+    name: 'Ordem de Serviço',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    formatter: IntegerFormat,
+    order: 34
+  },
+  {
+    key: 'nomeServicoEstagi',
+    name: 'Nome Terceiro',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 35
+  },
+  {
+    key: 'dataEmissaoOs',
+    name: 'Data Emissão',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.DATE,
+    order: 36
+  },
+  {
+    key: 'dataPrevisaoOS',
+    name: 'Data Previsão',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.DATA,
+    order: 37
+  },
+  {
+    key: 'dataProrrogacaoOS',
+    name: 'Data Prorrogação',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.DATA,
+    order: 38
+  },
+  {
+    key: 'desCodfamilia',
+    name: 'Des. Família',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 39
+  },
+  {
+    key: 'responsavel',
+    name: 'Responsável',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 40
+  },
+  {
+    key: 'dataPrimBixaUltEst',
+    name: 'Data Prim. Baixa Ult. Est.',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.DATE,
+    order: 41
+  },
+  {
+    key: 'semRoteiroCostura',
+    name: 'Sem Roteiro Costura',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 42
+  },
+  {
+    key: 'reservaZerada',
+    name: 'Reserva Zerada',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    order: 43
   }
 ];
 
