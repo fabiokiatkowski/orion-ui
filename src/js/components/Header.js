@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link, Route } from 'react-router-dom';
 import PanelRepresentantes from '../containers/PanelRepresentantes';
+
 import PainelEstagiosAbertos from '../containers/painel200/PainelEstagiosAbertos';
+import LoadingSpinner from './LoadingSpinner';
+
+const mapStateToProps = state => ({
+  isLoading: state.app.isLoading
+});
 
 const Header = (props) => {
   return (
@@ -48,11 +55,13 @@ const Header = (props) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <main>
-        <Route exact path="/" render={() => <div />} />
-        <Route exact path="/tela200" component={PainelEstagiosAbertos} />
-        <Route exact path="/painelRepresentantes" component={PanelRepresentantes} />
-      </main>
+      <LoadingSpinner isLoading={props.isLoading}>
+        <main>
+          <Route exact path="/" render={() => <div />} />
+          <Route exact path="/tela200" component={PainelEstagiosAbertos} />
+          <Route exact path="/painelRepresentantes" component={PanelRepresentantes} />
+        </main>
+      </LoadingSpinner>
     </div>
   );
 };
@@ -60,11 +69,16 @@ const Header = (props) => {
 Header.propTypes = {
   currentUser: PropTypes.shape({
     foo: React.PropTypes.string
-  })
+  }),
+  isLoading: PropTypes.bool
 };
 
 Header.defaultProps = {
-  currentUser: { foo: 'teste' }
+  currentUser: { foo: 'teste' },
+  isLoading: false
 };
 
-export default Header;
+export default connect(
+  mapStateToProps,
+  null
+)(Header);

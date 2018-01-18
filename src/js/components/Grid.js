@@ -91,6 +91,9 @@ export default class Grid extends Component {
     const columns = columnsDef
       .filter(column => !column.hidden)
       .sort((a, b) => a.order - b.order);
+
+    console.log(columns);
+
     return columns;
   }
 

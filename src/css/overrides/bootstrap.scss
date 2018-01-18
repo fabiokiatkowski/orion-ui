@@ -7,6 +7,10 @@
   color: #337ab7;
 }
 
+.dropdown-menu {
+  z-index: 1000000;
+}
+
 main {
   .panel-body {
     background-color: #eee;
