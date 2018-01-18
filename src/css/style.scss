@@ -9,10 +9,11 @@
 @import './overrides/bootstrap.scss';
 @import './overrides/react-data-grid.scss';
 
+@import './modules/loading-spinner';
 @import './modules/tether';
 @import './modules/dropdown';
 @import './modules/layout';
 @import './modules/flipcard';
-@import './modules/panelRepresentantes';
-@import './modules/superFilter';
+@import './modules/panel-representantes';
+@import './modules/super-filter';
 @import './modules/painel200/painel';

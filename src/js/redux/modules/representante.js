@@ -1,4 +1,5 @@
 import axios from '../../axios-orion';
+import { LOAD_START, LOAD_END } from './app';
 
 export const LIST = 'representante/LIST';
 
@@ -23,10 +24,13 @@ const getQueryString = (url, dateFilter, mostrarPedidoSistema, agrupar) => {
 export function listByDate(dateFilter, mostrarPedidoSistema, agrupar) {
   const url = '/api/representantes/mysql/totalPedidosRecebidos';
   return (dispatch) => {
-    axios.get(getQueryString(url, dateFilter, mostrarPedidoSistema, agrupar))
+    dispatch({ type: LOAD_START });
+    axios
+      .get(getQueryString(url, dateFilter, mostrarPedidoSistema, agrupar))
       .then(res => dispatch({
         type: LIST,
         data: res.data
-      }));
+      }))
+      .finally(() => dispatch({ type: LOAD_END }));
   };
 }
