@@ -15,7 +15,8 @@ export default class Grid extends Component {
     onRowsSelected: PropTypes.func,
     onRowsDeselected: PropTypes.func,
     indexes: PropTypes.array, //eslint-disable-line
-    enableSummary: PropTypes.bool
+    enableSummary: PropTypes.bool,
+    showCheckbox: PropTypes.bool
   }
 
   static defaultProps = {
@@ -25,7 +26,8 @@ export default class Grid extends Component {
     minHeight: 50,
     onRowsSelected: () => {},
     onRowsDeselected: () => {},
-    enableSummary: false
+    enableSummary: false,
+    showCheckbox: false
   }
 
   constructor(props) {
@@ -159,7 +161,7 @@ export default class Grid extends Component {
           headerRenderer={CustomHeaderCell}
           enableSummary={this.props.enableSummary}
           rowSelection={{
-            showCheckbox: true,
+            showCheckbox: this.props.showCheckbox,
             onRowsSelected: this.props.onRowsSelected,
             onRowsDeselected: this.props.onRowsDeselected,
             selectBy: {

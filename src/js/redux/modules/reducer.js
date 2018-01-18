@@ -2,15 +2,13 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import representante from './representante';
 import pedidosRecebidos from './pedidosRecebidos';
-import estagiosAbertos from './painel200/estagiosAbertos';
-import periodos200 from './painel200/periodos';
+import tela200 from './tela200';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
   representante,
   pedidosRecebidos,
-  estagiosAbertos,
-  periodos200
+  tela200
 });
 
 export default rootReducer;
