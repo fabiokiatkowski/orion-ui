@@ -21,7 +21,6 @@ const mapStateToProps = state => ({
   selectedEstagios: state.tela200.estagios.marcados,
   selectedPeriodos: state.tela200.periodos.marcados
 });
-
 const mapDispatchToProps = dispatch => ({
   listarEstagio: bindActionCreators(listarEstagio, dispatch),
   listarPeriodos: bindActionCreators(listarPeriodos, dispatch),
@@ -31,8 +30,6 @@ const mapDispatchToProps = dispatch => ({
   marcarPeriodo: bindActionCreators(marcarPeriodo, dispatch),
   desmarcarPeriodo: bindActionCreators(desmarcarPeriodo, dispatch)
 });
-
-
 class PainelEstagiosAbertos extends Component {
   state = {
     estagiosSelectedRow: [],
@@ -49,7 +46,11 @@ class PainelEstagiosAbertos extends Component {
     };
     const newIds = currentState.estagiosSelectedRow
       .concat(rows.map(r => r.rowIdx));
-    this.setState({ estagiosSelectedRow: newIds });
+    this.setState({
+      ...this.state,
+      estagiosSelectedRow: newIds,
+      periodosSelectedRow: []
+    });
   };
   onEstagioRowsDeselectedHandler = (rows) => {
     this.props.desmarcarEstagio(rows);
@@ -58,7 +59,8 @@ class PainelEstagiosAbertos extends Component {
       rowIndexes.indexOf(i) === -1);
     this.setState({
       ...this.state,
-      estagiosSelectedRow: newIndexesState
+      estagiosSelectedRow: newIndexesState,
+      periodosSelectedRow: []
     });
   }
   //#endregion 
@@ -134,7 +136,7 @@ class PainelEstagiosAbertos extends Component {
     const gridResultado = (
       <div>
         <GridOrdens
-          minHeight={minHeight}
+          minHeight={600}
           data={this.props.ordensData}
           indexes={this.state.periodosSelectedRow}
         />
@@ -151,7 +153,6 @@ class PainelEstagiosAbertos extends Component {
     );
   }
 }
-
 PainelEstagiosAbertos.propTypes = {
   listarEstagio: PropsTypes.func.isRequired,
   listarPeriodos: PropsTypes.func.isRequired,
@@ -166,7 +167,6 @@ PainelEstagiosAbertos.propTypes = {
   periodosData: PropsTypes.array.isRequired, //eslint-disable-line
   ordensData: PropsTypes.array.isRequired //eslint-disable-line
 };
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps

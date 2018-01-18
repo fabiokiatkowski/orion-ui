@@ -1,4 +1,5 @@
 import axios from '../../axios-orion';
+import { loadStart, loadEnd } from './app';
 
 export const ESTAGIOS_LIST = 'estagiosAbertos/LIST';
 export const ESTAGIOS_CHECKED = 'estagiosAbertos/ESTAGIOS_CHECKED';
@@ -41,6 +42,15 @@ const reducer = (state = initalState, action = {}) => {
         estagios: {
           ...state.estagios,
           marcados: selectedEstagio
+        },
+        periodos: {
+          ...state.periodos,
+          data: [],
+          marcados: []
+        },
+        ordens: {
+          ...state.ordens,
+          data: []
         }
       };
     }
@@ -52,6 +62,15 @@ const reducer = (state = initalState, action = {}) => {
         estagios: {
           ...state.estagios,
           marcados: selectedEstagio
+        },
+        periodos: {
+          ...state.periodos,
+          data: [],
+          marcados: []
+        },
+        ordens: {
+          ...state.ordens,
+          data: []
         }
       };
     }
@@ -72,6 +91,10 @@ const reducer = (state = initalState, action = {}) => {
         periodos: {
           ...state.periodos,
           marcados: selectedPeriodos
+        },
+        ordens: {
+          ...state.ordens,
+          data: []
         }
       };
     }
@@ -83,6 +106,10 @@ const reducer = (state = initalState, action = {}) => {
         periodos: {
           ...state.periodos,
           marcados: selectedPeriodos
+        },
+        ordens: {
+          ...state.ordens,
+          data: []
         }
       };
     }
@@ -103,12 +130,14 @@ const reducer = (state = initalState, action = {}) => {
 //#region Estagios
 export const listarEstagio = () => {
   return (dispatch) => {
+    loadStart(dispatch);
     axios.get('/api/pendente-aproduzir/estagios-abertos/200')
       .then(res => dispatch({
         type: ESTAGIOS_LIST,
         data: res.data
       }))
-      .catch(err => err);
+      .catch(err => err)
+      .finally(() => loadEnd(dispatch));
   };
 };
 export const marcarEstagio = (estagio) => {
@@ -150,11 +179,13 @@ export const desmarcarPeriodo = (row) => {
 export const listarPeriodos = (estagios) => {
   const queryString = param => `?listaEstagios=${param}`;
   return (dispatch) => {
+    loadStart(dispatch);
     axios.get('/api/periodo-producao/teste'.concat(queryString(estagios)))
       .then(res => dispatch({
         type: PERIODOS_LIST,
         data: res.data
-      }));
+      }))
+      .finally(() => loadEnd(dispatch));
   };
 };
 //#endregion
@@ -162,11 +193,13 @@ export const listarPeriodos = (estagios) => {
 export const listarOrdens = (estagios, periodos) => {
   const queryString = param => `?listaEstagios=${param}&listaPeriodos=${periodos}`;
   return (dispatch) => {
+    loadStart(dispatch);
     axios.get('/api/ordem-pendente-estagio/periodo-estagio'.concat(queryString(estagios)))
       .then(res => dispatch({
         type: ORDENS_LIST,
         data: res.data
-      }));
+      }))
+      .then(() => loadEnd(dispatch));
   };
 };
 //#endregion
