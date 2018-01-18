@@ -15,8 +15,8 @@ export default class SuperFilter extends Component {
       advancedFilter: false,
       advancedFilters: [
         {
-          advancedFilterOption: 1,
-          advancedFilterType: 1,
+          advancedFilterOption: 'AND',
+          advancedFilterType: 'EQUAL',
           advancedFilterValue: null
         }
       ],
@@ -206,6 +206,9 @@ export default class SuperFilter extends Component {
       if (this.props.column.type === Types.TEXT) {
         return this.validateFiltersText(value.toUpperCase());
       }
+      if (this.props.column.type === Types.NUMBER) {
+        return this.validateFiltersNumber(value);
+      }
     } else {
       if (columnFilter === null) {
         return false;
@@ -359,8 +362,8 @@ export default class SuperFilter extends Component {
     const addFilter = () => {
       const virtual = this.state.advancedFilters;
       virtual.push({
-        advancedFilterOption: 1,
-        advancedFilterType: 1,
+        advancedFilterOption: 'AND',
+        advancedFilterType: 'EQUAL',
         advancedFilterValue: null
       });
       this.setState({ advancedFilters: virtual });
