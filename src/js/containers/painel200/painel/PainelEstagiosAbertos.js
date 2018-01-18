@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  list: bindActionCreators(listaEstagio, dispatch),
+  listEstagios: bindActionCreators(listaEstagio, dispatch),
   listarPeriodos: bindActionCreators(listarPeriodos, dispatch),
   marcarEstagio: bindActionCreators(marcarEstagio, dispatch),
   desmarcarEstagio: bindActionCreators(desmarcarEstagio, dispatch),
@@ -30,7 +30,7 @@ class PainelEstagiosAbertos extends Component {
     periodosSelectedRow: []
   };
   componentDidMount() {
-    this.props.list();
+    this.props.listEstagios();
   }
   //#region estagios row handlers
   onEstagioRowsSelectedHandler = (rows) => {
@@ -75,39 +75,53 @@ class PainelEstagiosAbertos extends Component {
   //#endregion
   render() {
     const minHeight = 300;
+    const gridEstagios = (
+      <div>
+        <button
+          className="btn btn-default pull-right btn-margin-bottom"
+          onClick={() => this.props
+            .listEstagios()}
+        >
+          Atualizar Estágios
+        </button>
+        <GridEstagiosAbertos
+          minHeight={minHeight}
+          data={this.props.data}
+          onRowsSelected={this.onEstagioRowsSelectedHandler}
+          onRowsDeselected={this.onEstagioRowsDeselectedHandler}
+          indexes={this.state.estagiosSelectedRow}
+        />
+        <button
+          className="btn btn-default pull-right btn-margin-top"
+          disabled={this.state.estagiosSelectedRow.length === 0}
+          onClick={() => this.props
+            .listarPeriodos(this.props.selectedEstagios.join())}
+        >
+          Consultar Periodos
+        </button>
+      </div>
+    );
+    const gridPeriodo = (
+      <div>
+        <GridPeriodos
+          minHeight={minHeight}
+          data={this.props.periodosData}
+          onRowsSelected={this.onPeriodoRowsSelectedHandler}
+          onRowsDeselected={this.onPeriodoRowsDeselectedHandler}
+          indexes={this.state.periodosSelectedRow}
+        />
+        <button
+          className="btn btn-default pull-right btn-margin-top"
+          onClick={() => {}}
+        >
+          Consultar Ordens
+        </button>
+      </div>
+    );
     return (
       <div className="container200">
-        <div>
-          <GridEstagiosAbertos
-            minHeight={minHeight}
-            data={this.props.data}
-            onRowsSelected={this.onEstagioRowsSelectedHandler}
-            onRowsDeselected={this.onEstagioRowsDeselectedHandler}
-            indexes={this.state.estagiosSelectedRow}
-          />
-          <button
-            className="btn btn-default pull-right btn-margin-top"
-            onClick={() => this.props
-              .listarPeriodos(this.props.selectedEstagios.join())}
-          >
-            Consultar Periodos
-          </button>
-        </div>
-        <div>
-          <GridPeriodos
-            minHeight={minHeight}
-            data={this.props.periodosData}
-            onRowsSelected={this.onPeriodoRowsSelectedHandler}
-            onRowsDeselected={this.onPeriodoRowsDeselectedHandler}
-            indexes={this.state.periodosSelectedRow}
-          />
-          <button
-            className="btn btn-default pull-right btn-margin-top"
-            onClick={() => {}}
-          >
-            Consultar Ordens
-          </button>
-        </div>
+        {gridEstagios}
+        {gridPeriodo}
         <div className="result200">three</div>
       </div>
     );
@@ -115,7 +129,7 @@ class PainelEstagiosAbertos extends Component {
 }
 
 PainelEstagiosAbertos.propTypes = {
-  list: PropsTypes.func.isRequired,
+  listEstagios: PropsTypes.func.isRequired,
   listarPeriodos: PropsTypes.func.isRequired,
   marcarEstagio: PropsTypes.func.isRequired,
   marcarPeriodo: PropsTypes.func.isRequired,
