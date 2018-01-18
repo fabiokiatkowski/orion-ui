@@ -10,7 +10,7 @@ export default class SuperFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: this.getOptions(),
+      options: [],
       selected: [],
       advancedFilter: false,
       advancedFilters: [
@@ -22,10 +22,6 @@ export default class SuperFilter extends Component {
       ],
       hasFilter: false
     };
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({ options: this.getOptions(newProps) });
   }
 
   onOpen = () => {
@@ -53,7 +49,7 @@ export default class SuperFilter extends Component {
       if (typeof o === 'number') {
         return { value: o, label: `${o}` };
       }
-      return null;
+      return { value: null, label: '' };
     });
     options.push({ value: '__selectall__', label: 'SELECIONAR TODOS' });
     if (props.column.type === Types.NUMBER) {
