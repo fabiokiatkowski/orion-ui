@@ -6,6 +6,9 @@
 @import './global/functions';
 @import './global/settings';
 
+@import './overrides/bootstrap.scss';
+@import './overrides/react-data-grid.scss';
+
 @import './modules/tether';
 @import './modules/dropdown';
 @import './modules/layout';

@@ -147,6 +147,7 @@ export default class Grid extends Component {
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
           columns={this.state.columnsDef}
+          rowHeight={30}
           rowGetter={this.rowGetter}
           rowsCount={this.getSize()}
           onAddFilter={this.handleFilterChange}
