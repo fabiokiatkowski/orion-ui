@@ -79,8 +79,7 @@ class PainelEstagiosAbertos extends Component {
       <div>
         <button
           className="btn btn-default pull-right btn-margin-bottom"
-          onClick={() => this.props
-            .listEstagios()}
+          onClick={() => this.props.listEstagios()}
         >
           Atualizar Estágios
         </button>
