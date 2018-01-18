@@ -4,7 +4,18 @@ body {
   font-family: "Roboto Condensed", "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;
 }
 
-a {
-  color: black;
-  cursor: pointer;
+main {
+  a {
+    color: black;
+    cursor: pointer;
+  }
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+footer#footer {
+  position: fixed;
+  bottom: 0;
 }
