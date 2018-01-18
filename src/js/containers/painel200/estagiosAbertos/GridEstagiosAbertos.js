@@ -1,10 +1,9 @@
 import React from 'react';
 import PropsTypes from 'prop-types';
-
+import Grid from '../../../components/Grid';
 import columns from './columns';
-import Grid from '../../../../components/Grid';
 
-const GridPeriodos = (props) => {
+const GridEstagiosAbertos = (props) => {
   return (
     <Grid
       setCurrentRow={props.setCurrentRow}
@@ -14,18 +13,18 @@ const GridPeriodos = (props) => {
       onRowsSelected={props.onRowsSelected}
       onRowsDeselected={props.onRowsDeselected}
       indexes={props.indexes}
-      enableSummary
+      showCheckbox
     />
   );
 };
 
-GridPeriodos.propTypes = {
+GridEstagiosAbertos.propTypes = {
   setCurrentRow: PropsTypes.func.isRequired,
+  minHeight: PropsTypes.number.isRequired,
   onRowsSelected: PropsTypes.func.isRequired,
   onRowsDeselected: PropsTypes.func.isRequired,
-  minHeight: PropsTypes.number.isRequired,
   indexes: PropsTypes.array.isRequired, //eslint-disable-line
   data: PropsTypes.array.isRequired //eslint-disable-line
 };
 
-export default GridPeriodos;
+export default GridEstagiosAbertos;
