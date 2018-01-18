@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store/configureStore';
-import Page from './components/Page';
+import Header from './components/Header';
 import '../css/style.scss';
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
-        <Page />
+        <Header />
       </div>
     </ConnectedRouter>
   </Provider>,

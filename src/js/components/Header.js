@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Link, Route } from 'react-router-dom';
 import PanelRepresentantes from '../containers/PanelRepresentantes';
-
 import PainelEstagiosAbertos from '../containers/painel200/PainelEstagiosAbertos';
 import LoadingSpinner from './LoadingSpinner';
 

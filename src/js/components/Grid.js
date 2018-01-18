@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 // import ReactDataGrid from 'react-data-grid';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
 import ReactDataGrid from '../../dependencies/react-data-grid';
-import Toolbar from './Toolbar';
 import CustomHeaderCell from './CustomHeaderCell';
 
 export default class Grid extends Component {
@@ -151,7 +150,6 @@ export default class Grid extends Component {
           onAddFilter={this.handleFilterChange}
           onClearFilters={this.onClearFilters}
           getValidFilterValues={this.getValidFilterValues}
-          toolbar={<Toolbar enableFilter />}
           onCellSelected={this.onCellSelected}
           onColumnResize={this.onColumnResize}
           headerRenderer={CustomHeaderCell}
