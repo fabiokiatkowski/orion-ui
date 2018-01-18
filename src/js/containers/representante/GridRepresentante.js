@@ -16,7 +16,17 @@ const saveColumns = (json) => {
 };
 
 const getColumns = () => {
-  return ColumnPersist.get(keyAcess);
+  // const configs = ColumnPersist.get(keyAcess);
+  // if (configs && configs.size) {
+  //   return columns.map((c) => {
+  //     const result = c;
+  //     const { order, width } = JSON.parse(configs.get(c.key));
+  //     result.order = order;
+  //     result.width = width;
+  //     return result;
+  //   });
+  // }
+  return columns;
 };
 
 const deleteColumns = () => {

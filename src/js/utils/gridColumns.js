@@ -1,11 +1,10 @@
-import SuperFilter from '../components/SuperFilter';
-
 const ColumnPersist = {
-  save: (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
+  save: (key, map) => {
+    console.log(map.entries);
+    localStorage.setItem(key, JSON.stringify(Array.from(map.entries())));
   },
   get: (key) => {
-    return JSON.parse(localStorage.getItem(key));
+    return new Map(JSON.parse(localStorage.getItem(key)));
   },
   delete: key => localStorage.removeItem(key)
 };
