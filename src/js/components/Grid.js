@@ -64,7 +64,6 @@ export default class Grid extends Component {
     const newColumns = this.state.columnsDef;
     newColumns[index].width = newWidth;
     // this.setState({ ...this.state, columnsDef: newColumns });;
-    this.persistColumns(newColumns);
   }
 
   onHeaderDrop = (source, target) => {
@@ -73,27 +72,19 @@ export default class Grid extends Component {
       .findIndex(i => i.key === source);
     const columnTargetIndex = columns
       .findIndex(i => i.key === target);
-    // columns.splice(
-    //   columnTargetIndex,
-    //   0,
-    //   columns.splice(columnsSourceIndex, 1)[0]
-    // );
+
     columns[columnsSourceIndex].order = columnTargetIndex;
     columns[columnTargetIndex].order = columnsSourceIndex;
 
     const newState = { ...this.state, columnsDef: columns };
     this.setState({ ...this.state, columnsDef: [] });
     this.setState(newState);
-    this.persistColumns(columns);
   }
 
   getColumns = (columnsDef) => {
     const columns = columnsDef
       .filter(column => !column.hidden)
       .sort((a, b) => a.order - b.order);
-
-    console.log(columns);
-
     return columns;
   }
 
@@ -125,13 +116,15 @@ export default class Grid extends Component {
   }
 
   handleFilterChange = (filter) => {
-    const newFilters = { ...this.state.filters };
-    if (filter.filterTerm) {
-      newFilters[filter.column.key] = filter;
-    } else {
-      delete newFilters[filter.column.key];
+    if (filter) {
+      const newFilters = { ...this.state.filters };
+      if (filter.filterTerm) {
+        newFilters[filter.column.key] = filter;
+      } else {
+        delete newFilters[filter.column.key];
+      }
+      this.setState({ filters: newFilters });
     }
-    this.setState({ filters: newFilters });
   };
 
   handleGridSort = (sortColumn, sortDirection) => {
