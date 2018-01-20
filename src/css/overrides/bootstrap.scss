@@ -13,18 +13,18 @@
 
 main {
   .panel-body {
-    background-color: #eee;
+    background-color: $base-background;
   }
   
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    background-color: #cdcdcd;
+    background-color: #eee;
     color: black;
-    font-weight: 700;
-    border: 1px solid #7a7a7a;
+    font-weight: 550;
+    border: 1px solid #cdcdcd;
   }
   
   .nav-tabs {
-    border-bottom: 1px solid #7a7a7a;
+    border-bottom: 1px solid #cdcdcd;
   }
   
   .form-control {

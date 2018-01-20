@@ -1,5 +1,9 @@
 .react-grid-HeaderCell {
-  background-color: #cdcdcd;
+  background-color: #eee;
+}
+
+.react-grid-HeaderCell-sortable {
+  overflow: hidden;
 }
 
 .react-grid-Toolbar {

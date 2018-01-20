@@ -19,7 +19,6 @@ export default class Page extends Component {
     const { children } = this.props;
     return (
       <div id="app-container">
-        <Header />
         <section id="page-container">
           {children}
         </section>

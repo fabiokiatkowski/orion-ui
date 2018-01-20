@@ -21,3 +21,4 @@ $grey-dark: hsl(0, 0%, 29%);
 $grey-light: hsl(0, 0%, 71%);
 $text: $grey-dark !default;
 $text-invert: findColorInvert($text) !default;
+$base-background: rgba(244, 244, 244, 0.5);
