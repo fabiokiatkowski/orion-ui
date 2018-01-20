@@ -373,22 +373,21 @@ export default class SuperFilter extends Component {
 
     return (
       <div className="advanced-filter">
-        <h3> Filtros coluna {this.props.column.key} </h3>
         {this.renderAdvancedFilters()}
         <div className="advanced-filter-buttons">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary btn-sm"
             onClick={addFilter}
           >
-            Add
+            Adiciona
           </button>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-sm"
             onClick={removeFilter}
           >
-            Remove
+            Apaga
           </button>
         </div>
       </div>

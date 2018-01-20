@@ -16,18 +16,18 @@ const DropdownHeader = (props) => {
         {props.onConfirm &&
           <button
             type="button"
-            className="btn btn-success btn-sm"
+            className="btn btn-primary btn-sm"
             onClick={props.onConfirm}
           >
-            OK
+            Aplicar
           </button>
         }
         <button
           type="button"
-          className="btn btn-danger btn-sm"
+          className="btn btn-sm"
           onClick={props.onClose}
         >
-          Cancel
+          Cancelar
         </button>
       </div>
     </div>

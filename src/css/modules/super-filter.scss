@@ -6,3 +6,31 @@
 .filter-icon {
   padding-right: 4px;
 }
+
+.advanced-filter {
+  padding: 15px 10px;
+}
+
+.advanced-filter-buttons {
+  padding-top: 10px;
+
+  .btn.btn-primary {
+    margin-right: 5px;
+  }
+}
+
+.dropdown-portal-buttons {
+  .btn.btn-primary {
+    margin-right: 5px;
+  }
+}
+
+.dropdown-portal.has-header {
+  font-size: 12px;
+
+  .form-control {
+    height: 2.5em;
+    font-size: inherit;
+  }
+}
+
