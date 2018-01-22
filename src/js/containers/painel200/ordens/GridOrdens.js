@@ -11,7 +11,7 @@ const GridOrdens = (props) => {
       data={props.data}
       columns={columns}
       indexes={props.indexes}
-      enableSummary={false}
+      enableSummary
     />
   );
 };

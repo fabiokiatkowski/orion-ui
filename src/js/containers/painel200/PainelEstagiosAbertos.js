@@ -21,7 +21,6 @@ const mapStateToProps = state => ({
   selectedEstagios: state.tela200.estagios.marcados,
   selectedPeriodos: state.tela200.periodos.marcados
 });
-
 const mapDispatchToProps = dispatch => ({
   listarEstagio: bindActionCreators(listarEstagio, dispatch),
   listarPeriodos: bindActionCreators(listarPeriodos, dispatch),
@@ -31,8 +30,6 @@ const mapDispatchToProps = dispatch => ({
   marcarPeriodo: bindActionCreators(marcarPeriodo, dispatch),
   desmarcarPeriodo: bindActionCreators(desmarcarPeriodo, dispatch)
 });
-
-
 class PainelEstagiosAbertos extends Component {
   state = {
     estagiosSelectedRow: [],
@@ -41,7 +38,7 @@ class PainelEstagiosAbertos extends Component {
   componentDidMount() {
     this.props.listarEstagio();
   }
-  //#region estagios row handlers
+  // #region estagios row handlers
   onEstagioRowsSelectedHandler = (rows) => {
     this.props.marcarEstagio(rows);
     const currentState = {
@@ -49,8 +46,16 @@ class PainelEstagiosAbertos extends Component {
     };
     const newIds = currentState.estagiosSelectedRow
       .concat(rows.map(r => r.rowIdx));
-    this.setState({ estagiosSelectedRow: newIds });
+    this.setState({
+      ...this.state,
+      estagiosSelectedRow: newIds,
+      periodosSelectedRow: []
+    });
   };
+  onListarEstagiosHandler = () => {
+    this.setState({ estagiosSelectedRow: [] });
+    this.props.listarEstagio();
+  }
   onEstagioRowsDeselectedHandler = (rows) => {
     this.props.desmarcarEstagio(rows);
     const rowIndexes = rows.map(r => r.rowIdx);
@@ -58,11 +63,12 @@ class PainelEstagiosAbertos extends Component {
       rowIndexes.indexOf(i) === -1);
     this.setState({
       ...this.state,
-      estagiosSelectedRow: newIndexesState
+      estagiosSelectedRow: newIndexesState,
+      periodosSelectedRow: []
     });
   }
-  //#endregion 
-  //#region periodos row handlers
+  // #endregion
+  // #region periodos row handlers
   onPeriodoRowsSelectedHandler = (rows) => {
     this.props.marcarPeriodo(rows);
     const currentState = {
@@ -82,14 +88,14 @@ class PainelEstagiosAbertos extends Component {
       periodosSelectedRow: newIndexesState
     });
   }
-  //#endregion
+  // #endregion
   render() {
     const minHeight = 300;
     const gridEstagios = (
       <div>
         <button
           className="btn btn-default pull-right btn-margin-bottom"
-          onClick={() => this.props.listarEstagio()}
+          onClick={this.onListarEstagiosHandler}
         >
           Atualizar Estágios
         </button>
@@ -134,9 +140,9 @@ class PainelEstagiosAbertos extends Component {
     const gridResultado = (
       <div>
         <GridOrdens
-          minHeight={minHeight}
+          minHeight={600}
           data={this.props.ordensData}
-          indexes={this.state.periodosSelectedRow}
+          indexes={[]}
         />
       </div>
     );
@@ -151,7 +157,6 @@ class PainelEstagiosAbertos extends Component {
     );
   }
 }
-
 PainelEstagiosAbertos.propTypes = {
   listarEstagio: PropsTypes.func.isRequired,
   listarPeriodos: PropsTypes.func.isRequired,
@@ -166,7 +171,6 @@ PainelEstagiosAbertos.propTypes = {
   periodosData: PropsTypes.array.isRequired, //eslint-disable-line
   ordensData: PropsTypes.array.isRequired //eslint-disable-line
 };
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps

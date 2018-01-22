@@ -64,11 +64,11 @@ export default class SuperFilter extends Component {
     const options = [];
     if (this.props.column.type === Types.NUMBER) {
       NumberOptions.forEach((v, k) => {
-        options.push(<option value={k}>{v}</option>);
+        options.push(<option key={v} value={k}>{v}</option>);
       });
     } else if (this.props.column.type === Types.TEXT) {
       TextOptions.forEach((v, k) => {
-        options.push(<option value={k}>{v}</option>);
+        options.push(<option key={v} value={k}>{v}</option>);
       });
     }
     return options;
