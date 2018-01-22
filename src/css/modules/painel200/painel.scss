@@ -21,6 +21,9 @@
 
 .btn-margin-top {
   margin-top: 10px;
+  &.left {
+    margin-left: 5px
+  }
 }
 
 .btn-margin-bottom {

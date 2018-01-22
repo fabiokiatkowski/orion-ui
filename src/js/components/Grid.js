@@ -13,6 +13,7 @@ export default class Grid extends Component {
     minHeight: PropTypes.number,
     onRowsSelected: PropTypes.func,
     onRowsDeselected: PropTypes.func,
+    onRowClick: PropTypes.func,
     indexes: PropTypes.array, //eslint-disable-line
     enableSummary: PropTypes.bool,
     showCheckbox: PropTypes.bool
@@ -25,6 +26,7 @@ export default class Grid extends Component {
     minHeight: 50,
     onRowsSelected: () => {},
     onRowsDeselected: () => {},
+    onRowClick: () => {},
     enableSummary: false,
     showCheckbox: false
   }
@@ -152,6 +154,7 @@ export default class Grid extends Component {
           getValidFilterValues={this.getValidFilterValues}
           onCellSelected={this.onCellSelected}
           onColumnResize={this.onColumnResize}
+          onRowClick={this.props.onRowClick}
           headerRenderer={CustomHeaderCell}
           enableSummary={this.props.enableSummary}
           rowSelection={{

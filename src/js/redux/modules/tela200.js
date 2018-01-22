@@ -29,8 +29,11 @@ const estagiosList = (state, action) => {
     data: action.data,
     marcados: []
   });
-  const updatedPeriodos = updateObject(state.periodos, { marcados: [] });
-  const updatedOrdens = updateObject(state.ordens, { marcados: [] });
+  const updatedPeriodos = updateObject(state.periodos, {
+    data: [],
+    marcados: []
+  });
+  const updatedOrdens = updateObject(state.ordens, { data: [], marcados: [] });
   const updatedState = updateObject(state, {
     estagios: updatedEstagios,
     periodos: updatedPeriodos,
