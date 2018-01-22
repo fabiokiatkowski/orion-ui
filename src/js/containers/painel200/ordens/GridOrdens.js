@@ -30,7 +30,7 @@ class GridOrdens extends Component {
       </div>
     );
   }
-};
+}
 
 GridOrdens.propTypes = {
   minHeight: PropsTypes.number.isRequired,

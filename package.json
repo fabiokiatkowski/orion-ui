@@ -44,6 +44,7 @@
         "history": "^4.7.2",
         "immutable": "^3.8.2",
         "lodash": "^4.17.4",
+        "moment": "^2.20.1",
         "prop-types": "^15.6.0",
         "react": "^15.4.2",
         "react-bootstrap": "^0.31.5",
@@ -62,8 +63,7 @@
         "react-tether": "^0.6.0",
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.2.0",
-        "moment": "^2.20.1"
+        "redux-thunk": "^2.2.0"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",

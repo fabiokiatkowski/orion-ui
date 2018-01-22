@@ -7,34 +7,12 @@ import rootReducer from '../redux/modules/reducer';
 
 export const history = createHistory();
 
-const initialState = {};
-const enhancers = [];
-const middleware = [
-  thunk,
-  routerMiddleware(history)
-];
-
-const DEV = process.env.NODE_ENV === 'development';
-
-if (DEV) {
-  const { devToolExtension } = window;
-  if (typeof devToolExtension === 'function') {
-    enhancers.push(devToolExtension());
-  }
-
-  const logger = createLogger({ collapse: true });
-  middleware.push(logger);
-}
-
-const composeEnhancers = compose(
-  applyMiddleware(...middleware),
-  ...enhancers
-);
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null|| compose;
+const logger = process.env.NODE_ENV === 'development' ? createLogger({ collapse: true }) : null;
 
 const store = createStore(
   rootReducer,
-  initialState,
-  composeEnhancers
+  composeEnhancers(applyMiddleware(thunk, routerMiddleware(history), logger))
 );
 
 export default store;

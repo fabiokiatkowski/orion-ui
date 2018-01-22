@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, NavLink, Switch } from 'react-router-dom';
 import PanelRepresentantes from '../containers/PanelRepresentantes';
 import PainelEstagiosAbertos from '../containers/painel200/PainelEstagiosAbertos';
 import LoadingSpinner from './LoadingSpinner';
@@ -30,7 +30,7 @@ const Header = (props) => {
               <Link to="/bar">Bar</Link>
             </NavItem>
             <NavItem eventKey={3}>
-              <Link to="/tela200">Tela 200</Link>
+              <NavLink to="/tela200">Tela 200</NavLink>
             </NavItem>
             <NavDropdown eventKey={4} title="Dropdown" id="basic-nav-dropdown">
               <MenuItem eventKey={4.1}>
@@ -56,9 +56,10 @@ const Header = (props) => {
       </Navbar>
       <LoadingSpinner isLoading={props.isLoading}>
         <main>
-          <Route exact path="/" render={() => <div />} />
-          <Route exact path="/tela200" component={PainelEstagiosAbertos} />
-          <Route exact path="/painelRepresentantes" component={PanelRepresentantes} />
+          <Switch>
+            <Route path="/tela200" component={PainelEstagiosAbertos} />
+            <Route path="/painelRepresentantes" component={PanelRepresentantes} />
+          </Switch>
         </main>
       </LoadingSpinner>
     </div>
