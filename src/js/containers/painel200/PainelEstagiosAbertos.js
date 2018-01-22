@@ -38,7 +38,7 @@ class PainelEstagiosAbertos extends Component {
   componentDidMount() {
     this.props.listarEstagio();
   }
-  //#region estagios row handlers
+  // #region estagios row handlers
   onEstagioRowsSelectedHandler = (rows) => {
     this.props.marcarEstagio(rows);
     const currentState = {
@@ -52,6 +52,10 @@ class PainelEstagiosAbertos extends Component {
       periodosSelectedRow: []
     });
   };
+  onListarEstagiosHandler = () => {
+    this.setState({ estagiosSelectedRow: [] });
+    this.props.listarEstagio();
+  }
   onEstagioRowsDeselectedHandler = (rows) => {
     this.props.desmarcarEstagio(rows);
     const rowIndexes = rows.map(r => r.rowIdx);
@@ -63,8 +67,8 @@ class PainelEstagiosAbertos extends Component {
       periodosSelectedRow: []
     });
   }
-  //#endregion
-  //#region periodos row handlers
+  // #endregion
+  // #region periodos row handlers
   onPeriodoRowsSelectedHandler = (rows) => {
     this.props.marcarPeriodo(rows);
     const currentState = {
@@ -84,14 +88,14 @@ class PainelEstagiosAbertos extends Component {
       periodosSelectedRow: newIndexesState
     });
   }
-  //#endregion
+  // #endregion
   render() {
     const minHeight = 300;
     const gridEstagios = (
       <div>
         <button
           className="btn btn-default pull-right btn-margin-bottom"
-          onClick={() => this.props.listarEstagio()}
+          onClick={this.onListarEstagiosHandler}
         >
           Atualizar Estágios
         </button>
@@ -138,7 +142,7 @@ class PainelEstagiosAbertos extends Component {
         <GridOrdens
           minHeight={600}
           data={this.props.ordensData}
-          indexes={this.state.periodosSelectedRow}
+          indexes={[]}
         />
       </div>
     );
