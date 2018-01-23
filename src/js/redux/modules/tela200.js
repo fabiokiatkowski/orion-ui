@@ -41,53 +41,52 @@ const estagiosList = (state, action) => {
   });
   return updatedState;
 };
-const estagiosCheckControl = (state, action) => {
-  const estagioControl = (action.estagioAction === 'check')
-    ?
-    state.estagios.marcados
-      .concat(action.estagio.map(r => r.row.codigoEstagio))
-    :
-    state.estagios.marcados
-      .filter(i => action.estagio.indexOf(i) === -1);
-
-  const updatedEstagios = updateObject(state.estagios, {
-    marcados: estagioControl
-  });
-  const updatedPeriodos = updateObject(state.periodos, {
-    data: [],
-    marcados: []
-  });
-  const updatedOrdens = updateObject(state.ordens, {
-    data: [],
-    marcados: []
-  });
-  const updatedState = updateObject(state, {
-    estagios: updatedEstagios,
-    periodos: updatedPeriodos,
-    ordens: updatedOrdens
-  });
-  return updatedState;
+const estagiosCheck = (state, action) => {
+  const clearedEstagioState = updateObject(
+    initalState,
+    { estagios: state.estagios }
+  );
+  clearedEstagioState.estagios.marcados = state.estagios.marcados
+    .concat(action.estagio.map(r => r.row.codigoEstagio));
+  return clearedEstagioState;
+};
+const estagiosDescheck = (state, action) => {
+  const clearedEstagioState = updateObject(
+    initalState,
+    { estagios: state.estagios }
+  );
+  clearedEstagioState.estagios.marcados = state.estagios.marcados
+    .filter(i => action.estagio.indexOf(i) === -1);
+  return clearedEstagioState;
 };
 const periodosList = (state, action) => {
   const updatedPeriodos = updateObject(state.periodos, { data: action.data });
   const updatedState = updateObject(state, { periodos: updatedPeriodos });
   return updatedState;
 };
-const periodosCheckControl = (state, action) => {
-  const periodoControl = (action.periodoAction === 'check')
-    ?
-    state.periodos.marcados.concat(action.periodo.map(r => r.row.codigoPeriodo))
-    :
-    state.periodos.marcados.filter(i => action.periodo.indexOf(i) === -1);
-  const updatedPeriodos = updateObject(state.periodos, {
-    marcados: periodoControl
-  });
-  const updatedOrdens = updateObject(state.ordens, { data: [] });
-  const updatedState = updateObject(state, {
-    periodos: updatedPeriodos,
-    ordens: updatedOrdens
-  });
-  return updatedState;
+const periodosCheck = (state, action) => {
+  const updatedObject = updateObject(
+    initalState,
+    {
+      estagios: state.estagios,
+      periodos: state.periodos
+    }
+  );
+  updatedObject.periodos.marcados = state.periodos.marcados
+    .concat(action.periodo.map(r => r.row.codigoPeriodo));
+  return updatedObject;
+};
+const periodosDescheck = (state, action) => {
+  const updatedObject = updateObject(
+    initalState,
+    {
+      estagios: state.estagios,
+      periodos: state.periodos
+    }
+  );
+  updatedObject.periodos.marcados = state.periodos.marcados
+    .filter(i => action.periodo.indexOf(i) === -1);
+  return updatedObject;
 };
 const ordensList = (state, action) => {
   const updatedOrdens = updateObject(state.ordens, { data: action.data });
@@ -97,11 +96,11 @@ const ordensList = (state, action) => {
 const reducer = (state = initalState, action = {}) => {
   switch (action.type) {
     case ESTAGIOS_LIST: return estagiosList(state, action);
-    case ESTAGIOS_CHECKED: return estagiosCheckControl(state, action);
-    case ESTAGIOS_DESCHECKED: return estagiosCheckControl(state, action);
+    case ESTAGIOS_CHECKED: return estagiosCheck(state, action);
+    case ESTAGIOS_DESCHECKED: return estagiosDescheck(state, action);
     case PERIODOS_LIST: return periodosList(state, action);
-    case PERIODOS_CHECK: return periodosCheckControl(state, action);
-    case PERIODOS_DESCHECK: return periodosCheckControl(state, action);
+    case PERIODOS_CHECK: return periodosCheck(state, action);
+    case PERIODOS_DESCHECK: return periodosDescheck(state, action);
     case ORDENS_LIST: return ordensList(state, action);
     default: return state;
   }
@@ -152,10 +151,11 @@ export const marcarPeriodo = (row) => {
   };
 };
 export const desmarcarPeriodo = (row) => {
+  const periodo = row.map(r => r.row.codigoPeriodo);
   return (dispatch) => {
     dispatch({
       type: PERIODOS_DESCHECK,
-      periodo: row,
+      periodo,
       periodoAction: 'descheck'
     });
   };
