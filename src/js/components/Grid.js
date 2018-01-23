@@ -35,7 +35,7 @@ export default class Grid extends Component {
     super(props);
     this.state = {
       rows: props.data,
-      columnsDef: this.getColumns(props.columns),
+      columnsDef: props.columns,
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
       filters: {},
@@ -145,7 +145,7 @@ export default class Grid extends Component {
         <ReactDataGrid
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
-          columns={this.state.columnsDef}
+          columns={this.getColumns(this.state.columnsDef)}
           rowHeight={30}
           rowGetter={this.rowGetter}
           rowsCount={this.getSize()}
