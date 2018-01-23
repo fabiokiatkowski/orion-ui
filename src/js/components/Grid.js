@@ -74,8 +74,10 @@ export default class Grid extends Component {
     const columnTargetIndex = columns
       .findIndex(i => i.key === target);
 
-    columns[columnsSourceIndex].order = columnTargetIndex;
-    columns[columnTargetIndex].order = columnsSourceIndex;
+    const orderSource = columns[columnsSourceIndex].order;
+    const orderTarget = columns[columnTargetIndex].order;
+    columns[columnsSourceIndex].order = orderTarget;
+    columns[columnTargetIndex].order = orderSource;
 
     const newState = { ...this.state, columnsDef: columns };
     this.setState({ ...this.state, columnsDef: [] });
