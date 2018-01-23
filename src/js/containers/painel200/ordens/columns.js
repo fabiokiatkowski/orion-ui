@@ -97,6 +97,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -109,6 +110,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 9
@@ -120,6 +122,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 10
@@ -131,6 +134,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 11
@@ -142,6 +146,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 12
@@ -153,6 +158,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 13
@@ -164,6 +170,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -176,6 +183,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 15
@@ -187,6 +195,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -199,6 +208,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 17
@@ -210,6 +220,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 18
@@ -221,6 +232,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 19
@@ -232,6 +244,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 20
@@ -243,6 +256,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -255,6 +269,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 21
@@ -266,6 +281,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 22
@@ -277,6 +293,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -290,6 +307,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -303,6 +321,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -316,6 +335,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -329,6 +349,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -342,6 +363,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -355,6 +377,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -368,6 +391,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 30
@@ -379,6 +403,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 31
@@ -401,6 +426,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -425,6 +451,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 35
@@ -436,6 +463,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.DATE,
     order: 36
@@ -447,6 +475,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.DATA,
     order: 37
@@ -458,6 +487,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.DATA,
     order: 38
@@ -469,6 +499,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 39
@@ -480,6 +511,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 40
@@ -491,6 +523,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.DATE,
     order: 41
@@ -502,6 +535,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 42
@@ -513,6 +547,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 43
