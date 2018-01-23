@@ -24,6 +24,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -37,6 +38,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     formatter: IntegerFormat,
@@ -51,6 +53,7 @@ const columns = [
     width: 150,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 4
@@ -63,6 +66,7 @@ const columns = [
     width: 150,
     hidden: false,
     sortable: true,
+    draggable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 5
