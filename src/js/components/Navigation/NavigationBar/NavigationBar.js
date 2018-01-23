@@ -6,7 +6,7 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 const NavigationBar = () => {
   return (
     <div>
-      <Navbar>
+      <Navbar collapseOnSelect fluid>
         <Navbar.Header>
           <Navbar.Brand>
             <NavLink to="/">Orion Xp</NavLink>
