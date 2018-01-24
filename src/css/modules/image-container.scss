@@ -1,0 +1,35 @@
+.image-container {
+  height: 240px;
+  width: 202px;
+  position: relative;
+
+  margin-top: 15px;
+  
+  .panel-body {
+    padding: 0;
+    margin: 0;
+  
+  }
+
+  .image-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    i {display: none}
+  }
+
+  .image-overlay:hover {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.6);
+    i {display: initial}
+  }
+}
+
+
+

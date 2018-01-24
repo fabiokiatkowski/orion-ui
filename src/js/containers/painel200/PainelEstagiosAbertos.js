@@ -9,18 +9,22 @@ import { listarEstagio,
   marcarPeriodo,
   listarOrdens,
   desmarcarPeriodo } from '../../redux/modules/tela200';
-
+import { listProductImages } from '../../redux/modules/image';
 import GridEstagiosAbertos from './estagiosAbertos/GridEstagiosAbertos';
 import GridPeriodos from './periodos/GridPeriodos';
 import GridOrdens from './ordens/GridOrdens';
+import ImageContainer from '../../components/ImagesContainer';
+import fixReferencia from '../../utils/referencia';
 
 const mapStateToProps = state => ({
   estagiosData: state.tela200.estagios.data,
   periodosData: state.tela200.periodos.data,
   ordensData: state.tela200.ordens.data,
   selectedEstagios: state.tela200.estagios.marcados,
-  selectedPeriodos: state.tela200.periodos.marcados
+  selectedPeriodos: state.tela200.periodos.marcados,
+  produtoImagens: state.image.produtos
 });
+
 const mapDispatchToProps = dispatch => ({
   listarEstagio: bindActionCreators(listarEstagio, dispatch),
   listarPeriodos: bindActionCreators(listarPeriodos, dispatch),
@@ -28,12 +32,15 @@ const mapDispatchToProps = dispatch => ({
   marcarEstagio: bindActionCreators(marcarEstagio, dispatch),
   desmarcarEstagio: bindActionCreators(desmarcarEstagio, dispatch),
   marcarPeriodo: bindActionCreators(marcarPeriodo, dispatch),
-  desmarcarPeriodo: bindActionCreators(desmarcarPeriodo, dispatch)
+  desmarcarPeriodo: bindActionCreators(desmarcarPeriodo, dispatch),
+  listProductImages: bindActionCreators(listProductImages, dispatch)
 });
+
 class PainelEstagiosAbertos extends Component {
   state = {
     estagiosSelectedRow: [],
-    periodosSelectedRow: []
+    periodosSelectedRow: [],
+    referenciaSelected: null
   };
   componentDidMount() {
     this.props.listarEstagio();
@@ -78,6 +85,7 @@ class PainelEstagiosAbertos extends Component {
       .concat(rows.map(r => r.rowIdx));
     this.setState({ periodosSelectedRow: newIds });
   };
+
   onPeriodoRowsDeselectedHandler = (rows) => {
     this.props.desmarcarPeriodo(rows);
     const rowIndexes = rows.map(r => r.rowIdx);
@@ -88,9 +96,20 @@ class PainelEstagiosAbertos extends Component {
       periodosSelectedRow: newIndexesState
     });
   }
+
+  handleRowChange = (data) => {
+    const { referenciaPeca } = data;
+    this.props.listProductImages(referenciaPeca);
+    const referenciaSelected = fixReferencia(referenciaPeca);
+    this.setState({ referenciaSelected });
+  }
+
   // #endregion
   render() {
     const minHeight = 300;
+    const { produtoImagens } = this.props;
+    const { referenciaSelected } = this.state;
+    const imageList = produtoImagens && produtoImagens.get(referenciaSelected);
     const gridEstagios = (
       <div>
         <button
@@ -140,9 +159,10 @@ class PainelEstagiosAbertos extends Component {
     const gridResultado = (
       <div>
         <GridOrdens
-          minHeight={600}
+          minHeight={520}
           data={this.props.ordensData}
           indexes={[]}
+          handleRowChange={this.handleRowChange}
         />
       </div>
     );
@@ -152,12 +172,15 @@ class PainelEstagiosAbertos extends Component {
         {gridPeriodo}
         <div className="result200">
           {gridResultado}
+          <ImageContainer imageList={imageList} />
         </div>
       </div>
     );
   }
 }
 PainelEstagiosAbertos.propTypes = {
+  produtoImagens: PropsTypes.array, //eslint-disable-line
+  listProductImages: PropsTypes.func.isRequired,
   listarEstagio: PropsTypes.func.isRequired,
   listarPeriodos: PropsTypes.func.isRequired,
   listarOrdens: PropsTypes.func.isRequired,
