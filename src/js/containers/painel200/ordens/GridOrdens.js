@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import PropsTypes from 'prop-types';
-import ImageContainer from '../../../components/ImagesContainer';
-
+import PropTypes from 'prop-types';
 import columns from './columns';
 import Grid from '../../../components/Grid';
 import ItensAcao from './itensAcao/ItensAcao';
@@ -21,6 +19,7 @@ class GridOrdens extends Component {
           data={this.props.data}
           columns={columns}
           indexes={this.props.indexes}
+          handleRowChange={this.props.handleRowChange}
           enableSummary
         />
         <ItensAcao
@@ -28,16 +27,16 @@ class GridOrdens extends Component {
           onMarcarUTI={this.marcarUTIHandler}
           onDesmarcarUTI={this.desmarcarUTIHandler}
         />
-        <ImageContainer />
       </div>
     );
   }
 }
 
 GridOrdens.propTypes = {
-  minHeight: PropsTypes.number.isRequired,
-  indexes: PropsTypes.array.isRequired, //eslint-disable-line
-  data: PropsTypes.array.isRequired //eslint-disable-line
+  handleRowChange: PropTypes.func.isRequired,
+  minHeight: PropTypes.number.isRequired,
+  indexes: PropTypes.array.isRequired, //eslint-disable-line
+  data: PropTypes.array.isRequired //eslint-disable-line
 };
 
 export default GridOrdens;
