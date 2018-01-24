@@ -1,5 +1,5 @@
 import React from 'react';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const ItensAcao = (props) => {
   return (
@@ -75,9 +75,9 @@ const ItensAcao = (props) => {
 };
 
 ItensAcao.propTypes = {
-  disabled: PropsTypes.bool.isRequired,
-  onMarcarUTI: PropsTypes.func,
-  onDesmarcarUTI: PropsTypes.func
+  disabled: PropTypes.bool.isRequired,
+  onMarcarUTI: PropTypes.func,
+  onDesmarcarUTI: PropTypes.func
 };
 
 ItensAcao.defaultProps = {

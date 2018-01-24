@@ -1,5 +1,5 @@
 import React from 'react';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { NavItem } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
@@ -16,9 +16,9 @@ const NavigationItem = (props) => {
 };
 
 NavigationItem.propTypes = {
-  exact: PropsTypes.bool,
-  link: PropsTypes.string,
-  children: PropsTypes.string
+  exact: PropTypes.bool,
+  link: PropTypes.string,
+  children: PropTypes.string
 };
 
 NavigationItem.defaultProps = {

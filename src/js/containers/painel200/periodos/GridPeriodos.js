@@ -1,5 +1,5 @@
 import React from 'react';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import columns from './columns';
 import Grid from '../../../components/Grid';
@@ -20,11 +20,11 @@ const GridPeriodos = (props) => {
 };
 
 GridPeriodos.propTypes = {
-  onRowsSelected: PropsTypes.func.isRequired,
-  onRowsDeselected: PropsTypes.func.isRequired,
-  minHeight: PropsTypes.number.isRequired,
-  indexes: PropsTypes.array.isRequired, //eslint-disable-line
-  data: PropsTypes.array.isRequired //eslint-disable-line
+  onRowsSelected: PropTypes.func.isRequired,
+  onRowsDeselected: PropTypes.func.isRequired,
+  minHeight: PropTypes.number.isRequired,
+  indexes: PropTypes.array.isRequired, //eslint-disable-line
+  data: PropTypes.array.isRequired //eslint-disable-line
 };
 
 export default GridPeriodos;

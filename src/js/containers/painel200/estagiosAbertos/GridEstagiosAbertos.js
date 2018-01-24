@@ -1,5 +1,5 @@
 import React from 'react';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Grid from '../../../components/Grid';
 import columns from './columns';
 
@@ -18,11 +18,11 @@ const GridEstagiosAbertos = (props) => {
 };
 
 GridEstagiosAbertos.propTypes = {
-  minHeight: PropsTypes.number.isRequired,
-  onRowsSelected: PropsTypes.func.isRequired,
-  onRowsDeselected: PropsTypes.func.isRequired,
-  indexes: PropsTypes.array.isRequired, //eslint-disable-line
-  data: PropsTypes.array.isRequired //eslint-disable-line
+  minHeight: PropTypes.number.isRequired,
+  onRowsSelected: PropTypes.func.isRequired,
+  onRowsDeselected: PropTypes.func.isRequired,
+  indexes: PropTypes.array.isRequired, //eslint-disable-line
+  data: PropTypes.array.isRequired //eslint-disable-line
 };
 
 export default GridEstagiosAbertos;

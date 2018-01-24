@@ -1,5 +1,5 @@
 import React from 'react';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavigationBar from '../../components/Navigation/NavigationBar/NavigationBar';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -22,8 +22,8 @@ const Layout = (props) => {
 };
 
 Layout.propTypes = {
-  children: PropsTypes.any.isRequired,
-  isLoading: PropsTypes.bool
+  children: PropTypes.any.isRequired,
+  isLoading: PropTypes.bool
 };
 
 Layout.defaultProps = {

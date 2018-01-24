@@ -4,7 +4,7 @@
   max-height: 100%;
   display: grid;
   grid-template-columns: 30% 40%;
-  grid-auto-rows: 43vh;
+  grid-auto-rows: 45vh;
 }
 
 .container200 > div {
@@ -17,10 +17,8 @@
   grid-column: 2 / 4;
   grid-row: 1 / 3;
   display: grid;
-  grid-template-rows: 550px auto;
+  grid-template-rows: 570px auto;
 }
-
-
 
 .btn-margin-top {
   margin-top: 10px;
