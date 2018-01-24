@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Grid from '../../components/Grid';
 import columns from './columns';
 import ColumnPersist from '../../utils/gridColumns';
@@ -48,10 +48,10 @@ const GridRepresentante = (props) => {
 };
 
 GridRepresentante.propTypes = {
-  setCurrentRow: PropsTypes.func.isRequired,
-  handleRowChange: PropsTypes.func.isRequired,
-  minHeight: PropsTypes.number.isRequired,
-  data: PropsTypes.array.isRequired //eslint-disable-line
+  setCurrentRow: PropTypes.func.isRequired,
+  handleRowChange: PropTypes.func.isRequired,
+  minHeight: PropTypes.number.isRequired,
+  data: PropTypes.array.isRequired //eslint-disable-line
 };
 
 export default connect(mapStateToProps, null)(GridRepresentante);

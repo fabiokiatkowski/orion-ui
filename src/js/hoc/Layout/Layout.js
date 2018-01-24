@@ -17,6 +17,10 @@ const Layout = (props) => {
           {props.children}
         </main>
       </LoadingSpinner>
+      <footer id="footer" >
+        <b>Copyright © 2018 <a href="http://www.pacificosul.com.br/novo/">Pacifico Sul</a></b>.
+        <span className="is-hidden-mobile">Todos os direitos reservados.</span>
+      </footer>
     </div>
   );
 };
