@@ -13,7 +13,7 @@ import { listProductImages } from '../../redux/modules/image';
 import GridEstagiosAbertos from './estagiosAbertos/GridEstagiosAbertos';
 import GridPeriodos from './periodos/GridPeriodos';
 import GridOrdens from './ordens/GridOrdens';
-import ImageContainer from '../../components/ImagesContainer';
+import PainelTotaisOP from './totaisOP/PainelTotaisOP';
 import fixReferencia from '../../utils/referencia';
 
 const mapStateToProps = state => ({
@@ -40,7 +40,8 @@ class PainelEstagiosAbertos extends Component {
   state = {
     estagiosSelectedRow: [],
     periodosSelectedRow: [],
-    referenciaSelected: null
+    referenciaSelected: null,
+    opSelected: null
   };
   componentDidMount() {
     this.props.listarEstagio();
@@ -98,6 +99,7 @@ class PainelEstagiosAbertos extends Component {
   }
 
   handleRowChange = (data) => {
+    console.log(data);
     const { referenciaPeca } = data;
     this.props.listProductImages(referenciaPeca);
     const referenciaSelected = fixReferencia(referenciaPeca);
@@ -108,7 +110,7 @@ class PainelEstagiosAbertos extends Component {
   render() {
     const minHeight = 300;
     const { produtoImagens } = this.props;
-    const { referenciaSelected } = this.state;
+    const { referenciaSelected, opSelected } = this.state;
     const imageList = produtoImagens && produtoImagens.get(referenciaSelected);
     const gridEstagios = (
       <div>
@@ -172,7 +174,11 @@ class PainelEstagiosAbertos extends Component {
         {gridPeriodo}
         <div className="result200">
           {gridResultado}
-          <ImageContainer imageList={imageList} />
+          <PainelTotaisOP
+            imageList={imageList}
+            referencia={referenciaSelected}
+            op={opSelected}
+          />
         </div>
       </div>
     );
