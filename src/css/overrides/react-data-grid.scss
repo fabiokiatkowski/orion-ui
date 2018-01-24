@@ -10,13 +10,7 @@
   display: none;
 }
 
-.radio-custom+.radio-custom-label:before, .react-grid-checkbox+.react-grid-checkbox-label:before {
-  content: "";
-  background: #fff;
-  border: 2px solid #ddd;
-  display: inline-block;
-  vertical-align: middle;
-  width: 17px;
-  height: 17px;
-  text-align: center;
+.radio-custom-label:before, .react-grid-checkbox, .react-grid-checkbox-label:before {
+  width: 17px !important;
+  height: 17px !important;
 }

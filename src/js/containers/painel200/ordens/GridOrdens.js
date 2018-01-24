@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropsTypes from 'prop-types';
+import ImageContainer from '../../../components/ImagesContainer';
 
 import columns from './columns';
 import Grid from '../../../components/Grid';
@@ -27,6 +28,7 @@ class GridOrdens extends Component {
           onMarcarUTI={this.marcarUTIHandler}
           onDesmarcarUTI={this.desmarcarUTIHandler}
         />
+        <ImageContainer />
       </div>
     );
   }
