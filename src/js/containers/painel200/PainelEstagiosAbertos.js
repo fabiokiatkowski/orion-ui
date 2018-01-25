@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { listarEstagio,
   marcarEstagio,
   desmarcarEstagio,
@@ -15,6 +15,7 @@ import GridPeriodos from './periodos/GridPeriodos';
 import GridOrdens from './ordens/GridOrdens';
 import PainelTotaisOP from './totaisOP/PainelTotaisOP';
 import fixReferencia from '../../utils/referencia';
+import Sizeme from '../../components/Sizeme';
 
 const mapStateToProps = state => ({
   estagiosData: state.tela200.estagios.data,
@@ -41,11 +42,14 @@ class PainelEstagiosAbertos extends Component {
     estagiosSelectedRow: [],
     periodosSelectedRow: [],
     referenciaSelected: null,
-    opSelected: null
+    opSelected: null,
+    estagiosAbertosHeight: 400,
+    ordensHeigh: 520
   };
   componentDidMount() {
     this.props.listarEstagio();
   }
+
   // #region estagios row handlers
   onEstagioRowsSelectedHandler = (rows) => {
     this.props.marcarEstagio(rows);
@@ -98,22 +102,38 @@ class PainelEstagiosAbertos extends Component {
     });
   }
 
+  changeEstagiosAbertosSize = (width, height) => {
+    this.setState({ estagiosAbertosHeight: height });
+  }
+
+  changeGridOrdensSize = (width, height) => {
+    this.setState({ ordensHeigh: height });
+  }
+
   handleRowChange = (data) => {
-    console.log(data);
-    const { referenciaPeca } = data;
+    const { referenciaPeca, ordemProducao } = data;
     this.props.listProductImages(referenciaPeca);
     const referenciaSelected = fixReferencia(referenciaPeca);
-    this.setState({ referenciaSelected });
+    this.setState({
+      referenciaSelected,
+      opSelected: ordemProducao
+    });
   }
 
   // #endregion
   render() {
-    const minHeight = 300;
+    const {
+      referenciaSelected,
+      opSelected,
+      estagiosAbertosHeight,
+      ordensHeigh
+    } = this.state;
+    const buttonSize = 50;
+    const minHeight = estagiosAbertosHeight;
     const { produtoImagens } = this.props;
-    const { referenciaSelected, opSelected } = this.state;
     const imageList = produtoImagens && produtoImagens.get(referenciaSelected);
     const gridEstagios = (
-      <div>
+      <Sizeme handleChangeSize={this.changeEstagiosAbertosSize}>
         <button
           className="btn btn-default pull-right btn-margin-bottom"
           onClick={this.onListarEstagiosHandler}
@@ -121,7 +141,7 @@ class PainelEstagiosAbertos extends Component {
           Atualizar Estágios
         </button>
         <GridEstagiosAbertos
-          minHeight={minHeight}
+          minHeight={minHeight - 100}
           data={this.props.estagiosData}
           onRowsSelected={this.onEstagioRowsSelectedHandler}
           onRowsDeselected={this.onEstagioRowsDeselectedHandler}
@@ -135,12 +155,12 @@ class PainelEstagiosAbertos extends Component {
         >
           Consultar Periodos
         </button>
-      </div>
+      </Sizeme>
     );
     const gridPeriodo = (
       <div>
         <GridPeriodos
-          minHeight={minHeight}
+          minHeight={minHeight - 70}
           data={this.props.periodosData}
           onRowsSelected={this.onPeriodoRowsSelectedHandler}
           onRowsDeselected={this.onPeriodoRowsDeselectedHandler}
@@ -159,14 +179,14 @@ class PainelEstagiosAbertos extends Component {
       </div>
     );
     const gridResultado = (
-      <div>
+      <Sizeme handleChangeSize={this.changeGridOrdensSize}>
         <GridOrdens
-          minHeight={520}
+          minHeight={ordensHeigh - 35}
           data={this.props.ordensData}
           indexes={[]}
           handleRowChange={this.handleRowChange}
         />
-      </div>
+      </Sizeme>
     );
     return (
       <div className="container200">
@@ -185,20 +205,20 @@ class PainelEstagiosAbertos extends Component {
   }
 }
 PainelEstagiosAbertos.propTypes = {
-  produtoImagens: PropsTypes.array, //eslint-disable-line
-  listProductImages: PropsTypes.func.isRequired,
-  listarEstagio: PropsTypes.func.isRequired,
-  listarPeriodos: PropsTypes.func.isRequired,
-  listarOrdens: PropsTypes.func.isRequired,
-  marcarEstagio: PropsTypes.func.isRequired,
-  marcarPeriodo: PropsTypes.func.isRequired,
-  desmarcarEstagio: PropsTypes.func.isRequired,
-  desmarcarPeriodo: PropsTypes.func.isRequired,
-  selectedEstagios: PropsTypes.array.isRequired, //eslint-disable-line
-  selectedPeriodos: PropsTypes.array.isRequired, //eslint-disable-line
-  estagiosData: PropsTypes.array.isRequired, //eslint-disable-line
-  periodosData: PropsTypes.array.isRequired, //eslint-disable-line
-  ordensData: PropsTypes.array.isRequired //eslint-disable-line
+  produtoImagens: PropTypes.array, //eslint-disable-line
+  listProductImages: PropTypes.func.isRequired,
+  listarEstagio: PropTypes.func.isRequired,
+  listarPeriodos: PropTypes.func.isRequired,
+  listarOrdens: PropTypes.func.isRequired,
+  marcarEstagio: PropTypes.func.isRequired,
+  marcarPeriodo: PropTypes.func.isRequired,
+  desmarcarEstagio: PropTypes.func.isRequired,
+  desmarcarPeriodo: PropTypes.func.isRequired,
+  selectedEstagios: PropTypes.array.isRequired, //eslint-disable-line
+  selectedPeriodos: PropTypes.array.isRequired, //eslint-disable-line
+  estagiosData: PropTypes.array.isRequired, //eslint-disable-line
+  periodosData: PropTypes.array.isRequired, //eslint-disable-line
+  ordensData: PropTypes.array.isRequired //eslint-disable-line
 };
 export default connect(
   mapStateToProps,
