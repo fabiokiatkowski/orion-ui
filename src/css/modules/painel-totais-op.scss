@@ -1,8 +1,20 @@
 .painel-totais-op {
   display: grid;
-  grid-template-columns: 215px auto;
+  grid-template-columns: 215px 70%;
 
   #painel-totais-op-main {
     padding-top: 15px;
+  }
+
+  .insumo-wrapper {
+    display: grid;
+    grid-template-columns: repeat(6, 16.333% ) ;
+    grid-template-rows: repeat(4, 20% );
+    grid-gap: 2px;
+  }
+
+  .insumo-estoque {
+    grid-column: 1 / 4;
+    grid-row: 1 / 5;
   }
 }

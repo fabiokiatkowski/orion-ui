@@ -128,7 +128,6 @@ class PainelEstagiosAbertos extends Component {
       estagiosAbertosHeight,
       ordensHeigh
     } = this.state;
-    const buttonSize = 50;
     const minHeight = estagiosAbertosHeight;
     const { produtoImagens } = this.props;
     const imageList = produtoImagens && produtoImagens.get(referenciaSelected);

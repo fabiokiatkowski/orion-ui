@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import ImageContainer from '../../../components/ImagesContainer';
+import InsumoNecessidade from '../../insumoNecessidade/InsumoNecessidade';
+import Sizeme from '../../../components/Sizeme';
 
 const MainTabs = (props) => {
+  let renderInsumoOp = null;
+  if (props.ordemProducao) {
+    renderInsumoOp = <InsumoNecessidade ordemProducao={props.ordemProducao} />;
+  }
   return (
     <Tabs activeKey={props.tabKey} onSelect={props.handleTabSelect} id="painel-totais-op-main">
       <Tab eventKey={1} title="Observação">
         Painel de Observação
       </Tab>
       <Tab eventKey={2} title="Insumos OP">
-        Painel de Insumos
+        <div className="insumo-wrapper">
+          <Sizeme>
+            {renderInsumoOp}
+          </Sizeme>
+        </div>
       </Tab>
       <Tab eventKey={3} title="Estágio Paralelo">
         Painel de Estágio Paralelo
@@ -32,7 +42,7 @@ const MainTabs = (props) => {
       <Tab eventKey={9} title="Canc. OP">
         Painel de Observação
       </Tab>
-      <Tab eventKey={2} title="Altera Período">
+      <Tab eventKey={10} title="Altera Período">
         Painel de Insumos
       </Tab>
     </Tabs>
@@ -57,7 +67,8 @@ class PainelTotaisOP extends Component {
         </div>
         <MainTabs
           tabKey={tabMainKey}
-          handleTabSelect={this.handleTabMainSelect} 
+          handleTabSelect={this.handleTabMainSelect}
+          ordemProducao={this.props.op}
         />
       </div>
     );

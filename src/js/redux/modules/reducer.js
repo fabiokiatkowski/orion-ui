@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import representante from './representante';
 import pedidosRecebidos from './pedidosRecebidos';
 import image from './image';
+import insumoNecessidade from './insumoNecessidade/insumoNecessidade';
 import app from './app';
 import tela200 from './tela200';
 
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   pedidosRecebidos,
   tela200,
   app,
-  image
+  image,
+  insumos: insumoNecessidade
 });
 
 export default rootReducer;
