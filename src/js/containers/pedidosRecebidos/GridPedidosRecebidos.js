@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Grid from '../../components/Grid';
 import columns from './columns';
 
@@ -21,8 +21,8 @@ const GridPedidosRecebidos = (props) => {
 };
 
 GridPedidosRecebidos.propTypes = {
-  minHeight: PropsTypes.number.isRequired,
-  data: PropsTypes.array.isRequired //eslint-disable-line
+  minHeight: PropTypes.number.isRequired,
+  data: PropTypes.array.isRequired //eslint-disable-line
 };
 
 export default connect(
