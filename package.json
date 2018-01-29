@@ -64,7 +64,8 @@
         "react-tether": "^0.6.0",
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.2.0"
+        "redux-thunk": "^2.2.0",
+        "sha256": "^0.2.0"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",

@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import Layout from './hoc/Layout/Layout';
-import PanelRepresentantes from './containers/PanelRepresentantes';
+import SingIn from './containers/SingIn';
 
 const asyncTela200 = asyncComponent(() => {
   return import('./containers/painel200/PainelEstagiosAbertos');
@@ -12,13 +12,13 @@ const asyncTela200 = asyncComponent(() => {
 const mainLayout = () => {
   return (
     <div>
-      <Layout>
+      {/* <Layout>
         <Switch>
           <Route path="/tela200" component={asyncTela200} />
-          <Route path="/" exact component={PanelRepresentantes} />
           <Redirect to="/" />
         </Switch>
-      </Layout>
+      </Layout> */}
+      <SingIn />
     </div>
   );
 };
