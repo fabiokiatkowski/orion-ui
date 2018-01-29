@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from '../axios-orion';
 import { loginSucess } from '../redux/modules/session';
+import getIp from '../utils/ip';
 
 const URL = `${axios.defaults.baseURL}/login`;
 
@@ -15,21 +16,23 @@ class SingIn extends Component {
     e.preventDefault();
     const id = e.target.idCracha.value;
     const password = e.target.password.value;
-
-    fetch(URL, {
-      method: 'POST',
-      mode: 'cors',
-      body: JSON.stringify({ username: id, password, ip: '123456' }),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
-    }).then((res) => {
-      if (res.status === 200) {
-        const tokenId = 'orion.authToken';
-        const token = res.headers.get('authorization');
-        localStorage.setItem(tokenId, token);
-      }
+    getIp.then((ip) => {
+      fetch(URL, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ username: id, password, ip }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      }).then((res) => {
+        if (res.status === 200) {
+          const tokenId = 'orion.authToken';
+          const token = res.headers.get('authorization');
+          localStorage.setItem(tokenId, token);
+          this.props.loginSucess();
+        }
+      });
     });
   }
 

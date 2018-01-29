@@ -24,11 +24,14 @@ export function currentUser() {
     axios.get('api/user/currentUser')
       .then(res => dispatch({
         type: LOGGED_IN,
-        currentUser: res
-      }));
+        user: res
+      })).catch(() => {
+        localStorage.removeItem('orion.authToken');
+        dispatch(push('/signIn'));
+      });
   };
 }
 
 export function loginSucess() {
-  return dispatch => dispatch(push('/home'));
+  return dispatch => dispatch(push('/'));
 }
