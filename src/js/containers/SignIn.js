@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import axios from '../axios-orion';
-import { loginSucess } from '../redux/modules/app';
+import { loginSucess } from '../redux/modules/session';
 
 const URL = `${axios.defaults.baseURL}/login`;
 
@@ -20,7 +19,7 @@ class SingIn extends Component {
     fetch(URL, {
       method: 'POST',
       mode: 'cors',
-      body: JSON.stringify({ username: id, password }),
+      body: JSON.stringify({ username: id, password, ip: '123456' }),
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
@@ -30,7 +29,6 @@ class SingIn extends Component {
         const tokenId = 'orion.authToken';
         const token = res.headers.get('authorization');
         localStorage.setItem(tokenId, token);
-        this.props.loginSucess();
       }
     });
   }
@@ -104,4 +102,4 @@ class SingIn extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SingIn); 
+export default connect(null, mapDispatchToProps)(SingIn);

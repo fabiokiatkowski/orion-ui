@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux';
-import { token } from '../../utils/token';
+import axios from '../../axios-orion';
 
 const LOGGED_IN = 'session/LOGGED_IN';
 const LOGGED_OUT = 'session/LOGGED_OUT';
@@ -21,32 +21,14 @@ export default function reducer(state = initialState, action = {}) {
 
 export function currentUser() {
   return (dispatch) => {
-    if (token.get()) {
-      dispatch({
+    axios.get('api/user/currentUser')
+      .then(res => dispatch({
         type: LOGGED_IN,
-        user: `Beta - ${token.get()}`
-      });
-    } else {
-      dispatch(push('/signin'));
-    }
+        currentUser: res
+      }));
   };
 }
 
-export function singIn(email, password) {
-  return (dispatch) => {
-    if (email === password) {
-      token.save(email);
-      dispatch(push('/'));
-    }
-  };
-}
-
-export function signOut() {
-  return (dispatch) => {
-    token.delete();
-    dispatch({
-      type: LOGGED_OUT
-    });
-    window.location.reload();
-  };
+export function loginSucess() {
+  return dispatch => dispatch(push('/home'));
 }

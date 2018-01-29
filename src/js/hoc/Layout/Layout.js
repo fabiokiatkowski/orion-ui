@@ -1,29 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import NavigationBar from '../../components/Navigation/NavigationBar/NavigationBar';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import * as session from '../../redux/modules/session';
 
 const mapStateToProps = state => ({
-  isLoading: state.app.isLoading
+  isLoading: state.app.isLoading,
+  currentUser: state.session.currentUser
 });
 
-const Layout = (props) => {
-  return (
-    <div>
-      <NavigationBar />
-      <LoadingSpinner isLoading={props.isLoading}>
-        <main>
-          {props.children}
-        </main>
-      </LoadingSpinner>
-      <footer id="footer" >
-        <b>Copyright © 2018 <a href="http://www.pacificosul.com.br/novo/">Pacifico Sul</a></b>.
-        <span className="is-hidden-mobile">Todos os direitos reservados.</span>
-      </footer>
-    </div>
-  );
-};
+class Layout extends Component {
+  componentDidMount() {
+    this.checkUser();
+  }
+
+  componentDidUpdate() {
+    this.checkUser();
+  }
+
+  checkUser = () => {
+    const { dispatch, currentUser } = this.props;
+    if (localStorage.getItem('orion.authToken')) {
+      if (!currentUser) {
+        dispatch(session.currentUser());
+      }
+    } else {
+      dispatch(push('/signIn'));
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <NavigationBar />
+        <LoadingSpinner isLoading={this.props.isLoading}>
+          <main>
+            {this.props.children}
+          </main>
+        </LoadingSpinner>
+        <footer id="footer" >
+          <b>Copyright © 2018 <a href="http://www.pacificosul.com.br/novo/">Pacifico Sul</a></b>.
+          <span className="is-hidden-mobile">Todos os direitos reservados.</span>
+        </footer>
+      </div>
+    );
+  }
+}
 
 Layout.propTypes = {
   children: PropTypes.any.isRequired,
