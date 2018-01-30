@@ -3,6 +3,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import ImageContainer from '../../../components/ImagesContainer';
 import InsumoNecessidade from '../../insumoNecessidade/InsumoNecessidade';
 import Sizeme from '../../../components/Sizeme';
+import Observacao from '../../../components/Observacao';
 
 const MainTabs = (props) => {
   let renderInsumoOp = null;
@@ -12,7 +13,7 @@ const MainTabs = (props) => {
   return (
     <Tabs activeKey={props.tabKey} onSelect={props.handleTabSelect} id="painel-totais-op-main">
       <Tab eventKey={1} title="Observação">
-        Painel de Observação
+        <Observacao />
       </Tab>
       <Tab eventKey={2} title="Insumos OP">
         <div className="insumo-wrapper">

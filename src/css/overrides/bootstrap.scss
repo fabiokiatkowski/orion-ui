@@ -32,6 +32,10 @@ main {
     border-bottom: 1px solid #cdcdcd;
   }
   
+  textarea.form-control {
+    height: auto;
+  }
+
   .form-control {
     height: 2.2em;
     font-size: inherit;
