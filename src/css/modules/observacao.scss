@@ -1,0 +1,39 @@
+/* TODO refactor everything in this css, 
+  use grid layout, I do this porcaria because I was late.
+*/
+
+.observacao-wrapper {
+  textarea#observacao.form-control {
+    resize: none;
+    width: 100%;
+  }
+  
+  textarea#observacao-2.form-control {
+    resize: none;
+    width: 100%;
+  }
+
+  .form-group.save-button {
+    width: 10%;
+    position: relative;
+  }
+  
+  .form-group.observacao {
+    width: 90%;
+  }
+  
+  .form-group.grid-observacao {
+    width: 40%;
+  }
+  
+  .form-group.observacao-2 {
+    width: 60%;
+  }
+
+  .btn.btn-primary {
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+  }
+}
+
