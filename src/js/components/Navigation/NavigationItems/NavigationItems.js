@@ -1,6 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
 import NavigationItem from './NavigationItem/NavigationItem';
+import { logOut } from '../../../redux/modules/session';
+
+const mapStateToProps = state => ({
+  currentUser: state.session.currentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  logOut: bindActionCreators(logOut, dispatch)
+});
 
 const NavigationItems = (props) => {
   return (
@@ -13,14 +24,21 @@ const NavigationItems = (props) => {
         </NavDropdown>
       </Nav>
       <Nav pullRight>
-        <NavigationItem
+        <NavDropdown
           eventKey={3}
-          link="/"
-        >ORION USER
-        </NavigationItem>
+          title={props.currentUser && props.currentUser.apelido}
+          id="basic-nav-dropdown"
+        >
+          <MenuItem
+            eventKey={3.1}
+            onClick={() => props.logOut()}
+          >
+            Sair
+          </MenuItem>
+        </NavDropdown>
       </Nav>
     </div>
   );
 };
 
-export default NavigationItems;
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationItems);

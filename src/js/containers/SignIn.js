@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import debounce from 'lodash/fp/debounce';
 import axios from '../axios-orion';
-import { loginSucess } from '../redux/modules/session';
+import { loginSucess, getApelido } from '../redux/modules/session';
 import getIp from '../utils/ip';
 
 const URL = `${axios.defaults.baseURL}/login`;
 
+const mapStateToProps = state => ({
+  apelido: state.session.selectApelido
+});
+
 const mapDispatchToProps = dispatch => ({
-  loginSucess: bindActionCreators(loginSucess, dispatch)
+  loginSucess: bindActionCreators(loginSucess, dispatch),
+  getApelido: bindActionCreators(getApelido, dispatch)
 });
 
 class SingIn extends Component {
+  constructor(props) {
+    super(props);
+    this.debouncedOnIdChange = debounce(100, this.onIdChange);
+  }
+
+  componentDidMount() {
+    if (this.crachaInput.value) {
+      this.props.getApelido(this.crachaInput.value);
+    }
+  }
+
+  onIdChange = () => {
+    if (this.crachaInput.value) {
+      this.props.getApelido(this.crachaInput.value);
+    }
+  }
+
+  /* I'll refactor this... */
   login = (e) => {
     e.preventDefault();
     const id = e.target.idCracha.value;
@@ -43,9 +67,9 @@ class SingIn extends Component {
           <div className="panel-heading">
             <div className="panel-title text-center">
               <h1 className="title">Pacifico Sul</h1>
-              <hr/>
+              <hr />
             </div>
-          </div> 
+          </div>
           <div className="main-login main-center">
             <form className="form-horizontal" onSubmit={(e, t) => this.login(e, t)}>
               <div className="form-group">
@@ -57,15 +81,23 @@ class SingIn extends Component {
                     <span className="input-group-addon">
                       <i className="fa fa-id-card fa" aria-hidden="true" />
                     </span>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       className="form-control"
-                      name="idCracha" 
-                      id="id-cracha" 
+                      name="idCracha"
+                      id="id-cracha"
                       placeholder="Cracha"
-                      onChange={this.onIdChange}
+                      ref={(input) => { this.crachaInput = input; }}
+                      onChange={this.debouncedOnIdChange}
                     />
-                    <input type="text" disabled className="form-control" id="id-user-name"  placeholder="Nome"/>
+                    <input
+                      type="text"
+                      disabled
+                      className="form-control"
+                      id="id-user-name"
+                      placeholder="Nome"
+                      value={this.props.apelido}
+                    />
                   </div>
                 </div>
               </div>
@@ -78,10 +110,10 @@ class SingIn extends Component {
                       <i className="fa fa-lock fa-lg" aria-hidden="true" />
                     </span>
                     <input
-                      type="password" 
-                      className="form-control" 
-                      name="password" 
-                      id="password" 
+                      type="password"
+                      className="form-control"
+                      name="password"
+                      id="password"
                       placeholder="Senha"
                       onChange={this.onPasswordChange}
                     />
@@ -90,7 +122,7 @@ class SingIn extends Component {
               </div>
 
               <div className="form-group ">
-                <button type="button" type="submit" className="btn btn-primary btn-lg btn-block login-button">
+                <button type="submit" className="btn btn-primary btn-lg btn-block login-button">
                   Entrar
                 </button>
               </div>
@@ -105,4 +137,4 @@ class SingIn extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SingIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SingIn);
