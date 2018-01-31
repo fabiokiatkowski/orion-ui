@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Types from '../utils/filterTypes';
 import Grid from './Grid';
+import { list, add } from '../redux/modules/observacao';
 
 const columns = [
   {
-    key: 'data',
+    key: 'dataObservacao',
     name: 'Data',
     filterable: true,
     resizable: true,
@@ -29,54 +32,89 @@ const columns = [
     sortable: false,
     type: Types.TEXT,
     order: 3,
+  },
+  {
+    key: 'observacao',
+    name: 'obs aux',
+    hidden: true
   }
 ];
 
-// class Observacao extends Component {
-//   render() {
-//     return (
-//       <div className="observacao-wrapper">
-//         <div class="form-group">
-//           <textarea className="form-control" rows="5" id="comment" />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
+const mapStateToProps = state => ({
+  observacoes: state.observacao.data
+});
 
-const Observacao = (props) => {
-  return (
-    <div className="observacao-wrapper">
-      <div className="form-inline">
-        <div className="form-group observacao">
-          <textarea
-            className="form-control"
-            rows="2"
-            id="observacao"
-          />
-        </div>
-        <div className="form-group save-button">
-          <button className="btn btn-primary">Salvar</button>
+const mapDispatchToProps = dispatch => ({
+  list: bindActionCreators(list, dispatch),
+  add: bindActionCreators(add, dispatch)
+});
+
+class Observacao extends Component {
+  state = { observacao: '' }
+
+  componentDidMount() {
+    this.props.list(this.props.ordemProducao, false);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.ordemProducao !== this.props.ordemProducao) {
+      this.props.list(nextProps.ordemProducao, false);
+      this.setState({ observacao: '' });
+    }
+  }
+
+  onSave = (e) => {
+    e.preventDefault();
+    const observacao = e.target.observacao.value;
+    const data = {
+      descEstagio: this.props.descEstagio,
+      observacao
+    };
+    this.props.add(this.props.ordemProducao, data);
+  }
+
+  handleRowChange = (data) => {
+    const { observacao } = data;
+    this.setState({ observacao });
+  }
+
+  render() {
+    return (
+      <div className="observacao-wrapper">
+        <form className="form-inline" onSubmit={this.onSave}>
+          <div className="form-group observacao">
+            <textarea
+              className="form-control"
+              rows="2"
+              id="observacao"
+              name="observacao"
+            />
+          </div>
+          <div className="form-group save-button">
+            <button type="submit" className="btn btn-primary">Salvar</button>
+          </div>
+        </form>
+        <div className="form-inline">
+          <div className="form-group grid-observacao">
+            <Grid
+              minHeight={161}
+              columns={columns}
+              data={this.props.observacoes}
+              handleRowChange={this.handleRowChange}
+            />
+          </div>
+          <div className="form-group observacao-2">
+            <textarea
+              value={this.state.observacao}
+              className="form-control"
+              rows="8"
+              id="observacao-2"
+            />
+          </div>
         </div>
       </div>
-      <div className="form-inline">
-        <div className="form-group grid-observacao">
-          <Grid
-            minHeight={161}
-            columns={columns}
-            data={[{}]}
-          />
-        </div>
-        <div className="form-group observacao-2">
-          <textarea
-            className="form-control"
-            rows="8"
-            id="observacao-2"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default Observacao;
+export default connect(mapStateToProps, mapDispatchToProps)(Observacao);

@@ -111,12 +111,13 @@ class PainelEstagiosAbertos extends Component {
   }
 
   handleRowChange = (data) => {
-    const { referenciaPeca, ordemProducao } = data;
+    const { referenciaPeca, ordemProducao, descodEstagio } = data;
     this.props.listProductImages(referenciaPeca);
     const referenciaSelected = fixReferencia(referenciaPeca);
     this.setState({
       referenciaSelected,
-      opSelected: ordemProducao
+      opSelected: ordemProducao,
+      descEstagioSelected: descodEstagio
     });
   }
 
@@ -126,7 +127,8 @@ class PainelEstagiosAbertos extends Component {
       referenciaSelected,
       opSelected,
       estagiosAbertosHeight,
-      ordensHeigh
+      ordensHeigh,
+      descEstagioSelected
     } = this.state;
     const minHeight = estagiosAbertosHeight;
     const { produtoImagens } = this.props;
@@ -197,6 +199,7 @@ class PainelEstagiosAbertos extends Component {
             imageList={imageList}
             referencia={referenciaSelected}
             op={opSelected}
+            descEstagio={descEstagioSelected}
           />
         </div>
       </div>

@@ -13,7 +13,10 @@ const MainTabs = (props) => {
   return (
     <Tabs activeKey={props.tabKey} onSelect={props.handleTabSelect} id="painel-totais-op-main">
       <Tab eventKey={1} title="Observação">
-        <Observacao />
+        <Observacao
+          ordemProducao={props.ordemProducao}
+          descEstagio={props.descEstagio}
+        />
       </Tab>
       <Tab eventKey={2} title="Insumos OP">
         <div className="insumo-wrapper">
@@ -70,6 +73,7 @@ class PainelTotaisOP extends Component {
           tabKey={tabMainKey}
           handleTabSelect={this.handleTabMainSelect}
           ordemProducao={this.props.op}
+          descEstagio={this.props.descEstagio}
         />
       </div>
     );

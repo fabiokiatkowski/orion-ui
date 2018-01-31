@@ -39,7 +39,7 @@ export default class Grid extends Component {
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
       filters: {},
-      rowIdx: 0
+      rowIdx: -1
     };
   }
 
