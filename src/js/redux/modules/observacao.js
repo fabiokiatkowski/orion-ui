@@ -3,20 +3,30 @@ import formatDate from '../../utils/date';
 
 export const LIST = 'observacao/LIST';
 export const ADD = 'observacao/ADD';
+export const OBS_ST = 'observacao/OBS_ST';
+export const LIST_PED = 'observacao/LIST_PED';
 
 const initialState = {
-  data: []
+  obs: [],
+  ped: [],
+  systextil: null
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LIST: {
-      return { ...state, data: action.data };
+      return { ...state, obs: action.data };
     }
     case ADD: {
       const newData = action.data;
       newData.dataObservacao = formatDate(action.data.dataObservacao);
-      return { ...state, data: [...state.data, action.data] };
+      return { ...state, obs: [...state.obs, action.data] };
+    }
+    case OBS_ST: {
+      return { ...state, systextil: action.data };
+    }
+    case LIST_PED: {
+      return { ...state, ped: action.data };
     }
     default:
       return state;
@@ -40,6 +50,28 @@ export function add(op, payload) {
     axios.post(url, payload)
       .then(res => dispatch({
         type: ADD,
+        data: res.data
+      }));
+  };
+}
+
+export function getStObs(op) {
+  const url = `/api/observacao/systextil/op/${op}`;
+  return (dispatch) => {
+    axios.get(url)
+      .then(res => dispatch({
+        type: OBS_ST,
+        data: res.data
+      }));
+  };
+}
+
+export function listPeD(referencia) {
+  const url = `/api/observacao/systextil/referencia/${referencia}`;
+  return (dispatch) => {
+    axios.get(url)
+      .then(res => dispatch({
+        type: LIST_PED,
         data: res.data
       }));
   };

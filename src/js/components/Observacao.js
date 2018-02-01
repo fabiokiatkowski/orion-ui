@@ -40,25 +40,11 @@ const columns = [
   }
 ];
 
-const mapStateToProps = state => ({
-  observacoes: state.observacao.data
-});
-
-const mapDispatchToProps = dispatch => ({
-  list: bindActionCreators(list, dispatch),
-  add: bindActionCreators(add, dispatch)
-});
-
 class Observacao extends Component {
   state = { observacao: '' }
 
-  componentDidMount() {
-    this.props.list(this.props.ordemProducao, false);
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.ordemProducao !== this.props.ordemProducao) {
-      this.props.list(nextProps.ordemProducao, false);
       this.setState({ observacao: '' });
     }
   }
@@ -117,4 +103,4 @@ class Observacao extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Observacao);
+export default Observacao;
