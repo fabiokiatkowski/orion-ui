@@ -8,7 +8,8 @@ import * as session from '../../redux/modules/session';
 
 const mapStateToProps = state => ({
   isLoading: state.app.isLoading,
-  currentUser: state.session.currentUser
+  currentUser: state.session.currentUser,
+  pathname: state.routing.location.pathname
 });
 
 class Layout extends Component {
@@ -16,16 +17,16 @@ class Layout extends Component {
     this.checkUser();
   }
 
-  componentDidUpdate() {
-    this.checkUser();
+  componentWillReceiveProps(nextProps) {
+    if (this.props.pathname !== nextProps.pathname) {
+      this.checkUser();
+    }
   }
 
   checkUser = () => {
     const { dispatch, currentUser } = this.props;
     if (localStorage.getItem('orion.authToken')) {
-      if (!currentUser) {
-        dispatch(session.currentUser());
-      }
+      dispatch(session.currentUser());
     } else {
       dispatch(push('/signIn'));
     }
