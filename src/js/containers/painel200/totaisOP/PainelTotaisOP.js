@@ -15,7 +15,7 @@ const MainTabs = (props) => {
       <Row className="clearfix">
         <Col sm={12}>
           <Nav bsStyle="tabs">
-            <NavDropdown eventKey="1" title="Observação" id="nav-dropdown-within-tab">
+            <NavDropdown eventKey="1" title="Observação">
               <MenuItem eventKey="1.1">Observação</MenuItem>
               <MenuItem eventKey="1.2">Observação Systextil</MenuItem>
               <MenuItem eventKey="1.3">Observação PeD</MenuItem>
@@ -69,7 +69,6 @@ class PainelTotaisOP extends Component {
   }
 
   handleTabMainSelect = (tabMainKey) => {
-    console.log(tabMainKey);
     this.setState({ tabMainKey });
   }
 
