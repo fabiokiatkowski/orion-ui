@@ -11,7 +11,7 @@ import Sizeme from '../../components/Sizeme';
 
 class InsumoNecessidade extends Component {
   state = {
-    insumoHeight: 400
+    insumoHeight: 300
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.ordemProducao !== nextProps.ordemProducao) {
@@ -27,17 +27,15 @@ class InsumoNecessidade extends Component {
     const { insumoHeight } = this.state;
     return (
       <div className="insumo-estoque">
-        <Grid
-          minHeight={insumoHeight - 50}
-          columns={columns}
-          data={this.props.data}
-          indexes={[]}
-          handleRowChange={this.handleRowChange}
-        />
-        <div className="form-check form-check-inline">
-          <input type="checkbox" className="form-check-input" id="checkToReceive" />
-          <label className="form-check-label" htmlFor="checkToReceive">Check me out</label>
-        </div>
+        <Sizeme handleChangeSize={this.changeSize}>
+          <Grid
+            minHeight={300}
+            columns={columns}
+            data={this.props.data}
+            indexes={[]}
+            handleRowChange={this.handleRowChange}
+          />
+        </Sizeme>
       </div>
     );
   }

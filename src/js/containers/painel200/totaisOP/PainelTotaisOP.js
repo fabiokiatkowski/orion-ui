@@ -4,6 +4,8 @@ import ImageContainer from '../../../components/ImagesContainer';
 import InsumoNecessidade from '../../insumoNecessidade/InsumoNecessidade';
 import Sizeme from '../../../components/Sizeme';
 import Observacao from '../../../components/Observacao';
+import InsumoDeposito from '../../insumoNecessidade/InsumoDeposito';
+import InsumoRolos from '../../insumoNecessidade/InsumoRolos';
 
 const MainTabs = (props) => {
   let renderInsumoOp = null;
@@ -43,9 +45,21 @@ const MainTabs = (props) => {
             <Tab.Pane eventKey="1.3">Tab 3.3 content</Tab.Pane>
             <Tab.Pane eventKey="2">
               <div className="insumo-wrapper">
-                <Sizeme>
-                  {renderInsumoOp}
-                </Sizeme>
+                <InsumoNecessidade ordemProducao={props.ordemProducao} />
+                <InsumoDeposito data={[]} />
+                <InsumoRolos data={[]} />
+                <div className="image-produto-op insumo-image">
+                  <ImageContainer imageList={props.imageList} />
+                </div>
+                <div className="observacao-rolo">
+                  <textarea
+                    className="observacao-insumo"
+                    name="observacao"
+                    id="observacao"
+                    cols="30"
+                    rows="5"
+                  />
+                </div>
               </div>
             </Tab.Pane>
             <Tab.Pane eventKey="3">Painel de Estágio Paralelo</Tab.Pane>
@@ -77,7 +91,7 @@ class PainelTotaisOP extends Component {
     return (
       <div className="painel-totais-op">
         <div className="image-produto-op">
-          <ImageContainer imageList={this.props.imageList} />
+          <ImageContainer imageList={this.props.imageList} showHeader />
         </div>
         <MainTabs
           tabKey={tabMainKey}
