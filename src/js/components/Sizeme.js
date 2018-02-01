@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { instanceOf } from 'prop-types';
 import sizeMe from 'react-sizeme';
 
 class Sizeme extends Component {
@@ -21,7 +21,9 @@ class Sizeme extends Component {
 
   handleChangeSize = (props) => {
     const { width, height } = props.size || this.props.size;
-    this.props.handleChangeSize(width, height);
+    if (typeof this.props.handleChangeSize === 'function') {
+      this.props.handleChangeSize(width, height);
+    }
   }
 
   render() {

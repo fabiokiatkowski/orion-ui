@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import columns from './columns';
 import Grid from '../../components/Grid';
+import Sizeme from '../../components/Sizeme';
 
 class InsumoNecessidade extends Component {
   state = {
@@ -15,18 +16,16 @@ class InsumoNecessidade extends Component {
   render() {
     const { insumoHeight } = this.state;
     return (
-      <div>
-        <Grid
-          minHeight={insumoHeight}
-          columns={columns}
-          data={[]}
-          indexes={[]}
-          handleRowChange={this.handleRowChange}
-        />
-        <div className="form-check form-check-inline">
-          <input type="checkbox" className="form-check-input" id="checkToReceive" />
-          <label className="form-check-label" htmlFor="checkToReceive">Check me out</label>
-        </div>
+      <div className="insumo-estoque">
+        <Sizeme handleChangeSize={this.changeSize}>
+          <Grid
+            minHeight={300}
+            columns={columns}
+            data={[]}
+            indexes={[]}
+            handleRowChange={this.handleRowChange}
+          />
+        </Sizeme>
       </div>
     );
   }

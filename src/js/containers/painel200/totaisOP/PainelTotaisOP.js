@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ImageContainer from '../../../components/ImagesContainer';
 import InsumoNecessidade from '../../insumoNecessidade/InsumoNecessidade';
-import Sizeme from '../../../components/Sizeme';
 import Observacao from '../../../components/Observacao';
+import InsumoDeposito from '../../insumoNecessidade/InsumoDeposito';
+import InsumoRolos from '../../insumoNecessidade/InsumoRolos';
 import * as observacao from '../../../redux/modules/observacao';
 import { listarInsumoNecessidade } from '../../../redux/modules/insumoNecessidade/insumoNecessidade';
 
@@ -55,7 +56,7 @@ class PainelTotaisOP extends Component {
     return (
       <div className="painel-totais-op">
         <div className="image-produto-op">
-          <ImageContainer imageList={this.props.imageList} />
+          <ImageContainer imageList={this.props.imageList} showHeader />
         </div>
         <Tab.Container activeKey={this.state.tabKey} onSelect={this.handleTabSelect} id="painel-totais-op-main">
           <Row className="clearfix">
@@ -98,9 +99,21 @@ class PainelTotaisOP extends Component {
                 <Tab.Pane eventKey="1.3">Tab 3.3 content</Tab.Pane>
                 <Tab.Pane eventKey="2">
                   <div className="insumo-wrapper">
-                    <Sizeme>
-                      {this.renderInsumoOp()}
-                    </Sizeme>
+                    <InsumoNecessidade ordemProducao={op} />
+                    <InsumoDeposito data={[]} />
+                    <InsumoRolos data={[]} />
+                    <div className="image-produto-op insumo-image">
+                      <ImageContainer imageList={imageList} />
+                    </div>
+                    <div className="observacao-rolo">
+                      <textarea
+                        className="observacao-insumo"
+                        name="observacao"
+                        id="observacao"
+                        cols="30"
+                        rows="5"
+                      />
+                    </div>
                   </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey="3">Painel de Estágio Paralelo</Tab.Pane>
