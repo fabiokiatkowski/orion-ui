@@ -7,6 +7,7 @@ import insumoNecessidade from './insumoNecessidade/insumoNecessidade';
 import app from './app';
 import tela200 from './tela200';
 import session from './session';
+import observacao from './observacao';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   app,
   image,
   insumos: insumoNecessidade,
-  session
+  session,
+  observacao
 });
 
 export default rootReducer;
