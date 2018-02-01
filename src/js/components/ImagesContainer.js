@@ -82,9 +82,10 @@ export default class ImageContainer extends Component {
     return (
       <div className="image-container">
         <div className="panel panel-default">
-          <div className="panel-heading">
-            {fileName || 'FileName.jpg'}
-          </div>
+          {this.props.showHeader &&
+            <div className="panel-heading">
+              {fileName || 'FileName.jpg'}
+            </div>}
           <div className="panel-body">
             <img
               className="card-img-top"
