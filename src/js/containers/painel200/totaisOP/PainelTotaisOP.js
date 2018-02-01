@@ -17,9 +17,7 @@ const MainTabs = (props) => {
       </Tab>
       <Tab eventKey={2} title="Insumos OP">
         <div className="insumo-wrapper">
-          <Sizeme>
-            {renderInsumoOp}
-          </Sizeme>
+          {renderInsumoOp}
         </div>
       </Tab>
       <Tab eventKey={3} title="Estágio Paralelo">

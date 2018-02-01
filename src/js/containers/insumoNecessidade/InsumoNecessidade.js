@@ -7,10 +7,11 @@ import { listarInsumoNecessidade } from '../../redux/modules/insumoNecessidade/i
 
 import columns from './columns';
 import Grid from '../../components/Grid';
+import Sizeme from '../../components/Sizeme';
 
 class InsumoNecessidade extends Component {
   state = {
-    insumoHeight: 300
+    insumoHeight: 400
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.ordemProducao !== nextProps.ordemProducao) {
@@ -25,9 +26,9 @@ class InsumoNecessidade extends Component {
   render() {
     const { insumoHeight } = this.state;
     return (
-      <div>
+      <div className="insumo-estoque">
         <Grid
-          minHeight={insumoHeight}
+          minHeight={insumoHeight - 50}
           columns={columns}
           data={this.props.data}
           indexes={[]}
