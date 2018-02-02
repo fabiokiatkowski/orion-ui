@@ -64,22 +64,28 @@ class Observacao extends Component {
     this.setState({ observacao });
   }
 
+  renderFormAdd = () => {
+    return (
+      <form className="form-inline" onSubmit={this.onSave}>
+        <div className="form-group observacao">
+          <textarea
+            className="form-control"
+            rows="2"
+            id="observacao"
+            name="observacao"
+          />
+        </div>
+        <div className="form-group save-button">
+          <button type="submit" className="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    );
+  }
+
   render() {
     return (
       <div className="observacao-wrapper">
-        <form className="form-inline" onSubmit={this.onSave}>
-          <div className="form-group observacao">
-            <textarea
-              className="form-control"
-              rows="2"
-              id="observacao"
-              name="observacao"
-            />
-          </div>
-          <div className="form-group save-button">
-            <button type="submit" className="btn btn-primary">Salvar</button>
-          </div>
-        </form>
+        {this.props.canAdd && this.renderFormAdd()}
         <div className="form-inline">
           <div className="form-group grid-observacao">
             <Grid

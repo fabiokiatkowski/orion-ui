@@ -23,7 +23,7 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, obs: [...state.obs, action.data] };
     }
     case OBS_ST: {
-      return { ...state, systextil: action.data };
+      return { ...state, systextil: action.obs1 + action.obs2 };
     }
     case LIST_PED: {
       return { ...state, ped: action.data };
@@ -61,13 +61,14 @@ export function getStObs(op) {
     axios.get(url)
       .then(res => dispatch({
         type: OBS_ST,
-        data: res.data
+        obs1: res.data.first,
+        obs2: res.data.second
       }));
   };
 }
 
 export function listPeD(referencia) {
-  const url = `/api/observacao/systextil/referencia/${referencia}`;
+  const url = `/api/observacao/referencia/${referencia}`;
   return (dispatch) => {
     axios.get(url)
       .then(res => dispatch({

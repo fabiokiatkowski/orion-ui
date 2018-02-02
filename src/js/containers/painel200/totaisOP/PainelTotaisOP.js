@@ -18,7 +18,9 @@ const mapDispatchToProps = dispatch => ({
   list: bindActionCreators(observacao.list, dispatch),
   add: bindActionCreators(observacao.add, dispatch),
   getStObs: bindActionCreators(observacao.getStObs, dispatch),
-  listarInsumoNecessidade: bindActionCreators(listarInsumoNecessidade, dispatch)
+  listarInsumoNecessidade:
+    bindActionCreators(listarInsumoNecessidade, dispatch),
+  listPeD: bindActionCreators(observacao.listPeD, dispatch)
 });
 
 class PainelTotaisOP extends Component {
@@ -31,6 +33,9 @@ class PainelTotaisOP extends Component {
       this.props.list(nextProps.op, false);
       this.props.getStObs(nextProps.op);
       this.props.listarInsumoNecessidade(nextProps.op);
+    }
+    if (nextProps.referencia !== this.props.referencia) {
+      this.props.listPeD(nextProps.referencia);
     }
   }
 
@@ -85,6 +90,7 @@ class PainelTotaisOP extends Component {
                     ordemProducao={op}
                     descEstagio={descEstagio}
                     observacoes={observacoes && observacoes.obs}
+                    canAdd
                   />
                 </Tab.Pane>
                 <Tab.Pane eventKey="1.2">
@@ -93,10 +99,14 @@ class PainelTotaisOP extends Component {
                     rows="2"
                     id="observacao-st"
                     name="observacao-st"
-                    value={observacoes && observacoes.st}
+                    value={observacoes && observacoes.systextil}
                   />
                 </Tab.Pane>
-                <Tab.Pane eventKey="1.3">Tab 3.3 content</Tab.Pane>
+                <Tab.Pane eventKey="1.3">
+                  <Observacao
+                    observacoes={observacoes && observacoes.ped}
+                  />
+                </Tab.Pane>
                 <Tab.Pane eventKey="2">
                   <div className="insumo-wrapper">
                     <InsumoNecessidade ordemProducao={op} />
