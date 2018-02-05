@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
-// import ReactDataGrid from 'react-data-grid';
-import ReactDataGrid from '../../dependencies/react-data-grid';
+import ReactDataGrid from 'react-data-grid';
+// import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderCell from './CustomHeaderCell';
 import CustomContextMenu from './CustomContextMenu';
 
@@ -70,7 +70,6 @@ export default class Grid extends Component {
   onColumnResize = (index, newWidth) => {
     const newColumns = this.state.columnsDef;
     newColumns[index].width = newWidth;
-    // this.setState({ ...this.state, columnsDef: newColumns });;
   }
 
   onHeaderDrop = (source, target) => {
@@ -98,7 +97,6 @@ export default class Grid extends Component {
   }
 
   getRows = () => {
-    console.log(this.state.shadowRows, 'shadow');
     return this.state.shadowRows;
   };
 
@@ -107,9 +105,7 @@ export default class Grid extends Component {
   };
 
   getValidFilterValues = (columnId) => {
-    console.log('valid values');
     const rows = Data.Selectors.getRows(this.state);
-    // const { rows } = this.state;
     const values = rows.map(r => r.get(columnId));
     return values.filter((item, i, a) => {
       return i === a.indexOf(item);
@@ -118,19 +114,8 @@ export default class Grid extends Component {
 
   cleanFilters = () => {
     this.setState({ filters: {} }, () => {
-      this.setState({ filters: {} });
+      this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
     });
-  }
-
-  persistColumns = (columns) => {
-    const preferences = columns.map((c) => {
-      return (new Map([
-        [c.key, JSON.stringify({
-          width: c.width,
-          order: c.order
-        })]]));
-    });
-    this.props.persistColumns(preferences);
   }
 
   handleFilterChange = (filter) => {
@@ -148,7 +133,9 @@ export default class Grid extends Component {
   };
 
   handleGridSort = (sortColumn, sortDirection) => {
-    this.setState({ sortColumn,  sortDirection }); //eslint-disable-line
+    this.setState({ sortColumn, sortDirection }, () => {
+      this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
+    });
   };
 
   rowGetter = (rowIdx) => {

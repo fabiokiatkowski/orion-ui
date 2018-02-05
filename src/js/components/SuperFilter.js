@@ -51,13 +51,13 @@ export default class SuperFilter extends Component {
       }
       return { value: null, label: '' };
     });
-    options.push({ value: '__selectall__', label: 'SELECIONAR TODOS' });
+    let result = options.push({ value: '__selectall__', label: 'SELECIONAR TODOS' });
     if (props.column.type === Types.NUMBER) {
-      options.sort(this.compareNumber);
+      result = result.sort(this.compareNumber);
     } else {
-      options.sort(this.compareText);
+      result = result.sort(this.compareText);
     }
-    return options;
+    return result;
   }
 
   getFilterOptions = () => {
@@ -197,9 +197,7 @@ export default class SuperFilter extends Component {
   }
 
   filterValues = (row, columnFilter, columnKey) => {
-    console.log("dilma");
     const value = row.get(columnKey);
-    console.log(value);
     if (this.state.advancedFilter) {
       if (this.props.column.type === Types.TEXT) {
         return this.validateFiltersText(value.toUpperCase());
