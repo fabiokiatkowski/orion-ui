@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { listarEstoqueReferencia } from '../../redux/modules/estoque/estoque';
+
 import columns from './columns';
 import Grid from '../../components/Grid';
 import Sizeme from '../../components/Sizeme';
@@ -13,15 +18,19 @@ class InsumoNecessidade extends Component {
     this.setState({ insumoHeight: height });
   }
 
+  handleRowChange = (data) => {
+    this.props.listarEstoqueReferencia(data.referencia, true);
+  };
+
   render() {
     const { insumoHeight } = this.state;
     return (
       <div className="insumo-estoque">
         <Sizeme handleChangeSize={this.changeSize}>
           <Grid
-            minHeight={300}
+            minHeight={insumoHeight}
             columns={columns}
-            data={[]}
+            data={this.props.insumosData}
             indexes={[]}
             handleRowChange={this.handleRowChange}
           />
@@ -32,7 +41,16 @@ class InsumoNecessidade extends Component {
 }
 
 InsumoNecessidade.propTypes = {
-  data: PropTypes.array.isRequired, //eslint-disable-line
+  insumosData: PropTypes.array.isRequired, //eslint-disable-line
+  listarEstoqueReferencia: PropTypes.func.isRequired
 };
 
-export default (InsumoNecessidade);
+const mapStateToProps = state => ({
+  insumosData: state.insumos.data
+});
+
+const mapDispatchToProps = dispatch => ({
+  listarEstoqueReferencia: bindActionCreators(listarEstoqueReferencia, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(InsumoNecessidade);

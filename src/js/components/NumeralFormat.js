@@ -10,7 +10,7 @@ const IntegerFormat = (props) => {
         displayType="text"
         thousandSeparator="."
         decimalSeparator=","
-        decimalScale={(showDecimal) ? 2 : 0}
+        decimalScale={(showDecimal) ? 3 : 0}
         fixedDecimalScale={showDecimal}
         value={v}
       />

@@ -4,6 +4,7 @@ import representante from './representante';
 import pedidosRecebidos from './pedidosRecebidos';
 import image from './image';
 import insumoNecessidade from './insumoNecessidade/insumoNecessidade';
+import estoque from './estoque/estoque';
 import app from './app';
 import tela200 from './tela200';
 import session from './session';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   app,
   image,
   insumos: insumoNecessidade,
+  estoque,
   session,
   observacao
 });

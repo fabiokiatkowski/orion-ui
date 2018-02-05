@@ -14,7 +14,7 @@ const columns = [
     locked: true
   },
   {
-    key: 'lote',
+    key: 'numeroLote',
     name: 'Lote',
     filterable: true,
     resizable: true,
@@ -24,7 +24,7 @@ const columns = [
     locked: true
   },
   {
-    key: 'quantidade',
+    key: 'pesoRolo',
     name: 'Quantidade',
     filterable: true,
     resizable: true,
@@ -36,7 +36,7 @@ const columns = [
     locked: true
   },
   {
-    key: 'periodo',
+    key: 'periodoProducao',
     name: 'Período',
     filterable: true,
     resizable: true,
@@ -46,7 +46,7 @@ const columns = [
     locked: true
   },
   {
-    key: 'opReserva',
+    key: 'desOP',
     name: 'OP Reserva',
     filterable: true,
     resizable: true,
@@ -56,8 +56,8 @@ const columns = [
     locked: true
   },
   {
-    key: 'estagioConcat',
-    name: 'Período',
+    key: 'estagioOP',
+    name: 'Estagio',
     filterable: true,
     resizable: true,
     hidden: false,
