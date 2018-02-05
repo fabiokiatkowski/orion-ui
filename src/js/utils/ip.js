@@ -25,7 +25,7 @@ export default new Promise((resolve, reject) => {
     });
     pc.setLocalDescription(sdp, noop, noop);
   }).catch((reason) => {
-    console.log(reason);
+    console.error(reason);
     reject(reason);
   });
 

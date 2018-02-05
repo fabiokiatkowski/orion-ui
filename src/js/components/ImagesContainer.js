@@ -36,7 +36,6 @@ export default class ImageContainer extends Component {
         caption: i.get('name')
       };
     }).toJS();
-    console.log(paths);
     this.setState({ paths, currentImage: 0 });
   }
 
