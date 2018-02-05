@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderCell from './CustomHeaderCell';
+import CustomContextMenu from './CustomContextMenu';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -107,6 +108,12 @@ export default class Grid extends Component {
     });
   };
 
+  cleanFilters = () => {
+    this.setState({ filters: {} }, () => {
+      this.setState({ filters: {} });
+    });
+  }
+
   persistColumns = (columns) => {
     const preferences = columns.map((c) => {
       return (new Map([
@@ -145,6 +152,10 @@ export default class Grid extends Component {
         onHeaderDrop={this.onHeaderDrop}
       >
         <ReactDataGrid
+          contextMenu={
+            <CustomContextMenu onClearFilters={this.cleanFilters} />
+          }
+          canFilter={false}
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
           columns={this.getColumns(this.state.columnsDef)}
