@@ -197,7 +197,9 @@ export default class SuperFilter extends Component {
   }
 
   filterValues = (row, columnFilter, columnKey) => {
-    const value = row[columnKey];
+    console.log("dilma");
+    const value = row.get(columnKey);
+    console.log(value);
     if (this.state.advancedFilter) {
       if (this.props.column.type === Types.TEXT) {
         return this.validateFiltersText(value.toUpperCase());

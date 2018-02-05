@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ReactDataGrid from 'react-data-grid';
+import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
+// import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderCell from './CustomHeaderCell';
 import CustomContextMenu from './CustomContextMenu';
@@ -35,7 +36,8 @@ export default class Grid extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: props.data,
+      shadowRows: fromJS(props.data),
+      rows: fromJS(props.data),
       columnsDef: props.columns,
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
@@ -46,7 +48,10 @@ export default class Grid extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
-      this.setState({ rows: nextProps.data });
+      this.setState({
+        rows: fromJS(nextProps.data),
+        shadowRows: fromJS(nextProps.data)
+      });
     }
   }
 
@@ -93,16 +98,19 @@ export default class Grid extends Component {
   }
 
   getRows = () => {
-    return Data.Selectors.getRows(this.state);
+    console.log(this.state.shadowRows, 'shadow');
+    return this.state.shadowRows;
   };
 
   getSize = () => {
-    return this.getRows().length;
+    return this.getRows().size;
   };
 
   getValidFilterValues = (columnId) => {
+    console.log('valid values');
     const rows = Data.Selectors.getRows(this.state);
-    const values = rows.map(r => r[columnId]);
+    // const { rows } = this.state;
+    const values = rows.map(r => r.get(columnId));
     return values.filter((item, i, a) => {
       return i === a.indexOf(item);
     });
@@ -133,7 +141,9 @@ export default class Grid extends Component {
       } else {
         delete newFilters[filter.column.key];
       }
-      this.setState({ filters: newFilters });
+      this.setState({ filters: newFilters }, () => {
+        this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
+      });
     }
   };
 
@@ -143,7 +153,7 @@ export default class Grid extends Component {
 
   rowGetter = (rowIdx) => {
     const rows = this.getRows();
-    return rows[rowIdx];
+    return rows.get(rowIdx);
   };
 
   render() {
