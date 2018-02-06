@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
-import ReactDataGrid from 'react-data-grid';
-// import ReactDataGrid from '../../dependencies/react-data-grid';
+// import ReactDataGrid from 'react-data-grid';
+import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderCell from './CustomHeaderCell';
 import CustomContextMenu from './CustomContextMenu';
 
