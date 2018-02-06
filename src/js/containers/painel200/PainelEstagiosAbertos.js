@@ -50,6 +50,14 @@ class PainelEstagiosAbertos extends Component {
     this.props.listarEstagio();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.ordensData !== this.props.ordensData) {
+      this.setState({
+        referenciaSelected: null
+      });
+    }
+  }
+
   // #region estagios row handlers
   onEstagioRowsSelectedHandler = (rows) => {
     this.props.marcarEstagio(rows);
@@ -195,12 +203,14 @@ class PainelEstagiosAbertos extends Component {
         {gridPeriodo}
         <div className="result200">
           {gridResultado}
-          <PainelTotaisOP
-            imageList={imageList}
-            referencia={referenciaSelected}
-            op={opSelected}
-            descEstagio={descEstagioSelected}
-          />
+          {this.state.referenciaSelected &&
+            <PainelTotaisOP
+              imageList={imageList}
+              referencia={referenciaSelected}
+              op={opSelected}
+              descEstagio={descEstagioSelected}
+            />
+          }
         </div>
       </div>
     );
