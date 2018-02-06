@@ -119,7 +119,9 @@ class PainelEstagiosAbertos extends Component {
   }
 
   handleRowChange = (data) => {
-    const { referenciaPeca, ordemProducao, descodEstagio } = data;
+    const referenciaPeca = data.get('referenciaPeca');
+    const ordemProducao = data.get('ordemProducao');
+    const descodEstagio = data.get('descodEstagio');
     this.props.listProductImages(referenciaPeca);
     const referenciaSelected = fixReferencia(referenciaPeca);
     this.setState({

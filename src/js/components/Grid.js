@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ReactDataGrid from 'react-data-grid';
+import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
+// import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderCell from './CustomHeaderCell';
+import CustomContextMenu from './CustomContextMenu';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -34,7 +36,8 @@ export default class Grid extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: props.data,
+      shadowRows: fromJS(props.data),
+      rows: fromJS(props.data),
       columnsDef: props.columns,
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
@@ -45,7 +48,10 @@ export default class Grid extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
-      this.setState({ rows: nextProps.data });
+      this.setState({
+        rows: fromJS(nextProps.data),
+        shadowRows: fromJS(nextProps.data)
+      });
     }
   }
 
@@ -55,7 +61,7 @@ export default class Grid extends Component {
 
   onCellSelected = ({ rowIdx }) => {
     if (this.state.rowIdx !== rowIdx) {
-      const data = this.state.rows[rowIdx];
+      const data = this.state.rows.get(rowIdx);
       this.props.handleRowChange(data);
       this.setState({ rowIdx });
     }
@@ -64,7 +70,6 @@ export default class Grid extends Component {
   onColumnResize = (index, newWidth) => {
     const newColumns = this.state.columnsDef;
     newColumns[index].width = newWidth;
-    // this.setState({ ...this.state, columnsDef: newColumns });;
   }
 
   onHeaderDrop = (source, target) => {
@@ -92,30 +97,25 @@ export default class Grid extends Component {
   }
 
   getRows = () => {
-    return Data.Selectors.getRows(this.state);
+    return this.state.shadowRows;
   };
 
   getSize = () => {
-    return this.getRows().length;
+    return this.getRows().size;
   };
 
   getValidFilterValues = (columnId) => {
     const rows = Data.Selectors.getRows(this.state);
-    const values = rows.map(r => r[columnId]);
+    const values = rows.map(r => r.get(columnId));
     return values.filter((item, i, a) => {
       return i === a.indexOf(item);
     });
   };
 
-  persistColumns = (columns) => {
-    const preferences = columns.map((c) => {
-      return (new Map([
-        [c.key, JSON.stringify({
-          width: c.width,
-          order: c.order
-        })]]));
+  cleanFilters = () => {
+    this.setState({ filters: {} }, () => {
+      this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
     });
-    this.props.persistColumns(preferences);
   }
 
   handleFilterChange = (filter) => {
@@ -126,17 +126,21 @@ export default class Grid extends Component {
       } else {
         delete newFilters[filter.column.key];
       }
-      this.setState({ filters: newFilters });
+      this.setState({ filters: newFilters }, () => {
+        this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
+      });
     }
   };
 
   handleGridSort = (sortColumn, sortDirection) => {
-    this.setState({ sortColumn,  sortDirection }); //eslint-disable-line
+    this.setState({ sortColumn, sortDirection }, () => {
+      this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
+    });
   };
 
   rowGetter = (rowIdx) => {
     const rows = this.getRows();
-    return rows[rowIdx];
+    return rows.get(rowIdx);
   };
 
   render() {
@@ -145,6 +149,10 @@ export default class Grid extends Component {
         onHeaderDrop={this.onHeaderDrop}
       >
         <ReactDataGrid
+          contextMenu={
+            <CustomContextMenu onClearFilters={this.cleanFilters} />
+          }
+          canFilter={false}
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
           columns={this.getColumns(this.state.columnsDef)}
