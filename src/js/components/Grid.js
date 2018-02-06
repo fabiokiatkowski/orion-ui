@@ -61,7 +61,7 @@ export default class Grid extends Component {
 
   onCellSelected = ({ rowIdx }) => {
     if (this.state.rowIdx !== rowIdx) {
-      const data = this.state.rows[rowIdx];
+      const data = this.state.rows.get(rowIdx);
       this.props.handleRowChange(data);
       this.setState({ rowIdx });
     }
