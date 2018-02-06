@@ -1,15 +1,18 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Grid from '../../components/Grid';
 import columns from './columnsRolos';
 
-const InsumoDeposito = (props) => {
+const InsumoRolos = (props) => {
   return (
     <div className="rolo">
       <Grid
         minHeight={150}
         columns={columns}
-        data={props.data}
+        data={props.rolosData}
         indexes={[]}
         handleRowChange={props.handleRowChange}
       />
@@ -17,4 +20,17 @@ const InsumoDeposito = (props) => {
   );
 };
 
-export default InsumoDeposito;
+InsumoRolos.propTypes = {
+  rolosData: PropTypes.array.isRequired,
+  handleRowChange: PropTypes.func
+};
+
+InsumoRolos.defaultProps = {
+  handleRowChange: () => {}
+};
+
+const mapStateToProps = state => ({
+  rolosData: state.estoque.rolosEmpenhados
+});
+
+export default connect(mapStateToProps, null)(InsumoRolos);

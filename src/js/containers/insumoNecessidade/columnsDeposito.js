@@ -16,7 +16,7 @@ const columns = [
   },
   {
     key: 'quantidade',
-    name: 'Qtd. Estoque',
+    name: 'Qtd.',
     filterable: true,
     resizable: true,
     hidden: false,

@@ -122,6 +122,7 @@ class PainelTotaisOP extends Component {
                         id="observacao"
                         cols="30"
                         rows="5"
+                        disabled
                       />
                     </div>
                   </div>
