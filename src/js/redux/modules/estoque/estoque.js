@@ -26,7 +26,7 @@ const reduce = (state = initialState, action) => {
 };
 
 export const listarEstoqueReferencia = (referencia, consideraPlanejamento) => {
-  const queryString = ref => `?nivel=${ref.nivel}&grupo=${ref.grupo}&subgrupo=${ref.subgrupo}&item=${ref.item}`;
+  const queryString = ref => `?nivel=${ref.get('nivel')}&grupo=${ref.get('grupo')}&subgrupo=${ref.get('subgrupo')}&item=${ref.get('item')}`;
   return (dispatch) => {
     loadStart(dispatch);
     axios.get(`/api/estoque/referencia/considera-tmrp/${consideraPlanejamento}${queryString(referencia)}`)
@@ -43,7 +43,7 @@ export const listarEstoqueReferencia = (referencia, consideraPlanejamento) => {
 };
 
 export const listarRolosEmpenhados = (referencia, deposito) => {
-  const queryString = (ref, dep) => `?nivel=${ref.nivel}&grupo=${ref.grupo}&subgrupo=${ref.subgrupo}&item=${ref.item}&deposito=${dep}`;
+  const queryString = (ref, dep) => `?nivel=${ref.get('nivel')}&grupo=${ref.get('grupo')}&subgrupo=${ref.get('subgrupo')}&item=${ref.get('item')}&deposito=${dep}`;
   return (dispatch) => {
     loadStart(dispatch);
     axios.get(`/api/planejamento/produto/rolos-empenhados/${queryString(referencia, deposito)}`)

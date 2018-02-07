@@ -13,7 +13,7 @@ const InsumoDeposito = (props) => {
   const handleRowChange = (data) => {
     props.listarRolosEmpenhados(
       props.estoqueData.referencia,
-      data.codigoDeposito
+      data.get('codigoDeposito')
     );
   };
   return (

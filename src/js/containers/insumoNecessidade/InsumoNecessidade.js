@@ -19,7 +19,7 @@ class InsumoNecessidade extends Component {
   }
 
   handleRowChange = (data) => {
-    this.props.listarEstoqueReferencia(data.referencia, true);
+    this.props.listarEstoqueReferencia(data.get('referencia'), true);
   };
 
   render() {
