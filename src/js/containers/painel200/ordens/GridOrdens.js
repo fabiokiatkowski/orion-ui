@@ -5,9 +5,6 @@ import Grid from '../../../components/Grid';
 import ItensAcao from './itensAcao/ItensAcao';
 
 class GridOrdens extends Component {
-  marcarUTIHandler = () => {
-    console.log('marcarUTIHandler clicked');
-  };
   desmarcarUTIHandler = () => {
     console.log('desmarcarUTIHandler clicked');
   };
@@ -24,7 +21,7 @@ class GridOrdens extends Component {
         />
         <ItensAcao
           disabled={this.props.data.length === 0}
-          onMarcarUTI={this.marcarUTIHandler}
+          onMarcarUTI={this.props.marcarUti}
           onDesmarcarUTI={this.desmarcarUTIHandler}
         />
       </div>
@@ -36,7 +33,8 @@ GridOrdens.propTypes = {
   handleRowChange: PropTypes.func.isRequired,
   minHeight: PropTypes.number.isRequired,
   indexes: PropTypes.array.isRequired, //eslint-disable-line
-  data: PropTypes.array.isRequired //eslint-disable-line
+  data: PropTypes.array.isRequired, //eslint-disable-line
+  marcarUti: PropTypes.func.isRequired
 };
 
 export default GridOrdens;

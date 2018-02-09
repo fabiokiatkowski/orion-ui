@@ -9,6 +9,7 @@ export const PERIODOS_LIST = 'periodos/LIST';
 export const PERIODOS_CHECK = 'periodos/CHECK';
 export const PERIODOS_DESCHECK = 'periodos/PERIODOS_DESCHECK';
 export const ORDENS_LIST = 'resultado/LIST';
+export const MARCAR_UI = 'tela200/MARCAR_UI';
 
 const initalState = {
   estagios: {
@@ -93,6 +94,20 @@ const ordensList = (state, action) => {
   const updatedState = updateObject(state, { ordens: updatedOrdens });
   return updatedState;
 };
+const marcarUtiReducer = (state, action) => {
+  const newOrdens = state.ordens.data.map((ordem) => {
+    const newOrdem = ordem;
+    if (ordem.ordemProducao === action.op
+      && ordem.referenciaPeca === action.referencia) {
+      newOrdem.desOpUti = true;
+    }
+    return newOrdem;
+  });
+  const newState = state;
+  newState.ordens.data = newOrdens;
+  return newState;
+};
+
 const reducer = (state = initalState, action = {}) => {
   switch (action.type) {
     case ESTAGIOS_LIST: return estagiosList(state, action);
@@ -102,6 +117,7 @@ const reducer = (state = initalState, action = {}) => {
     case PERIODOS_CHECK: return periodosCheck(state, action);
     case PERIODOS_DESCHECK: return periodosDescheck(state, action);
     case ORDENS_LIST: return ordensList(state, action);
+    case MARCAR_UI: return marcarUtiReducer(state, action);
     default: return state;
   }
 };
@@ -183,8 +199,29 @@ export const listarOrdens = (estagios, periodos) => {
         type: ORDENS_LIST,
         data: res.data
       }))
-      .then(() => loadEnd(dispatch));
+      .finally(() => loadEnd(dispatch));
   };
 };
 // #endregion
+
+export const marcarUti = (op, referencia) => {
+  return (dispatch) => {
+    loadStart(dispatch);
+    axios.post(`/api/prioridadeOp/op/${op}/grupo/${referencia}/marcar`)
+      .then((res) => {
+        if (res.status === 201) {
+          dispatch({
+            type: MARCAR_UI,
+            op,
+            referencia
+          });
+        }
+      }).catch(() => {
+        /* Alerta temporario. */
+        /* TODO criar componente de mensagens */
+        alert('Essa op ja esta marcada como prioridade');
+      }).finally(() => loadEnd(dispatch));
+  };
+};
+
 export default reducer;

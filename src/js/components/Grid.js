@@ -41,7 +41,6 @@ export default class Grid extends Component {
       columnsDef: props.columns,
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
-      filters: {},
       rowIdx: -1
     };
   }
