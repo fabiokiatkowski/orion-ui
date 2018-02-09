@@ -15,7 +15,7 @@ const columns = [
     formatter: IntegerFormat,
     type: Types.NUMBER,
     order: 1,
-    locked: true
+    // locked: true
   },
   {
     key: 'ordemPrincipal',
@@ -28,7 +28,7 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     order: 2,
-    locked: true
+    // locked: true
   },
   {
     key: 'referenciaPeca',
@@ -40,7 +40,7 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 3,
-    locked: true
+    // locked: true
   },
   {
     key: 'codDesPeriodo',
@@ -52,7 +52,7 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 4,
-    locked: true
+    // locked: true
   },
   {
     key: 'proconfItem',
@@ -64,7 +64,7 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 5,
-    locked: true
+    // locked: true
   },
   {
     key: 'descrColecao',
@@ -76,7 +76,7 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 6,
-    locked: true
+    // locked: true
   },
   {
     key: 'descodEstagio',
@@ -88,7 +88,7 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.TEXT,
     order: 7,
-    locked: true
+    // locked: true
   },
   {
     key: 'tempoDesdeEstagio',

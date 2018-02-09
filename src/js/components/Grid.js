@@ -18,7 +18,8 @@ export default class Grid extends Component {
     onRowClick: PropTypes.func,
     indexes: PropTypes.array, //eslint-disable-line
     enableSummary: PropTypes.bool,
-    showCheckbox: PropTypes.bool
+    showCheckbox: PropTypes.bool,
+    reflectShadowRows: PropTypes.func
   }
 
   static defaultProps = {
@@ -30,7 +31,8 @@ export default class Grid extends Component {
     onRowsDeselected: () => {},
     onRowClick: () => {},
     enableSummary: false,
-    showCheckbox: false
+    showCheckbox: false,
+    reflectShadowRows: null
   }
 
   constructor(props) {
@@ -51,6 +53,14 @@ export default class Grid extends Component {
         rows: fromJS(nextProps.data),
         shadowRows: fromJS(nextProps.data)
       });
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('componentWillUpdate');
+    if (this.props.reflectShadowRows &&
+      this.state.shadowRows !== nextState.shadowRows) {
+      this.props.reflectShadowRows(nextState.shadowRows);
     }
   }
 
