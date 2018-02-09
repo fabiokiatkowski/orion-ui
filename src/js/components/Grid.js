@@ -59,7 +59,7 @@ export default class Grid extends Component {
   componentWillUpdate(nextProps, nextState) {
     console.log('componentWillUpdate');
     if (this.props.reflectShadowRows &&
-      this.state.shadowRows !== nextState.shadowRows) {
+      this.state.shadowRows.size !== nextState.shadowRows.size) {
       this.props.reflectShadowRows(nextState.shadowRows);
     }
   }
@@ -70,7 +70,7 @@ export default class Grid extends Component {
 
   onCellSelected = ({ rowIdx }) => {
     if (this.state.rowIdx !== rowIdx) {
-      const data = this.state.rows.get(rowIdx);
+      const data = this.state.shadowRows.get(rowIdx);
       this.props.handleRowChange(data);
       this.setState({ rowIdx });
     }
