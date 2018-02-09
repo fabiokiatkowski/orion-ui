@@ -46,7 +46,8 @@ class PainelEstagiosAbertos extends Component {
     referenciaSelected: null,
     opSelected: null,
     estagiosAbertosHeight: 400,
-    ordensHeigh: 520
+    ordensHeigh: 520,
+    itemSelected: null
   };
   componentDidMount() {
     this.props.listarEstagio();
@@ -124,10 +125,12 @@ class PainelEstagiosAbertos extends Component {
     const referenciaPeca = data.get('referenciaPeca');
     const ordemProducao = data.get('ordemProducao');
     const descodEstagio = data.get('descodEstagio');
+    const itemSelected = data.get('proconfItem');
     this.props.listProductImages(referenciaPeca);
     const referenciaSelected = fixReferencia(referenciaPeca);
     this.setState({
       referenciaSelected,
+      itemSelected,
       opSelected: ordemProducao,
       descEstagioSelected: descodEstagio
     });
@@ -214,6 +217,7 @@ class PainelEstagiosAbertos extends Component {
               referencia={referenciaSelected}
               op={opSelected}
               descEstagio={descEstagioSelected}
+              item={this.state.itemSelected}
             />
           }
         </div>

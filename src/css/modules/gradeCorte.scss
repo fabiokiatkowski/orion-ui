@@ -1,0 +1,25 @@
+.pvtTable {
+  font-size: 8pt;
+  text-align: center;
+  margin-top: 1rem;
+  margin-left: 1rem;
+
+  th {
+    background: rgb(238, 237, 237);
+    border-color: #ccc;
+    text-transform: capitalize;
+  }
+
+  td, th {
+    width: 4rem;
+    height: 2rem;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  td:last-of-type, tr:last-of-type {
+    background-color: #a9a9a9;
+    font-weight: bolder;
+  }
+}

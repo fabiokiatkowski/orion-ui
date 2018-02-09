@@ -10,6 +10,8 @@ export const PERIODOS_CHECK = 'periodos/CHECK';
 export const PERIODOS_DESCHECK = 'periodos/PERIODOS_DESCHECK';
 export const ORDENS_LIST = 'resultado/LIST';
 export const MARCAR_UI = 'tela200/MARCAR_UI';
+export const GRID_CORTE_LIST = 'gridCorte/LIST';
+export const LIST_ESTAGIOS_PARALELOS = 'gridCorte/LIST_ESTAGIOS_PARALELOS';
 
 const initalState = {
   estagios: {
@@ -21,6 +23,12 @@ const initalState = {
     marcados: []
   },
   ordens: {
+    data: []
+  },
+  gradeCorte: {
+    data: []
+  },
+  estagiosParalelos: {
     data: []
   }
 };
@@ -106,6 +114,20 @@ const marcarUtiReducer = (state, action) => {
   const newState = state;
   newState.ordens.data = newOrdens;
   return newState;
+}
+const gridCorteList = (state, action) => {
+  const normalizedData = [];
+  const titles = Object.keys(action.data[0]);
+  normalizedData.push(titles);
+  action.data.forEach(i => normalizedData.push(Object.values(i)));
+  const updatedGrade = updateObject(state.gradeCorte, { data: normalizedData });
+  return updateObject(state, { gradeCorte: updatedGrade });
+};
+const listEstagiosParalelosReducer = (state, action) => {
+  const newState = state;
+  newState.estagiosParalelos.data = action.data.data
+    .filter(x => x.ordemProducao === action.data.ordem);
+  return newState;
 };
 
 const reducer = (state = initalState, action = {}) => {
@@ -118,6 +140,10 @@ const reducer = (state = initalState, action = {}) => {
     case PERIODOS_DESCHECK: return periodosDescheck(state, action);
     case ORDENS_LIST: return ordensList(state, action);
     case MARCAR_UI: return marcarUtiReducer(state, action);
+    case GRID_CORTE_LIST: return gridCorteList(state, action);
+    case LIST_ESTAGIOS_PARALELOS: {
+      return listEstagiosParalelosReducer(state, action);
+    }
     default: return state;
   }
 };
@@ -198,6 +224,39 @@ export const listarOrdens = (estagios, periodos) => {
       .then(res => dispatch({
         type: ORDENS_LIST,
         data: res.data
+      }))
+      .finally(() => loadEnd(dispatch));
+  };
+};
+// #endregion
+
+// #region Painel Grade de Corte
+export const listarGradeCorte = (ordemProducao) => {
+  const queryString = param => `?ordemProducao=${param}`;
+  return (dispatch) => {
+    loadStart(dispatch);
+    axios.get('/api/ordens/itens'.concat(queryString(ordemProducao)))
+      .then(res => dispatch({
+        type: GRID_CORTE_LIST,
+        data: res.data
+      }))
+      .catch(err => err)
+      .finally(() => loadEnd(dispatch));
+  };
+};
+// #endregion
+// #region Painel Estágios Paralelos
+export const listEstagiosParalelos = (ordem, grupo, item) => {
+  const url = `/api/ordens/${ordem}/estagios-paralelos?grupo=${grupo}&item=${item}`;
+  return (dispatch) => {
+    loadStart(dispatch);
+    axios.get(url)
+      .then(res => dispatch({
+        type: LIST_ESTAGIOS_PARALELOS,
+        data: {
+          data: res.data,
+          ordem
+        }
       }))
       .finally(() => loadEnd(dispatch));
   };

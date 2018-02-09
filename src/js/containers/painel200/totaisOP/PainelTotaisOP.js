@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { Row, Col, Nav, NavItem, Tab, NavDropdown, MenuItem } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ImageContainer from '../../../components/ImagesContainer';
 import InsumoNecessidade from '../../insumoNecessidade/InsumoNecessidade';
 import Observacao from '../../../components/Observacao';
 import InsumoDeposito from '../../insumoNecessidade/InsumoDeposito';
 import InsumoRolos from '../../insumoNecessidade/InsumoRolos';
+import { listarGradeCorte } from '../../../redux/modules/tela200';
 import * as observacao from '../../../redux/modules/observacao';
 import { listarInsumoNecessidade } from '../../../redux/modules/insumoNecessidade/insumoNecessidade';
+import GradeCorte from './gradeCorte/GradeCorte';
+import GridEstagioParalelo from './estagioParalelo/GridEstagioParalelo';
 
 const mapStateToProps = state => ({
   observacoes: state.observacao
@@ -20,10 +24,21 @@ const mapDispatchToProps = dispatch => ({
   getStObs: bindActionCreators(observacao.getStObs, dispatch),
   listarInsumoNecessidade:
     bindActionCreators(listarInsumoNecessidade, dispatch),
-  listPeD: bindActionCreators(observacao.listPeD, dispatch)
+  listPeD: bindActionCreators(observacao.listPeD, dispatch),
+  listarInfoGridCorte: bindActionCreators(listarGradeCorte, dispatch)
 });
 
 class PainelTotaisOP extends Component {
+  propTypes = {
+    listarInfoGridCorte: PropTypes.func,
+    item: PropTypes.string
+  };
+
+  defaultProps = {
+    listarInfoGridCorte: () => {},
+    item: ''
+  };
+
   state = {
     tabMainKey: '1.1'
   }
@@ -33,6 +48,7 @@ class PainelTotaisOP extends Component {
       this.props.list(nextProps.op, false);
       this.props.getStObs(nextProps.op);
       this.props.listarInsumoNecessidade(nextProps.op);
+      this.props.listarInfoGridCorte(nextProps.op);
     }
     if (nextProps.referencia !== this.props.referencia) {
       this.props.listPeD(nextProps.referencia);
@@ -56,7 +72,9 @@ class PainelTotaisOP extends Component {
       descEstagio,
       observacoes,
       op,
-      imageList
+      imageList,
+      item,
+      referencia
     } = this.props;
     return (
       <div className="painel-totais-op">
@@ -127,14 +145,22 @@ class PainelTotaisOP extends Component {
                     </div>
                   </div>
                 </Tab.Pane>
-                <Tab.Pane eventKey="3">Painel de Estágio Paralelo</Tab.Pane>
-                <Tab.Pane eventKey="4">Painel de Estágio Paralelo</Tab.Pane>
-                <Tab.Pane eventKey="5">Painel de Estágio Paralelo</Tab.Pane>
-                <Tab.Pane eventKey="6">Painel de Estágio Paralelo</Tab.Pane>
-                <Tab.Pane eventKey="7">Painel de Estágio Paralelo</Tab.Pane>
-                <Tab.Pane eventKey="8">Painel de Estágio Paralelo</Tab.Pane>
-                <Tab.Pane eventKey="9">Painel de Estágio Paralelo</Tab.Pane>
-                <Tab.Pane eventKey="10">Painel de Estágio Paralelo</Tab.Pane>
+                <Tab.Pane eventKey="3">
+                  <GridEstagioParalelo
+                    ordemProducao={op}
+                    grupo={referencia}
+                    item={item}
+                  />
+                </Tab.Pane>
+                <Tab.Pane eventKey="4">
+                  <GradeCorte ordemProducao={op} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="5">Painel de Estágio Paralelo 5</Tab.Pane>
+                <Tab.Pane eventKey="6">Painel de Estágio Paralelo 6</Tab.Pane>
+                <Tab.Pane eventKey="7">Painel de Estágio Paralelo 7</Tab.Pane>
+                <Tab.Pane eventKey="8">Painel de Estágio Paralelo 8</Tab.Pane>
+                <Tab.Pane eventKey="9">Painel de Estágio Paralelo 9</Tab.Pane>
+                <Tab.Pane eventKey="10">Painel de Estágio Paralelo 10</Tab.Pane>
               </Tab.Content>
             </Col>
           </Row>
