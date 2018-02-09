@@ -5,7 +5,6 @@ import { Data, DraggableHeader } from 'react-data-grid-addons';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderCell from './CustomHeaderCell';
-import CustomContextMenu from './CustomContextMenu';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -57,7 +56,6 @@ export default class Grid extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('componentWillUpdate');
     if (this.props.reflectShadowRows &&
       this.state.shadowRows.size !== nextState.shadowRows.size) {
       this.props.reflectShadowRows(nextState.shadowRows);
@@ -158,9 +156,6 @@ export default class Grid extends Component {
         onHeaderDrop={this.onHeaderDrop}
       >
         <ReactDataGrid
-          contextMenu={
-            <CustomContextMenu onClearFilters={this.cleanFilters} />
-          }
           canFilter={false}
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}

@@ -1,8 +1,116 @@
 import React, { Component } from 'react';
-import { Row, Col, Nav, NavItem, Tab } from 'react-bootstrap';
+import {
+  ButtonToolbar,
+  Button,
+  Modal,
+  Row,
+  Col,
+  Nav,
+  NavItem,
+  Tab } from 'react-bootstrap';
+import Grid from '../../components/Grid';
+
+const columns = [
+  {
+    key: 'teste1',
+    name: 'Teste 1',
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    order: 0,
+  },
+  {
+    key: 'teste2',
+    name: 'Teste 2',
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    order: 1,
+  },
+  {
+    key: 'teste3',
+    name: 'Teste 3',
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    order: 2,
+  }
+];
 
 class PainelVisualizador extends Component {
-  state = { jaba: 'teste' }
+  state = { showBuscador: false }
+
+  handleOpenModal = () => {
+    this.setState({ showBuscador: true });
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showBuscador: false });
+  }
+
+  renderBuscador = () => {
+    return (
+      <div className="fullscreen-modal-container">
+        <ButtonToolbar>
+          <Button bsStyle="primary" onClick={this.handleOpenModal}>
+            Buscar
+          </Button>
+          <Modal
+            {...this.props}
+            show={this.state.showBuscador}
+            onHide={this.handleCloseModal}
+            dialogClassName="fullscreen-modal-container"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-lg">
+                Buscador
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <form>
+                <div className="form-group row">
+                  <div className="col-md-1">
+                    <input type="text" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
+                  </div>
+                  <div className="col-md-4">
+                    <input type="text" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
+                  </div>
+                  <div className="col-md-3">
+                    <input type="text" className="form-control" id="subGrupo" name="subGrupo" placeholder="Sub Grupo" />
+                  </div>
+                  <div className="col-md-4">
+                    <input type="text" className="form-control" id="item" name="item" placeholder="Item" />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  <div className="col-md-6">
+                    <input type="text" className="form-control" id="descricao" name="descricao" placeholder="Descriçao" />
+                  </div>
+                  <div className="col-md-6">
+                    <input type="text" className="form-control" id="descricao2" name="descricao2" placeholder="Descriçao 2" />
+                  </div>
+                </div>
+                <div className="form-group save-button">
+                  <button className="btn btn-primary">Buscar</button>
+                </div>
+              </form>
+              <div className="wrapperWrapperWrapper">
+                <Grid
+                  minHeight={500}
+                  columns={columns}
+                  data={[]}
+                  handleRowChange={() => {}}
+                />
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.handleCloseModal}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+        </ButtonToolbar>
+      </div>
+    );
+  }
 
   render() {
     return (
@@ -19,7 +127,7 @@ class PainelVisualizador extends Component {
             <Col sm={12}>
               <Tab.Content animation>
                 <Tab.Pane eventKey="1">
-                  <div> ~~~ </div>
+                  {this.renderBuscador()}
                 </Tab.Pane>
                 <Tab.Pane eventKey="2">
                   <h1> ... </h1>
