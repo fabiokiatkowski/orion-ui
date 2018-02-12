@@ -48,6 +48,11 @@ class PainelVisualizador extends Component {
     this.setState({ showBuscador: false });
   }
 
+  search = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   renderBuscador = () => {
     return (
       <div className="fullscreen-modal-container">
@@ -67,7 +72,7 @@ class PainelVisualizador extends Component {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <form>
+              <form onSubmit={this.search}>
                 <div className="produto-input">
                   <input maxLength="1" type="text" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
                   <input maxLength="5" type="text" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
@@ -75,11 +80,11 @@ class PainelVisualizador extends Component {
                   <input maxLength="6" type="text" className="form-control" id="item" name="item" placeholder="Item" />
                 </div>
                 <div className="descricao-input">
-                  <input type="text" className="form-control" id="descricao" name="descricao" placeholder="Descrição" />
-                  <input type="text" className="form-control" id="complemento" name="complemento" placeholder="Complemento" />
+                  <input pattern=".{0}|.{5,}" title="Minimo 5 caracteres" type="text" className="form-control" id="descricao" name="descricao" placeholder="Descrição" />
+                  <input pattern=".{0}|.{5,}" title="Minimo 5 caracteres" type="text" className="form-control" id="complemento" name="complemento" placeholder="Complemento" />
                 </div>
                 <div className="form-group save-button">
-                  <button className="btn btn-primary">Buscar</button>
+                  <button type="submit" className="btn btn-primary">Buscar</button>
                 </div>
               </form>
               <div className="wrapperWrapperWrapper">
