@@ -1,0 +1,62 @@
+.fullscreen-modal-container {  
+  
+  .descricao-input {
+    @media screen and (min-width:420px) {
+      input {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      
+      #descricao {
+        width: 50%;
+      }
+  
+      #complemento {
+        width: 50%;
+      }
+    }
+  }
+
+  .produto-input {
+    input {
+      text-align: center;
+    }
+
+    @media screen and (min-width:420px) {  
+      input {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      #nivel {
+        width: 70px;
+      }
+
+      #grupo {
+        width: 90px;
+      }
+
+      #subGrupo {
+        width: 65px;
+      }
+
+      #item {
+        width: 100px;
+      }   
+    }
+  }
+  .descricao-input, .produto-input {
+    input {
+      text-transform: uppercase;
+    }
+    
+    ::-webkit-input-placeholder {
+      text-transform: none;
+    }
+  
+    ::-moz-placeholder {
+      text-transform: none;
+    }
+  
+  }
+}

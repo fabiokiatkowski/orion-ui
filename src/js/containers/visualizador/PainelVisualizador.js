@@ -68,27 +68,15 @@ class PainelVisualizador extends Component {
             </Modal.Header>
             <Modal.Body>
               <form>
-                <div className="form-group row">
-                  <div className="col-md-1">
-                    <input type="text" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
-                  </div>
-                  <div className="col-md-4">
-                    <input type="text" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
-                  </div>
-                  <div className="col-md-3">
-                    <input type="text" className="form-control" id="subGrupo" name="subGrupo" placeholder="Sub Grupo" />
-                  </div>
-                  <div className="col-md-4">
-                    <input type="text" className="form-control" id="item" name="item" placeholder="Item" />
-                  </div>
+                <div className="produto-input">
+                  <input maxLength="1" type="text" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
+                  <input maxLength="5" type="text" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
+                  <input maxLength="3" type="text" className="form-control" id="subGrupo" name="subGrupo" placeholder="Sub" />
+                  <input maxLength="6" type="text" className="form-control" id="item" name="item" placeholder="Item" />
                 </div>
-                <div className="form-group row">
-                  <div className="col-md-6">
-                    <input type="text" className="form-control" id="descricao" name="descricao" placeholder="Descriçao" />
-                  </div>
-                  <div className="col-md-6">
-                    <input type="text" className="form-control" id="descricao2" name="descricao2" placeholder="Descriçao 2" />
-                  </div>
+                <div className="descricao-input">
+                  <input type="text" className="form-control" id="descricao" name="descricao" placeholder="Descrição" />
+                  <input type="text" className="form-control" id="complemento" name="complemento" placeholder="Complemento" />
                 </div>
                 <div className="form-group save-button">
                   <button className="btn btn-primary">Buscar</button>
