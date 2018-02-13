@@ -69,8 +69,8 @@ const columns = [
     order: 5
   },
   {
-    key: 'qtde_areceber',
-    name: 'Quantidade a receber',
+    key: 'unidade_medida',
+    name: 'UM',
     filterable: true,
     resizable: true,
     hidden: false,
@@ -80,8 +80,8 @@ const columns = [
     order: 6
   },
   {
-    key: 'qtde_reservado',
-    name: 'Quantidade reservado',
+    key: 'qtde_areceber',
+    name: 'Estoque Global',
     filterable: true,
     resizable: true,
     hidden: false,
@@ -91,8 +91,8 @@ const columns = [
     order: 7
   },
   {
-    key: 'qtde_estq_tmrp',
-    name: 'Quantidade estoque tmrp',
+    key: 'qtde_reservado',
+    name: 'Estoque TMRP',
     filterable: true,
     resizable: true,
     hidden: false,
@@ -102,8 +102,8 @@ const columns = [
     order: 8
   },
   {
-    key: 'qtde_estq_global',
-    name: 'Quantidade estoque global',
+    key: 'qtde_estq_tmrp',
+    name: 'Qtde. Receber',
     filterable: true,
     resizable: true,
     hidden: false,
@@ -111,6 +111,17 @@ const columns = [
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 9
+  },
+  {
+    key: 'qtde_estq_global',
+    name: 'Reservado Global',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    filterRenderer: SuperFilter,
+    type: Types.NUMBER,
+    order: 10
   }
 ];
 

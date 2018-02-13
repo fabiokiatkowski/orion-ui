@@ -23,7 +23,8 @@ const mapDispathToProps = dispatch => ({
 class Localizador extends Component {
   static propTypes = {
     produtos: PropTypes.array,
-    list: PropTypes.func
+    list: PropTypes.func,
+    onSelect: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -73,8 +74,13 @@ class Localizador extends Component {
   };
 
   handleSelecionar = () => {
-    console.log(this.state.rowSelect);
-    alert(console.log(this.state.rowSelect.get('nivel_estrutura')));
+    const { rowSelect } = this.state;
+    const nivel = rowSelect.get('nivel_estrutura');
+    const grupo = rowSelect.get('grupo_estrutura');
+    const subGrupo = rowSelect.get('subgru_estrutura');
+    const item = rowSelect.get('item_estrutura');
+    this.props.onSelect(nivel, grupo, subGrupo, item);
+    this.setState({ showBuscador: false });
   }
 
   render() {
