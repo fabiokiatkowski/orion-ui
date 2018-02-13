@@ -36,6 +36,9 @@ const initalState = {
   },
   ondeTem: {
     data: []
+  },
+  filhos: {
+    data: []
   }
 };
 
@@ -303,7 +306,7 @@ export const listarEstagiosParalelos = (ordem, grupo, item) => {
   };
 };
 // #endregion
-// #region
+// #region Painel Onde Tem
 export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
   const url = `/api/ordens/${ordem}/estagios-paralelos?grupo=${grupo}&item=${item}`;
   return (dispatch) => {
@@ -323,7 +326,22 @@ export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
   };
 };
 // #endregion
+// #region Painel Filhos
+export const listarFilhos = (ordemPrincipal) => {
+  const url = `/api/ordens/${ordemPrincipal}/filhos`;
+  return (dispatch) => {
+    loadStart(dispatch);
+    axios.get(url)
+      .then(res => dispatch({
+        type: LIST_ONDE_TEM,
+        data: res.data
+      }))
+      .finally(() => loadEnd(dispatch));
+  };
+};
+// #endregion
 
+// #region Ações
 export const marcarUti = (op, referencia) => {
   return (dispatch) => {
     loadStart(dispatch);
@@ -377,5 +395,5 @@ export const desmarcarTodosUti = (ops) => {
       });
   };
 };
-
+// #endregion
 export default reducer;

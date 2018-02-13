@@ -16,6 +16,7 @@ import GradeCorte from './gradeCorte/GradeCorte';
 import fixReferencia from '../../../utils/referencia';
 import GridEstagioParalelo from './estagioParalelo/GridEstagioParalelo';
 import GridOndeTem from './ondeTem/GridOndeTem';
+import GridFilhos from './filhos/GridFilhos';
 
 const mapStateToProps = state => ({
   observacoes: state.observacao
@@ -64,6 +65,7 @@ class PainelTotaisOP extends Component {
     const { imageList, observacoes } = this.props;
     const descricaoEstagio = this.props.row.get('descodEstagio');
     const ordemProducao = this.props.row.get('ordemProducao');
+    const ordemPrincipal = this.props.row.get('ordemPrincipal');
     const item = this.props.row.get('proconfItem');
     const referencia = this.props.row.get('referenciaPeca');
 
@@ -113,11 +115,10 @@ class PainelTotaisOP extends Component {
                 <NavItem eventKey="3">Estágio Paralelo</NavItem>
                 <NavItem eventKey="4">Grade de Corte</NavItem>
                 <NavItem eventKey="5">Onde Tem</NavItem>
-                <NavItem eventKey="6">Onde tem</NavItem>
-                <NavItem eventKey="7">Filhos</NavItem>
-                <NavItem eventKey="8">Log Uti</NavItem>
-                <NavItem eventKey="9">Canc. OP</NavItem>
-                <NavItem eventKey="10">Altera Período</NavItem>
+                <NavItem eventKey="6">Filhos</NavItem>
+                <NavItem eventKey="7">Log Uti</NavItem>
+                <NavItem eventKey="8">Canc. OP</NavItem>
+                <NavItem eventKey="9">Altera Período</NavItem>
               </Nav>
             </Col>
             <Col sm={12}>
@@ -168,11 +169,17 @@ class PainelTotaisOP extends Component {
                     item={item}
                   />
                 </Tab.Pane>
-                <Tab.Pane eventKey="6">Painel de Estágio Paralelo 6</Tab.Pane>
-                <Tab.Pane eventKey="7">Painel de Estágio Paralelo 7</Tab.Pane>
-                <Tab.Pane eventKey="8">Painel de Estágio Paralelo 8</Tab.Pane>
-                <Tab.Pane eventKey="9">Painel de Estágio Paralelo 9</Tab.Pane>
-                <Tab.Pane eventKey="10">Painel de Estágio Paralelo 10</Tab.Pane>
+                <Tab.Pane eventKey="6">
+                  <GridFilhos
+                    ordemProducao={ordemProducao}
+                    ordemPrincipal={ordemPrincipal}
+                    grupo={referencia}
+                    item={item}
+                  />
+                </Tab.Pane>
+                <Tab.Pane eventKey="7">Painel de Estágio Paralelo 8</Tab.Pane>
+                <Tab.Pane eventKey="8">Painel de Estágio Paralelo 9</Tab.Pane>
+                <Tab.Pane eventKey="9">Painel de Estágio Paralelo 10</Tab.Pane>
               </Tab.Content>
             </Col>
           </Row>
