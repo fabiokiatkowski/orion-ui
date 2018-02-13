@@ -303,7 +303,6 @@ export const listarEstagiosParalelos = (ordem, grupo, item) => {
   };
 };
 // #endregion
-<<<<<<< HEAD
 // #region
 export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
   const url = `/api/ordens/${ordem}/estagios-paralelos?grupo=${grupo}&item=${item}`;
@@ -324,7 +323,6 @@ export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
   };
 };
 // #endregion
-=======
 
 export const marcarUti = (op, referencia) => {
   return (dispatch) => {
@@ -380,5 +378,4 @@ export const desmarcarTodosUti = (ops) => {
   };
 };
 
->>>>>>> 6eac118a6a9403c3405871193ef8a2375ecdb5a2
 export default reducer;
