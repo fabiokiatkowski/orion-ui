@@ -9,6 +9,9 @@ export const PERIODOS_LIST = 'periodos/LIST';
 export const PERIODOS_CHECK = 'periodos/CHECK';
 export const PERIODOS_DESCHECK = 'periodos/PERIODOS_DESCHECK';
 export const ORDENS_LIST = 'resultado/LIST';
+export const MARCAR_UTI = 'tela200/MARCAR_UI';
+export const DESMARCAR_UTI = 'tela200/DESMARCAR_UTI';
+export const DESMARCAR_TODOS_UTI = 'tela200/DESMARCAR_TODOS_UTI';
 export const GRID_CORTE_LIST = 'gridCorte/LIST';
 export const LIST_ESTAGIOS_PARALELOS = 'gridCorte/LIST_ESTAGIOS_PARALELOS';
 export const LIST_ONDE_TEM = 'gridOndeTem/LIST_ONDE_TEM';
@@ -105,6 +108,43 @@ const ordensList = (state, action) => {
   const updatedState = updateObject(state, { ordens: updatedOrdens });
   return updatedState;
 };
+const marcarUtiReducer = (state, action) => {
+  const newOrdens = state.ordens.data.map((ordem) => {
+    const newOrdem = ordem;
+    if (ordem.ordemProducao === action.op
+      && ordem.referenciaPeca === action.referencia) {
+      newOrdem.desOpUti = 'SIM';
+    }
+    return newOrdem;
+  });
+  const newState = state;
+  newState.ordens.data = newOrdens;
+  return newState;
+};
+const desmarcarUtiReducer = (state, action) => {
+  const newOrdens = state.ordens.data.map((ordem) => {
+    const newOrdem = ordem;
+    if (ordem.ordemProducao === action.op) {
+      newOrdem.desOpUti = 'NAO';
+    }
+    return newOrdem;
+  });
+  const newState = state;
+  newState.ordens.data = newOrdens;
+  return newState;
+};
+const desmarcarTodosUtiReducer = (state, action) => {
+  const newOrdens = state.ordens.data.map((ordem) => {
+    const newOrdem = ordem;
+    if (action.desmarcados.some(x => x === ordem.ordemProducao)) {
+      newOrdem.desOpUti = 'NAO';
+    }
+    return newOrdem;
+  });
+  const newState = state;
+  newState.ordens.data = newOrdens;
+  return newState;
+};
 const gridCorteList = (state, action) => {
   const normalizedData = [];
   const titles = Object.keys(action.data[0]);
@@ -139,9 +179,12 @@ const reducer = (state = initalState, action = {}) => {
     case PERIODOS_CHECK: return periodosCheck(state, action);
     case PERIODOS_DESCHECK: return periodosDescheck(state, action);
     case ORDENS_LIST: return ordensList(state, action);
+    case MARCAR_UTI: return marcarUtiReducer(state, action);
+    case DESMARCAR_UTI: return desmarcarUtiReducer(state, action);
     case GRID_CORTE_LIST: return gridCorteList(state, action);
     case LIST_ESTAGIOS_PARALELOS: return listEstagiosParalelos(state, action);
     case LIST_ONDE_TEM: return listOndeTem(state, action);
+    case DESMARCAR_TODOS_UTI: return desmarcarTodosUtiReducer(state, action);
     default: return state;
   }
 };
@@ -260,6 +303,7 @@ export const listarEstagiosParalelos = (ordem, grupo, item) => {
   };
 };
 // #endregion
+<<<<<<< HEAD
 // #region
 export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
   const url = `/api/ordens/${ordem}/estagios-paralelos?grupo=${grupo}&item=${item}`;
@@ -280,4 +324,61 @@ export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
   };
 };
 // #endregion
+=======
+
+export const marcarUti = (op, referencia) => {
+  return (dispatch) => {
+    loadStart(dispatch);
+    axios.post(`/api/prioridadeOp/op/${op}/grupo/${referencia}/marcar`)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch({
+            type: MARCAR_UTI,
+            op,
+            referencia
+          });
+        }
+      }).catch(() => {
+        /* Alerta temporario. */
+        /* TODO criar componente de mensagens */
+        alert('Essa op ja esta marcada como prioridade');
+      }).finally(() => loadEnd(dispatch));
+  };
+};
+export const desmarcarUti = (op) => {
+  return (dispatch) => {
+    loadStart(dispatch);
+    axios.post(`/api/prioridadeOp/op/${op}/desmarcar`)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch({
+            type: DESMARCAR_UTI,
+            op
+          });
+        }
+      }).catch(() => {
+        /* Alerta temporario. */
+        /* TODO criar componente de mensagens */
+        alert('Essa op nao esta marcada como prioridade');
+      }).finally(() => loadEnd(dispatch));
+  };
+};
+export const desmarcarTodosUti = (ops) => {
+  return (dispatch) => {
+    const url = '/api/prioridadeOp/desmarcarTodos';
+    loadStart(dispatch);
+    axios.post(url, ops)
+      .then((res) => {
+        dispatch({
+          type: DESMARCAR_TODOS_UTI,
+          desmarcados: res.data
+        });
+      })
+      .finally(() => {
+        loadEnd(dispatch);
+      });
+  };
+};
+
+>>>>>>> 6eac118a6a9403c3405871193ef8a2375ecdb5a2
 export default reducer;

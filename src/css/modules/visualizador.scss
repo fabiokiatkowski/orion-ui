@@ -1,0 +1,114 @@
+#painel-visualizador {
+  .referencia-container {
+    .btn-toolbar {
+      .btn {
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+    }
+
+    .btn {
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+    
+    input {
+      margin-top: 10px;
+      display: inline-block;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+
+    #nivel {
+      width: 70px;
+      margin-left: 5px;
+    }
+
+    #grupo {
+      width: 90px;
+    }
+
+    #subGrupo {
+      width: 65px;
+    }
+
+    #item {
+      width: 100px;
+      margin-right: 10px;
+    }   
+  }
+}
+
+
+.fullscreen-modal-container {  
+  .descricao-input {
+    @media screen and (min-width:420px) {
+      input {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      
+      #descricao {
+        width: 50%;
+      }
+  
+      #complemento {
+        width: 50%;
+      }
+    }
+  }
+
+  .produto-input {
+    input {
+      text-align: center;
+    }
+
+    @media screen and (min-width:420px) {  
+      input {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      #nivel {
+        width: 70px;
+      }
+
+      #grupo {
+        width: 90px;
+      }
+
+      #subGrupo {
+        width: 65px;
+      }
+
+      #item {
+        width: 100px;
+      }   
+    }
+  }
+  .descricao-input, .produto-input {
+    input {
+      text-transform: uppercase;
+    }
+  }
+
+  .react-grid-Row > div, .react-grid-HeaderCell {
+    background-color: gray; 
+  }
+
+  .react-grid-Row > div:nth-child(n + 7),
+  .react-grid-HeaderCell:nth-child(n + 7) {
+    background-color: skyblue;
+  }
+
+  .react-grid-Row:hover div:nth-child(n + 7) {
+    background-color: #f9f9f9;
+  }
+}
+
+::-webkit-input-placeholder {
+  text-transform: none;
+}
+::-moz-placeholder {
+  text-transform: none;
+}

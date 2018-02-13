@@ -71,7 +71,7 @@ class SingIn extends Component {
             </div>
           </div>
           <div className="main-login main-center">
-            <form className="form-horizontal" onSubmit={(e, t) => this.login(e, t)}>
+            <form className="form-horizontal" onSubmit={e => this.login(e)}>
               <div className="form-group">
                 <label htmlFor="id-cracha" className="cols-sm-2 control-label">
                   Cracha

@@ -8,7 +8,9 @@ import { listarEstagio,
   listarPeriodos,
   marcarPeriodo,
   listarOrdens,
-  desmarcarPeriodo } from '../../redux/modules/tela200';
+  desmarcarPeriodo,
+  marcarUti,
+  desmarcarUti } from '../../redux/modules/tela200';
 import { listProductImages } from '../../redux/modules/image';
 import GridEstagiosAbertos from './estagiosAbertos/GridEstagiosAbertos';
 import GridPeriodos from './periodos/GridPeriodos';
@@ -33,7 +35,9 @@ const mapDispatchToProps = dispatch => ({
   desmarcarEstagio: bindActionCreators(desmarcarEstagio, dispatch),
   marcarPeriodo: bindActionCreators(marcarPeriodo, dispatch),
   desmarcarPeriodo: bindActionCreators(desmarcarPeriodo, dispatch),
-  listProductImages: bindActionCreators(listProductImages, dispatch)
+  listProductImages: bindActionCreators(listProductImages, dispatch),
+  marcarUti: bindActionCreators(marcarUti, dispatch),
+  desmarcarUti: bindActionCreators(desmarcarUti, dispatch)
 });
 
 class PainelEstagiosAbertos extends Component {
@@ -184,6 +188,8 @@ class PainelEstagiosAbertos extends Component {
           data={this.props.ordensData}
           indexes={[]}
           handleRowChange={this.handleRowChange}
+          marcarUti={() => this.props.marcarUti(opSelected, referenciaSelected)}
+          desmarcarUti={() => this.props.desmarcarUti(opSelected)}
         />
       </Sizeme>
     );
@@ -219,7 +225,9 @@ PainelEstagiosAbertos.propTypes = {
   selectedPeriodos: PropTypes.array.isRequired, //eslint-disable-line
   estagiosData: PropTypes.array.isRequired, //eslint-disable-line
   periodosData: PropTypes.array.isRequired, //eslint-disable-line
-  ordensData: PropTypes.array.isRequired //eslint-disable-line
+  ordensData: PropTypes.array.isRequired, //eslint-disable-line
+  marcarUti: PropTypes.func.isRequired,
+  desmarcarUti: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,

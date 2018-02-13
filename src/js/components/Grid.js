@@ -5,7 +5,6 @@ import { Data, DraggableHeader } from 'react-data-grid-addons';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderCell from './CustomHeaderCell';
-import CustomContextMenu from './CustomContextMenu';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -18,7 +17,8 @@ export default class Grid extends Component {
     onRowClick: PropTypes.func,
     indexes: PropTypes.array, //eslint-disable-line
     enableSummary: PropTypes.bool,
-    showCheckbox: PropTypes.bool
+    showCheckbox: PropTypes.bool,
+    reflectShadowRows: PropTypes.func
   }
 
   static defaultProps = {
@@ -30,7 +30,8 @@ export default class Grid extends Component {
     onRowsDeselected: () => {},
     onRowClick: () => {},
     enableSummary: false,
-    showCheckbox: false
+    showCheckbox: false,
+    reflectShadowRows: null
   }
 
   constructor(props) {
@@ -41,7 +42,6 @@ export default class Grid extends Component {
       columnsDef: props.columns,
       sortColumn: null, //eslint-disable-line
       sortDirection: null, //eslint-disable-line
-      filters: {},
       rowIdx: -1
     };
   }
@@ -55,13 +55,20 @@ export default class Grid extends Component {
     }
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.reflectShadowRows &&
+      this.state.shadowRows.size !== nextState.shadowRows.size) {
+      this.props.reflectShadowRows(nextState.shadowRows);
+    }
+  }
+
   onClearFilters = () => {
     this.setState({ filters: {} });
   };
 
   onCellSelected = ({ rowIdx }) => {
     if (this.state.rowIdx !== rowIdx) {
-      const data = this.state.rows.get(rowIdx);
+      const data = this.state.shadowRows.get(rowIdx);
       this.props.handleRowChange(data);
       this.setState({ rowIdx });
     }
@@ -149,9 +156,6 @@ export default class Grid extends Component {
         onHeaderDrop={this.onHeaderDrop}
       >
         <ReactDataGrid
-          contextMenu={
-            <CustomContextMenu onClearFilters={this.cleanFilters} />
-          }
           canFilter={false}
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}

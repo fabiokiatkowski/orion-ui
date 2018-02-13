@@ -21,6 +21,9 @@ const NavigationItems = (props) => {
           <MenuItem eventKey={1.1}>
             <NavigationItem link="/tela200">Tela 200</NavigationItem>
           </MenuItem>
+          <MenuItem eventKey={1.2}>
+            <NavigationItem link="/visualizador">Visualizador</NavigationItem>
+          </MenuItem>
         </NavDropdown>
       </Nav>
       <Nav pullRight>

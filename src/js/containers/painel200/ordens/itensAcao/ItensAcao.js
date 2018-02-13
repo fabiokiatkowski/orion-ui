@@ -17,8 +17,8 @@ const ItensAcao = (props) => {
       >Desmarcar UTI
       </button>
       <button
-        disabled={!props.onDesmarcarUTI || props.disabled}
-        onClick={props.onDesmarcarUTI}
+        disabled={!props.onDesmarcarTodosUTI || props.disabled}
+        onClick={props.onDesmarcarTodosUTI}
         className="btn btn-default btn-margin-top left"
       >Desmarcar Todos UTI
       </button>
@@ -77,12 +77,14 @@ const ItensAcao = (props) => {
 ItensAcao.propTypes = {
   disabled: PropTypes.bool.isRequired,
   onMarcarUTI: PropTypes.func,
-  onDesmarcarUTI: PropTypes.func
+  onDesmarcarUTI: PropTypes.func,
+  onDesmarcarTodosUTI: PropTypes.func
 };
 
 ItensAcao.defaultProps = {
   onMarcarUTI: () => {},
-  onDesmarcarUTI: () => {}
+  onDesmarcarUTI: () => {},
+  onDesmarcarTodosUTI: () => {}
 };
 
 export default ItensAcao;
