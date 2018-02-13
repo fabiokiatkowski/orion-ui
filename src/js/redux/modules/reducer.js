@@ -9,6 +9,7 @@ import app from './app';
 import tela200 from './tela200';
 import session from './session';
 import observacao from './observacao';
+import visualizador from './visualizador';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   insumos: insumoNecessidade,
   estoque,
   session,
-  observacao
+  observacao,
+  visualizador
 });
 
 export default rootReducer;

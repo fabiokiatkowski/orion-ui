@@ -1,5 +1,4 @@
 .fullscreen-modal-container {  
-  
   .descricao-input {
     @media screen and (min-width:420px) {
       input {
@@ -57,6 +56,19 @@
     ::-moz-placeholder {
       text-transform: none;
     }
-  
   }
+
+  .react-grid-Row > div, .react-grid-HeaderCell {
+    background-color: gray; 
+  }
+
+  .react-grid-Row > div:nth-child(n + 7),
+  .react-grid-HeaderCell:nth-child(n + 7) {
+    background-color: skyblue;
+  }
+
+  .react-grid-Row:hover div:nth-child(n + 7) {
+    background-color: #f9f9f9;
+  }
+
 }
