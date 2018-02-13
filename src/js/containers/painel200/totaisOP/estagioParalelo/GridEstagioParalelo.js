@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import columns from './columns';
 import Grid from '../../../../components/Grid';
-import { listEstagiosParalelos } from '../../../../redux/modules/tela200';
+import { listarEstagiosParalelos } from '../../../../redux/modules/tela200';
 
 const mapStateToProps = state => ({
   estagiosParalelos: state.tela200.estagiosParalelos.data
 });
 
 const mapDispatchToProps = dispatch => ({
-  listEstagiosParalelos: bindActionCreators(listEstagiosParalelos, dispatch)
+  listEstagiosParalelos: bindActionCreators(listarEstagiosParalelos, dispatch)
 });
 
 class GridEstagioParalelo extends Component {

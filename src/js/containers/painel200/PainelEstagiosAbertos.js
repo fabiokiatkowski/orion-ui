@@ -16,7 +16,6 @@ import GridEstagiosAbertos from './estagiosAbertos/GridEstagiosAbertos';
 import GridPeriodos from './periodos/GridPeriodos';
 import GridOrdens from './ordens/GridOrdens';
 import PainelTotaisOP from './totaisOP/PainelTotaisOP';
-import fixReferencia from '../../utils/referencia';
 import Sizeme from '../../components/Sizeme';
 
 const mapStateToProps = state => ({
@@ -45,11 +44,9 @@ class PainelEstagiosAbertos extends Component {
   state = {
     estagiosSelectedRow: [],
     periodosSelectedRow: [],
-    referenciaSelected: null,
-    opSelected: null,
     estagiosAbertosHeight: 400,
     ordensHeigh: 520,
-    itemSelected: null
+    currentRow: null
   };
   componentDidMount() {
     this.props.listarEstagio();
@@ -58,7 +55,7 @@ class PainelEstagiosAbertos extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.ordensData !== this.props.ordensData) {
       this.setState({
-        referenciaSelected: null
+        currentRow: null
       });
     }
   }
@@ -124,32 +121,20 @@ class PainelEstagiosAbertos extends Component {
   }
 
   handleRowChange = (data) => {
-    const referenciaPeca = data.get('referenciaPeca');
-    const ordemProducao = data.get('ordemProducao');
-    const descodEstagio = data.get('descodEstagio');
-    const itemSelected = data.get('proconfItem');
-    this.props.listProductImages(referenciaPeca);
-    const referenciaSelected = fixReferencia(referenciaPeca);
-    this.setState({
-      referenciaSelected,
-      itemSelected,
-      opSelected: ordemProducao,
-      descEstagioSelected: descodEstagio
-    });
+    this.setState({ currentRow: data });
   }
 
   // #endregion
   render() {
     const {
-      referenciaSelected,
-      opSelected,
       estagiosAbertosHeight,
       ordensHeigh,
-      descEstagioSelected
+      currentRow
     } = this.state;
+    const referencia = currentRow && currentRow.get('referenciaPeca');
     const minHeight = estagiosAbertosHeight;
     const { produtoImagens } = this.props;
-    const imageList = produtoImagens && produtoImagens.get(referenciaSelected);
+    const imageList = produtoImagens && produtoImagens.get(referencia);
     const gridEstagios = (
       <Sizeme handleChangeSize={this.changeEstagiosAbertosSize}>
         <button
@@ -208,19 +193,17 @@ class PainelEstagiosAbertos extends Component {
         />
       </Sizeme>
     );
+
     return (
       <div className="container200">
         {gridEstagios}
         {gridPeriodo}
         <div className="result200">
           {gridResultado}
-          {this.state.referenciaSelected &&
+          {this.state.currentRow &&
             <PainelTotaisOP
               imageList={imageList}
-              referencia={referenciaSelected}
-              op={opSelected}
-              descEstagio={descEstagioSelected}
-              item={this.state.itemSelected}
+              row={currentRow}
             />
           }
         </div>

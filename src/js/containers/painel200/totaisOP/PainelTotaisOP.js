@@ -3,6 +3,7 @@ import { Row, Col, Nav, NavItem, Tab, NavDropdown, MenuItem } from 'react-bootst
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable';
 import ImageContainer from '../../../components/ImagesContainer';
 import InsumoNecessidade from '../../insumoNecessidade/InsumoNecessidade';
 import Observacao from '../../../components/Observacao';
@@ -12,7 +13,9 @@ import { listarGradeCorte } from '../../../redux/modules/tela200';
 import * as observacao from '../../../redux/modules/observacao';
 import { listarInsumoNecessidade } from '../../../redux/modules/insumoNecessidade/insumoNecessidade';
 import GradeCorte from './gradeCorte/GradeCorte';
+import fixReferencia from '../../../utils/referencia';
 import GridEstagioParalelo from './estagioParalelo/GridEstagioParalelo';
+import GridOndeTem from './ondeTem/GridOndeTem';
 
 const mapStateToProps = state => ({
   observacoes: state.observacao
@@ -29,29 +32,19 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class PainelTotaisOP extends Component {
-  propTypes = {
-    listarInfoGridCorte: PropTypes.func,
-    item: PropTypes.string
-  };
-
-  defaultProps = {
-    listarInfoGridCorte: () => {},
-    item: ''
-  };
-
   state = {
     tabMainKey: '1.1'
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.op !== this.props.op) {
-      this.props.list(nextProps.op, false);
-      this.props.getStObs(nextProps.op);
-      this.props.listarInsumoNecessidade(nextProps.op);
-      this.props.listarInfoGridCorte(nextProps.op);
+    if (nextProps.row.get('ordemProducao') !== this.props.row.get('ordemProducao')) {
+      this.props.list(nextProps.row.get('ordemProducao'), false);
+      this.props.getStObs(nextProps.row.get('ordemProducao'));
+      this.props.listarInsumoNecessidade(nextProps.row.get('ordemProducao'));
+      this.props.listarInfoGridCorte(nextProps.row.get('ordemProducao'));
     }
     if (nextProps.referencia !== this.props.referencia) {
-      this.props.listPeD(nextProps.referencia);
+      this.props.listPeD(fixReferencia(nextProps.referencia));
     }
   }
 
@@ -60,22 +53,48 @@ class PainelTotaisOP extends Component {
   }
 
   renderInsumoOp = () => {
-    if (this.props.op) {
-      return <InsumoNecessidade ordemProducao={this.props.op} />;
+    if (this.props.ordemProducao) {
+      return <InsumoNecessidade ordemProducao={this.props.ordemProducao} />;
     }
     return null;
   }
 
   render() {
     const { tabMainKey } = this.state;
-    const {
-      descEstagio,
-      observacoes,
-      op,
-      imageList,
-      item,
-      referencia
-    } = this.props;
+    const { imageList, observacoes } = this.props;
+    const descricaoEstagio = this.props.row.get('descodEstagio');
+    const ordemProducao = this.props.row.get('ordemProducao');
+    const item = this.props.row.get('proconfItem');
+    const referencia = this.props.row.get('referenciaPeca');
+
+    let observacaoRender = null;
+    let observacaoSystextilRender = null;
+    let observacaoPEDRender = null;
+    if (observacoes) {
+      observacaoRender = (
+        <Observacao
+          ordemProducao={ordemProducao}
+          descEstagio={descricaoEstagio}
+          observacoes={observacoes.obs}
+          canAdd
+        />
+      );
+      observacaoSystextilRender = (
+        <textarea
+          className="form-control"
+          rows="2"
+          id="observacao-st"
+          name="observacao-st"
+          value={observacoes && observacoes.systextil}
+        />
+      );
+      observacaoPEDRender = (
+        <Observacao
+          observacoes={observacoes && observacoes.ped}
+        />
+      );
+    }
+
     return (
       <div className="painel-totais-op">
         <div className="image-produto-op">
@@ -93,7 +112,7 @@ class PainelTotaisOP extends Component {
                 <NavItem eventKey="2">Insumos OP</NavItem>
                 <NavItem eventKey="3">Estágio Paralelo</NavItem>
                 <NavItem eventKey="4">Grade de Corte</NavItem>
-                <NavItem eventKey="5">Observação</NavItem>
+                <NavItem eventKey="5">Onde Tem</NavItem>
                 <NavItem eventKey="6">Onde tem</NavItem>
                 <NavItem eventKey="7">Filhos</NavItem>
                 <NavItem eventKey="8">Log Uti</NavItem>
@@ -104,30 +123,17 @@ class PainelTotaisOP extends Component {
             <Col sm={12}>
               <Tab.Content animation>
                 <Tab.Pane eventKey="1.1">
-                  <Observacao
-                    ordemProducao={op}
-                    descEstagio={descEstagio}
-                    observacoes={observacoes && observacoes.obs}
-                    canAdd
-                  />
+                  {observacaoRender}
                 </Tab.Pane>
                 <Tab.Pane eventKey="1.2">
-                  <textarea
-                    className="form-control"
-                    rows="2"
-                    id="observacao-st"
-                    name="observacao-st"
-                    value={observacoes && observacoes.systextil}
-                  />
+                  {observacaoSystextilRender}
                 </Tab.Pane>
                 <Tab.Pane eventKey="1.3">
-                  <Observacao
-                    observacoes={observacoes && observacoes.ped}
-                  />
+                  {observacaoPEDRender}
                 </Tab.Pane>
                 <Tab.Pane eventKey="2">
                   <div className="insumo-wrapper">
-                    <InsumoNecessidade ordemProducao={op} />
+                    <InsumoNecessidade ordemProducao={ordemProducao} />
                     <InsumoDeposito data={[]} />
                     <InsumoRolos data={[]} />
                     <div className="image-produto-op insumo-image">
@@ -147,15 +153,21 @@ class PainelTotaisOP extends Component {
                 </Tab.Pane>
                 <Tab.Pane eventKey="3">
                   <GridEstagioParalelo
-                    ordemProducao={op}
+                    ordemProducao={ordemProducao}
                     grupo={referencia}
                     item={item}
                   />
                 </Tab.Pane>
                 <Tab.Pane eventKey="4">
-                  <GradeCorte ordemProducao={op} />
+                  <GradeCorte ordemProducao={ordemProducao} />
                 </Tab.Pane>
-                <Tab.Pane eventKey="5">Painel de Estágio Paralelo 5</Tab.Pane>
+                <Tab.Pane eventKey="5">
+                  <GridOndeTem
+                    ordemProducao={ordemProducao}
+                    grupo={referencia}
+                    item={item}
+                  />
+                </Tab.Pane>
                 <Tab.Pane eventKey="6">Painel de Estágio Paralelo 6</Tab.Pane>
                 <Tab.Pane eventKey="7">Painel de Estágio Paralelo 7</Tab.Pane>
                 <Tab.Pane eventKey="8">Painel de Estágio Paralelo 8</Tab.Pane>
@@ -169,5 +181,36 @@ class PainelTotaisOP extends Component {
     );
   }
 }
+
+PainelTotaisOP.propTypes = {
+  imageList: PropTypes.array,
+  listarInfoGridCorte: PropTypes.func,
+  ordemProducao: PropTypes.number.isRequired,
+  referencia: PropTypes.string.isRequired,
+  row: PropTypes.instanceOf(Immutable.Map).isRequired,
+  list: PropTypes.func,
+  getStObs: PropTypes.func,
+  listarInsumoNecessidade: PropTypes.func,
+  listPeD: PropTypes.func,
+  observacoes: PropTypes.shape({
+    obs: PropTypes.array,
+    ped: PropTypes.array,
+    systextil: PropTypes.string
+  })
+};
+
+PainelTotaisOP.defaultProps = {
+  imageList: [],
+  list: () => {},
+  getStObs: () => {},
+  listarInsumoNecessidade: () => {},
+  listPeD: () => {},
+  listarInfoGridCorte: () => {},
+  observacoes: {
+    obs: [],
+    ped: [],
+    systextil: ''
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PainelTotaisOP);

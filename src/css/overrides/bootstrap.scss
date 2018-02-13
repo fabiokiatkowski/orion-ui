@@ -31,6 +31,10 @@ main {
   .nav-tabs {
     border-bottom: 1px solid #cdcdcd;
   }
+
+  .form-group {
+    margin: 10px 0;
+  }
   
   textarea.form-control {
     height: auto;
@@ -52,5 +56,9 @@ main {
   .btn {
     font-size: inherit;
     height: 2.2em;
+  }
+
+  input[type="checkbox"] {
+    margin-top: 1px;
   }
 }
