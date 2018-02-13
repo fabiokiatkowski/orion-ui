@@ -20,7 +20,7 @@ export default function reducer(state = initialState, action = {}) {
     case ADD: {
       const newData = action.data;
       newData.dataObservacao = formatDate(action.data.dataObservacao);
-      return { ...state, obs: [...state.obs, action.data] };
+      return { ...state, obs: [action.data, ...state.obs] };
     }
     case OBS_ST: {
       return { ...state, systextil: action.obs1 + action.obs2 };

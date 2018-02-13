@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Types from '../utils/filterTypes';
 import Grid from './Grid';
-import { list, add } from '../redux/modules/observacao';
+import { add } from '../redux/modules/observacao';
 
 const columns = [
   {
@@ -60,7 +61,7 @@ class Observacao extends Component {
   }
 
   handleRowChange = (data) => {
-    const { observacao } = data;
+    const observacao = data.get('observacao');
     this.setState({ observacao });
   }
 
@@ -109,4 +110,23 @@ class Observacao extends Component {
   }
 }
 
-export default Observacao;
+Observacao.propTypes = {
+  ordemProducao: PropTypes.number.isRequired,
+  descEstagio: PropTypes.string.isRequired,
+  observacoes: PropTypes.string,
+  canAdd: PropTypes.bool,
+  add: PropTypes.func,
+
+};
+
+Observacao.defaultProps = {
+  canAdd: false,
+  observacoes: '',
+  add: () => {}
+};
+
+const mapDispatchToProps = dispatch => ({
+  add: bindActionCreators(add, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(Observacao);
