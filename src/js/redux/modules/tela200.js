@@ -15,6 +15,9 @@ export const DESMARCAR_TODOS_UTI = 'tela200/DESMARCAR_TODOS_UTI';
 export const GRID_CORTE_LIST = 'gridCorte/LIST';
 export const LIST_ESTAGIOS_PARALELOS = 'gridCorte/LIST_ESTAGIOS_PARALELOS';
 export const LIST_ONDE_TEM = 'gridOndeTem/LIST_ONDE_TEM';
+export const LIST_FILHAS = 'gridFilhas/LIST_FILHAS';
+export const CLEAN_FILHAS = 'gridFilhas/CLEAN_FILHAS';
+export const LIST_LOG_UTI = 'gridLogUti/LIST_LOG_UTI';
 
 const initalState = {
   estagios: {
@@ -38,6 +41,9 @@ const initalState = {
     data: []
   },
   filhos: {
+    data: []
+  },
+  logUti: {
     data: []
   }
 };
@@ -170,8 +176,19 @@ const listOndeTem = (state, action) => {
     .filter((x) => {
       return action.data.sameCor ? x.item === action.data.item : x;
     });
-  const updateData = updateObject(state.ondeTem, { data: filteredData });
-  return updateObject(state, { ondeTem: updateData });
+  const updatedData = updateObject(state.ondeTem, { data: filteredData });
+  return updateObject(state, { ondeTem: updatedData });
+};
+const listFilhas = (state, action) => {
+  const updatedData = updateObject(state.filhos, { data: action.data });
+  return updateObject(state, { filhos: updatedData });
+};
+const cleanFilhas = (state) => {
+  return updateObject(state, { filhos: initalState.filhos });
+};
+const listLogUti = (state, action) => {
+  const updatedData = updateObject(state.logUti, { data: action.data });
+  return updateObject(state, { logUti: updatedData });
 };
 const reducer = (state = initalState, action = {}) => {
   switch (action.type) {
@@ -188,6 +205,9 @@ const reducer = (state = initalState, action = {}) => {
     case LIST_ESTAGIOS_PARALELOS: return listEstagiosParalelos(state, action);
     case LIST_ONDE_TEM: return listOndeTem(state, action);
     case DESMARCAR_TODOS_UTI: return desmarcarTodosUtiReducer(state, action);
+    case LIST_FILHAS: return listFilhas(state, action);
+    case CLEAN_FILHAS: return cleanFilhas(state);
+    case LIST_LOG_UTI: return listLogUti(state, action);
     default: return state;
   }
 };
@@ -308,7 +328,7 @@ export const listarEstagiosParalelos = (ordem, grupo, item) => {
 // #endregion
 // #region Painel Onde Tem
 export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
-  const url = `/api/ordens/${ordem}/estagios-paralelos?grupo=${grupo}&item=${item}`;
+  const url = `/api/ordens/${ordem}/estagios-paralelos?grupo=${grupo}`;
   return (dispatch) => {
     loadStart(dispatch);
     axios.get(url)
@@ -328,17 +348,18 @@ export const listarOndeTem = (ordem, grupo, item, sameOp, sameCor) => {
 // #endregion
 // #region Painel Filhos
 export const listarFilhos = (ordemPrincipal) => {
-  const url = `/api/ordens/${ordemPrincipal}/filhos`;
+  const url = `/api/ordens/filhas?ordemPrincipal=${ordemPrincipal}`;
   return (dispatch) => {
     loadStart(dispatch);
     axios.get(url)
       .then(res => dispatch({
-        type: LIST_ONDE_TEM,
+        type: LIST_FILHAS,
         data: res.data
       }))
       .finally(() => loadEnd(dispatch));
   };
 };
+export const limparFilhos = () => dispatch => dispatch({ type: CLEAN_FILHAS });
 // #endregion
 
 // #region Ações
@@ -392,6 +413,19 @@ export const desmarcarTodosUti = (ops) => {
       })
       .finally(() => {
         loadEnd(dispatch);
+      });
+  };
+};
+export const listarLogUti = (op) => {
+  return (dispatch) => {
+    const url = `/api/prioridadeOp/op/${op}/log`;
+    loadStart(dispatch);
+    axios.get(url)
+      .then((res) => {
+        dispatch({
+          type: LIST_LOG_UTI,
+          data: res.data
+        });
       });
   };
 };

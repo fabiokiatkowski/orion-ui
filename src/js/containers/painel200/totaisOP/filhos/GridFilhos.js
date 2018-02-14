@@ -4,27 +4,24 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import columns from './columns';
 import Grid from '../../../../components/Grid';
-import { listarEstagiosParalelos } from '../../../../redux/modules/tela200';
+import { listarFilhos, limparFilhos } from '../../../../redux/modules/tela200';
 
 const mapStateToProps = state => ({
-  estagiosParalelos: state.tela200.estagiosParalelos.data
+  data: state.tela200.filhos.data
 });
 
 const mapDispatchToProps = dispatch => ({
-  listEstagiosParalelos: bindActionCreators(listarEstagiosParalelos, dispatch)
+  listarFilhos: bindActionCreators(listarFilhos, dispatch),
+  limparFilhos: bindActionCreators(limparFilhos, dispatch)
 });
 
 class GridFilhos extends Component {
   componentWillReceiveProps(nextProps) {
-    if (nextProps.ordemProducao !== this.props.ordemProducao
-      || nextProps.ordemPrincipal !== this.props.ordemPrincipal
-      || nextProps.grupo !== this.props.grupo
-      || nextProps.item !== this.props.item) {
-      this.props.listEstagiosParalelos(
-        nextProps.ordemProducao,
-        nextProps.grupo,
-        nextProps.item
-      );
+    if (nextProps.ordemPrincipal !== this.props.ordemPrincipal
+      && nextProps.ordemPrincipal > 0) {
+      this.props.listarFilhos(nextProps.ordemPrincipal);
+    } else if (nextProps.ordemPrincipal === 0) {
+      this.props.limparFilhos();
     }
   }
 
@@ -32,7 +29,7 @@ class GridFilhos extends Component {
     return (
       <Grid
         minHeight={300}
-        data={this.props.estagiosParalelos}
+        data={this.props.data}
         columns={columns}
         indexes={[]}
       />
@@ -42,20 +39,15 @@ class GridFilhos extends Component {
 
 
 GridFilhos.propTypes = {
-  listEstagiosParalelos: PropTypes.func.isRequired,
-  estagiosParalelos: PropTypes.array,
-  ordemProducao: PropTypes.number,
-  ordemPrincipal: PropTypes.number,
-  grupo: PropTypes.string,
-  item: PropTypes.string
+  listarFilhos: PropTypes.func.isRequired,
+  limparFilhos: PropTypes.func.isRequired,
+  data: PropTypes.array,
+  ordemPrincipal: PropTypes.number
 };
 
 GridFilhos.defaultProps = {
-  estagiosParalelos: [],
-  ordemProducao: 0,
-  ordemPrincipal: 0,
-  grupo: '',
-  item: ''
+  data: [],
+  ordemPrincipal: 0
 };
 
 export default connect(

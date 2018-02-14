@@ -17,6 +17,8 @@ import fixReferencia from '../../../utils/referencia';
 import GridEstagioParalelo from './estagioParalelo/GridEstagioParalelo';
 import GridOndeTem from './ondeTem/GridOndeTem';
 import GridFilhos from './filhos/GridFilhos';
+import GridLogUti from './logUti/GridLogUti';
+import CancelarOp from './cancelarOp/CancelarOp';
 
 const mapStateToProps = state => ({
   observacoes: state.observacao
@@ -51,13 +53,6 @@ class PainelTotaisOP extends Component {
 
   handleTabMainSelect = (tabMainKey) => {
     this.setState({ tabMainKey });
-  }
-
-  renderInsumoOp = () => {
-    if (this.props.ordemProducao) {
-      return <InsumoNecessidade ordemProducao={this.props.ordemProducao} />;
-    }
-    return null;
   }
 
   render() {
@@ -98,92 +93,93 @@ class PainelTotaisOP extends Component {
     }
 
     return (
-      <div className="painel-totais-op">
-        <div className="image-produto-op">
-          <ImageContainer imageList={this.props.imageList} showHeader />
+      <div>
+        <div className="painel-totais-op">
+          <div className="image-produto-op">
+            <ImageContainer imageList={this.props.imageList} showHeader />
+          </div>
+          <Tab.Container
+            activeKey={this.state.tabKey}
+            onSelect={this.handleTabSelect}
+            id="painel-totais-op-main"
+          >
+            <Row className="clearfix">
+              <Col sm={12}>
+                <Nav bsStyle="tabs">
+                  <NavDropdown eventKey="1" title="Observação">
+                    <MenuItem eventKey="1.1">Observação</MenuItem>
+                    <MenuItem eventKey="1.2">Observação Systextil</MenuItem>
+                    <MenuItem eventKey="1.3">Observação PeD</MenuItem>
+                  </NavDropdown>
+                  <NavItem eventKey="2">Insumos OP</NavItem>
+                  <NavItem eventKey="3">Estágio Paralelo</NavItem>
+                  <NavItem eventKey="4">Grade de Corte</NavItem>
+                  <NavItem eventKey="5">Onde Tem</NavItem>
+                  <NavItem eventKey="6">Filhos</NavItem>
+                  <NavItem eventKey="7">Log Uti</NavItem>
+                  <NavItem eventKey="8">Altera Período</NavItem>
+                </Nav>
+              </Col>
+              <Col sm={12}>
+                <Tab.Content animation>
+                  <Tab.Pane eventKey="1.1">
+                    {observacaoRender}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="1.2">
+                    {observacaoSystextilRender}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="1.3">
+                    {observacaoPEDRender}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="2">
+                    <div className="insumo-wrapper">
+                      <InsumoNecessidade ordemProducao={ordemProducao} />
+                      <InsumoDeposito data={[]} />
+                      <InsumoRolos data={[]} />
+                      <div className="image-produto-op insumo-image">
+                        <ImageContainer imageList={imageList} />
+                      </div>
+                      <div className="observacao-rolo">
+                        <textarea
+                          className="observacao-insumo"
+                          name="observacao"
+                          id="observacao"
+                          cols="30"
+                          rows="5"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="3">
+                    <GridEstagioParalelo
+                      ordemProducao={ordemProducao}
+                      grupo={referencia}
+                      item={item}
+                    />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="4">
+                    <GradeCorte ordemProducao={ordemProducao} />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="5">
+                    <GridOndeTem
+                      ordemProducao={ordemProducao}
+                      grupo={referencia}
+                      item={item}
+                    />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="6">
+                    <GridFilhos ordemPrincipal={ordemPrincipal} />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="7">
+                    <GridLogUti ordemProducao={ordemProducao} />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="8">Painel de Estágio Paralelo 10</Tab.Pane>
+                </Tab.Content>
+              </Col>
+            </Row>
+          </Tab.Container>
         </div>
-        <Tab.Container activeKey={this.state.tabKey} onSelect={this.handleTabSelect} id="painel-totais-op-main">
-          <Row className="clearfix">
-            <Col sm={12}>
-              <Nav bsStyle="tabs">
-                <NavDropdown eventKey="1" title="Observação">
-                  <MenuItem eventKey="1.1">Observação</MenuItem>
-                  <MenuItem eventKey="1.2">Observação Systextil</MenuItem>
-                  <MenuItem eventKey="1.3">Observação PeD</MenuItem>
-                </NavDropdown>
-                <NavItem eventKey="2">Insumos OP</NavItem>
-                <NavItem eventKey="3">Estágio Paralelo</NavItem>
-                <NavItem eventKey="4">Grade de Corte</NavItem>
-                <NavItem eventKey="5">Onde Tem</NavItem>
-                <NavItem eventKey="6">Filhos</NavItem>
-                <NavItem eventKey="7">Log Uti</NavItem>
-                <NavItem eventKey="8">Canc. OP</NavItem>
-                <NavItem eventKey="9">Altera Período</NavItem>
-              </Nav>
-            </Col>
-            <Col sm={12}>
-              <Tab.Content animation>
-                <Tab.Pane eventKey="1.1">
-                  {observacaoRender}
-                </Tab.Pane>
-                <Tab.Pane eventKey="1.2">
-                  {observacaoSystextilRender}
-                </Tab.Pane>
-                <Tab.Pane eventKey="1.3">
-                  {observacaoPEDRender}
-                </Tab.Pane>
-                <Tab.Pane eventKey="2">
-                  <div className="insumo-wrapper">
-                    <InsumoNecessidade ordemProducao={ordemProducao} />
-                    <InsumoDeposito data={[]} />
-                    <InsumoRolos data={[]} />
-                    <div className="image-produto-op insumo-image">
-                      <ImageContainer imageList={imageList} />
-                    </div>
-                    <div className="observacao-rolo">
-                      <textarea
-                        className="observacao-insumo"
-                        name="observacao"
-                        id="observacao"
-                        cols="30"
-                        rows="5"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </Tab.Pane>
-                <Tab.Pane eventKey="3">
-                  <GridEstagioParalelo
-                    ordemProducao={ordemProducao}
-                    grupo={referencia}
-                    item={item}
-                  />
-                </Tab.Pane>
-                <Tab.Pane eventKey="4">
-                  <GradeCorte ordemProducao={ordemProducao} />
-                </Tab.Pane>
-                <Tab.Pane eventKey="5">
-                  <GridOndeTem
-                    ordemProducao={ordemProducao}
-                    grupo={referencia}
-                    item={item}
-                  />
-                </Tab.Pane>
-                <Tab.Pane eventKey="6">
-                  <GridFilhos
-                    ordemProducao={ordemProducao}
-                    ordemPrincipal={ordemPrincipal}
-                    grupo={referencia}
-                    item={item}
-                  />
-                </Tab.Pane>
-                <Tab.Pane eventKey="7">Painel de Estágio Paralelo 8</Tab.Pane>
-                <Tab.Pane eventKey="8">Painel de Estágio Paralelo 9</Tab.Pane>
-                <Tab.Pane eventKey="9">Painel de Estágio Paralelo 10</Tab.Pane>
-              </Tab.Content>
-            </Col>
-          </Row>
-        </Tab.Container>
       </div>
     );
   }

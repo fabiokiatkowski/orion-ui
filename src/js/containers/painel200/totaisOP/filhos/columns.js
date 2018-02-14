@@ -48,17 +48,6 @@ const columns = [
     order: 4
   },
   {
-    key: 'codigoEstagio',
-    name: 'Código Estágio',
-    filterable: true,
-    resizable: true,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
-    type: Types.NUMBER,
-    order: 5
-  },
-  {
     key: 'descricaoEstagio',
     name: 'Desc. Estágio',
     filterable: true,
@@ -70,7 +59,7 @@ const columns = [
     order: 6
   },
   {
-    key: 'quantidadeProgramada',
+    key: 'quantidadeProgramado',
     name: 'Programado',
     filterable: true,
     resizable: true,
@@ -94,7 +83,7 @@ const columns = [
     order: 8
   },
   {
-    key: 'quantidadeProduzido',
+    key: 'quantidadeProduzida',
     name: 'Produzido',
     filterable: true,
     resizable: true,
