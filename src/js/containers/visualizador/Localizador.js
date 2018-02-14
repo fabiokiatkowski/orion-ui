@@ -127,7 +127,7 @@ class Localizador extends Component {
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.handleSelecionar}>Selecionar</Button>
-              <Button onClick={this.handleCloseModal}>Close</Button>
+              <Button onClick={this.handleCloseModal}>Fechar</Button>
             </Modal.Footer>
           </Modal>
         </ButtonToolbar>

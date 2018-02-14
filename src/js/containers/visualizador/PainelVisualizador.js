@@ -34,6 +34,15 @@ class PainelVisualizador extends Component {
     copyToClipboard(text);
   }
 
+  clean = () => {
+    this.setState({
+      nivel: '',
+      grupo: '',
+      subGrupo: '',
+      item: ''
+    });
+  }
+
   render() {
     const {
       nivel, grupo, subGrupo, item
@@ -62,7 +71,15 @@ class PainelVisualizador extends Component {
                         <input type="text" value={item} onChange={this.handleChange} maxLength="6" className="form-control" id="item" name="item" placeholder="Item" />
                         <button className="btn btn-primary">Consultar</button>
                         <button onClick={this.copy} className="btn btn-primary">Copiar</button>
-                        <button className="btn btn-primary">Limpar</button>
+                        <button onClick={this.clean} className="btn btn-primary">Limpar</button>
+                      </div>
+                      <div className="form-group descricao">
+                        <textarea
+                          className="form-control"
+                          rows="8"
+                          id="descricao"
+                          disabled
+                        />
                       </div>
                     </div>
                   </div>
