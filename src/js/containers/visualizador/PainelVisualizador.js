@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   Row,
   Col,
@@ -7,13 +10,34 @@ import {
   Tab } from 'react-bootstrap';
 import Localizador from './Localizador';
 import copyToClipboard from '../../utils/clipboard';
+import { getDescPeca } from '../../redux/modules/visualizador';
+
+const mapStateToProps = state => ({
+  descricaoProduto: state.visualizador.descricaoProduto
+});
+
+const mapDispathToProps = dispatch => ({
+  getDescPeca: bindActionCreators(getDescPeca, dispatch)
+});
 
 class PainelVisualizador extends Component {
+  static propTypes = {
+    descricaoProduto: PropTypes.string.isRequired,
+    getDescPeca: PropTypes.func.isRequired
+  }
+
   state = {
     nivel: '',
     grupo: '',
     subGrupo: '',
     item: ''
+  }
+
+  handleConsultar = () => {
+    const { nivel, grupo } = this.state;
+    if (nivel === '1') {
+      this.props.getDescPeca(grupo);
+    }
   }
 
   handleSelect = (nivel, grupo, subGrupo, item) => {
@@ -69,12 +93,13 @@ class PainelVisualizador extends Component {
                         <input type="text" value={grupo} onChange={this.handleChange} maxLength="5" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
                         <input type="text" value={subGrupo} onChange={this.handleChange} maxLength="3" className="form-control" id="subGrupo" name="subGrupo" placeholder="Sub" />
                         <input type="text" value={item} onChange={this.handleChange} maxLength="6" className="form-control" id="item" name="item" placeholder="Item" />
-                        <button className="btn btn-primary">Consultar</button>
+                        <button onClick={this.handleConsultar} className="btn btn-primary">Consultar</button>
                         <button onClick={this.copy} className="btn btn-primary">Copiar</button>
                         <button onClick={this.clean} className="btn btn-primary">Limpar</button>
                       </div>
                       <div className="form-group descricao">
                         <textarea
+                          value={this.props.descricaoProduto}
                           className="form-control"
                           rows="8"
                           id="descricao"
@@ -99,4 +124,4 @@ class PainelVisualizador extends Component {
   }
 }
 
-export default PainelVisualizador;
+export default connect(mapStateToProps, mapDispathToProps)(PainelVisualizador);
