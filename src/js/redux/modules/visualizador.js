@@ -3,6 +3,7 @@ import { loadStart, loadEnd } from './app';
 
 const LOCALIZADOR_LIST = 'visualizador/LOCALIZADOR_LIST';
 const GET_DESC = 'visualizador/GET_DESC';
+const CLEAN = 'visualizador/CLEAN';
 
 const initalState = {
   produtosLocalizador: [],
@@ -17,8 +18,17 @@ const reducer = (state = initalState, action = {}) => {
     case GET_DESC: {
       return { ...state, descricaoProduto: action.data };
     }
+    case CLEAN: {
+      return initalState;
+    }
     default: return state;
   }
+};
+
+export const clean = () => {
+  return (dispatch) => {
+    dispatch({ type: CLEAN });
+  };
 };
 
 export const listProdutosLocalizador = (payload) => {

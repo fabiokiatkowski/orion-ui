@@ -10,7 +10,7 @@ import {
   Tab } from 'react-bootstrap';
 import Localizador from './Localizador';
 import copyToClipboard from '../../utils/clipboard';
-import { getDescPeca, getDescProduto } from '../../redux/modules/visualizador';
+import { clean, getDescPeca, getDescProduto } from '../../redux/modules/visualizador';
 
 const mapStateToProps = state => ({
   descricaoProduto: state.visualizador.descricaoProduto
@@ -19,13 +19,15 @@ const mapStateToProps = state => ({
 const mapDispathToProps = dispatch => ({
   getDescPeca: bindActionCreators(getDescPeca, dispatch),
   getDescProduto: bindActionCreators(getDescProduto, dispatch),
+  clean: bindActionCreators(clean, dispatch)
 });
 
 class PainelVisualizador extends Component {
   static propTypes = {
     descricaoProduto: PropTypes.string.isRequired,
     getDescPeca: PropTypes.func.isRequired,
-    getDescProduto: PropTypes.func.isRequired
+    getDescProduto: PropTypes.func.isRequired,
+    clean: PropTypes.func.isRequired
   }
 
   state = {
@@ -46,7 +48,7 @@ class PainelVisualizador extends Component {
     if (nivel === '1') {
       this.props.getDescPeca(grupo);
     } else {
-      this.props.getDescProduto(nivel, grupo, subGrupo, item)
+      this.props.getDescProduto(nivel, grupo, subGrupo, item);
     }
   }
 
@@ -74,7 +76,7 @@ class PainelVisualizador extends Component {
       grupo: '',
       subGrupo: '',
       item: ''
-    });
+    }, () => this.props.clean());
   }
 
   render() {
