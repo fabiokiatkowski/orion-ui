@@ -18,7 +18,6 @@ import GridEstagioParalelo from './estagioParalelo/GridEstagioParalelo';
 import GridOndeTem from './ondeTem/GridOndeTem';
 import GridFilhos from './filhos/GridFilhos';
 import GridLogUti from './logUti/GridLogUti';
-import CancelarOp from './cancelarOp/CancelarOp';
 
 const mapStateToProps = state => ({
   observacoes: state.observacao
@@ -40,7 +39,8 @@ class PainelTotaisOP extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.row.get('ordemProducao') !== this.props.row.get('ordemProducao')) {
+    if (nextProps.row &&
+        nextProps.row.get('ordemProducao') !== this.props.row.get('ordemProducao')) {
       this.props.list(nextProps.row.get('ordemProducao'), false);
       this.props.getStObs(nextProps.row.get('ordemProducao'));
       this.props.listarInsumoNecessidade(nextProps.row.get('ordemProducao'));
@@ -56,6 +56,9 @@ class PainelTotaisOP extends Component {
   }
 
   render() {
+    if (!this.props.row) {
+      return null;
+    }
     const { tabMainKey } = this.state;
     const { imageList, observacoes } = this.props;
     const descricaoEstagio = this.props.row.get('descodEstagio');
@@ -188,9 +191,8 @@ class PainelTotaisOP extends Component {
 PainelTotaisOP.propTypes = {
   imageList: PropTypes.array,
   listarInfoGridCorte: PropTypes.func,
-  ordemProducao: PropTypes.number.isRequired,
-  referencia: PropTypes.string.isRequired,
-  row: PropTypes.instanceOf(Immutable.Map).isRequired,
+  referencia: PropTypes.string,
+  row: PropTypes.instanceOf(Immutable.Map),
   list: PropTypes.func,
   getStObs: PropTypes.func,
   listarInsumoNecessidade: PropTypes.func,
@@ -204,6 +206,8 @@ PainelTotaisOP.propTypes = {
 
 PainelTotaisOP.defaultProps = {
   imageList: [],
+  row: [],
+  referencia: '',
   list: () => {},
   getStObs: () => {},
   listarInsumoNecessidade: () => {},
