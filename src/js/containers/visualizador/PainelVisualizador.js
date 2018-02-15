@@ -34,7 +34,9 @@ class PainelVisualizador extends Component {
     nivel: '',
     grupo: '',
     subGrupo: '',
-    item: ''
+    item: '',
+    localizadorTabKey: 1,
+    gridTabKey: 1
   }
 
   handleConsultar = () => {
@@ -62,6 +64,14 @@ class PainelVisualizador extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  handleLocalizadorTab = (localizadorTabKey) => {
+    this.setState({ localizadorTabKey });
+  }
+
+  handleGridTab = (gridTabKey) => {
+    this.setState({ gridTabKey });
+  }
+
   copy = () => {
     const {
       nivel, grupo, subGrupo, item
@@ -75,62 +85,99 @@ class PainelVisualizador extends Component {
       nivel: '',
       grupo: '',
       subGrupo: '',
-      item: ''
+      item: '',
+      localizadorTabKey: 1,
+      gridTabKey: 1
     }, () => this.props.clean());
   }
 
   render() {
     const {
-      nivel, grupo, subGrupo, item
+      nivel,
+      grupo,
+      subGrupo,
+      item,
+      localizadorTabKey,
+      gridTabKey
     } = this.state;
     return (
       <div>
-        <Tab.Container activeKey={this.state.tabKey} onSelect={this.handleTabSelect} id="painel-visualizador">
-          <Row className="clearfix">
-            <Col sm={12}>
-              <Nav bsStyle="tabs">
-                <NavItem eventKey="1">Referencia</NavItem>
-                <NavItem eventKey="2">Teste 1</NavItem>
-                <NavItem eventKey="3">Teste 2</NavItem>
-              </Nav>
-            </Col>
-            <Col sm={12}>
-              <Tab.Content animation>
-                <Tab.Pane eventKey="1">
-                  <div className="referencia-container">
-                    <div className="form-container">
-                      <div className="produto-input">
-                        <Localizador onSelect={this.handleSelect} />
-                        <input type="text" value={nivel} onChange={this.handleChange} maxLength="1" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
-                        <input type="text" value={grupo} onChange={this.handleChange} maxLength="5" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
-                        <input type="text" value={subGrupo} onChange={this.handleChange} maxLength="3" className="form-control" id="subGrupo" name="subGrupo" placeholder="Sub" />
-                        <input type="text" value={item} onChange={this.handleChange} maxLength="6" className="form-control" id="item" name="item" placeholder="Item" />
-                        <button onClick={this.handleConsultar} className="btn btn-primary">Consultar</button>
-                        <button onClick={this.copy} className="btn btn-primary">Copiar</button>
-                        <button onClick={this.clean} className="btn btn-primary">Limpar</button>
+        <div className="visualizador-localizador-container">
+          <Tab.Container activeKey={localizadorTabKey} onSelect={this.handleLocalizadorTab} id="painel-visualizador">
+            <Row className="clearfix">
+              <Col sm={12}>
+                <Nav bsStyle="tabs">
+                  <NavItem eventKey={1}>Referencia</NavItem>
+                  <NavItem eventKey={2}>Teste 1</NavItem>
+                  <NavItem eventKey={3}>Teste 2</NavItem>
+                </Nav>
+              </Col>
+              <Col sm={12}>
+                <Tab.Content animation>
+                  <Tab.Pane eventKey={1}>
+                    {localizadorTabKey === 1 &&
+                      <div className="referencia-container">
+                        <div className="form-container">
+                          <div className="produto-input">
+                            <Localizador onSelect={this.handleSelect} />
+                            <input type="text" value={nivel} onChange={this.handleChange} maxLength="1" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
+                            <input type="text" value={grupo} onChange={this.handleChange} maxLength="5" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
+                            <input type="text" value={subGrupo} onChange={this.handleChange} maxLength="3" className="form-control" id="subGrupo" name="subGrupo" placeholder="Sub" />
+                            <input type="text" value={item} onChange={this.handleChange} maxLength="6" className="form-control" id="item" name="item" placeholder="Item" />
+                            <button onClick={this.handleConsultar} className="btn btn-primary">Consultar</button>
+                            <button onClick={this.copy} className="btn btn-primary">Copiar</button>
+                            <button onClick={this.clean} className="btn btn-primary">Limpar</button>
+                          </div>
+                          <div className="form-group descricao">
+                            <textarea
+                              value={this.props.descricaoProduto}
+                              className="form-control"
+                              rows="8"
+                              id="descricao"
+                              disabled
+                            />
+                          </div>
+                        </div>
                       </div>
-                      <div className="form-group descricao">
-                        <textarea
-                          value={this.props.descricaoProduto}
-                          className="form-control"
-                          rows="8"
-                          id="descricao"
-                          disabled
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Tab.Pane>
-                <Tab.Pane eventKey="2">
-                  <h1> ... </h1>
-                </Tab.Pane>
-                <Tab.Pane eventKey="3">
-                  <h2> ... </h2>
-                </Tab.Pane>
-              </Tab.Content>
-            </Col>
-          </Row>
-        </Tab.Container>
+                    }
+                  </Tab.Pane>
+                  <Tab.Pane eventKey={2}>
+                    <h1> ... </h1>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey={3}>
+                    <h2> ... </h2>
+                  </Tab.Pane>
+                </Tab.Content>
+              </Col>
+            </Row>
+          </Tab.Container>
+        </div>
+        <div className="visualizador-grid-container">
+          <Tab.Container activeKey={gridTabKey} onSelect={this.handleGridTab} id="visualizador-grids">
+            <Row className="clearfix">
+              <Col sm={12}>
+                <Nav bsStyle="tabs">
+                  <NavItem eventKey={1}>Teste 1</NavItem>
+                  <NavItem eventKey={2}>Onde Usa</NavItem>
+                  <NavItem eventKey={3}>Teste 2</NavItem>
+                </Nav>
+              </Col>
+              <Col sm={12}>
+                <Tab.Content animation>
+                  <Tab.Pane eventKey={1}>
+                    <h1> ... </h1>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey={2}>
+                    <h1> ... </h1>
+                  </Tab.Pane>
+                  <Tab.Pane eventKey={3}>
+                    <h2> ... </h2>
+                  </Tab.Pane>
+                </Tab.Content>
+              </Col>
+            </Row>
+          </Tab.Container>
+        </div>
       </div>
     );
   }
