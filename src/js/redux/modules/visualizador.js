@@ -57,4 +57,21 @@ export const getDescPeca = (referencia) => {
   };
 };
 
+export const getDescProduto = (nivel, grupo, sub, item) => {
+  return (dispatch) => {
+    const url = `/api/produto/${nivel}/${grupo}/${sub}/${item}/texto`;
+    loadStart(dispatch);
+    axios.get(url)
+      .then((res) => {
+        dispatch({
+          type: GET_DESC,
+          data: res.data
+        });
+      })
+      .finally(() => {
+        loadEnd(dispatch);
+      });
+  };
+};
+
 export default reducer;

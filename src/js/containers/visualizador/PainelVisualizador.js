@@ -10,20 +10,22 @@ import {
   Tab } from 'react-bootstrap';
 import Localizador from './Localizador';
 import copyToClipboard from '../../utils/clipboard';
-import { getDescPeca } from '../../redux/modules/visualizador';
+import { getDescPeca, getDescProduto } from '../../redux/modules/visualizador';
 
 const mapStateToProps = state => ({
   descricaoProduto: state.visualizador.descricaoProduto
 });
 
 const mapDispathToProps = dispatch => ({
-  getDescPeca: bindActionCreators(getDescPeca, dispatch)
+  getDescPeca: bindActionCreators(getDescPeca, dispatch),
+  getDescProduto: bindActionCreators(getDescProduto, dispatch),
 });
 
 class PainelVisualizador extends Component {
   static propTypes = {
     descricaoProduto: PropTypes.string.isRequired,
-    getDescPeca: PropTypes.func.isRequired
+    getDescPeca: PropTypes.func.isRequired,
+    getDescProduto: PropTypes.func.isRequired
   }
 
   state = {
@@ -34,16 +36,24 @@ class PainelVisualizador extends Component {
   }
 
   handleConsultar = () => {
-    const { nivel, grupo } = this.state;
+    const {
+      nivel,
+      grupo,
+      subGrupo,
+      item
+    } = this.state;
+
     if (nivel === '1') {
       this.props.getDescPeca(grupo);
+    } else {
+      this.props.getDescProduto(nivel, grupo, subGrupo, item)
     }
   }
 
   handleSelect = (nivel, grupo, subGrupo, item) => {
     this.setState({
       nivel, grupo, subGrupo, item
-    });
+    }, () => this.handleConsultar());
   }
 
   handleChange = (e) => {
