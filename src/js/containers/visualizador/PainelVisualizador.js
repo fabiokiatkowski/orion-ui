@@ -11,6 +11,8 @@ import {
 import Localizador from './Localizador';
 import copyToClipboard from '../../utils/clipboard';
 import { clean, getDescPeca, getDescProduto } from '../../redux/modules/visualizador';
+import OndeUsaGrid from './ondeUsa/OndeUsaGrid';
+import ImageContainer from '../../components/ImagesContainer';
 
 const mapStateToProps = state => ({
   descricaoProduto: state.visualizador.descricaoProduto
@@ -138,6 +140,9 @@ class PainelVisualizador extends Component {
                             />
                           </div>
                         </div>
+                        <div className="teste">
+                          <ImageContainer showHeader />
+                        </div>
                       </div>
                     }
                   </Tab.Pane>
@@ -168,7 +173,7 @@ class PainelVisualizador extends Component {
                     <h1> ... </h1>
                   </Tab.Pane>
                   <Tab.Pane eventKey={2}>
-                    <h1> ... </h1>
+                    {gridTabKey === 2 && <OndeUsaGrid />}
                   </Tab.Pane>
                   <Tab.Pane eventKey={3}>
                     <h2> ... </h2>
