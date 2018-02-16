@@ -84,4 +84,18 @@ export const getDescProduto = (nivel, grupo, sub, item) => {
   };
 };
 
+export const getOndeUsa = () => {
+  return (dispatch) => {
+    const url = '/api/ondeUsa/';
+    loadStart(dispatch);
+    axios.get(url)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .finally(() => {
+        loadEnd(dispatch);
+      });
+  };
+};
+
 export default reducer;

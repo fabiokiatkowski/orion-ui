@@ -10,7 +10,7 @@ import {
   Tab } from 'react-bootstrap';
 import Localizador from './Localizador';
 import copyToClipboard from '../../utils/clipboard';
-import { clean, getDescPeca, getDescProduto } from '../../redux/modules/visualizador';
+import { clean, getDescPeca, getDescProduto, getOndeUsa } from '../../redux/modules/visualizador';
 import OndeUsaGrid from './ondeUsa/OndeUsaGrid';
 import ImageContainer from '../../components/ImagesContainer';
 
@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
 const mapDispathToProps = dispatch => ({
   getDescPeca: bindActionCreators(getDescPeca, dispatch),
   getDescProduto: bindActionCreators(getDescProduto, dispatch),
-  clean: bindActionCreators(clean, dispatch)
+  clean: bindActionCreators(clean, dispatch),
+  getOndeUsa: bindActionCreators(getOndeUsa, dispatch)
 });
 
 class PainelVisualizador extends Component {
@@ -29,7 +30,8 @@ class PainelVisualizador extends Component {
     descricaoProduto: PropTypes.string.isRequired,
     getDescPeca: PropTypes.func.isRequired,
     getDescProduto: PropTypes.func.isRequired,
-    clean: PropTypes.func.isRequired
+    clean: PropTypes.func.isRequired,
+    getOndeUsa: PropTypes.func.isRequired
   }
 
   state = {
@@ -91,6 +93,8 @@ class PainelVisualizador extends Component {
       localizadorTabKey: 1,
       gridTabKey: 1
     }, () => this.props.clean());
+
+    this.props.getOndeUsa();
   }
 
   render() {
@@ -140,7 +144,7 @@ class PainelVisualizador extends Component {
                             />
                           </div>
                         </div>
-                        <div className="teste">
+                        <div className="image-visualizador">
                           <ImageContainer showHeader />
                         </div>
                       </div>
