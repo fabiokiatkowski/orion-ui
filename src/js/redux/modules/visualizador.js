@@ -3,11 +3,13 @@ import { loadStart, loadEnd } from './app';
 
 const LOCALIZADOR_LIST = 'visualizador/LOCALIZADOR_LIST';
 const GET_DESC = 'visualizador/GET_DESC';
+const GET_ONDE_USA = 'visualizador/GET_ONDE_USA';
 const CLEAN = 'visualizador/CLEAN';
 
 const initalState = {
   produtosLocalizador: [],
-  descricaoProduto: ''
+  descricaoProduto: '',
+  ondeUsa: []
 };
 
 const reducer = (state = initalState, action = {}) => {
@@ -17,6 +19,9 @@ const reducer = (state = initalState, action = {}) => {
     }
     case GET_DESC: {
       return { ...state, descricaoProduto: action.data };
+    }
+    case GET_ONDE_USA: {
+      return { ...state, ondeUsa: action.data };
     }
     case CLEAN: {
       return initalState;
@@ -84,13 +89,22 @@ export const getDescProduto = (nivel, grupo, sub, item) => {
   };
 };
 
-export const getOndeUsa = () => {
+export const getOndeUsa = (nivel, grupo, sub, item) => {
   return (dispatch) => {
-    const url = '/api/ondeUsa/';
+    const url = `/api/produto/${nivel}/${grupo}/${sub}/${item}/ondeUsa`;
     loadStart(dispatch);
     axios.get(url)
       .then((res) => {
-        console.log(res.data);
+        dispatch({
+          type: GET_ONDE_USA,
+          data: res.data
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: GET_ONDE_USA,
+          data: []
+        });
       })
       .finally(() => {
         loadEnd(dispatch);

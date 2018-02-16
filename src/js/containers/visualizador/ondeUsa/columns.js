@@ -14,7 +14,7 @@ const columns = [
     order: 0
   },
   {
-    key: 'nivel_item',
+    key: 'nivelItem',
     name: 'Nivel',
     filterable: true,
     resizable: true,
@@ -25,7 +25,7 @@ const columns = [
     order: 1
   },
   {
-    key: 'grupo_item',
+    key: 'grupoItem',
     name: 'Grupo',
     filterable: true,
     resizable: true,
@@ -36,7 +36,7 @@ const columns = [
     order: 2
   },
   {
-    key: 'sub_item',
+    key: 'subItem',
     name: 'Sub Grupo',
     filterable: true,
     resizable: true,
@@ -47,7 +47,7 @@ const columns = [
     type: Types.TEXT
   },
   {
-    key: 'item_item',
+    key: 'itemItem',
     name: 'Item',
     filterable: true,
     resizable: true,
@@ -58,7 +58,7 @@ const columns = [
     order: 4
   },
   {
-    key: 'descr_colecao',
+    key: 'descrColecao',
     name: 'Coleção',
     filterable: true,
     resizable: true,
@@ -69,7 +69,7 @@ const columns = [
     order: 5
   },
   {
-    key: 'unidade_medida',
+    key: 'unidadeMedida',
     name: 'UM',
     filterable: true,
     resizable: true,
@@ -80,7 +80,7 @@ const columns = [
     order: 6
   },
   {
-    key: 'alternativa_comp',
+    key: 'alternativaComp',
     name: 'Alternativa',
     filterable: true,
     resizable: true,
@@ -91,7 +91,7 @@ const columns = [
     order: 7
   },
   {
-    key: 'pecas_previstas',
+    key: 'pecasPrevistas',
     name: 'Vendido',
     filterable: true,
     resizable: true,

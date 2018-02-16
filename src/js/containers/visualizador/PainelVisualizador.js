@@ -30,8 +30,7 @@ class PainelVisualizador extends Component {
     descricaoProduto: PropTypes.string.isRequired,
     getDescPeca: PropTypes.func.isRequired,
     getDescProduto: PropTypes.func.isRequired,
-    clean: PropTypes.func.isRequired,
-    getOndeUsa: PropTypes.func.isRequired
+    clean: PropTypes.func.isRequired
   }
 
   state = {
@@ -56,12 +55,15 @@ class PainelVisualizador extends Component {
     } else {
       this.props.getDescProduto(nivel, grupo, subGrupo, item);
     }
+    if (this.ondeUsa) this.ondeUsa.wrappedInstance.list();
   }
 
   handleSelect = (nivel, grupo, subGrupo, item) => {
     this.setState({
       nivel, grupo, subGrupo, item
-    }, () => this.handleConsultar());
+    }, () => {
+      this.handleConsultar();
+    });
   }
 
   handleChange = (e) => {
@@ -93,8 +95,6 @@ class PainelVisualizador extends Component {
       localizadorTabKey: 1,
       gridTabKey: 1
     }, () => this.props.clean());
-
-    this.props.getOndeUsa();
   }
 
   render() {
@@ -177,7 +177,15 @@ class PainelVisualizador extends Component {
                     <h1> ... </h1>
                   </Tab.Pane>
                   <Tab.Pane eventKey={2}>
-                    {gridTabKey === 2 && <OndeUsaGrid />}
+                    {gridTabKey === 2 &&
+                      <OndeUsaGrid
+                        ref={(instance) => { this.ondeUsa = instance; }}
+                        nivel={nivel}
+                        grupo={grupo}
+                        subGrupo={subGrupo}
+                        item={item}
+                      />
+                    }
                   </Tab.Pane>
                   <Tab.Pane eventKey={3}>
                     <h2> ... </h2>
