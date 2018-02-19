@@ -1,19 +1,39 @@
 #painel-visualizador {
+
+  .visualizador-grid-container {
+    display: grid;
+    grid-template-columns: auto 700px;
+    grid-template-rows:  auto 510px;
+
+    .localizador-grid-track {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 2;
+    }
+
+    .image-grid-track {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .visualizador-grid-track {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 2;
+      grid-row-end: 3; 
+    }
+  }
+
   .referencia-container {
-    display: inline-flex;
-    
     .form-group.descricao {
       width: 560px;
       height: 180px;
       margin: 10px;
     }
 
-    .image-visualizador {
-      margin-left: 10%;
-      width: 200px;
-      height: 180px;
-    }
-    
     .btn-toolbar {
       .btn {
         margin-top: 10px;
@@ -52,7 +72,6 @@
     }   
   }
 }
-
 
 .fullscreen-modal-container {  
   .descricao-input {

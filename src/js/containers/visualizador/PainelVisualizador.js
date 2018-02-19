@@ -107,8 +107,8 @@ class PainelVisualizador extends Component {
       gridTabKey
     } = this.state;
     return (
-      <div>
-        <div className="visualizador-localizador-container">
+      <div className="visualizador-grid-container">
+        <div className="localizador-grid-track">
           <Tab.Container activeKey={localizadorTabKey} onSelect={this.handleLocalizadorTab} id="painel-visualizador">
             <Row className="clearfix">
               <Col sm={12}>
@@ -144,9 +144,6 @@ class PainelVisualizador extends Component {
                             />
                           </div>
                         </div>
-                        <div className="image-visualizador">
-                          <ImageContainer showHeader />
-                        </div>
                       </div>
                     }
                   </Tab.Pane>
@@ -161,7 +158,10 @@ class PainelVisualizador extends Component {
             </Row>
           </Tab.Container>
         </div>
-        <div className="visualizador-grid-container">
+        <div className="image-grid-track">
+          <ImageContainer showHeader />
+        </div>
+        <div className="visualizador-grid-track">
           <Tab.Container activeKey={gridTabKey} onSelect={this.handleGridTab} id="visualizador-grids">
             <Row className="clearfix">
               <Col sm={12}>
