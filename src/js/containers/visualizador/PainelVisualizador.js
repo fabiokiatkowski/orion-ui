@@ -11,18 +11,21 @@ import {
 import Localizador from './Localizador';
 import copyToClipboard from '../../utils/clipboard';
 import { clean, getDescPeca, getDescProduto, getOndeUsa } from '../../redux/modules/visualizador';
+import { listProductImages } from '../../redux/modules/image';
 import OndeUsaGrid from './ondeUsa/OndeUsaGrid';
 import ImageContainer from '../../components/ImagesContainer';
 
 const mapStateToProps = state => ({
-  descricaoProduto: state.visualizador.descricaoProduto
+  descricaoProduto: state.visualizador.descricaoProduto,
+  produtoImagens: state.image.produtos
 });
 
 const mapDispathToProps = dispatch => ({
   getDescPeca: bindActionCreators(getDescPeca, dispatch),
   getDescProduto: bindActionCreators(getDescProduto, dispatch),
   clean: bindActionCreators(clean, dispatch),
-  getOndeUsa: bindActionCreators(getOndeUsa, dispatch)
+  getOndeUsa: bindActionCreators(getOndeUsa, dispatch),
+  listProductImages: bindActionCreators(listProductImages, dispatch),
 });
 
 class PainelVisualizador extends Component {
@@ -30,7 +33,13 @@ class PainelVisualizador extends Component {
     descricaoProduto: PropTypes.string.isRequired,
     getDescPeca: PropTypes.func.isRequired,
     getDescProduto: PropTypes.func.isRequired,
-    clean: PropTypes.func.isRequired
+    clean: PropTypes.func.isRequired,
+    listProductImages: PropTypes.func.isRequired,
+    produtoImagens: PropTypes.array
+  }
+
+  static defaultProps = {
+    produtoImagens: null
   }
 
   state = {
@@ -52,9 +61,11 @@ class PainelVisualizador extends Component {
 
     if (nivel === '1') {
       this.props.getDescPeca(grupo);
+      this.props.listProductImages(grupo);
     } else {
       this.props.getDescProduto(nivel, grupo, subGrupo, item);
     }
+
     if (this.ondeUsa) this.ondeUsa.wrappedInstance.list();
   }
 
@@ -106,6 +117,8 @@ class PainelVisualizador extends Component {
       localizadorTabKey,
       gridTabKey
     } = this.state;
+    const { produtoImagens } = this.props;
+    const imageList = produtoImagens && produtoImagens.get(grupo);
     return (
       <div className="visualizador-grid-container">
         <div className="localizador-grid-track">
@@ -159,7 +172,11 @@ class PainelVisualizador extends Component {
           </Tab.Container>
         </div>
         <div className="image-grid-track">
-          <ImageContainer showHeader />
+          <ImageContainer
+            showHeader
+            imageList={imageList}
+            height={750}
+          />
         </div>
         <div className="visualizador-grid-track">
           <Tab.Container activeKey={gridTabKey} onSelect={this.handleGridTab} id="visualizador-grids">

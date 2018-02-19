@@ -1,9 +1,22 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Lightbox from 'react-images';
 import axios from '../axios-orion';
 import emptyImage from '../../assets/Empty-200x200.png';
 
 export default class ImageContainer extends Component {
+  static propTypes = {
+    height: PropTypes.number,
+    imageList: PropTypes.array,
+    showHeader: PropTypes.bool
+  }
+
+  static defaultProps = {
+    height: 200,
+    imageList: [],
+    showHeader: false
+  }
+
   state = {
     zoomOpened: false,
     paths: [],
@@ -20,7 +33,7 @@ export default class ImageContainer extends Component {
 
   getTumb = (props) => {
     const image = props.imageList.filter(i => i.get('type') === 'tag');
-    axios.get(`/api/images/base64/download?imagePath=${image.get(0).get('path')}&height=200`)
+    axios.get(`/api/images/base64/download?imagePath=${image.get(0).get('path')}&height=${this.props.height}`)
       .then((res) => {
         this.setState({
           tumb: `data:image/jpeg;base64,${res.data}`,
