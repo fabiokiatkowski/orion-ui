@@ -49,6 +49,7 @@ class PainelEstagiosAbertos extends Component {
     periodosSelectedRow: [],
     estagiosAbertosHeight: 400,
     ordensHeigh: 520,
+    resultadoHeight: 300,
     currentRow: null
   };
   componentDidMount() {
@@ -121,6 +122,10 @@ class PainelEstagiosAbertos extends Component {
     this.setState({ ordensHeigh: height });
   }
 
+  changeGridResultadoSize = (width, height) => {
+    this.setState({ resultadoHeight: height });
+  }
+
   handleRowChange = (data) => {
     this.setState({ currentRow: data });
   }
@@ -136,6 +141,7 @@ class PainelEstagiosAbertos extends Component {
     const {
       estagiosAbertosHeight,
       ordensHeigh,
+      resultadoHeight,
       currentRow
     } = this.state;
     const referencia = currentRow && currentRow.get('referenciaPeca');
@@ -217,11 +223,15 @@ class PainelEstagiosAbertos extends Component {
             onDesmarcarTodosUTI={this.desmarcarTodosUtiHandler}
           />
           {
-            currentRow && <PainelTotaisOP
-              imageList={imageList}
-              referencia={currentRow.get('referenciaPeca')}
-              row={currentRow}
-            />
+            currentRow &&
+            <Sizeme handleChangeSize={this.changeGridResultadoSize}>
+              <PainelTotaisOP
+                minHeight={resultadoHeight - 35}
+                imageList={imageList}
+                referencia={currentRow.get('referenciaPeca')}
+                row={currentRow}
+              />
+            </Sizeme>
           }
         </div>
       </div>

@@ -10,7 +10,7 @@ const InsumoRolos = (props) => {
   return (
     <div className="rolo">
       <Grid
-        minHeight={150}
+        minHeight={props.minHeight}
         columns={columns}
         data={props.rolosData}
         indexes={[]}

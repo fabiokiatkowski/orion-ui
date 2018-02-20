@@ -50,7 +50,7 @@ class GridEstagioParalelo extends Component {
   render() {
     return (
       <Grid
-        minHeight={300}
+        minHeight={this.props.minHeight}
         data={this.props.estagiosParalelos}
         columns={columns}
         indexes={[]}

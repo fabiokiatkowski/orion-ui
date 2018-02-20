@@ -91,7 +91,7 @@ class GridOndeTem extends Component {
           </Checkbox>
         </FormGroup>
         <Grid
-          minHeight={300}
+          minHeight={this.props.minHeight}
           data={this.props.data}
           columns={columns}
           indexes={[]}

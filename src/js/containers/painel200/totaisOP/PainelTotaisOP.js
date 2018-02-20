@@ -112,9 +112,18 @@ class PainelTotaisOP extends Component {
                     {
                       tabMainKey === 2 &&
                       <div className="insumo-wrapper">
-                        <InsumoNecessidade ordemProducao={ordemProducao} />
-                        <InsumoDeposito data={[]} />
-                        <InsumoRolos data={[]} />
+                        <InsumoNecessidade
+                          minHeight={this.props.minHeight - 20}
+                          ordemProducao={ordemProducao}
+                        />
+                        <InsumoDeposito
+                          minHeight={this.props.minHeight - 140}
+                          data={[]}
+                        />
+                        <InsumoRolos
+                          minHeight={this.props.minHeight - 150}
+                          data={[]}
+                        />
                         <div className="image-produto-op insumo-image">
                           <ImageContainer imageList={imageList} />
                         </div>
@@ -135,6 +144,7 @@ class PainelTotaisOP extends Component {
                     {
                       tabMainKey === 3 &&
                       <GridEstagioParalelo
+                        minHeight={this.props.minHeight}
                         ordemProducao={ordemProducao}
                         grupo={referencia}
                         item={item}
@@ -149,6 +159,7 @@ class PainelTotaisOP extends Component {
                     {
                       tabMainKey === 5 &&
                         <GridOndeTem
+                          minHeight={this.props.minHeight - 35}
                           ordemProducao={ordemProducao}
                           grupo={referencia}
                           item={item}
@@ -157,11 +168,17 @@ class PainelTotaisOP extends Component {
                   </Tab.Pane>
                   <Tab.Pane eventKey={6}>
                     {tabMainKey === 6 &&
-                      <GridFilhos ordemPrincipal={ordemPrincipal} />}
+                      <GridFilhos
+                        minHeight={this.props.minHeight}
+                        ordemPrincipal={ordemPrincipal}
+                      />}
                   </Tab.Pane>
                   <Tab.Pane eventKey={7}>
                     {tabMainKey === 7 &&
-                      <GridLogUti ordemProducao={ordemProducao} />}
+                      <GridLogUti
+                        minHeight={this.props.minHeight}
+                        ordemProducao={ordemProducao}
+                      />}
                   </Tab.Pane>
                   <Tab.Pane eventKey={8}>
                     Painel de Estágio Paralelo 10

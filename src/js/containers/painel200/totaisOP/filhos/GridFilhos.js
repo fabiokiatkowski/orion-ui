@@ -31,7 +31,7 @@ class GridFilhos extends Component {
   render() {
     return (
       <Grid
-        minHeight={300}
+        minHeight={this.props.minHeight}
         data={this.props.data}
         columns={columns}
         indexes={[]}
