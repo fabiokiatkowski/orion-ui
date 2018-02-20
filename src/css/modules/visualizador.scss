@@ -1,10 +1,62 @@
+.visualizador-grid-container {
+  display: grid;
+  grid-template-columns: auto 800px;
+  grid-template-rows:  auto 510px;
+
+  .localizador-grid-track {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .image-grid-track {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    border-left: 1px solid #cdcdcd;
+    margin-top: 28px;
+    padding-left: 10px;
+
+    .image-container {
+      width: 750px;
+
+      .panel {
+        background-color: transparent;
+        height: 750px;
+      }
+    }
+  }
+
+  .visualizador-grid-track {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3; 
+  }
+}
+
 #painel-visualizador {
   .referencia-container {
-    .btn-toolbar {
-      .btn {
-        margin-top: 10px;
-        margin-left: 10px;
-      }
+    #descricao {
+      width: 100%;
+      resize: none;
+      cursor: default;
+    }
+    
+    .form-group.descricao {
+      height: 180px;
+      margin: 10px;
+    }
+
+    .fullscreen-modal-container {
+      display: inline-block;
+    }
+
+    .btn-toolbar .btn {
+      float: none;
+      margin-left: 10px;
     }
 
     .btn {
@@ -20,25 +72,28 @@
     }
 
     #nivel {
-      width: 70px;
+      width: 55px;
       margin-left: 5px;
+      text-align: center;
     }
 
     #grupo {
-      width: 90px;
+      width: 70px;
+      text-align: center;
     }
 
     #subGrupo {
-      width: 65px;
+      width: 55px;
+      text-align: center;
     }
 
     #item {
-      width: 100px;
+      width: 80px;
       margin-right: 10px;
+      text-align: center;
     }   
   }
 }
-
 
 .fullscreen-modal-container {  
   .descricao-input {
@@ -48,11 +103,8 @@
         vertical-align: middle;
       }
       
-      #descricao {
-        width: 50%;
-      }
-  
-      #complemento {
+      #descricao, #complemento {
+        margin-top: 5px;
         width: 50%;
       }
     }
@@ -70,19 +122,19 @@
       }
 
       #nivel {
-        width: 70px;
+        width: 55px;
       }
 
       #grupo {
-        width: 90px;
+        width: 70px;
       }
 
       #subGrupo {
-        width: 65px;
+        width: 55px;
       }
 
       #item {
-        width: 100px;
+        width: 80px;
       }   
     }
   }

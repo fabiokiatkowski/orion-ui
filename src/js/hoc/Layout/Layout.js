@@ -24,7 +24,7 @@ class Layout extends Component {
   }
 
   checkUser = () => {
-    const { dispatch, currentUser } = this.props;
+    const { dispatch } = this.props;
     if (localStorage.getItem('orion.authToken')) {
       dispatch(session.currentUser());
     } else {
