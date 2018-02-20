@@ -18,6 +18,8 @@ export const LIST_ONDE_TEM = 'gridOndeTem/LIST_ONDE_TEM';
 export const LIST_FILHAS = 'gridFilhas/LIST_FILHAS';
 export const CLEAN_FILHAS = 'gridFilhas/CLEAN_FILHAS';
 export const LIST_LOG_UTI = 'gridLogUti/LIST_LOG_UTI';
+export const CANCELAR_ORDEM_PRODUCAO = 'tela200/CANCELAR_ORDEM_PRODUCAO';
+export const LIMPAR_CANCELAMENTO = 'tela200/LIMPAR_CANCELAMENTO';
 
 const initalState = {
   estagios: {
@@ -45,6 +47,10 @@ const initalState = {
   },
   logUti: {
     data: []
+  },
+  cancelar: {
+    hasErrors: false,
+    messages: []
   }
 };
 
@@ -190,6 +196,23 @@ const listLogUti = (state, action) => {
   const updatedData = updateObject(state.logUti, { data: action.data });
   return updateObject(state, { logUti: updatedData });
 };
+const cancelarOP = (state, action) => {
+  const updatedData = updateObject(
+    state.cancelar,
+    {
+      hasErrors: action.data.hasErrors,
+      messages: action.data.messages
+    }
+  );
+  return updateObject(state, { cancelar: updatedData });
+};
+const cleanCancelamento = (state) => {
+  const updatedData = updateObject(
+    state.cancelar,
+    initalState.cancelar
+  );
+  return updateObject(state, { cancelar: updatedData });
+}
 const reducer = (state = initalState, action = {}) => {
   switch (action.type) {
     case ESTAGIOS_LIST: return estagiosList(state, action);
@@ -208,6 +231,8 @@ const reducer = (state = initalState, action = {}) => {
     case LIST_FILHAS: return listFilhas(state, action);
     case CLEAN_FILHAS: return cleanFilhas(state);
     case LIST_LOG_UTI: return listLogUti(state, action);
+    case CANCELAR_ORDEM_PRODUCAO: return cancelarOP(state, action);
+    case LIMPAR_CANCELAMENTO: return cleanCancelamento(state);
     default: return state;
   }
 };
@@ -426,7 +451,37 @@ export const listarLogUti = (op) => {
           type: LIST_LOG_UTI,
           data: res.data
         });
+      })
+      .finally(() => {
+        loadEnd(dispatch);
       });
+  };
+};
+export const cancelarOrdemProducao = (op, observacao) => {
+  return (dispatch) => {
+    const url = `/api/ordens/${op}/cancelar`;
+    loadStart(dispatch);
+    axios.post(url, { observacao })
+      .then((res) => {
+        dispatch({
+          type: CANCELAR_ORDEM_PRODUCAO,
+          data: res.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: CANCELAR_ORDEM_PRODUCAO,
+          data: err.response.data
+        });
+      })
+      .finally(() => loadEnd(dispatch));
+  };
+};
+export const limparCancelamento = () => {
+  return (dispatch) => {
+    dispatch({
+      type: LIMPAR_CANCELAMENTO
+    });
   };
 };
 // #endregion

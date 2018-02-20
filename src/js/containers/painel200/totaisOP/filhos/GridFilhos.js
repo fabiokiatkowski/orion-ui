@@ -16,6 +16,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class GridFilhos extends Component {
+  componentDidMount() {
+    this.props.listarFilhos(this.props.ordemPrincipal);
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.ordemPrincipal !== this.props.ordemPrincipal
       && nextProps.ordemPrincipal > 0) {

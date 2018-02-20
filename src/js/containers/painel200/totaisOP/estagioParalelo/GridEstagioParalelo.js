@@ -15,21 +15,26 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class GridEstagioParalelo extends Component {
-  propTypes = {
+  static propTypes = {
     listEstagiosParalelos: PropTypes.func.isRequired,
     estagiosParalelos: PropTypes.array,
     ordemProducao: PropTypes.number,
     grupo: PropTypes.string,
     item: PropTypes.string
   };
-
-  defaultProps = {
+  static defaultProps = {
     estagiosParalelos: [],
     ordemProducao: 0,
     grupo: '',
     item: ''
   }
-
+  componentDidMount() {
+    this.props.listEstagiosParalelos(
+      this.props.ordemProducao,
+      this.props.grupo,
+      this.props.item
+    );
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.ordemProducao !== this.props.ordemProducao
       || nextProps.grupo !== this.props.grupo

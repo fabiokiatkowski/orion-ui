@@ -128,9 +128,7 @@ class PainelEstagiosAbertos extends Component {
   // #endregion
   // #region
   desmarcarTodosUtiHandler = () => {
-    const ops = this.props.ordensData.map((r) => {
-      return r.get('ordemProducao');
-    });
+    const ops = this.props.ordensData.map(r => r.ordemProducao);
     this.props.desmarcarTodosUti(ops);
   }
   // #endregion
@@ -197,8 +195,6 @@ class PainelEstagiosAbertos extends Component {
           data={this.props.ordensData}
           indexes={[]}
           handleRowChange={this.handleRowChange}
-          marcarUti={() => this.props.marcarUti(opSelected, referenciaSelected)}
-          desmarcarUti={() => this.props.desmarcarUti(opSelected)}
         />
       </Sizeme>
     );
@@ -211,14 +207,19 @@ class PainelEstagiosAbertos extends Component {
           <Botoes
             disabled={!currentRow}
             ordemProducao={currentRow && currentRow.get('ordemProducao')}
-            onMarcarUTI={this.props.marcarUti}
-            onDesmarcarUTI={this.props.desmarcarUti}
-            onDesmarcarTodosUTI={this.props.desmarcarTodosUtiHandler}
+            ordemPrincipal={currentRow && currentRow.get('ordemPrincipal')}
+            onMarcarUTI={() =>
+              this.props.marcarUti(
+                currentRow.get('ordemProducao'),
+                currentRow.get('referenciaPeca'),
+              )}
+            onDesmarcarUTI={() => this.props.desmarcarUti(currentRow.get('ordemProducao'))}
+            onDesmarcarTodosUTI={this.desmarcarTodosUtiHandler}
           />
           {
             currentRow && <PainelTotaisOP
               imageList={imageList}
-              referencia={currentRow.get('referencia')}
+              referencia={currentRow.get('referenciaPeca')}
               row={currentRow}
             />
           }

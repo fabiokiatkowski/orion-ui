@@ -23,7 +23,10 @@ const botoes = (props) => {
         className="btn btn-default btn-margin-top left"
       >Desmarcar Todos UTI
       </button>
-      <CancelarOP ordemProducao={props.ordemProducao} />
+      <CancelarOP
+        ordemProducao={props.ordemProducao}
+        ordemPrincipal={props.ordemPrincipal}
+      />
       <button
         disabled={!props.onDesmarcarUTI || props.disabled}
         onClick={props.onDesmarcarUTI}
@@ -78,6 +81,7 @@ const botoes = (props) => {
 
 botoes.propTypes = {
   ordemProducao: PropTypes.number,
+  ordemPrincipal: PropTypes.number,
   disabled: PropTypes.bool.isRequired,
   onMarcarUTI: PropTypes.func,
   onDesmarcarUTI: PropTypes.func,
@@ -86,6 +90,7 @@ botoes.propTypes = {
 
 botoes.defaultProps = {
   ordemProducao: 0,
+  ordemPrincipal: 0,
   onMarcarUTI: () => {},
   onDesmarcarUTI: () => {},
   onDesmarcarTodosUTI: () => {}

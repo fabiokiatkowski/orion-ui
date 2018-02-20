@@ -15,6 +15,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class GridLogUti extends Component {
+  componentDidMount() {
+    this.props.listarLogUti(this.props.ordemProducao);
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.ordemProducao !== this.props.ordemProducao) {
       this.props.listarLogUti(nextProps.ordemProducao);
