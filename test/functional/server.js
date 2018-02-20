@@ -10,3 +10,7 @@ router.get('/orion-server/api/representantes/mysql/totalPedidosRecebidos', (req,
 router.get('/orion-server/api/representantes/mysql/totalPedidosRecebidos?dataFiltro=09-01-2018&mostrarPedidos=false&agrupar=true', (req, res) => {
   res.send(representantes);
 });
+
+router.post('http://localhost:8080/api/produto/localizarProdutos', (req, res) => {
+  res.send(representantes);
+});
