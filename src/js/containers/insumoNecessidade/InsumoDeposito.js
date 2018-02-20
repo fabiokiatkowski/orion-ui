@@ -19,7 +19,7 @@ const InsumoDeposito = (props) => {
   return (
     <div className="deposito">
       <Grid
-        minHeight={150}
+        minHeight={props.minHeight}
         columns={columns}
         data={props.estoqueData.depositos}
         indexes={[]}

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CancelarOP from '../totaisOP/cancelarOp/CancelarOp';
 
-const ItensAcao = (props) => {
+const botoes = (props) => {
   return (
-    <div>
+    <div className="Botoes">
       <button
         className="btn btn-default btn-margin-top"
         disabled={!props.onMarcarUTI || props.disabled}
@@ -22,6 +23,10 @@ const ItensAcao = (props) => {
         className="btn btn-default btn-margin-top left"
       >Desmarcar Todos UTI
       </button>
+      <CancelarOP
+        ordemProducao={props.ordemProducao}
+        ordemPrincipal={props.ordemPrincipal}
+      />
       <button
         disabled={!props.onDesmarcarUTI || props.disabled}
         onClick={props.onDesmarcarUTI}
@@ -74,17 +79,21 @@ const ItensAcao = (props) => {
   );
 };
 
-ItensAcao.propTypes = {
+botoes.propTypes = {
+  ordemProducao: PropTypes.number,
+  ordemPrincipal: PropTypes.number,
   disabled: PropTypes.bool.isRequired,
   onMarcarUTI: PropTypes.func,
   onDesmarcarUTI: PropTypes.func,
   onDesmarcarTodosUTI: PropTypes.func
 };
 
-ItensAcao.defaultProps = {
+botoes.defaultProps = {
+  ordemProducao: 0,
+  ordemPrincipal: 0,
   onMarcarUTI: () => {},
   onDesmarcarUTI: () => {},
   onDesmarcarTodosUTI: () => {}
 };
 
-export default ItensAcao;
+export default botoes;
