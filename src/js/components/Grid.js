@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { fromJS } from 'immutable';
+import { List, fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
@@ -113,10 +113,7 @@ export default class Grid extends Component {
 
   getValidFilterValues = (columnId) => {
     const rows = Data.Selectors.getRows(this.state);
-    const values = rows.map(r => r.get(columnId));
-    return values.filter((item, i, a) => {
-      return i === a.indexOf(item);
-    });
+    return rows.map(r => r.get(columnId)).toSet();
   };
 
   cleanFilters = () => {

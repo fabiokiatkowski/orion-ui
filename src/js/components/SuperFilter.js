@@ -51,7 +51,7 @@ export default class SuperFilter extends Component {
       }
       return { value: null, label: '' };
     });
-    let result = options.push({ value: '__selectall__', label: 'SELECIONAR TODOS' });
+    let result = options.add({ value: '__selectall__', label: 'SELECIONAR TODOS' });
     if (props.column.type === Types.NUMBER) {
       result = result.sort(this.compareNumber);
     } else {
