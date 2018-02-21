@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import columns from './columns';
 import Grid from '../../../components/Grid';
-import ItensAcao from './itensAcao/ItensAcao';
 import { desmarcarTodosUti } from '../../../redux/modules/tela200';
 
 const mapDispatchToProps = dispatch => ({
@@ -12,26 +11,17 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class GridOrdens extends Component {
-  propTypes = {
+  static propTypes = {
     handleRowChange: PropTypes.func.isRequired,
     minHeight: PropTypes.number.isRequired,
-    indexes: PropTypes.array.isRequired, //eslint-disable-line
-    data: PropTypes.array.isRequired, //eslint-disable-line
-    marcarUti: PropTypes.func.isRequired,
-    desmarcarTodosUti: PropTypes.func.isRequired,
-    desmarcarUti: PropTypes.func.isRequired
+    indexes: PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired
   };
 
   state = { shadowRows: this.props.data }
 
   reflectShadowRows = (shadowRows) => {
     this.setState({ shadowRows });
-  }
-  desmarcarTodosUtiHandler = () => {
-    const ops = this.state.shadowRows.map((r) => {
-      return r.get('ordemProducao');
-    });
-    this.props.desmarcarTodosUti(ops);
   }
   render() {
     return (
@@ -44,12 +34,6 @@ class GridOrdens extends Component {
           handleRowChange={this.props.handleRowChange}
           enableSummary
           reflectShadowRows={this.reflectShadowRows}
-        />
-        <ItensAcao
-          disabled={this.props.data.length === 0}
-          onMarcarUTI={this.props.marcarUti}
-          onDesmarcarUTI={this.props.desmarcarUti}
-          onDesmarcarTodosUTI={this.desmarcarTodosUtiHandler}
         />
       </div>
     );

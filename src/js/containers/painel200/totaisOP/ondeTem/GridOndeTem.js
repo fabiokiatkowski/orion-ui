@@ -20,6 +20,15 @@ class GridOndeTem extends Component {
     isSameOPChecked: true,
     isCheckboxCorChecked: true
   }
+  componentDidMount() {
+    this.props.listOndeTem(
+      this.props.ordemProducao,
+      this.props.grupo,
+      this.props.item,
+      this.state.isSameOPChecked,
+      this.state.isCheckboxCorChecked
+    );
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.ordemProducao !== this.props.ordemProducao
       || nextProps.grupo !== this.props.grupo
@@ -34,7 +43,6 @@ class GridOndeTem extends Component {
     }
   }
   checkboxOPHandler = () => {
-    // this.setState({ isSameOPChecked: !this.state.isSameOPChecked });
     this.setState(
       { isSameOPChecked: !this.state.isSameOPChecked },
       () => {
@@ -83,7 +91,7 @@ class GridOndeTem extends Component {
           </Checkbox>
         </FormGroup>
         <Grid
-          minHeight={300}
+          minHeight={this.props.minHeight}
           data={this.props.data}
           columns={columns}
           indexes={[]}

@@ -10,13 +10,15 @@ import { listarEstagio,
   listarOrdens,
   desmarcarPeriodo,
   marcarUti,
-  desmarcarUti } from '../../redux/modules/tela200';
+  desmarcarUti,
+  desmarcarTodosUti } from '../../redux/modules/tela200';
 import { listProductImages } from '../../redux/modules/image';
 import GridEstagiosAbertos from './estagiosAbertos/GridEstagiosAbertos';
 import GridPeriodos from './periodos/GridPeriodos';
 import GridOrdens from './ordens/GridOrdens';
 import PainelTotaisOP from './totaisOP/PainelTotaisOP';
 import Sizeme from '../../components/Sizeme';
+import Botoes from './botoes/Botoes';
 
 const mapStateToProps = state => ({
   estagiosData: state.tela200.estagios.data,
@@ -37,6 +39,7 @@ const mapDispatchToProps = dispatch => ({
   desmarcarPeriodo: bindActionCreators(desmarcarPeriodo, dispatch),
   listProductImages: bindActionCreators(listProductImages, dispatch),
   marcarUti: bindActionCreators(marcarUti, dispatch),
+  desmarcarTodosUti: bindActionCreators(desmarcarTodosUti, dispatch),
   desmarcarUti: bindActionCreators(desmarcarUti, dispatch)
 });
 
@@ -46,12 +49,12 @@ class PainelEstagiosAbertos extends Component {
     periodosSelectedRow: [],
     estagiosAbertosHeight: 400,
     ordensHeigh: 520,
+    resultadoHeight: 300,
     currentRow: null
   };
   componentDidMount() {
     this.props.listarEstagio();
   }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.ordensData !== this.props.ordensData) {
       this.setState({
@@ -59,7 +62,6 @@ class PainelEstagiosAbertos extends Component {
       });
     }
   }
-
   // #region estagios row handlers
   onEstagioRowsSelectedHandler = (rows) => {
     this.props.marcarEstagio(rows);
@@ -120,15 +122,26 @@ class PainelEstagiosAbertos extends Component {
     this.setState({ ordensHeigh: height });
   }
 
+  changeGridResultadoSize = (width, height) => {
+    this.setState({ resultadoHeight: height });
+  }
+
   handleRowChange = (data) => {
     this.setState({ currentRow: data });
   }
 
   // #endregion
+  // #region
+  desmarcarTodosUtiHandler = () => {
+    const ops = this.props.ordensData.map(r => r.ordemProducao);
+    this.props.desmarcarTodosUti(ops);
+  }
+  // #endregion
   render() {
     const {
       estagiosAbertosHeight,
       ordensHeigh,
+      resultadoHeight,
       currentRow
     } = this.state;
     const referencia = currentRow && currentRow.get('referenciaPeca');
@@ -188,23 +201,37 @@ class PainelEstagiosAbertos extends Component {
           data={this.props.ordensData}
           indexes={[]}
           handleRowChange={this.handleRowChange}
-          marcarUti={() => this.props.marcarUti(opSelected, referenciaSelected)}
-          desmarcarUti={() => this.props.desmarcarUti(opSelected)}
         />
       </Sizeme>
     );
-
     return (
       <div className="container200">
         {gridEstagios}
         {gridPeriodo}
         <div className="result200">
           {gridResultado}
-          {this.state.currentRow &&
-            <PainelTotaisOP
-              imageList={imageList}
-              row={currentRow}
-            />
+          <Botoes
+            disabled={!currentRow}
+            ordemProducao={currentRow && currentRow.get('ordemProducao')}
+            ordemPrincipal={currentRow && currentRow.get('ordemPrincipal')}
+            onMarcarUTI={() =>
+              this.props.marcarUti(
+                currentRow.get('ordemProducao'),
+                currentRow.get('referenciaPeca'),
+              )}
+            onDesmarcarUTI={() => this.props.desmarcarUti(currentRow.get('ordemProducao'))}
+            onDesmarcarTodosUTI={this.desmarcarTodosUtiHandler}
+          />
+          {
+            currentRow &&
+            <Sizeme handleChangeSize={this.changeGridResultadoSize}>
+              <PainelTotaisOP
+                minHeight={resultadoHeight - 35}
+                imageList={imageList}
+                referencia={currentRow.get('referenciaPeca')}
+                row={currentRow}
+              />
+            </Sizeme>
           }
         </div>
       </div>
@@ -227,7 +254,12 @@ PainelEstagiosAbertos.propTypes = {
   periodosData: PropTypes.array.isRequired, //eslint-disable-line
   ordensData: PropTypes.array.isRequired, //eslint-disable-line
   marcarUti: PropTypes.func.isRequired,
-  desmarcarUti: PropTypes.func.isRequired
+  desmarcarUti: PropTypes.func.isRequired,
+  desmarcarTodosUti: PropTypes.func.isRequired,
+  desmarcarTodosUtiHandler: PropTypes.func
+};
+PainelEstagiosAbertos.defaultProps = {
+  desmarcarTodosUtiHandler: () => {}
 };
 export default connect(
   mapStateToProps,
