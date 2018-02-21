@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import joinClasses from 'classnames';
-import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../components/Dropdown';
+// import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../components/Dropdown';
+import Dropdown, { DropdownHeader, DropdownToggle } from '../components/Dropdown';
+// import DropdownBody from '../components/DropdownBody';
+import DropdownBody from '../components/Ddb';
 import DropdownSearch from '../components/DropdownSearch';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
@@ -298,7 +301,15 @@ export default class SuperFilter extends Component {
         filterKeys={['value']}
         data={this.state.options}
       >
-        <DropdownBody renderItem={this.renderDropdownItem} />
+        <DropdownBody
+          renderItem={this.renderDropdownItem}
+          items={this.state.options}
+          itemHeight={100}
+        />
+        {/* <DropdownBody
+          isUsingOption={this.isUsingOption}
+          toggleOption={this.toggleOption}
+        /> */}
       </DropdownSearch>
     );
   }

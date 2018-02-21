@@ -17,7 +17,7 @@ export default class DropdownBody extends PureComponent {
 
   state = {
     data: arrays.toImmutableList(this.props.data).valueSeq(),
-    listHeight: 300,
+    listHeight: 240,
     listRowHeight: 50,
     overscanRowCount: 10,
     scrollToIndex: undefined,
@@ -33,7 +33,7 @@ export default class DropdownBody extends PureComponent {
     const item = this.state.data.get(index);
     const isUsing = this.props.isUsingOption(item);
     return (
-      <div>
+      <div key={index}>
         <a
           className={isUsing ? 'is-active' : ''}
           onClick={e => this.props.toggleOption(e, isUsing, item)}
@@ -53,12 +53,9 @@ export default class DropdownBody extends PureComponent {
   };
 
   render() {
-    const data = arrays.toImmutableList(this.props.data).valueSeq();
-    const items = data.map(this.renderItem);
-
     return (
       <div className="dropdown-portal-body">
-        {items &&
+        {this.state.data &&
           <AutoSizer disableHeight>
             {({ width }) => (
               <List
