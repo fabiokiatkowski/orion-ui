@@ -53,7 +53,8 @@ class FilterPortal extends Component {
     onConfirm: PropTypes.func,
     data: PropTypes.any.isRequired,
     isUsingOption: PropTypes.func.isRequired,
-    toggleOption: PropTypes.func.isRequired
+    toggleOption: PropTypes.func.isRequired,
+    filterKeys: PropTypes.array.isRequired
   }
 
   static defaultProps = {
@@ -96,9 +97,6 @@ class FilterPortal extends Component {
   }
 
   filter = (item, filterText, keys) => {
-    console.log(item);
-    console.log(filterText);
-    console.log(keys);
     const filtered = keys.filter(key => (`${item[key]}`).toLowerCase().indexOf(filterText.toLowerCase()) >= 0);
     return filtered && filtered.length;
   }
