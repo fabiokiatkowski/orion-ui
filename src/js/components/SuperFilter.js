@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
-import joinClasses from 'classnames';
-// import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../components/Dropdown';
-import Dropdown, { DropdownHeader, DropdownToggle } from '../components/Dropdown';
-// import DropdownBody from '../components/DropdownBody';
-import DropdownBody from '../components/Ddb';
-import DropdownSearch from '../components/DropdownSearch';
+import PropTypes from 'prop-types';
+import { Set } from 'immutable';
+import FilterPortal from '../components/FilterPortal';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
 import { TextOptions, NumberOptions } from '../utils/filterOptions';
 
 export default class SuperFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: [],
-      selected: [],
-      advancedFilter: false,
-      advancedFilters: [
-        {
-          advancedFilterOption: 'AND',
-          advancedFilterType: 'EQUAL',
-          advancedFilterValue: null
-        }
-      ],
-      hasFilter: false
-    };
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+    column: PropTypes.any.isRequired
+  }
+
+  state = {
+    options: new Set(),
+    selected: [],
+    advancedFilter: false,
+    advancedFilters: [
+      {
+        advancedFilterOption: 'AND',
+        advancedFilterType: 'EQUAL',
+        advancedFilterValue: null
+      }
+    ],
+    hasFilter: false
   }
 
   onOpen = () => {
@@ -261,18 +260,6 @@ export default class SuperFilter extends Component {
       (advancedFilter && advancedFilters.some(x => x.advancedFilterValue));
   }
 
-  renderDropdownItem = (item) => {
-    const isUsing = this.isUsingOption(item);
-    return (
-      <a
-        className={isUsing ? 'is-active' : ''}
-        onClick={e => this.toggleOption(e, isUsing, item)}
-      >
-        {item.label}
-      </a>
-    );
-  };
-
   renderHeaderTitle = () => {
     const isAdvanced = this.state.advancedFilter;
     return (
@@ -293,26 +280,6 @@ export default class SuperFilter extends Component {
       </div>
     );
   };
-
-  renderDropdownWithItems = () => {
-    return (
-      <DropdownSearch
-        placeholder="Pesquisar"
-        filterKeys={['value']}
-        data={this.state.options}
-      >
-        <DropdownBody
-          renderItem={this.renderDropdownItem}
-          items={this.state.options}
-          itemHeight={100}
-        />
-        {/* <DropdownBody
-          isUsingOption={this.isUsingOption}
-          toggleOption={this.toggleOption}
-        /> */}
-      </DropdownSearch>
-    );
-  }
 
   renderAdvancedFilters = () => {
     const { advancedFilters } = this.state;
@@ -406,29 +373,21 @@ export default class SuperFilter extends Component {
   }
 
   render() {
-    const isAdvanced = this.state.advancedFilter;
-    const { hasFilter } = this.state;
-    const className = joinClasses({
-      'fa fa-filter': !hasFilter,
-      'fa fa-filter-active': hasFilter
-    });
-
     return (
-      <Dropdown
+      <FilterPortal
         onShowDropdown={this.onOpen}
+        renderItem={this.renderDropdownItem}
         onConfirm={this.onConfirm}
-      >
-        <DropdownToggle className="box-control">
-          <span className="icon">
-            <i className={className} aria-hidden="true" />
-          </span>
-        </DropdownToggle>
-        <DropdownHeader>
-          {this.renderHeaderTitle()}
-        </DropdownHeader>
-        {!isAdvanced ?
-          this.renderDropdownWithItems() : this.renderAdvancedFilter()}
-      </Dropdown>
-    );
+        data={this.state.options}
+        isUsingOption={this.isUsingOption}
+        toggleOption={this.toggleOption}
+        filterKeys={['value']}
+        renderHeaderTitle={this.renderHeaderTitle
+        /* TODO change header title to render on FilterPortal */}
+        renderAdvancedFilter={this.renderAdvancedFilter
+        /* TODO change advance filter to render on FilterPortal */}
+        hasFilter={this.state.hasFilter}
+        isAdvanced={this.state.advancedFilter}
+      />);
   }
 }

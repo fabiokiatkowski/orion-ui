@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
