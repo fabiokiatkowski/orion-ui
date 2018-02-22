@@ -56,14 +56,20 @@ class FilterPortal extends Component {
     isUsingOption: PropTypes.func.isRequired,
     toggleOption: PropTypes.func.isRequired,
     filterKeys: PropTypes.array.isRequired,
-    hasFilter: PropTypes.bool
+    hasFilter: PropTypes.bool,
+    renderHeaderTitle: PropTypes.element,
+    renderAdvancedFilter: PropTypes.element,
+    isAdvanced: PropTypes.bool
   }
 
   static defaultProps = {
     onHiddenDropdown: () => {},
     onShowDropdown: () => {},
     onConfirm: null,
-    hasFilter: false
+    hasFilter: false,
+    renderHeaderTitle: (<div />),
+    renderAdvancedFilter: (<div />),
+    isAdvanced: false
   }
 
   constructor(props) {
