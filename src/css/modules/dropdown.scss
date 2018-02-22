@@ -56,6 +56,10 @@
       padding-left: 0px;
     }
 
+    &:focus{
+      outline-color: transparent;
+    }
+    
     li {
       text-align: left;
       list-style-type: none;

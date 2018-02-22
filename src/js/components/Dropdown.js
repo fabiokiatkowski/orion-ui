@@ -162,7 +162,10 @@ class Dropdown extends Component {
         {toggles}
         {isOpen && childrens &&
           <ReactPageClick notify={this.close}>
-            <div className={`dropdown-portal ${(hasHeader ? 'has-header' : '')}`} style={style}>
+            <div
+              className={`dropdown-portal ${(hasHeader ? 'has-header' : '')}`}
+              style={style}
+            >
               {childrens}
             </div>
           </ReactPageClick>

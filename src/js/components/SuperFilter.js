@@ -5,7 +5,7 @@ import { Set } from 'immutable';
 // import Dropdown, { DropdownHeader, DropdownToggle } from '../components/Dropdown';
 // import DropdownBody from '../components/DropdownBody';
 // import DropdownBody from '../components/Ddb';
-import Dropdown from '../components/PortalFilter';
+import Dropdown from '../components/FilterPortal';
 import DropdownSearch from '../components/DropdownSearch';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
@@ -437,7 +437,10 @@ export default class SuperFilter extends Component {
       <Dropdown
         onShowDropdown={this.onOpen}
         renderItem={this.renderDropdownItem}
+        onConfirm={this.onConfirm}
         data={this.state.options}
+        isUsingOption={this.isUsingOption}
+        toggleOption={this.toggleOption}
       />);
   }
 }
