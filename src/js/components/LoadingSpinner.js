@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import joinClasses from 'classnames';
 
 const LoadingSpinner = (props) => {
@@ -17,6 +18,15 @@ const LoadingSpinner = (props) => {
       {props.children}
     </div>
   );
+};
+
+LoadingSpinner.propTypes = {
+  isLoading: PropTypes.bool,
+  children: PropTypes.any.isRequired
+};
+
+LoadingSpinner.defaultProps = {
+  isLoading: false
 };
 
 export default LoadingSpinner;
