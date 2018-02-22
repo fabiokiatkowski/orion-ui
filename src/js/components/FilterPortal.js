@@ -87,7 +87,11 @@ class FilterPortal extends Component {
 
   close = () => {
     if (this.state.isOpen) {
-      this.setState({ isOpen: false });
+      this.setState({
+        isOpen: false,
+        filteredData: null,
+        filterText: ''
+      });
     }
   }
 
