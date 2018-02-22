@@ -1,32 +1,29 @@
 import React, { Component } from 'react';
-import joinClasses from 'classnames';
+import PropTypes from 'prop-types';
 import { Set } from 'immutable';
-// import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../components/Dropdown';
-// import Dropdown, { DropdownHeader, DropdownToggle } from '../components/Dropdown';
-// import DropdownBody from '../components/DropdownBody';
-// import DropdownBody from '../components/Ddb';
-import Dropdown from '../components/FilterPortal';
-import DropdownSearch from '../components/DropdownSearch';
+import FilterPortal from '../components/FilterPortal';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
 import { TextOptions, NumberOptions } from '../utils/filterOptions';
 
 export default class SuperFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: new Set(),
-      selected: [],
-      advancedFilter: false,
-      advancedFilters: [
-        {
-          advancedFilterOption: 'AND',
-          advancedFilterType: 'EQUAL',
-          advancedFilterValue: null
-        }
-      ],
-      hasFilter: false
-    };
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+    column: PropTypes.any.isRequired
+  }
+
+  state = {
+    options: new Set(),
+    selected: [],
+    advancedFilter: false,
+    advancedFilters: [
+      {
+        advancedFilterOption: 'AND',
+        advancedFilterType: 'EQUAL',
+        advancedFilterValue: null
+      }
+    ],
+    hasFilter: false
   }
 
   onOpen = () => {
@@ -376,33 +373,8 @@ export default class SuperFilter extends Component {
   }
 
   render() {
-    const isAdvanced = this.state.advancedFilter;
-    const { hasFilter } = this.state;
-    const className = joinClasses({
-      'fa fa-filter': !hasFilter,
-      'fa fa-filter-active': hasFilter
-    });
-
-    // return (
-    //   <Dropdown
-    //     onShowDropdown={this.onOpen}
-    //     onConfirm={this.onConfirm}
-    //   >
-    //     <DropdownToggle className="box-control">
-    //       <span className="icon">
-    //         <i className={className} aria-hidden="true" />
-    //       </span>
-    //     </DropdownToggle>
-    //     <DropdownHeader>
-    //       {this.renderHeaderTitle()}
-    //     </DropdownHeader>
-    //     {!isAdvanced ?
-    //       this.renderDropdownWithItems() : this.renderAdvancedFilter()}
-    //   </Dropdown>
-    // );
-
     return (
-      <Dropdown
+      <FilterPortal
         onShowDropdown={this.onOpen}
         renderItem={this.renderDropdownItem}
         onConfirm={this.onConfirm}
