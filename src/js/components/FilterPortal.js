@@ -4,45 +4,6 @@ import PropTypes from 'prop-types';
 import { List } from 'react-virtualized';
 import { ReactPageClick } from 'react-page-click';
 
-const FilterBody = (props) => {
-  const rowRenderer = (params) => {
-    const item = props.items.get(params.index);
-    const isUsing = props.isUsingOption(item);
-    return (
-      <li key={params.key} style={params.style}>
-        <a
-          className={isUsing ? 'is-active' : ''}
-          onClick={e => props.toggleOption(e, isUsing, item)}
-        >
-          {item.label}
-        </a>
-      </li>
-    );
-  };
-
-  return (
-    <List
-      className="dropdown-portal-body"
-      height={260}
-      rowCount={props.items.size}
-      rowHeight={23}
-      rowRenderer={rowRenderer}
-      width={400}
-    />
-  );
-};
-
-FilterBody.propTypes = {
-  items: PropTypes.any.isRequired,
-  isUsingOption: PropTypes.func,
-  toggleOption: PropTypes.func
-};
-
-FilterBody.defaultProps = {
-  isUsingOption: () => {},
-  toggleOption: () => {}
-};
-
 class FilterPortal extends Component {
   static propTypes = {
     onHiddenDropdown: PropTypes.func,
@@ -83,6 +44,21 @@ class FilterPortal extends Component {
     } else {
       this.props.onShowDropdown();
     }
+  }
+
+  rowRenderer = (params) => {
+    const item = this.props.data.toIndexedSeq().get(params.index);
+    const isUsing = this.props.isUsingOption(item);
+    return (
+      <li key={params.key} style={params.style}>
+        <a
+          className={isUsing ? 'is-active' : ''}
+          onClick={e => this.props.toggleOption(e, isUsing, item)}
+        >
+          {item.label}
+        </a>
+      </li>
+    );
   }
 
   renderHeader = () => {
@@ -153,6 +129,19 @@ class FilterPortal extends Component {
     );
   }
 
+  renderBody = () => {
+    return (
+      <List
+        className="dropdown-portal-body"
+        height={260}
+        rowCount={this.props.data.size}
+        rowHeight={23}
+        rowRenderer={this.rowRenderer}
+        width={400}
+      />
+    );
+  }
+
   render() {
     return (
       <TetherComponent
@@ -171,12 +160,7 @@ class FilterPortal extends Component {
             <div className="dropdown-portal has-header">
               {this.renderHeader()}
               {this.renderSearch()}
-              <FilterBody
-                items={this.props.data.toIndexedSeq()}
-                itemHeight={23}
-                isUsingOption={this.props.isUsingOption}
-                toggleOption={this.props.toggleOption}
-              />
+              {this.renderBody()}
             </div>
           </ReactPageClick>
         }
