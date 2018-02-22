@@ -33,14 +33,14 @@ export default class DropdownBody extends PureComponent {
     const item = this.state.data.get(index);
     const isUsing = this.props.isUsingOption(item);
     return (
-      <div key={index}>
+      <li key={index}>
         <a
           className={isUsing ? 'is-active' : ''}
           onClick={e => this.props.toggleOption(e, isUsing, item)}
         >
           {item.label}
         </a>
-      </div>
+      </li>
     );
   }
 
@@ -56,20 +56,22 @@ export default class DropdownBody extends PureComponent {
     return (
       <div className="dropdown-portal-body">
         {this.state.data &&
-          <AutoSizer disableHeight>
-            {({ width }) => (
-              <List
-                ref={(instance) => { this.List = instance; }}
-                height={this.state.listHeight}
-                overscanRowCount={this.state.overscanRowCount}
-                rowCount={this.state.data.size}
-                rowHeight={this.state.listRowHeight}
-                rowRenderer={this.rowRenderer}
-                scrollToIndex={this.state.scrollToIndex}
-                width={width}
-              />
-            )}
-          </AutoSizer>
+          <ul>
+            <AutoSizer disableHeight>
+              {({ width }) => (
+                <List
+                  ref={(instance) => { this.List = instance; }}
+                  height={this.state.listHeight}
+                  overscanRowCount={this.state.overscanRowCount}
+                  rowCount={this.state.data.size}
+                  rowHeight={this.state.listRowHeight}
+                  rowRenderer={this.rowRenderer}
+                  scrollToIndex={this.state.scrollToIndex}
+                  width={width}
+                />
+              )}
+            </AutoSizer>
+          </ul>
         }
         {this.props.children}
       </div>

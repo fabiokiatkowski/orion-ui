@@ -42,7 +42,7 @@
   }
 
   .dropdown-portal-body {
-    max-height: 250px;
+    max-height: 300px;
     overflow: auto;
     padding: $dropdown-padding;
     padding-top: 0px;
@@ -59,6 +59,9 @@
     li {
       text-align: left;
       list-style-type: none;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+
       a {
         display: block;
         position: relative;

@@ -147,7 +147,6 @@ class Dropdown extends Component {
       return child;
     });
 
-
     return (
       <TetherComponent
         attachment="top right"

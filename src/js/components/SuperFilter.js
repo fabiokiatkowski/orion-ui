@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import joinClasses from 'classnames';
+import { Set } from 'immutable';
 // import Dropdown, { DropdownBody, DropdownHeader, DropdownToggle } from '../components/Dropdown';
-import Dropdown, { DropdownHeader, DropdownToggle } from '../components/Dropdown';
+// import Dropdown, { DropdownHeader, DropdownToggle } from '../components/Dropdown';
 // import DropdownBody from '../components/DropdownBody';
-import DropdownBody from '../components/Ddb';
+// import DropdownBody from '../components/Ddb';
+import Dropdown from '../components/PortalFilter';
 import DropdownSearch from '../components/DropdownSearch';
 import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
@@ -13,7 +15,7 @@ export default class SuperFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: [],
+      options: new Set(),
       selected: [],
       advancedFilter: false,
       advancedFilters: [
@@ -301,15 +303,15 @@ export default class SuperFilter extends Component {
         filterKeys={['value']}
         data={this.state.options}
       >
-        <DropdownBody
+        {/* <DropdownBody
           renderItem={this.renderDropdownItem}
           items={this.state.options}
           itemHeight={100}
-        />
-        {/* <DropdownBody
+        /> */}
+        <DropdownBody
           isUsingOption={this.isUsingOption}
           toggleOption={this.toggleOption}
-        /> */}
+        />
       </DropdownSearch>
     );
   }
@@ -413,22 +415,29 @@ export default class SuperFilter extends Component {
       'fa fa-filter-active': hasFilter
     });
 
+    // return (
+    //   <Dropdown
+    //     onShowDropdown={this.onOpen}
+    //     onConfirm={this.onConfirm}
+    //   >
+    //     <DropdownToggle className="box-control">
+    //       <span className="icon">
+    //         <i className={className} aria-hidden="true" />
+    //       </span>
+    //     </DropdownToggle>
+    //     <DropdownHeader>
+    //       {this.renderHeaderTitle()}
+    //     </DropdownHeader>
+    //     {!isAdvanced ?
+    //       this.renderDropdownWithItems() : this.renderAdvancedFilter()}
+    //   </Dropdown>
+    // );
+
     return (
       <Dropdown
         onShowDropdown={this.onOpen}
-        onConfirm={this.onConfirm}
-      >
-        <DropdownToggle className="box-control">
-          <span className="icon">
-            <i className={className} aria-hidden="true" />
-          </span>
-        </DropdownToggle>
-        <DropdownHeader>
-          {this.renderHeaderTitle()}
-        </DropdownHeader>
-        {!isAdvanced ?
-          this.renderDropdownWithItems() : this.renderAdvancedFilter()}
-      </Dropdown>
-    );
+        renderItem={this.renderDropdownItem}
+        data={this.state.options}
+      />);
   }
 }
