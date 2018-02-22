@@ -263,18 +263,6 @@ export default class SuperFilter extends Component {
       (advancedFilter && advancedFilters.some(x => x.advancedFilterValue));
   }
 
-  renderDropdownItem = (item) => {
-    const isUsing = this.isUsingOption(item);
-    return (
-      <a
-        className={isUsing ? 'is-active' : ''}
-        onClick={e => this.toggleOption(e, isUsing, item)}
-      >
-        {item.label}
-      </a>
-    );
-  };
-
   renderHeaderTitle = () => {
     const isAdvanced = this.state.advancedFilter;
     return (
@@ -295,26 +283,6 @@ export default class SuperFilter extends Component {
       </div>
     );
   };
-
-  renderDropdownWithItems = () => {
-    return (
-      <DropdownSearch
-        placeholder="Pesquisar"
-        filterKeys={['value']}
-        data={this.state.options}
-      >
-        {/* <DropdownBody
-          renderItem={this.renderDropdownItem}
-          items={this.state.options}
-          itemHeight={100}
-        /> */}
-        <DropdownBody
-          isUsingOption={this.isUsingOption}
-          toggleOption={this.toggleOption}
-        />
-      </DropdownSearch>
-    );
-  }
 
   renderAdvancedFilters = () => {
     const { advancedFilters } = this.state;
@@ -442,6 +410,12 @@ export default class SuperFilter extends Component {
         isUsingOption={this.isUsingOption}
         toggleOption={this.toggleOption}
         filterKeys={['value']}
+        renderHeaderTitle={this.renderHeaderTitle
+        /* TODO change header title to render on FilterPortal */}
+        renderAdvancedFilter={this.renderAdvancedFilter
+        /* TODO change advance filter to render on FilterPortal */}
+        hasFilter={this.state.hasFilter}
+        isAdvanced={this.state.advancedFilter}
       />);
   }
 }

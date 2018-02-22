@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { List } from 'react-virtualized';
 import { ReactPageClick } from 'react-page-click';
 import debounce from 'lodash/fp/debounce';
+import joinClasses from 'classnames';
 
 const FilterBody = (props) => {
   const { isUsingOption, toggleOption } = props;
@@ -54,13 +55,15 @@ class FilterPortal extends Component {
     data: PropTypes.any.isRequired,
     isUsingOption: PropTypes.func.isRequired,
     toggleOption: PropTypes.func.isRequired,
-    filterKeys: PropTypes.array.isRequired
+    filterKeys: PropTypes.array.isRequired,
+    hasFilter: PropTypes.bool
   }
 
   static defaultProps = {
     onHiddenDropdown: () => {},
     onShowDropdown: () => {},
-    onConfirm: null
+    onConfirm: null,
+    hasFilter: false
   }
 
   constructor(props) {
@@ -73,7 +76,6 @@ class FilterPortal extends Component {
 
   state = {
     isOpen: false,
-    isAdvanced: false,
     data: this.props.data.toIndexedSeq(),
     filteredData: null,
     filterText: ''
@@ -129,23 +131,10 @@ class FilterPortal extends Component {
   }
 
   renderHeader = () => {
-    const { isAdvanced } = this.state;
     return (
       <div className="dropdown-portal-header">
         <div className="dropdown-portal-title">
-          <a
-            className={!isAdvanced ? 'is-active' : ''}
-            onClick={() => this.setState({ isAdvanced: false })}
-          >
-            Filtros
-          </a>
-          <span> | </span>
-          <a
-            className={isAdvanced ? 'is-active' : ''}
-            onClick={() => this.setState({ isAdvanced: true })}
-          >
-            Avançado
-          </a>
+          {this.props.renderHeaderTitle()}
         </div>
         <div className="dropdown-portal-buttons">
           <button
@@ -186,20 +175,37 @@ class FilterPortal extends Component {
   }
 
   renderToggle = () => {
+    const className = joinClasses({
+      'fa fa-filter': !this.props.hasFilter,
+      'fa fa-filter-active': this.props.hasFilter
+    });
+
     return (
       <a
         onClick={e => this.toggle(e)}
         className="dropdown-portal-toggle"
       >
         <span className="icon">
-          <i className="fa fa-filter" aria-hidden="true" />
+          <i className={className} aria-hidden="true" />
         </span>
       </a>
     );
   }
 
-  render() {
+  renderBodyWithItems = () => {
     const { filteredData, data } = this.state;
+    return (
+      <FilterBody
+        items={filteredData || data}
+        isUsingOption={this.props.isUsingOption}
+        toggleOption={this.props.toggleOption}
+      />
+    );
+  }
+
+  render() {
+    const { isOpen } = this.state;
+    const { isAdvanced } = this.props;
     return (
       <TetherComponent
         attachment="top right"
@@ -212,16 +218,15 @@ class FilterPortal extends Component {
         }
       >
         {this.renderToggle()}
-        {this.state.isOpen &&
+        {isOpen &&
           <ReactPageClick notify={this.close}>
             <div className="dropdown-portal has-header">
-              {this.renderHeader()}
-              {this.renderSearch()}
-              <FilterBody
-                items={filteredData || data}
-                isUsingOption={this.props.isUsingOption}
-                toggleOption={this.props.toggleOption}
-              />
+              {this.renderHeader()},
+              {!isAdvanced && this.renderSearch()}
+              {!isAdvanced ?
+                this.renderBodyWithItems() :
+                this.props.renderAdvancedFilter()
+              }
             </div>
           </ReactPageClick>
         }
