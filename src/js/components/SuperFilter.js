@@ -441,6 +441,7 @@ export default class SuperFilter extends Component {
         data={this.state.options}
         isUsingOption={this.isUsingOption}
         toggleOption={this.toggleOption}
+        filterKeys={['value']}
       />);
   }
 }

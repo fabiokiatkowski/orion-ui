@@ -3,6 +3,48 @@ import TetherComponent from 'react-tether';
 import PropTypes from 'prop-types';
 import { List } from 'react-virtualized';
 import { ReactPageClick } from 'react-page-click';
+import debounce from 'lodash/fp/debounce';
+
+const FilterBody = (props) => {
+  const { isUsingOption, toggleOption } = props;
+
+  const rowRenderer = (params) => {
+    const item = props.items.get(params.index);
+    const isUsing = isUsingOption(item);
+    return (
+      <li key={params.key} style={params.style}>
+        <a
+          className={isUsing ? 'is-active' : ''}
+          onClick={e => toggleOption(e, isUsing, item)}
+        >
+          {item.label}
+        </a>
+      </li>
+    );
+  };
+
+  return (
+    <List
+      className="dropdown-portal-body"
+      height={260}
+      rowCount={props.items.size}
+      rowHeight={23}
+      rowRenderer={rowRenderer}
+      width={400}
+    />
+  );
+};
+
+FilterBody.propTypes = {
+  items: PropTypes.any.isRequired,
+  isUsingOption: PropTypes.func,
+  toggleOption: PropTypes.func
+};
+
+FilterBody.defaultProps = {
+  isUsingOption: () => {},
+  toggleOption: () => {}
+};
 
 class FilterPortal extends Component {
   static propTypes = {
@@ -20,10 +62,27 @@ class FilterPortal extends Component {
     onConfirm: null
   }
 
+  constructor(props) {
+    super(props);
+    this.filterData = debounce(
+      100,
+      this.filterData.bind(this)
+    );
+  }
+
   state = {
     isOpen: false,
-    isAdvanced: false
+    isAdvanced: false,
+    data: this.props.data.toIndexedSeq(),
+    filteredData: null,
+    filterText: ''
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data !== nextProps.data) {
+      this.setState({ data: nextProps.data.toIndexedSeq() });
+    }
+  }
 
   close = () => {
     if (this.state.isOpen) {
@@ -36,6 +95,27 @@ class FilterPortal extends Component {
     this.close();
   }
 
+  filter = (item, filterText, keys) => {
+    console.log(item);
+    console.log(filterText);
+    console.log(keys);
+    const filtered = keys.filter(key => (`${item[key]}`).toLowerCase().indexOf(filterText.toLowerCase()) >= 0);
+    return filtered && filtered.length;
+  }
+
+  filterData = () => {
+    const { filterKeys } = this.props;
+    const { data } = this.props;
+    const newData = data.filter(item =>
+      this.filter(item, this.state.filterText, filterKeys));
+    this.setState({ filteredData: newData.toIndexedSeq() });
+  }
+
+  handleSearchChange = (evt) => {
+    this.setState({ filterText: evt.target.value });
+    this.filterData(evt.target.value);
+  }
+
   toggle = (e) => {
     if (e) e.stopPropagation();
     this.setState({ isOpen: !this.state.isOpen });
@@ -44,21 +124,6 @@ class FilterPortal extends Component {
     } else {
       this.props.onShowDropdown();
     }
-  }
-
-  rowRenderer = (params) => {
-    const item = this.props.data.toIndexedSeq().get(params.index);
-    const isUsing = this.props.isUsingOption(item);
-    return (
-      <li key={params.key} style={params.style}>
-        <a
-          className={isUsing ? 'is-active' : ''}
-          onClick={e => this.props.toggleOption(e, isUsing, item)}
-        >
-          {item.label}
-        </a>
-      </li>
-    );
   }
 
   renderHeader = () => {
@@ -105,11 +170,13 @@ class FilterPortal extends Component {
       <div className="dropdown-portal-search">
         <div className="search-input">
           <input
+            id="filter-text"
+            name="filter-text"
             className="form-control"
             type="text"
             placeholder="Search"
-            value=""
-            onChange={() => {}}
+            value={this.state.filterText}
+            onChange={this.handleSearchChange}
           />
         </div>
       </div>
@@ -129,20 +196,8 @@ class FilterPortal extends Component {
     );
   }
 
-  renderBody = () => {
-    return (
-      <List
-        className="dropdown-portal-body"
-        height={260}
-        rowCount={this.props.data.size}
-        rowHeight={23}
-        rowRenderer={this.rowRenderer}
-        width={400}
-      />
-    );
-  }
-
   render() {
+    const { filteredData, data } = this.state;
     return (
       <TetherComponent
         attachment="top right"
@@ -160,7 +215,11 @@ class FilterPortal extends Component {
             <div className="dropdown-portal has-header">
               {this.renderHeader()}
               {this.renderSearch()}
-              {this.renderBody()}
+              <FilterBody
+                items={filteredData || data}
+                isUsingOption={this.props.isUsingOption}
+                toggleOption={this.props.toggleOption}
+              />
             </div>
           </ReactPageClick>
         }
