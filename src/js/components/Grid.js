@@ -135,16 +135,10 @@ export default class Grid extends Component {
     });
   }
 
-  changeSort = (sortColumn, sortDirection) => {
-    console.log(sortColumn, sortDirection);
-    console.log(this.state);
+  handleGridSort = (sortColumn, sortDirection) => {
     this.setState({ sortColumn, sortDirection }, () => {
       this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
     });
-  }
-
-  handleGridSort = (sortColumn, sortDirection) => {
-    this.changeSort(sortColumn, sortDirection);
   };
 
   handleFilterChange = (filter) => {
