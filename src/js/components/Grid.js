@@ -34,24 +34,24 @@ export default class Grid extends Component {
     reflectShadowRows: null
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      shadowRows: fromJS(props.data),
-      rows: fromJS(props.data),
-      columnsDef: props.columns,
-      sortColumn: null, //eslint-disable-line
-      sortDirection: null, //eslint-disable-line
-      rowIdx: -1
-    };
-  }
+  state = {
+    shadowRows: fromJS(this.props.data),
+    rows: fromJS(this.props.data),
+    columnsDef: this.props.columns,
+    sortColumn: null, //eslint-disable-line
+    sortDirection: null, //eslint-disable-line
+    rowIdx: -1,
+    filters: ''
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
       this.setState({
         rows: fromJS(nextProps.data),
-        shadowRows: fromJS(nextProps.data)
+        shadowRows: fromJS(nextProps.data),
+        filters: ''
       });
+      this.cleanFiltesByRef();
     }
   }
 
@@ -63,7 +63,7 @@ export default class Grid extends Component {
   }
 
   onClearFilters = () => {
-    this.setState({ filters: {} });
+    this.setState({ filters: '' });
   };
 
   onCellSelected = ({ rowIdx }) => {
@@ -104,6 +104,7 @@ export default class Grid extends Component {
       const virtualColumn = column;
       virtualColumn.headerRenderer = (
         <CustomHeaderFormatter
+          ref={(instance) => { this.CustomHeaderFormatterRef = instance; }}
           onFilterChange={this.handleFilterChange}
           getValidFilterValues={this.getValidFilterValues}
           sortDirection="NONE"
@@ -129,9 +130,18 @@ export default class Grid extends Component {
   };
 
   cleanFilters = () => {
-    this.setState({ filters: {} }, () => {
+    this.setState({ filters: '' }, () => {
       this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
     });
+    this.cleanFiltesByRef();
+  }
+
+  cleanFiltesByRef = () => {
+    /* TODO ter uma ideia melhor pra resolver isso */
+    if (this.CustomHeaderFormatterRef &&
+        this.CustomHeaderFormatterRef.FilterRendererRef) {
+      this.CustomHeaderFormatterRef.FilterRendererRef.clean();
+    }
   }
 
   handleGridSort = (sortColumn, sortDirection) => {

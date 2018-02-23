@@ -63,6 +63,7 @@ class CustomHeaderFormatter extends React.Component {
     if (this.props.column.filterRenderer !== undefined) {
       const FilterRenderer = this.props.column.filterRenderer;
       return (<FilterRenderer
+        ref={((instance) => { this.FilterRendererRef = instance; })}
         {...this.props}
         onChange={this.props.onFilterChange}
       />);

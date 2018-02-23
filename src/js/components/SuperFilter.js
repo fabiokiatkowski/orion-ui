@@ -6,25 +6,27 @@ import { isEmptyArray } from '../utils/arrays';
 import Types from '../utils/filterTypes';
 import { TextOptions, NumberOptions } from '../utils/filterOptions';
 
+const initialState = {
+  options: new Set(),
+  selected: [],
+  advancedFilter: false,
+  advancedFilters: [
+    {
+      advancedFilterOption: 'AND',
+      advancedFilterType: 'EQUAL',
+      advancedFilterValue: null
+    }
+  ],
+  hasFilter: false
+};
+
 export default class SuperFilter extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     column: PropTypes.any.isRequired
   }
 
-  state = {
-    options: new Set(),
-    selected: [],
-    advancedFilter: false,
-    advancedFilters: [
-      {
-        advancedFilterOption: 'AND',
-        advancedFilterType: 'EQUAL',
-        advancedFilterValue: null
-      }
-    ],
-    hasFilter: false
-  }
+  state = initialState;
 
   onOpen = () => {
     this.setState({ options: this.getOptions() });
@@ -75,6 +77,8 @@ export default class SuperFilter extends Component {
     }
     return options;
   }
+
+  clean = () => { this.setState({ ...initialState }); }
 
   compareText = (a, b) => {
     const valueA = a.value;
