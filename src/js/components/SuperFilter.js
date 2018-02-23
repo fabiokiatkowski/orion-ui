@@ -325,6 +325,9 @@ export default class SuperFilter extends Component {
               id="advancedFilterValue"
               placeholder="Valor"
               onChange={e => handleChange(e, idx)}
+              onFocus={(e) => {
+                e.nativeEvent.stopImmediatePropagation();
+              }}
             />
           </div>
         </div>
