@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
-import CustomHeaderCell from './CustomHeaderCell';
+import CustomHeaderFormatter from './CustomHeaderFormatter';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -97,9 +97,21 @@ export default class Grid extends Component {
   }
 
   getColumns = (columnsDef) => {
-    const columns = columnsDef
+    let columns = columnsDef
       .filter(column => !column.hidden)
       .sort((a, b) => a.order - b.order);
+    columns = columns.map((column) => {
+      const virtualColumn = column;
+      virtualColumn.headerRenderer = (
+        <CustomHeaderFormatter
+          onFilterChange={this.handleFilterChange}
+          getValidFilterValues={this.getValidFilterValues}
+          sortDirection="NONE"
+          onSort={this.handleGridSort}
+        />
+      );
+      return virtualColumn;
+    });
     return columns;
   }
 
@@ -122,6 +134,12 @@ export default class Grid extends Component {
     });
   }
 
+  handleGridSort = (sortColumn, sortDirection) => {
+    this.setState({ sortColumn, sortDirection }, () => {
+      this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
+    });
+  };
+
   handleFilterChange = (filter) => {
     if (filter) {
       const newFilters = { ...this.state.filters };
@@ -134,12 +152,6 @@ export default class Grid extends Component {
         this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
       });
     }
-  };
-
-  handleGridSort = (sortColumn, sortDirection) => {
-    this.setState({ sortColumn, sortDirection }, () => {
-      this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
-    });
   };
 
   rowGetter = (rowIdx) => {
@@ -166,7 +178,6 @@ export default class Grid extends Component {
           onCellSelected={this.onCellSelected}
           onColumnResize={this.onColumnResize}
           onRowClick={this.props.onRowClick}
-          headerRenderer={CustomHeaderCell}
           enableSummary={this.props.enableSummary}
           rowSelection={{
             showCheckbox: this.props.showCheckbox,
