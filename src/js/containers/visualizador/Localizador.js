@@ -87,7 +87,7 @@ class Localizador extends Component {
     return (
       <div className="fullscreen-modal-container">
         <ButtonToolbar>
-          <Button bsStyle="btn" onClick={this.handleOpenModal}>
+          <Button onClick={this.handleOpenModal}>
             Buscar
           </Button>
           <Modal
@@ -126,8 +126,8 @@ class Localizador extends Component {
               </div>
             </Modal.Body>
             <Modal.Footer>
-              <Button bsStyle="btn" onClick={this.handleSelecionar}>Selecionar</Button>
-              <Button bsStyle="btn" onClick={this.handleCloseModal}>Fechar</Button>
+              <Button onClick={this.handleSelecionar}>Selecionar</Button>
+              <Button onClick={this.handleCloseModal}>Fechar</Button>
             </Modal.Footer>
           </Modal>
         </ButtonToolbar>

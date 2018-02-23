@@ -112,7 +112,7 @@ class CancelarOp extends Component {
                   onClick={this.handleOnCancelarClick}
                 >Confirmar Cancelamento
                 </Button>
-                <Button bsStyle="btn" onClick={this.handleCloseModal}>Sair</Button>
+                <Button onClick={this.handleCloseModal}>Sair</Button>
               </InputGroup.Button>
             </Modal.Footer>
           </Modal>
