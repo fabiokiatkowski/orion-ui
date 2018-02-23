@@ -4,7 +4,8 @@ import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
-import CustomHeaderCell from './CustomHeaderCell';
+import CustomHeaderFormatter from './CustomHeaderFormatter';
+// import CustomHeaderCell from './CustomHeaderCell';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -97,9 +98,19 @@ export default class Grid extends Component {
   }
 
   getColumns = (columnsDef) => {
-    const columns = columnsDef
+    let columns = columnsDef
       .filter(column => !column.hidden)
       .sort((a, b) => a.order - b.order);
+    columns = columns.map((column) => {
+      const virtualColumn = column;
+      virtualColumn.headerRenderer = (
+        <CustomHeaderFormatter
+          onChange={this.handleFilterChange}
+          getValidFilterValues={this.getValidFilterValues}
+        />
+      );
+      return virtualColumn;
+    });
     return columns;
   }
 
@@ -166,7 +177,6 @@ export default class Grid extends Component {
           onCellSelected={this.onCellSelected}
           onColumnResize={this.onColumnResize}
           onRowClick={this.props.onRowClick}
-          headerRenderer={CustomHeaderCell}
           enableSummary={this.props.enableSummary}
           rowSelection={{
             showCheckbox: this.props.showCheckbox,
