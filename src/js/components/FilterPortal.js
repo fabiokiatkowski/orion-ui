@@ -174,6 +174,9 @@ class FilterPortal extends Component {
             placeholder="Search"
             value={this.state.filterText}
             onChange={this.handleSearchChange}
+            onFocus={(e) => {
+              e.nativeEvent.stopImmediatePropagation();
+            }}
           />
         </div>
       </div>
