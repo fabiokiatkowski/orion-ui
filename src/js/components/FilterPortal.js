@@ -57,8 +57,8 @@ class FilterPortal extends Component {
     toggleOption: PropTypes.func.isRequired,
     filterKeys: PropTypes.array.isRequired,
     hasFilter: PropTypes.bool,
-    renderHeaderTitle: PropTypes.element,
-    renderAdvancedFilter: PropTypes.element,
+    renderHeaderTitle: PropTypes.function.isRequired,
+    renderAdvancedFilter: PropTypes.function.isRequired,
     isAdvanced: PropTypes.bool
   }
 
@@ -67,8 +67,6 @@ class FilterPortal extends Component {
     onShowDropdown: () => {},
     onConfirm: null,
     hasFilter: false,
-    renderHeaderTitle: (<div />),
-    renderAdvancedFilter: (<div />),
     isAdvanced: false
   }
 
