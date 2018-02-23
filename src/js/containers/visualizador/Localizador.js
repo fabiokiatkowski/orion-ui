@@ -101,7 +101,7 @@ class Localizador extends Component {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <form onSubmit={this.search}>
+              <form onSubmit={this.search} autoComplete="off">
                 <div className="produto-input">
                   <input maxLength="1" type="text" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
                   <input maxLength="5" type="text" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
