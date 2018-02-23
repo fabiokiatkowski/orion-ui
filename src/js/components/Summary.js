@@ -5,7 +5,7 @@ import NumeralFormat from './NumeralFormat';
 const sum = (rowsCount, rowGetter, column) => {
   let result = 0;
   for (let index = 0; index < rowsCount; index += 1) {
-    result += rowGetter(index)[column.key];
+    result += rowGetter(index).get(column.key);
   }
   return result;
 };
@@ -17,7 +17,7 @@ const average = (rowsCount, rowGetter, column) => {
 const distinctCount = (rowsCount, rowGetter, column) => {
   const set = new Set([]);
   for (let index = 0; index < rowsCount; index += 1) {
-    set.add(rowGetter(index)[column.key]);
+    set.add(rowGetter(index).get(column.key));
   }
   return set.size;
 };
