@@ -8,32 +8,6 @@ const DEFINE_SORT = {
   NONE: 'NONE'
 };
 
-const SelectAll = (props) => {
-  return (
-    <div className="react-grid-checkbox-container checkbox-align">
-      <input
-        className="react-grid-checkbox"
-        type="checkbox"
-        name="select-all-checkbox"
-        id="select-all-checkbox"
-        ref={props.inputRef}
-        onChange={props.onChange}
-      />
-      <label htmlFor="select-all-checkbox" className="react-grid-checkbox-label" />
-    </div>
-  );
-};
-
-SelectAll.propTypes = {
-  onChange: PropTypes.func,
-  inputRef: PropTypes.func
-};
-
-SelectAll.defaultProps = {
-  onChange: () => {},
-  inputRef: () => {}
-};
-
 class CustomHeaderFormatter extends React.Component {
   static propTypes = {
     column: PropTypes.object,
@@ -97,11 +71,6 @@ class CustomHeaderFormatter extends React.Component {
   }
 
   renderHeader = (className) => {
-    if (this.props.column.key === 'select-row') {
-      return (
-        <SelectAll {...this.props} />
-      );
-    }
     return (
       <div
         className={className}
