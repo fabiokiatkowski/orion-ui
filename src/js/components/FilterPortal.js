@@ -57,8 +57,8 @@ class FilterPortal extends Component {
     toggleOption: PropTypes.func.isRequired,
     filterKeys: PropTypes.array.isRequired,
     hasFilter: PropTypes.bool,
-    renderHeaderTitle: PropTypes.function.isRequired,
-    renderAdvancedFilter: PropTypes.function.isRequired,
+    renderHeaderTitle: PropTypes.func.isRequired,
+    renderAdvancedFilter: PropTypes.func.isRequired,
     isAdvanced: PropTypes.bool
   }
 
