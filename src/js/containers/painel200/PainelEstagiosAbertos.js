@@ -151,7 +151,7 @@ class PainelEstagiosAbertos extends Component {
     const gridEstagios = (
       <Sizeme handleChangeSize={this.changeEstagiosAbertosSize}>
         <button
-          className="btn btn-default pull-right btn-margin-bottom"
+          className="btn pull-right btn-margin-bottom"
           onClick={this.onListarEstagiosHandler}
         >
           Atualizar Estágios
@@ -164,7 +164,7 @@ class PainelEstagiosAbertos extends Component {
           indexes={this.state.estagiosSelectedRow}
         />
         <button
-          className="btn btn-default pull-right btn-margin-top"
+          className="btn pull-right btn-margin-top"
           disabled={this.state.estagiosSelectedRow.length === 0}
           onClick={() => this.props
             .listarPeriodos(this.props.selectedEstagios.join())}
@@ -183,7 +183,7 @@ class PainelEstagiosAbertos extends Component {
           indexes={this.state.periodosSelectedRow}
         />
         <button
-          className="btn btn-default pull-right btn-margin-top"
+          className="btn pull-right btn-margin-top"
           disabled={this.state.periodosSelectedRow.length === 0}
           onClick={() => this.props.listarOrdens(
               this.props.selectedEstagios.join(),

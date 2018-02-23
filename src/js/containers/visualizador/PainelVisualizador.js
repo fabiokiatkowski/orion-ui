@@ -143,9 +143,9 @@ class PainelVisualizador extends Component {
                             <input type="text" value={grupo} onChange={this.handleChange} maxLength="5" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
                             <input type="text" value={subGrupo} onChange={this.handleChange} maxLength="3" className="form-control" id="subGrupo" name="subGrupo" placeholder="Sub" />
                             <input type="text" value={item} onChange={this.handleChange} maxLength="6" className="form-control" id="item" name="item" placeholder="Item" />
-                            <button onClick={this.handleConsultar} className="btn btn-primary">Consultar</button>
-                            <button onClick={this.copy} className="btn btn-primary">Copiar</button>
-                            <button onClick={this.clean} className="btn btn-primary">Limpar</button>
+                            <button onClick={this.handleConsultar} className="btn">Consultar</button>
+                            <button onClick={this.copy} className="btn">Copiar</button>
+                            <button onClick={this.clean} className="btn">Limpar</button>
                           </div>
                           <div className="form-group descricao">
                             <textarea

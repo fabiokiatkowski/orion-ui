@@ -145,7 +145,7 @@ class FilterPortal extends Component {
         <div className="dropdown-portal-buttons">
           <button
             type="button"
-            className="btn btn-primary btn-sm"
+            className="btn btn-aplicar btn-sm"
             onClick={this.confirm}
           >
             Aplicar

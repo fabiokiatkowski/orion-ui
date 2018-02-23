@@ -358,7 +358,7 @@ export default class SuperFilter extends Component {
         <div className="advanced-filter-buttons">
           <button
             type="button"
-            className="btn btn-primary btn-sm"
+            className="btn btn-add-advanced-filter btn-sm"
             onClick={addFilter}
           >
             Adiciona
