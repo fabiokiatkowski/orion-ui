@@ -255,11 +255,7 @@ PainelEstagiosAbertos.propTypes = {
   ordensData: PropTypes.array.isRequired, //eslint-disable-line
   marcarUti: PropTypes.func.isRequired,
   desmarcarUti: PropTypes.func.isRequired,
-  desmarcarTodosUti: PropTypes.func.isRequired,
-  desmarcarTodosUtiHandler: PropTypes.func
-};
-PainelEstagiosAbertos.defaultProps = {
-  desmarcarTodosUtiHandler: () => {}
+  desmarcarTodosUti: PropTypes.func.isRequired
 };
 export default connect(
   mapStateToProps,
