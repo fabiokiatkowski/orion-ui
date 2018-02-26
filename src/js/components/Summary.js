@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import NumeralFormat from './NumeralFormat';
 
 const sum = (rowsCount, rowGetter, column) => {
   let result = 0;
   for (let index = 0; index < rowsCount; index += 1) {
-    result += rowGetter(index)[column.key];
+    result += rowGetter(index).get(column.key);
   }
   return result;
 };
@@ -16,39 +17,47 @@ const average = (rowsCount, rowGetter, column) => {
 const distinctCount = (rowsCount, rowGetter, column) => {
   const set = new Set([]);
   for (let index = 0; index < rowsCount; index += 1) {
-    set.add(rowGetter(index)[column.key]);
+    set.add(rowGetter(index).get(column.key));
   }
   return set.size;
 };
 
 const SummaryCount = (props) => {
-  const { rowsCount } = props;
-
   return (
-    <div>
-      Contagem: {rowsCount}
-    </div>
+    <div>{props.rowsCount}</div>
   );
+};
+
+SummaryCount.propTypes = {
+  rowsCount: PropTypes.number.isRequired
 };
 
 const SummaryDistinctCount = (props) => {
   const { rowsCount, rowGetter, column } = props;
 
   return (
-    <div>
-      Contagem dist.: {distinctCount(rowsCount, rowGetter, column)}
-    </div>
+    <div>{distinctCount(rowsCount, rowGetter, column)}</div>
   );
+};
+
+SummaryDistinctCount.propTypes = {
+  rowsCount: PropTypes.number.isRequired,
+  rowGetter: PropTypes.func.isRequired,
+  column: PropTypes.any.isRequired
 };
 
 const SummaryAverage = (props) => {
   const { rowsCount, rowGetter, column } = props;
 
   return (
-    <div>
-      Media: {average(rowsCount, rowGetter, column)}
-    </div>
+    <div>{average(rowsCount, rowGetter, column)}</div>
   );
+};
+
+SummaryAverage.propTypes = {
+  rowsCount: PropTypes.number.isRequired,
+  rowGetter: PropTypes.func.isRequired,
+  column: PropTypes.any.isRequired
 };
 
 
@@ -57,10 +66,15 @@ const SummarySum = (props) => {
 
   return (
     <div>
-      Total: <NumeralFormat valor={sum(rowsCount, rowGetter, column)} />
+      <NumeralFormat valor={sum(rowsCount, rowGetter, column)} />
     </div>
   );
 };
 
-export { SummarySum, SummaryAverage, SummaryCount, SummaryDistinctCount };
+SummarySum.propTypes = {
+  rowsCount: PropTypes.number.isRequired,
+  rowGetter: PropTypes.func.isRequired,
+  column: PropTypes.any.isRequired
+};
 
+export { SummarySum, SummaryAverage, SummaryCount, SummaryDistinctCount };

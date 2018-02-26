@@ -115,7 +115,7 @@ class Observacao extends Component {
           />
         </div>
         <div className="form-group save-button">
-          <button type="submit" className="btn btn-primary">Salvar</button>
+          <button type="submit" className="btn btn-save-obs">Salvar</button>
         </div>
       </form>
     );

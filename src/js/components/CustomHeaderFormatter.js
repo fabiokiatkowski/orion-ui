@@ -8,49 +8,27 @@ const DEFINE_SORT = {
   NONE: 'NONE'
 };
 
-const SelectAll = (props) => {
-  return (
-    <div className="react-grid-checkbox-container checkbox-align">
-      <input
-        className="react-grid-checkbox"
-        type="checkbox"
-        name="select-all-checkbox"
-        id="select-all-checkbox"
-        ref={props.inputRef}
-        onChange={props.onChange}
-      />
-      <label htmlFor="select-all-checkbox" className="react-grid-checkbox-label" />
-    </div>
-  );
-};
-
-SelectAll.propTypes = {
-  onChange: PropTypes.func,
-  inputRef: PropTypes.func
-};
-
-SelectAll.defaultProps = {
-  onChange: () => {},
-  inputRef: () => {}
-};
-
-class CustomHeaderCell extends React.Component {
+class CustomHeaderFormatter extends React.Component {
   static propTypes = {
     column: PropTypes.object,
+    onFilterChange: PropTypes.func.isRequired,
+    getValidFilterValues: PropTypes.func.isRequired,
     onSort: PropTypes.func.isRequired,
     sortDirection: PropTypes.oneOf(Object.keys(DEFINE_SORT)),
-    onFilterChange: PropTypes.func
   };
 
   static defaultProps = {
     column: { key: '' },
     sortDirection: DEFINE_SORT.NONE,
-    onFilterChange: () => {}
+  }
+
+  state = {
+    sortDirection: this.props.sortDirection
   }
 
   onClick = () => {
     let direction;
-    switch (this.props.sortDirection) {
+    switch (this.state.sortDirection) {
       default:
       case null:
       case undefined:
@@ -65,10 +43,20 @@ class CustomHeaderCell extends React.Component {
         break;
     }
 
+    this.setState({ sortDirection: direction });
+
     this.props.onSort(
       this.props.column.key,
       direction
     );
+  };
+
+  getSortByText = () => {
+    const unicodeKeys = {
+      ASC: '9650',
+      DESC: '9660'
+    };
+    return this.state.sortDirection === 'NONE' ? '' : String.fromCharCode(unicodeKeys[this.state.sortDirection]);
   };
 
   getFilter = () => {
@@ -82,20 +70,7 @@ class CustomHeaderCell extends React.Component {
     return null;
   }
 
-  getSortByText = () => {
-    const unicodeKeys = {
-      ASC: '9650',
-      DESC: '9660'
-    };
-    return this.props.sortDirection === 'NONE' ? '' : String.fromCharCode(unicodeKeys[this.props.sortDirection]);
-  };
-
   renderHeader = (className) => {
-    if (this.props.column.key === 'select-row') {
-      return (
-        <SelectAll {...this.props} />
-      );
-    }
     return (
       <div
         className={className}
@@ -124,4 +99,4 @@ class CustomHeaderCell extends React.Component {
   }
 }
 
-export default CustomHeaderCell;
+export default CustomHeaderFormatter;

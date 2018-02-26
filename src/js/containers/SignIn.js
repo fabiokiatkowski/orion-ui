@@ -122,7 +122,7 @@ class SingIn extends Component {
               </div>
 
               <div className="form-group ">
-                <button type="submit" className="btn btn-primary btn-lg btn-block login-button">
+                <button type="submit" className="btn btn-lg btn-block login-button">
                   Entrar
                 </button>
               </div>

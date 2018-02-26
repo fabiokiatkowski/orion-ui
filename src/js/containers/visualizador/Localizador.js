@@ -87,7 +87,7 @@ class Localizador extends Component {
     return (
       <div className="fullscreen-modal-container">
         <ButtonToolbar>
-          <Button bsStyle="primary" onClick={this.handleOpenModal}>
+          <Button onClick={this.handleOpenModal}>
             Buscar
           </Button>
           <Modal
@@ -101,7 +101,7 @@ class Localizador extends Component {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <form onSubmit={this.search}>
+              <form onSubmit={this.search} autoComplete="off">
                 <div className="produto-input">
                   <input maxLength="1" type="text" className="form-control" id="nivel" name="nivel" placeholder="Nivel" />
                   <input maxLength="5" type="text" className="form-control" id="grupo" name="grupo" placeholder="Grupo" />
@@ -113,7 +113,7 @@ class Localizador extends Component {
                   <input minLength="5" type="text" className="form-control" id="complemento" name="complemento" placeholder="Complemento" />
                 </div>
                 <div className="form-group save-button">
-                  <button type="submit" className="btn btn-primary">Buscar</button>
+                  <button type="submit" className="btn">Buscar</button>
                 </div>
               </form>
               <div className="wrapperWrapperWrapper">
