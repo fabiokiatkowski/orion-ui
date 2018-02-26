@@ -8,7 +8,11 @@ export default class ImageContainer extends Component {
   static propTypes = {
     height: PropTypes.number,
     imageList: PropTypes.array,
-    showHeader: PropTypes.bool
+    showHeader: PropTypes.bool,
+    nivel: PropTypes.string.isRequired,
+    grupo: PropTypes.string.isRequired,
+    subGrupo: PropTypes.string,
+    item: PropTypes.string
   }
 
   static defaultProps = {

@@ -5,6 +5,7 @@ import { Data, DraggableHeader } from 'react-data-grid-addons';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
+import CustomContextMenu from './CustomContextMenu';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -129,12 +130,14 @@ export default class Grid extends Component {
     return rows.map(r => r.get(columnId)).toSet();
   };
 
-  cleanFilters = () => {
-    this.setState({ filters: '' }, () => {
-      this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
+  cleanFilters = (originalScope) => {
+    this.setState({
+      rows: fromJS(this.props.data),
+      shadowRows: fromJS(this.props.data),
+      filters: ''
     });
     this.cleanFiltesByRef();
-  }
+  };
 
   cleanFiltesByRef = () => {
     /* TODO ter uma ideia melhor pra resolver isso */
@@ -176,6 +179,8 @@ export default class Grid extends Component {
       >
         <ReactDataGrid
           canFilter={false}
+          contextMenu={
+            <CustomContextMenu onClearFilters={() => this.cleanFilters(this)} />}
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
           columns={this.getColumns(this.state.columnsDef)}
