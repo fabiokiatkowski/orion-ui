@@ -72,7 +72,7 @@ class PainelTotaisOP extends Component {
       <div>
         <div className="painel-totais-op">
           <div className="image-produto-op">
-            <ImageContainer imageList={this.props.imageList} showHeader />
+            <ImageContainer nivel="1" grupo={referencia} showHeader />
           </div>
           <Tab.Container
             activeKey={tabMainKey}

@@ -1,24 +1,44 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Lightbox from 'react-images';
+import Immutable from 'immutable';
 import axios from '../axios-orion';
 import emptyImage from '../../assets/Empty-200x200.png';
+import { listProductImages, listInsumoImages } from '../redux/modules/image';
+import fixReferencia from '../utils/referencia';
 
-export default class ImageContainer extends Component {
+const mapStateToProps = state => ({
+  produtoImagens: state.image.produtos
+});
+
+const mapDispatchToProps = dispatch => ({
+  listProductImages: bindActionCreators(listProductImages, dispatch),
+  listInsumoImages: bindActionCreators(listInsumoImages, dispatch)
+});
+
+class ImageContainer extends Component {
   static propTypes = {
     height: PropTypes.number,
-    imageList: PropTypes.array,
     showHeader: PropTypes.bool,
     nivel: PropTypes.string.isRequired,
     grupo: PropTypes.string.isRequired,
     subGrupo: PropTypes.string,
-    item: PropTypes.string
+    item: PropTypes.string,
+    produtoImagens: PropTypes.array,
+    insumoImagens: PropTypes.array,
+    listProductImages: PropTypes.func.isRequired,
+    listInsumoImages: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     height: 200,
-    imageList: [],
-    showHeader: false
+    showHeader: false,
+    subGrupo: '',
+    item: '',
+    produtoImagens: new Immutable.Map(),
+    insumoImagens: new Immutable.Map(),
   }
 
   state = {
@@ -27,16 +47,32 @@ export default class ImageContainer extends Component {
     currentImage: 0
   }
 
-  /* Refactor this to make receive tumb and image paths */
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.imageList && nextProps.imageList.size) {
-      this.getTumb(nextProps);
-      this.getPaths(nextProps);
+  componentDidMount() {
+    this.loadImage(this.props);
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.nivel !== nextProps.nivel ||
+        this.props.grupo !== nextProps.grupo ||
+        this.props.subGrupo !== nextProps.subGrupo ||
+        this.props.item !== nextProps.item
+    ) {
+      this.loadImage(nextProps);
     }
   }
 
+  getImageList = (props) => {
+    if (props.nivel === '1') {
+      return props.produtoImagens.get(fixReferencia(props.grupo) ||
+        new Immutable.Map());
+    }
+    const insumo = props.nivel + props.grupo + props.subGrupo + props.item;
+    return props.insumoImagens.get(insumo) || new Immutable.Map();
+  }
+
   getTumb = (props) => {
-    const image = props.imageList.filter(i => i.get('type') === 'tag');
+    const imageList = this.getImageList(props);
+    const image = imageList.filter(i => i.get('type') === 'tag');
     axios.get(`/api/images/base64/download?imagePath=${image.get(0).get('path')}&height=${this.props.height}`)
       .then((res) => {
         this.setState({
@@ -47,7 +83,8 @@ export default class ImageContainer extends Component {
   };
 
   getPaths = (props) => {
-    const paths = props.imageList.map((i) => {
+    const imageList = this.getImageList(props);
+    const paths = imageList.map((i) => {
       return {
         src: `http://localhost:8080/api/images/download?imagePath=${i.get('path')}`,
         caption: i.get('name')
@@ -72,6 +109,27 @@ export default class ImageContainer extends Component {
     this.setState({
       currentImage: index,
     });
+  }
+
+  loadImage = (props) => {
+    const {
+      nivel,
+      grupo,
+      subGrupo,
+      item,
+      produtoImagens,
+      insumoImagens
+    } = props;
+
+    const insumo = nivel + grupo + subGrupo + item;
+    const fixedRef = fixReferencia(grupo);
+    if (nivel === '1' && !produtoImagens.get(fixedRef)) {
+      this.props.listProductImages(grupo);
+    } else if (nivel !== '1' && !insumoImagens.get(insumo)) {
+      this.props.listInsumoImages(insumo);
+    }
+    this.getTumb(props);
+    this.getPaths(props);
   }
 
   toggleZoom = () => {
@@ -132,3 +190,5 @@ export default class ImageContainer extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageContainer);
