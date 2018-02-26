@@ -9,6 +9,8 @@ import emptyImage from '../../assets/Empty-200x200.png';
 import { listProductImages, listInsumoImages } from '../redux/modules/image';
 import fixReferencia from '../utils/referencia';
 
+const { baseURL } = axios.defaults;
+
 const mapStateToProps = state => ({
   produtoImagens: state.image.produtos
 });
@@ -72,7 +74,7 @@ class ImageContainer extends Component {
 
   getTumb = (image) => {
     const path = image.get('path');
-    return `http://localhost:8080/api/images/download?imagePath=${path}&height=${this.props.height}`;
+    return `${baseURL}/api/images/download?imagePath=${path}&height=${this.props.height}`;
   }
 
   getTag = (imageList) => {
@@ -86,7 +88,7 @@ class ImageContainer extends Component {
   getPaths = (imageList) => {
     return imageList.map((i) => {
       return {
-        src: `http://localhost:8080/api/images/download?imagePath=${i.get('path')}`,
+        src: `${baseURL}/api/images/download?imagePath=${i.get('path')}`,
         caption: i.get('name')
       };
     }).toJS();
