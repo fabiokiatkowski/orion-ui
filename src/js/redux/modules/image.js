@@ -42,7 +42,7 @@ export function listInsumoImages(insumo) {
   return (dispatch) => {
     axios.get(url)
       .then(res => dispatch({
-        type: LIST_PRODUTOS,
+        type: LIST_INSUMOS,
         data: res.data
       }));
   };

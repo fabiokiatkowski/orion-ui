@@ -12,7 +12,8 @@ import fixReferencia from '../utils/referencia';
 const { baseURL } = axios.defaults;
 
 const mapStateToProps = state => ({
-  produtoImagens: state.image.produtos
+  produtoImagens: state.image.produtos,
+  insumoImagens: state.image.insumos
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -24,8 +25,8 @@ class ImageContainer extends Component {
   static propTypes = {
     height: PropTypes.number,
     showHeader: PropTypes.bool,
-    nivel: PropTypes.string.isRequired,
-    grupo: PropTypes.string.isRequired,
+    nivel: PropTypes.string,
+    grupo: PropTypes.string,
     subGrupo: PropTypes.string,
     item: PropTypes.string,
     produtoImagens: PropTypes.array,
@@ -37,6 +38,8 @@ class ImageContainer extends Component {
   static defaultProps = {
     height: 200,
     showHeader: false,
+    nivel: '',
+    grupo: '',
     subGrupo: '',
     item: '',
     produtoImagens: new Immutable.Map(),
@@ -152,9 +155,11 @@ class ImageContainer extends Component {
 
     if (imageList) {
       const tagImage = this.getTag(imageList);
-      fileName = this.getFileName(tagImage);
-      tumb = this.getTumb(tagImage);
-      paths = this.getPaths(imageList);
+      if (tagImage) {
+        fileName = this.getFileName(tagImage);
+        tumb = this.getTumb(tagImage);
+        paths = this.getPaths(imageList);
+      }
     }
 
     return (
