@@ -43,7 +43,6 @@ class ImageContainer extends Component {
 
   state = {
     zoomOpened: false,
-    paths: [],
     currentImage: 0
   }
 
@@ -51,46 +50,56 @@ class ImageContainer extends Component {
     this.loadImage(this.props);
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.nivel !== nextProps.nivel ||
         this.props.grupo !== nextProps.grupo ||
         this.props.subGrupo !== nextProps.subGrupo ||
         this.props.item !== nextProps.item
     ) {
       this.loadImage(nextProps);
+      this.setState({ currentImage: 0 });
     }
   }
 
-  getImageList = (props) => {
-    if (props.nivel === '1') {
-      return props.produtoImagens.get(fixReferencia(props.grupo) ||
-        new Immutable.Map());
+  getImageList = () => {
+    if (this.props.nivel === '1') {
+      return this.props.produtoImagens.get(fixReferencia(this.props.grupo));
     }
-    const insumo = props.nivel + props.grupo + props.subGrupo + props.item;
-    return props.insumoImagens.get(insumo) || new Immutable.Map();
+    const insumo = this.props.nivel + this.props.grupo +
+      this.props.subGrupo + this.props.item;
+    return this.props.insumoImagens.get(insumo);
   }
 
-  getTumb = (props) => {
-    const imageList = this.getImageList(props);
-    const image = imageList.filter(i => i.get('type') === 'tag');
-    axios.get(`/api/images/base64/download?imagePath=${image.get(0).get('path')}&height=${this.props.height}`)
-      .then((res) => {
-        this.setState({
-          tumb: `data:image/jpeg;base64,${res.data}`,
-          fileName: image.get(0).get('name')
-        });
-      });
-  };
+  // getTumbBase64 = (image) => {
+  //   axios.get(`/api/images/base64/download?imagePath=${image.get(0).get('path')}&height=${this.props.height}`)
+  //     .then((res) => {
+  //       this.setState({
+  //         tumb: `data:image/jpeg;base64,${res.data}`,
+  //         fileName: image.get(0).get('name')
+  //       });
+  //     });
+  // };
 
-  getPaths = (props) => {
-    const imageList = this.getImageList(props);
-    const paths = imageList.map((i) => {
+  getTumb = (image) => {
+    const path = image.get('path');
+    return `http://localhost:8080/api/images/download?imagePath=${path}&height=${this.props.height}`;
+  }
+
+  getTag = (imageList) => {
+    return imageList.filter(i => i.get('type') === 'tag').get(0);
+  }
+
+  getFileName = (image) => {
+    return image.get('name');
+  }
+
+  getPaths = (imageList) => {
+    return imageList.map((i) => {
       return {
         src: `http://localhost:8080/api/images/download?imagePath=${i.get('path')}`,
         caption: i.get('name')
       };
     }).toJS();
-    this.setState({ paths, currentImage: 0 });
   }
 
   gotoPrevious = () => {
@@ -124,12 +133,10 @@ class ImageContainer extends Component {
     const insumo = nivel + grupo + subGrupo + item;
     const fixedRef = fixReferencia(grupo);
     if (nivel === '1' && !produtoImagens.get(fixedRef)) {
-      this.props.listProductImages(grupo);
+      this.props.listProductImages(fixedRef);
     } else if (nivel !== '1' && !insumoImagens.get(insumo)) {
       this.props.listInsumoImages(insumo);
     }
-    this.getTumb(props);
-    this.getPaths(props);
   }
 
   toggleZoom = () => {
@@ -145,25 +152,30 @@ class ImageContainer extends Component {
   }
 
   render() {
-    const {
-      zoomOpened,
-      tumb,
-      fileName,
-      paths,
-      currentImage
-    } = this.state;
+    const { zoomOpened, currentImage } = this.state;
+    const imageList = this.getImageList();
+    let fileName = 'FileName.jpg';
+    let tumb = emptyImage;
+    let paths = [];
+
+    if (imageList) {
+      const tagImage = this.getTag(imageList);
+      fileName = this.getFileName(tagImage);
+      tumb = this.getTumb(tagImage);
+      paths = this.getPaths(imageList);
+    }
 
     return (
       <div className="image-container">
         <div className="panel panel-default">
           {this.props.showHeader &&
             <div className="panel-heading">
-              {fileName || 'FileName.jpg'}
+              {fileName}
             </div>}
           <div className="panel-body">
             <img
               className="card-img-top"
-              src={tumb || emptyImage}
+              src={tumb}
               alt="imagens"
             />
             <Lightbox
