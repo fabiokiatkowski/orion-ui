@@ -1,6 +1,5 @@
 const ColumnPersist = {
   save: (key, map) => {
-    console.log(map.entries);
     localStorage.setItem(key, JSON.stringify(Array.from(map.entries())));
   },
   get: (key) => {

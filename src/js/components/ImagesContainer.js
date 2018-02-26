@@ -70,16 +70,6 @@ class ImageContainer extends Component {
     return this.props.insumoImagens.get(insumo);
   }
 
-  // getTumbBase64 = (image) => {
-  //   axios.get(`/api/images/base64/download?imagePath=${image.get(0).get('path')}&height=${this.props.height}`)
-  //     .then((res) => {
-  //       this.setState({
-  //         tumb: `data:image/jpeg;base64,${res.data}`,
-  //         fileName: image.get(0).get('name')
-  //       });
-  //     });
-  // };
-
   getTumb = (image) => {
     const path = image.get('path');
     return `http://localhost:8080/api/images/download?imagePath=${path}&height=${this.props.height}`;
