@@ -5,6 +5,7 @@ import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import SignIn from './containers/SignIn';
 import Layout from './hoc/Layout/Layout';
 import PainelVisualizador from './containers/visualizador/PainelVisualizador';
+import SUS from './containers/suprimentos/SUS/SUS';
 
 const asyncTela200 = asyncComponent(() => {
   return import('./containers/painel200/PainelEstagiosAbertos');
@@ -18,6 +19,7 @@ const mainLayout = () => {
         <Layout>
           <Route path="/tela200" component={asyncTela200} />
           <Route path="/visualizador" component={PainelVisualizador} />
+          <Route path="/sus" component={SUS} />          
         </Layout>
       </Switch>
     </div>
