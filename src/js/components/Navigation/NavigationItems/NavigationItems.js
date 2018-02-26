@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import NavigationItem from './NavigationItem/NavigationItem';
@@ -21,8 +22,13 @@ const NavigationItems = (props) => {
           <MenuItem eventKey={1.1}>
             <NavigationItem link="/tela200">Tela 200</NavigationItem>
           </MenuItem>
-          <MenuItem eventKey={1.2}>
+          <MenuItem eventKey={1.2} title="Visualizador">
             <NavigationItem link="/visualizador">Visualizador</NavigationItem>
+          </MenuItem>
+        </NavDropdown>
+        <NavDropdown eventKey={2} title="Suprimentos" id="suprimento-nav-dropdown">
+          <MenuItem eventKey={1.1}>
+            <NavigationItem link="/sus">Solicitação Urgente de Suprimentos</NavigationItem>
           </MenuItem>
         </NavDropdown>
       </Nav>
@@ -42,6 +48,14 @@ const NavigationItems = (props) => {
       </Nav>
     </div>
   );
+};
+
+NavigationItems.propTypes = {
+  logOut: PropTypes.func.isRequired,
+  currentUser: PropTypes.any,
+};
+NavigationItems.defaultProps = {
+  currentUser: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationItems);

@@ -212,7 +212,7 @@ const cleanCancelamento = (state) => {
     initalState.cancelar
   );
   return updateObject(state, { cancelar: updatedData });
-}
+};
 const reducer = (state = initalState, action = {}) => {
   switch (action.type) {
     case ESTAGIOS_LIST: return estagiosList(state, action);

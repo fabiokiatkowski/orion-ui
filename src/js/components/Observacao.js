@@ -46,7 +46,8 @@ const columns = [
 class Observacao extends Component {
   state = {
     observacao: '',
-    observacaoText: ''
+    observacaoText: '',
+    columnsDef: columns
   }
 
   componentDidMount() {
@@ -70,6 +71,16 @@ class Observacao extends Component {
       observacao: '',
       observacaoText: ''
     });
+    if (!this.props.descEstagio) {
+      const virtualState = this.state.columnsDef.map((col) => {
+        const virtualCol = col;
+        if (col.key === 'estagio') {
+          virtualCol.hidden = true;
+        }
+        return virtualCol;
+      });
+      this.setState({ ...virtualState });
+    }
   }
 
   onSave = (e) => {
@@ -118,7 +129,7 @@ class Observacao extends Component {
           <div className="form-group grid-observacao">
             <Grid
               minHeight={161}
-              columns={columns}
+              columns={this.state.columnsDef}
               data={this.props.tipoObservacao === ObservacaoTypes.PeD ?
                 this.props.observacaoPeDData :
                 this.props.observacaoData
@@ -159,7 +170,7 @@ class Observacao extends Component {
 
 Observacao.propTypes = {
   ordemProducao: PropTypes.number.isRequired,
-  descEstagio: PropTypes.string.isRequired,
+  descEstagio: PropTypes.string,
   tipoObservacao: PropTypes.objectOf(ObservacaoTypes),
   referencia: PropTypes.string,
   observacaoData: PropTypes.array.isRequired,
@@ -174,6 +185,7 @@ Observacao.propTypes = {
 
 Observacao.defaultProps = {
   canAdd: false,
+  descEstagio: '',
   tipoObservacao: ObservacaoTypes.ORION,
   observacaoOrdemData: '',
   referencia: null,
