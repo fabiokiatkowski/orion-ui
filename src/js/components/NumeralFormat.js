@@ -2,7 +2,7 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 
 const IntegerFormat = (props) => {
-  const v = (props.valor?props.valor:props.value);
+  const v = props.value || 0;
   const showDecimal = v % 1 !== 0;
   return (
     <div className="numeral">
