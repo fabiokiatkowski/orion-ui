@@ -14,6 +14,7 @@ class CustomRowRenderer extends Component {
   }
 
   setScrollLeft = (scrollBy) => {
+    console.log(scrollBy);
     this.row.setScrollLeft(scrollBy);
   };
 
