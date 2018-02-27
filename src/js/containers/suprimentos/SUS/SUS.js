@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import {
   Checkbox,
@@ -14,19 +15,26 @@ import ImageContainer from '../../../components/ImagesContainer';
 import Observacao from '../../../components/Observacao';
 import Sizeme from '../../../components/Sizeme';
 import GridSUS from './GridSUS';
+import { getSUSData } from '../../../redux/modules/suprimentos';
 
 
 class SUS extends Component {
   static propTypes = {
-    referencia: PropTypes.string.isRequired
+    referencia: PropTypes.string,
+    data: PropTypes.array,
+    getSUSData: PropTypes.func.isRequired
+  }
+  static defaultProps = {
+    referencia: '',
+    data: []
   }
   state = {
-    nivel: '',
-    grupo: '',
-    subgrupo: '',
-    item: '',
-    fornecedor: '',
-    ordemProducao: '',
+    nivel: null,
+    grupo: null,
+    subgrupo: null,
+    item: null,
+    fornecedor: null,
+    ordemProducao: null,
     solicAlmoxSelected: false,
     verifComprasSelected: false,
     atendAlmoxSelected: false,
@@ -46,6 +54,30 @@ class SUS extends Component {
   handleChangeForm = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
+  handleConsultarClick = () => {
+    console.log('handleConsultarClick');
+    const {
+      solicAlmoxSelected,
+      verifComprasSelected,
+      atendAlmoxSelected,
+      solicCancelSelected,
+      nivel,
+      grupo,
+      subgrupo,
+      item,
+      fornecedor,
+      ordemProducao
+    } = this.state;
+    const sits = [];
+    solicAlmoxSelected ? 1 : 0,
+    verifComprasSelected ? 1 : 0,
+    atendAlmoxSelected ? 1 : 0,
+    solicCancelSelected ? 1 : 0,
+    this.props.getSUSData(
+      nivel, grupo, subgrupo,
+      item, fornecedor, ordemProducao, sits
+    );
+  }
   render() {
     const {
       solicAlmoxSelected,
@@ -64,9 +96,15 @@ class SUS extends Component {
     return (
       <div className="SUS">
         <div className="filter">
-          <ImageContainer referencia={currentRow.referencia} />
+          {currentRow && <ImageContainer
+            nivel={currentRow.nivel}
+            grupo={currentRow.grupo}
+            subgrupo={currentRow.subgrupo}
+            item={currentRow.item}
+          />
+          }
           <div className="filter-form">
-            <Form>
+            <Form autoComplete="off">
               <div className="form-inline">
                 <Col componentClass={ControlLabel} sm={10}>
                   Produto
@@ -128,14 +166,20 @@ class SUS extends Component {
             </div>
           </div>
           <div className="align-button">
-            <Button>Consultar</Button>
+            <Button
+              onClick={(e) => {
+              console.log(e);
+              this.handleConsultarClick();
+            }}
+            >Consultar
+            </Button>
           </div>
         </div>
         <div>
           <Sizeme handleChangeSize={this.changeGridSUSSize}>
             <GridSUS
               minHeight={minHeight}
-              data={[]}
+              data={this.props.data}
               handleRowChange={this.handleRowChange}
             />
           </Sizeme>
@@ -149,4 +193,11 @@ class SUS extends Component {
   }
 }
 
-export default connect(null, null)(SUS);
+const mapStateToProps = state => ({
+  data: state.suprimentos.SUSData
+});
+const mapDispatchToProps = dispatch => ({
+  getSUSData: bindActionCreators(getSUSData, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SUS);

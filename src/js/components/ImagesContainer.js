@@ -29,8 +29,8 @@ class ImageContainer extends Component {
     grupo: PropTypes.string,
     subGrupo: PropTypes.string,
     item: PropTypes.string,
-    produtoImagens: PropTypes.array,
-    insumoImagens: PropTypes.array,
+    produtoImagens: PropTypes.instanceOf(Immutable.Map),
+    insumoImagens: PropTypes.instanceOf(Immutable.Map),
     listProductImages: PropTypes.func.isRequired,
     listInsumoImages: PropTypes.func.isRequired
   }

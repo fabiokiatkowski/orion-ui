@@ -169,7 +169,7 @@ class Observacao extends Component {
 }
 
 Observacao.propTypes = {
-  ordemProducao: PropTypes.number.isRequired,
+  ordemProducao: PropTypes.number,
   descEstagio: PropTypes.string,
   tipoObservacao: PropTypes.objectOf(ObservacaoTypes),
   referencia: PropTypes.string,
@@ -184,6 +184,7 @@ Observacao.propTypes = {
 };
 
 Observacao.defaultProps = {
+  ordemProducao: 0,
   canAdd: false,
   descEstagio: '',
   tipoObservacao: ObservacaoTypes.ORION,
