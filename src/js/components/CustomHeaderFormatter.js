@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import joinClasses from 'classnames';
 
@@ -8,7 +8,7 @@ const DEFINE_SORT = {
   NONE: 'NONE'
 };
 
-class CustomHeaderFormatter extends React.Component {
+class CustomHeaderFormatter extends Component {
   static propTypes = {
     column: PropTypes.object,
     onFilterChange: PropTypes.func.isRequired,

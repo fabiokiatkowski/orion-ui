@@ -153,8 +153,14 @@
     background-color: skyblue;
   }
 
+  .react-grid-Row:hover {
+    background: gray !important;
+    background-color: gray !important;  
+  }
+
   .react-grid-Row:hover div:nth-child(n + 7) {
-    background-color: #f9f9f9;
+    background: skyblue !important;
+    background-color: skyblue !important;
   }
 }
 
