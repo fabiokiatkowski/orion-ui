@@ -13,9 +13,8 @@ import {
 } from 'react-bootstrap';
 import ImageContainer from '../../../components/ImagesContainer';
 import Observacao from '../../../components/Observacao';
-import Sizeme from '../../../components/Sizeme';
 import GridSUS from './GridSUS';
-import { getSUSData } from '../../../redux/modules/suprimentos';
+import { getSUSData } from '../../../redux/modules/suprimento';
 
 
 class SUS extends Component {
@@ -29,12 +28,12 @@ class SUS extends Component {
     data: []
   }
   state = {
-    nivel: null,
-    grupo: null,
-    subgrupo: null,
-    item: null,
-    fornecedor: null,
-    ordemProducao: null,
+    nivel: '',
+    grupo: '',
+    subgrupo: '',
+    item: '',
+    fornecedor: '',
+    ordemProducao: '',
     solicAlmoxSelected: false,
     verifComprasSelected: false,
     atendAlmoxSelected: false,
@@ -46,6 +45,7 @@ class SUS extends Component {
     this.setState({ [e.target.name]: e.target.checked });
   }
   changeGridSUSSize = (width, height) => {
+    console.log(height, width);
     this.setState({ minHeight: height });
   }
   handleRowChange = (data) => {
@@ -55,7 +55,6 @@ class SUS extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   handleConsultarClick = () => {
-    console.log('handleConsultarClick');
     const {
       solicAlmoxSelected,
       verifComprasSelected,
@@ -69,10 +68,18 @@ class SUS extends Component {
       ordemProducao
     } = this.state;
     const sits = [];
-    solicAlmoxSelected ? 1 : 0,
-    verifComprasSelected ? 1 : 0,
-    atendAlmoxSelected ? 1 : 0,
-    solicCancelSelected ? 1 : 0,
+    if (solicAlmoxSelected) {
+      sits.push(0);
+    }
+    if (verifComprasSelected) {
+      sits.push(1);
+    }
+    if (atendAlmoxSelected) {
+      sits.push(2);
+    }
+    if (solicCancelSelected) {
+      sits.push(3);
+    }
     this.props.getSUSData(
       nivel, grupo, subgrupo,
       item, fornecedor, ordemProducao, sits
@@ -167,22 +174,18 @@ class SUS extends Component {
           </div>
           <div className="align-button">
             <Button
-              onClick={(e) => {
-              console.log(e);
-              this.handleConsultarClick();
-            }}
+              type="button"
+              onClick={this.handleConsultarClick}
             >Consultar
             </Button>
           </div>
         </div>
         <div>
-          <Sizeme handleChangeSize={this.changeGridSUSSize}>
-            <GridSUS
-              minHeight={minHeight}
-              data={this.props.data}
-              handleRowChange={this.handleRowChange}
-            />
-          </Sizeme>
+          <GridSUS
+            minHeight={minHeight}
+            data={this.props.data}
+            handleRowChange={this.handleRowChange}
+          />
           <Observacao
             referencia={this.props.referencia}
             canAdd
@@ -194,7 +197,7 @@ class SUS extends Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.suprimentos.SUSData
+  data: state.suprimento.SUSData
 });
 const mapDispatchToProps = dispatch => ({
   getSUSData: bindActionCreators(getSUSData, dispatch)

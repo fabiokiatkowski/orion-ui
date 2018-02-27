@@ -10,7 +10,7 @@ import tela200 from './tela200';
 import session from './session';
 import observacao from './observacao';
 import visualizador from './visualizador';
-import suprimentos from './suprimentos';
+import suprimento from './suprimento';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
   session,
   observacao,
   visualizador,
-  suprimentos
+  suprimento
 });
 
 export default rootReducer;

@@ -127,9 +127,9 @@ class ImageContainer extends Component {
     } = props;
 
     const insumo = nivel + grupo + subGrupo + item;
-    const fixedRef = fixReferencia(grupo);
-    if (nivel === '1' && !produtoImagens.get(fixedRef)) {
-      this.props.listProductImages(fixedRef);
+    const ref = grupo ? fixReferencia(grupo) : '';
+    if (nivel === '1' && !produtoImagens.get(ref)) {
+      this.props.listProductImages(ref);
     } else if (nivel !== '1' && !insumoImagens.get(insumo)) {
       this.props.listInsumoImages(insumo);
     }

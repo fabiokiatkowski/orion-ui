@@ -9,11 +9,11 @@ const initialState = {
 };
 
 const getSUSDataReducer = (state, action) => {
-  updateObject(state, { SUSData: action.data });
+  return updateObject(state, { SUSData: action.data });
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.types) {
+  switch (action.type) {
     case GET_SUS_DATA: return getSUSDataReducer(state, action);
     default: return state;
   }
@@ -21,25 +21,28 @@ const reducer = (state = initialState, action) => {
 
 export const getSUSData = (nivel, grupo, subgrupo, item, forn, op, sits) => {
   let queryString = null;
-  queryString = nivel ? `nivel=${nivel}` : '';
+  queryString = nivel ? `?nivel=${nivel}` : '';
   if (grupo) {
-    queryString = queryString === '' ? `grupo=${grupo}` : `&grupo=${grupo}`;
+    queryString = queryString === '' ? `?grupo=${grupo}` : queryString.concat(`&grupo=${grupo}`);
   }
   if (subgrupo) {
-    queryString = queryString === '' ? `subgrupo=${subgrupo}` : `&subgrupo=${subgrupo}`;
+    queryString = queryString === '' ? `?subgrupo=${subgrupo}` : queryString.concat(`&subgrupo=${subgrupo}`);
   }
   if (item) {
-    queryString = queryString === '' ? `item=${item}` : `&item=${item}`;
+    queryString = queryString === '' ? `?item=${item}` : queryString.concat(`&item=${item}`);
+  }
+  if (forn) {
+    queryString = queryString === '' ? `?fornecedor=${forn}` : queryString.concat(`&fornecedor=${forn}`);
   }
   if (op) {
-    queryString = queryString === '' ? `ordemProducao=${op}` : `&ordemProducao=${op}`;
+    queryString = queryString === '' ? `?ordemProducao=${op}` : queryString.concat(`&ordemProducao=${op}`);
   }
-  if (sits) {
-    queryString = queryString === '' ? `situacoes=${sits}` : `&situacoes=${sits}`;
+  if (sits.length > 0) {
+    queryString = queryString === '' ? `?situacoes=${sits}` : queryString.concat(`&situacoes=${sits}`);
   }
   return (dispatch) => {
     loadStart(dispatch);
-    axios.get(`/api/suprimentos/sus/?${queryString}`)
+    axios.get(`/api/suprimento/sus${queryString}`)
       .then(res => dispatch({
         type: GET_SUS_DATA,
         data: res.data
