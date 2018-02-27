@@ -14,3 +14,17 @@
   width: 17px !important;
   height: 17px !important;
 }
+
+// .react-grid-Row:hover .react-grid-Cell {
+//   background: white !important;
+//   background-color: white !important;
+// }
+
+.react-grid-Cell:focus {
+  outline: none !important;
+}
+
+.react-context-menu-wrapper .row-active .react-grid-Cell {
+  background: #66afe9 !important;
+  background-color: #66afe9 !important;
+}

@@ -6,6 +6,7 @@ import { Data, DraggableHeader } from 'react-data-grid-addons';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import CustomContextMenu from './CustomContextMenu';
+import CustomRowRenderer from './CustomRowRenderer';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -130,7 +131,7 @@ export default class Grid extends Component {
     return rows.map(r => r.get(columnId)).toSet();
   };
 
-  cleanFilters = (originalScope) => {
+  cleanFilters = () => {
     this.setState({
       rows: fromJS(this.props.data),
       shadowRows: fromJS(this.props.data),
@@ -139,6 +140,7 @@ export default class Grid extends Component {
     this.cleanFiltesByRef();
   };
 
+  /* TODO fix - this remove some first filter */
   cleanFiltesByRef = () => {
     /* TODO ter uma ideia melhor pra resolver isso */
     if (this.CustomHeaderFormatterRef &&
@@ -180,7 +182,7 @@ export default class Grid extends Component {
         <ReactDataGrid
           canFilter={false}
           contextMenu={
-            <CustomContextMenu onClearFilters={() => this.cleanFilters(this)} />}
+            <CustomContextMenu onClearFilters={() => this.cleanFilters()} />}
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
           columns={this.getColumns(this.state.columnsDef)}
@@ -194,6 +196,10 @@ export default class Grid extends Component {
           onColumnResize={this.onColumnResize}
           onRowClick={this.props.onRowClick}
           enableSummary={this.props.enableSummary}
+          rowRenderer={<CustomRowRenderer
+            columns={this.props.columns}
+            activeIdx={this.state.rowIdx}
+          />}
           rowSelection={{
             showCheckbox: this.props.showCheckbox,
             onRowsSelected: this.props.onRowsSelected,
