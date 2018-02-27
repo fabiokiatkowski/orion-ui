@@ -5,16 +5,10 @@ import { Row } from 'react-data-grid';
 class CustomRowRenderer extends Component {
   static propTypes = {
     idx: PropTypes.string.isRequired,
-    color: PropTypes.string,
     activeIdx: PropTypes.string.isRequired
   };
 
-  static defaultProps = {
-    color: null
-  }
-
   setScrollLeft = (scrollBy) => {
-    console.log(scrollBy);
     this.row.setScrollLeft(scrollBy);
   };
 

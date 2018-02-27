@@ -6,7 +6,6 @@ import { Data, DraggableHeader } from 'react-data-grid-addons';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import CustomContextMenu from './CustomContextMenu';
-import CustomRowRenderer from './CustomRowRenderer';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -196,10 +195,6 @@ export default class Grid extends Component {
           onColumnResize={this.onColumnResize}
           onRowClick={this.props.onRowClick}
           enableSummary={this.props.enableSummary}
-          rowRenderer={<CustomRowRenderer
-            columns={this.props.columns}
-            activeIdx={this.state.rowIdx}
-          />}
           rowSelection={{
             showCheckbox: this.props.showCheckbox,
             onRowsSelected: this.props.onRowsSelected,
