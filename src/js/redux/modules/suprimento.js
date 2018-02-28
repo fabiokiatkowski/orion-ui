@@ -2,23 +2,22 @@ import axios from '../../axios-orion';
 import updateObject from '../../utils/updateObject';
 import { loadStart, loadEnd } from './app';
 
+export const CLEAR_SUS_DATA = 'suprimento/CLEAR_SUS_DATA';
 export const GET_SUS_DATA = 'suprimento/GET_SUS_DATA';
 
 const initialState = {
   SUSData: []
 };
-
 const getSUSDataReducer = (state, action) => {
   return updateObject(state, { SUSData: action.data });
 };
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SUS_DATA: return getSUSDataReducer(state, action);
     default: return state;
   }
 };
-
+// #region SUS
 export const getSUSData = (nivel, grupo, subgrupo, item, forn, op, sits) => {
   let queryString = null;
   queryString = nivel ? `?nivel=${nivel}` : '';
@@ -32,7 +31,7 @@ export const getSUSData = (nivel, grupo, subgrupo, item, forn, op, sits) => {
     queryString = queryString === '' ? `?item=${item}` : queryString.concat(`&item=${item}`);
   }
   if (forn) {
-    queryString = queryString === '' ? `?fornecedor=${forn}` : queryString.concat(`&fornecedor=${forn}`);
+    queryString = queryString === '' ? `?nomeFornecedor=${forn}` : queryString.concat(`&nomeFornecedor=${forn}`);
   }
   if (op) {
     queryString = queryString === '' ? `?ordemProducao=${op}` : queryString.concat(`&ordemProducao=${op}`);
@@ -51,5 +50,6 @@ export const getSUSData = (nivel, grupo, subgrupo, item, forn, op, sits) => {
       .finally(() => loadEnd(dispatch));
   };
 };
+// #endregion SUS
 
 export default reducer;

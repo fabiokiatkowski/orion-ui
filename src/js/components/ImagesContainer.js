@@ -52,7 +52,9 @@ class ImageContainer extends Component {
   }
 
   componentDidMount() {
-    this.loadImage(this.props);
+    if (this.props.nivel) {
+      this.loadImage(this.props);
+    }
   }
 
   componentWillReceiveProps(nextProps) {

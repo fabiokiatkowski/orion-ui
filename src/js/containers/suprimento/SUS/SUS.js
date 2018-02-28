@@ -12,19 +12,16 @@ import {
   Button
 } from 'react-bootstrap';
 import ImageContainer from '../../../components/ImagesContainer';
-import Observacao from '../../../components/Observacao';
+import ObservacaoSUS from './ObservacaoSUS';
 import GridSUS from './GridSUS';
-import { getSUSData } from '../../../redux/modules/suprimento';
-
+import { getSUSData, clearSUSData } from '../../../redux/modules/suprimento';
 
 class SUS extends Component {
   static propTypes = {
-    referencia: PropTypes.string,
     data: PropTypes.array,
     getSUSData: PropTypes.func.isRequired
   }
   static defaultProps = {
-    referencia: '',
     data: []
   }
   state = {
@@ -39,13 +36,12 @@ class SUS extends Component {
     atendAlmoxSelected: false,
     solicCancelSelected: false,
     minHeight: 400,
-    currentRow: []
+    currentRow: null
   }
   handleCheckboxSelect = (e) => {
     this.setState({ [e.target.name]: e.target.checked });
   }
   changeGridSUSSize = (width, height) => {
-    console.log(height, width);
     this.setState({ minHeight: height });
   }
   handleRowChange = (data) => {
@@ -55,35 +51,37 @@ class SUS extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   handleConsultarClick = () => {
-    const {
-      solicAlmoxSelected,
-      verifComprasSelected,
-      atendAlmoxSelected,
-      solicCancelSelected,
-      nivel,
-      grupo,
-      subgrupo,
-      item,
-      fornecedor,
-      ordemProducao
-    } = this.state;
-    const sits = [];
-    if (solicAlmoxSelected) {
-      sits.push(0);
-    }
-    if (verifComprasSelected) {
-      sits.push(1);
-    }
-    if (atendAlmoxSelected) {
-      sits.push(2);
-    }
-    if (solicCancelSelected) {
-      sits.push(3);
-    }
-    this.props.getSUSData(
-      nivel, grupo, subgrupo,
-      item, fornecedor, ordemProducao, sits
-    );
+    this.setState({ currentRow: null }, () => {
+      const {
+        solicAlmoxSelected,
+        verifComprasSelected,
+        atendAlmoxSelected,
+        solicCancelSelected,
+        nivel,
+        grupo,
+        subgrupo,
+        item,
+        fornecedor,
+        ordemProducao
+      } = this.state;
+      const sits = [];
+      if (solicAlmoxSelected) {
+        sits.push(0);
+      }
+      if (verifComprasSelected) {
+        sits.push(1);
+      }
+      if (atendAlmoxSelected) {
+        sits.push(2);
+      }
+      if (solicCancelSelected) {
+        sits.push(3);
+      }
+      this.props.getSUSData(
+        nivel, grupo, subgrupo,
+        item, fornecedor, ordemProducao, sits
+      );
+    });
   }
   render() {
     const {
@@ -103,13 +101,12 @@ class SUS extends Component {
     return (
       <div className="SUS">
         <div className="filter">
-          {currentRow && <ImageContainer
-            nivel={currentRow.nivel}
-            grupo={currentRow.grupo}
-            subgrupo={currentRow.subgrupo}
-            item={currentRow.item}
+          <ImageContainer
+            nivel={currentRow && currentRow.get('nivel')}
+            grupo={currentRow && currentRow.get('grupo')}
+            subgrupo={currentRow && currentRow.get('subgrupo')}
+            item={currentRow && currentRow.get('item')}
           />
-          }
           <div className="filter-form">
             <Form autoComplete="off">
               <div className="form-inline">
@@ -186,10 +183,7 @@ class SUS extends Component {
             data={this.props.data}
             handleRowChange={this.handleRowChange}
           />
-          <Observacao
-            referencia={this.props.referencia}
-            canAdd
-          />
+          <ObservacaoSUS ordemProducao={currentRow && currentRow.get('ordemProducao')} />
         </div>
       </div>
     );

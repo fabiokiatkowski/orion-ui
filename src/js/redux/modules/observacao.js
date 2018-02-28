@@ -1,6 +1,7 @@
 import axios from '../../axios-orion';
 import formatDate from '../../utils/date';
 
+export const CLEAR_LIST = 'observacao/CLEAR_LIST';
 export const LIST = 'observacao/LIST';
 export const ADD = 'observacao/ADD';
 export const OBS_ST = 'observacao/OBS_ST';
@@ -14,6 +15,9 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case CLEAR_LIST: {
+      return { ...state, obs: [] };
+    }
     case LIST: {
       return { ...state, obs: action.data };
     }
@@ -43,6 +47,12 @@ export function list(op, todos) {
       }));
   };
 }
+
+export const clearList = () => {
+  return dispatch => dispatch({
+    type: CLEAR_LIST
+  });
+};
 
 export function add(op, payload) {
   const url = `/api/observacao/op/${op}/add`;
