@@ -14,7 +14,7 @@ import {
 import ImageContainer from '../../../components/ImagesContainer';
 import ObservacaoSUS from './ObservacaoSUS';
 import GridSUS from './GridSUS';
-import { getSUSData, clearSUSData } from '../../../redux/modules/suprimento';
+import { getSUSData } from '../../../redux/modules/suprimento';
 
 class SUS extends Component {
   static propTypes = {

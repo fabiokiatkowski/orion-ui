@@ -39,7 +39,7 @@ class CommentAdd extends Component {
       </Form>
     );
   }
-};
+}
 
 CommentAdd.propTypes = {
   onSave: PropTypes.func
