@@ -66,8 +66,10 @@ class PainelEstagiosAbertos extends Component {
     const currentState = {
       ...this.state
     };
-    const newIds = currentState.estagiosSelectedRow
-      .concat(rows.map(r => r.rowIdx));
+    const newIds = [
+      ...currentState.estagiosSelectedRow,
+      ...(rows.map(r => r.rowIdx))
+    ];
     this.setState({
       ...this.state,
       estagiosSelectedRow: newIds,
@@ -142,6 +144,7 @@ class PainelEstagiosAbertos extends Component {
       resultadoHeight,
       currentRow
     } = this.state;
+    console.log(this.props.selectedEstagios);
     const referencia = currentRow && currentRow.get('referenciaPeca');
     const minHeight = estagiosAbertosHeight;
     const { produtoImagens } = this.props;

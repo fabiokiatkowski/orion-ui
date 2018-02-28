@@ -77,7 +77,8 @@ const estagiosCheck = (state, action) => {
     { estagios: state.estagios }
   );
   clearedEstagioState.estagios.marcados = state.estagios.marcados
-    .concat(action.estagio.map(r => r.row.codigoEstagio));
+    .concat(action.estagio.map(r =>
+      r.row.codigoEstagio || r.row.get('codigoEstagio')));
   return clearedEstagioState;
 };
 const estagiosDescheck = (state, action) => {
@@ -85,6 +86,7 @@ const estagiosDescheck = (state, action) => {
     initalState,
     { estagios: state.estagios }
   );
+  console.log('teste', action);
   clearedEstagioState.estagios.marcados = state.estagios.marcados
     .filter(i => action.estagio.indexOf(i) === -1);
   return clearedEstagioState;
@@ -261,7 +263,8 @@ export const marcarEstagio = (estagio) => {
 };
 
 export const desmarcarEstagio = (row) => {
-  const estagio = row.map(r => r.row.codigoEstagio);
+  const estagio = row.map(r =>
+    r.row.codigoEstagio || r.row.get('codigoEstagio'));
   return (dispatch) => {
     dispatch({
       type: ESTAGIOS_DESCHECKED,
