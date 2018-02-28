@@ -86,7 +86,6 @@ const estagiosDescheck = (state, action) => {
     initalState,
     { estagios: state.estagios }
   );
-  console.log('teste', action);
   clearedEstagioState.estagios.marcados = state.estagios.marcados
     .filter(i => action.estagio.indexOf(i) === -1);
   return clearedEstagioState;
@@ -105,7 +104,8 @@ const periodosCheck = (state, action) => {
     }
   );
   updatedObject.periodos.marcados = state.periodos.marcados
-    .concat(action.periodo.map(r => r.row.codigoPeriodo));
+    .concat(action.periodo.map(r =>
+      r.row.codigoPeriodo || r.row.get('codigoPeriodo')));
   return updatedObject;
 };
 const periodosDescheck = (state, action) => {
@@ -285,7 +285,8 @@ export const marcarPeriodo = (row) => {
   };
 };
 export const desmarcarPeriodo = (row) => {
-  const periodo = row.map(r => r.row.codigoPeriodo);
+  const periodo = row.map(r =>
+    r.row.codigoPeriodo || r.row.get('codigoPeriodo'));
   return (dispatch) => {
     dispatch({
       type: PERIODOS_DESCHECK,
