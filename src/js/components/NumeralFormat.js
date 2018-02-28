@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
 
 const IntegerFormat = (props) => {
@@ -16,6 +17,14 @@ const IntegerFormat = (props) => {
       />
     </div>
   );
+};
+
+IntegerFormat.propTypes = {
+  value: PropTypes.number
+};
+
+IntegerFormat.defaultProps = {
+  value: null
 };
 
 export default IntegerFormat;

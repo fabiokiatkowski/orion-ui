@@ -77,7 +77,8 @@ const estagiosCheck = (state, action) => {
     { estagios: state.estagios }
   );
   clearedEstagioState.estagios.marcados = state.estagios.marcados
-    .concat(action.estagio.map(r => r.row.codigoEstagio));
+    .concat(action.estagio.map(r =>
+      r.row.codigoEstagio || r.row.get('codigoEstagio')));
   return clearedEstagioState;
 };
 const estagiosDescheck = (state, action) => {
@@ -103,7 +104,8 @@ const periodosCheck = (state, action) => {
     }
   );
   updatedObject.periodos.marcados = state.periodos.marcados
-    .concat(action.periodo.map(r => r.row.codigoPeriodo));
+    .concat(action.periodo.map(r =>
+      r.row.codigoPeriodo || r.row.get('codigoPeriodo')));
   return updatedObject;
 };
 const periodosDescheck = (state, action) => {
@@ -261,7 +263,8 @@ export const marcarEstagio = (estagio) => {
 };
 
 export const desmarcarEstagio = (row) => {
-  const estagio = row.map(r => r.row.codigoEstagio);
+  const estagio = row.map(r =>
+    r.row.codigoEstagio || r.row.get('codigoEstagio'));
   return (dispatch) => {
     dispatch({
       type: ESTAGIOS_DESCHECKED,
@@ -282,7 +285,8 @@ export const marcarPeriodo = (row) => {
   };
 };
 export const desmarcarPeriodo = (row) => {
-  const periodo = row.map(r => r.row.codigoPeriodo);
+  const periodo = row.map(r =>
+    r.row.codigoPeriodo || r.row.get('codigoPeriodo'));
   return (dispatch) => {
     dispatch({
       type: PERIODOS_DESCHECK,
