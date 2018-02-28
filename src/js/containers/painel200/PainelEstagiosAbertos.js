@@ -48,7 +48,8 @@ class PainelEstagiosAbertos extends Component {
     estagiosAbertosHeight: 400,
     ordensHeigh: 520,
     resultadoHeight: 300,
-    currentRow: null
+    currentRow: null,
+    shadowRows: null
   };
   componentDidMount() {
     this.props.listarEstagio();
@@ -130,10 +131,14 @@ class PainelEstagiosAbertos extends Component {
     this.setState({ currentRow: data });
   }
 
+  reflectShadowRows = (shadowRows) => {
+    this.setState({ shadowRows });
+  }
+
   // #endregion
   // #region
   desmarcarTodosUtiHandler = () => {
-    const ops = this.props.ordensData.map(r => r.ordemProducao);
+    const ops = this.state.shadowRows.map(r => r.ordemProducao);
     this.props.desmarcarTodosUti(ops);
   }
   // #endregion
