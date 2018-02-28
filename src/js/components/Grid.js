@@ -50,7 +50,8 @@ export default class Grid extends Component {
       this.setState({
         rows: fromJS(nextProps.data),
         shadowRows: fromJS(nextProps.data),
-        filters: ''
+        filters: '',
+        rowIdx: -1
       });
       this.cleanFiltesByRef();
     }
