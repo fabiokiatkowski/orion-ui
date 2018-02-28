@@ -14,14 +14,15 @@
         "test:functional": "./node_modules/.bin/nightwatch"
     },
     "jest": {
-        "testRunner": "<rootDir>/node_modules/jest-cli/src/testRunners/jasmine/jasmine2.js",
-        "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-        "testFileExtensions": [
-            "js"
-        ],
+        "transform": {
+            "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+        },
         "moduleFileExtensions": [
             "js",
             "json"
+        ],
+        "testMatch": [
+            "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}"
         ],
         "unmockedModulePathPatterns": [
             "<rootDir>/node_modules/react",
@@ -80,6 +81,7 @@
         "clean-webpack-plugin": "^0.1.17",
         "css-loader": "^0.28.7",
         "enzyme": "^3.3.0",
+        "enzyme-adapter-react-15": "^1.0.5",
         "eslint": "^4.12.1",
         "eslint-config-airbnb": "^16.1.0",
         "eslint-plugin-babel": "^4.1.2",
@@ -94,6 +96,7 @@
         "nightwatch": "^0.9.19",
         "node-sass": "^4.7.2",
         "npm-run-all": "^4.1.2",
+        "react-test-renderer": "15",
         "rimraf": "^2.6.2",
         "sass-loader": "^6.0.6",
         "selenium-download": "^2.0.11",
