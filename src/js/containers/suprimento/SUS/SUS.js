@@ -19,10 +19,14 @@ import { getSUSData } from '../../../redux/modules/suprimento';
 class SUS extends Component {
   static propTypes = {
     data: PropTypes.array,
+    location: PropTypes.object,
+    search: PropTypes.object,
     getSUSData: PropTypes.func.isRequired
   }
   static defaultProps = {
-    data: []
+    data: [],
+    location: null,
+    search: null
   }
   state = {
     nivel: '',
@@ -37,6 +41,27 @@ class SUS extends Component {
     solicCancelSelected: false,
     minHeight: 400,
     currentRow: null
+  }
+  componentDidMount() {
+    const { search } = this.props.location;
+    if (search) {
+      const q = new URLSearchParams(search);
+      const ordemProducao = q.get('ordemProducao');
+      this.handleDoFind(null, null, null, null, null, ordemProducao, []);
+    }
+  }
+  handleDoFind = (
+    nivel, grupo, subgrupo,
+    item, fornecedor, ordemProducao, sits
+  ) => {
+    this.setState({
+      ...this.state,
+      ordemProducao
+    });
+    this.props.getSUSData(
+      nivel, grupo, subgrupo,
+      item, fornecedor, ordemProducao, sits
+    );
   }
   handleCheckboxSelect = (e) => {
     this.setState({ [e.target.name]: e.target.checked });
@@ -77,7 +102,7 @@ class SUS extends Component {
       if (solicCancelSelected) {
         sits.push(3);
       }
-      this.props.getSUSData(
+      this.handleDoFind(
         nivel, grupo, subgrupo,
         item, fornecedor, ordemProducao, sits
       );

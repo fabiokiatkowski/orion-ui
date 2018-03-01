@@ -88,7 +88,7 @@ class PainelTotaisOP extends Component {
                   <NavItem eventKey={5}>Onde Tem</NavItem>
                   <NavItem eventKey={6}>Filhos</NavItem>
                   <NavItem eventKey={7}>Log Uti</NavItem>
-                  <NavItem eventKey={8}>Altera Período</NavItem>
+                  <NavItem eventKey={8} disabled>Altera Período</NavItem>
                 </Nav>
               </Col>
               <Col sm={12}>
@@ -174,7 +174,7 @@ class PainelTotaisOP extends Component {
                         ordemProducao={ordemProducao}
                       />}
                   </Tab.Pane>
-                  <Tab.Pane eventKey={8}>
+                  <Tab.Pane eventKey={8} >
                     Painel de Estágio Paralelo 10
                   </Tab.Pane>
                 </Tab.Content>
