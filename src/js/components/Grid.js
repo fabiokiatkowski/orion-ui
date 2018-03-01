@@ -9,7 +9,7 @@ import {
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
-import CustomContextMenu from './CustomContextMenu';
+import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
 
 export default class Grid extends Component {
@@ -48,7 +48,10 @@ export default class Grid extends Component {
     sortDirection: null, //eslint-disable-line
     rowIdx: -1,
     filters: '',
-    showConfig: false
+    showConfig: false,
+    showContextMenu: false,
+    contextMenuScreenX: null,
+    contextMenuScreenY: null
   };
 
   componentWillReceiveProps(nextProps) {
@@ -102,6 +105,16 @@ export default class Grid extends Component {
     const newState = { ...this.state, columnsDef: columns };
     this.setState({ ...this.state, columnsDef: [] });
     this.setState(newState);
+  }
+
+  onContextMenu = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    this.setState({
+      showContextMenu: true,
+      contextMenuScreenX: e.screenX,
+      contextMenuScreenY: e.screenY
+    });
   }
 
   getColumns = (columnsDef) => {
@@ -188,19 +201,18 @@ export default class Grid extends Component {
     this.setState({ showConfig: false });
   }
 
+  closeContextMenu = () => {
+    this.setState({ showContextMenu: false });
+  }
+
   render() {
     return (
-      <div>
+      <div onContextMenu={this.onContextMenu}>
         <DraggableHeader.DraggableContainer
           onHeaderDrop={this.onHeaderDrop}
         >
           <ReactDataGrid
             canFilter={false}
-            contextMenu={
-              <CustomContextMenu
-                onClearFilters={this.cleanFilters}
-                openConfig={this.openConfig}
-              />}
             minHeight={this.props.minHeight}
             onGridSort={this.handleGridSort}
             columns={this.getColumns(this.state.columnsDef)}
@@ -230,7 +242,7 @@ export default class Grid extends Component {
           dialogClassName="fullscreen-modal-container"
         >
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-lg">
+            <Modal.Title>
               Configurações
             </Modal.Title>
           </Modal.Header>
@@ -244,6 +256,15 @@ export default class Grid extends Component {
             <Button onClick={this.closeConfig}>Fechar</Button>
           </Modal.Footer>
         </Modal>
+        {this.state.showContextMenu &&
+          <GridContextMenu
+            onClearFilters={this.cleanFilters}
+            openConfig={this.openConfig}
+            onClose={this.closeContextMenu}
+            screenX={this.state.contextMenuScreenX}
+            screenY={this.state.contextMenuScreenY}
+          />
+        }
       </div>
     );
   }
