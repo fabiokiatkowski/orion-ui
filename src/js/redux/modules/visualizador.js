@@ -55,25 +55,6 @@ export const listProdutosLocalizador = (payload) => {
   };
 };
 
-// export const listProdutosLocalizador = (payload) => {
-//   return (dispatch) => {
-//     const url = '/api/ordens/foo';
-//     loadStart(dispatch);
-//     /* Usando post porque o axios nao aceita body no get,
-//        TODO: Refatorar end point para usar query string  */
-//     axios.get(url)
-//       .then((res) => {
-//         dispatch({
-//           type: LOCALIZADOR_LIST,
-//           data: res.data
-//         });
-//       })
-//       .finally(() => {
-//         loadEnd(dispatch);
-//       });
-//   };
-// };
-
 export const getDescPeca = (referencia) => {
   return (dispatch) => {
     const url = `/api/produto/${referencia}/texto`;
