@@ -138,7 +138,7 @@ class PainelEstagiosAbertos extends Component {
   // #endregion
   // #region
   desmarcarTodosUtiHandler = () => {
-    const ops = this.state.shadowRows.map(r => r.ordemProducao);
+    const ops = this.state.shadowRows.map(r => r.get('ordemProducao'));
     this.props.desmarcarTodosUti(ops);
   }
   // #endregion
@@ -206,6 +206,7 @@ class PainelEstagiosAbertos extends Component {
           data={this.props.ordensData}
           indexes={[]}
           handleRowChange={this.handleRowChange}
+          reflectShadowRows={this.reflectShadowRows}
         />
       </Sizeme>
     );
