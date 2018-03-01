@@ -28,7 +28,7 @@ const columns = [
   }
 ];
 
-class Observacao extends Component {
+class ObservacaoSUS extends Component {
   state = {
     observacao: ''
   }
@@ -76,7 +76,7 @@ class Observacao extends Component {
   }
 }
 
-Observacao.propTypes = {
+ObservacaoSUS.propTypes = {
   ordemProducao: PropTypes.number,
   descEstagio: PropTypes.string,
   observacaoData: PropTypes.array.isRequired,
@@ -85,7 +85,7 @@ Observacao.propTypes = {
   clearList: PropTypes.func.isRequired
 };
 
-Observacao.defaultProps = {
+ObservacaoSUS.defaultProps = {
   ordemProducao: 0,
   descEstagio: ''
 };
@@ -98,4 +98,4 @@ const mapDispatchToProps = dispatch => ({
   clearList: bindActionCreators(clearList, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Observacao);
+export default connect(mapStateToProps, mapDispatchToProps)(ObservacaoSUS);

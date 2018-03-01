@@ -33,6 +33,7 @@ describe('Test <Comments /> component', () => {
       observacaoType={ObservacaoTypes.SYSTEXTIL}
       columns={[]}
       data={[]}
+      commentText="FOOBAR"
     />);
     wrapperAddOrion = shallow(<Comments
       canAdd

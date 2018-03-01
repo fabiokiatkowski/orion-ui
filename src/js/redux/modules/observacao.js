@@ -27,7 +27,9 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, obs: [action.data, ...state.obs] };
     }
     case OBS_ST: {
-      return { ...state, systextil: action.obs1 + action.obs2 };
+      const obs1 = action.obs1 ? action.obs1 : '';
+      const obs2 = action.obs2 ? action.obs2 : '';
+      return { ...state, systextil: obs1 + obs2 };
     }
     case LIST_PED: {
       return { ...state, ped: action.data };

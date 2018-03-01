@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import ObservacaoTypes from '../../../types/ObservacaoTypes';
 import ImageContainer from '../../../components/ImagesContainer';
 import InsumoNecessidade from '../../insumoNecessidade/InsumoNecessidade';
-import Observacao from '../../../components/Observacao';
+import Observacao200 from './Observacao200';
 import InsumoDeposito from '../../insumoNecessidade/InsumoDeposito';
 import InsumoRolos from '../../insumoNecessidade/InsumoRolos';
 import GradeCorte from './gradeCorte/GradeCorte';
@@ -44,27 +44,22 @@ class PainelTotaisOP extends Component {
     let observacaoSystextilRender = null;
     let observacaoPEDRender = null;
     observacaoRender = (
-      <Observacao
+      <Observacao200
         ordemProducao={ordemProducao}
         descEstagio={descricaoEstagio}
-        referencia={referencia}
-        canAdd
+        observacaoType={ObservacaoTypes.ORION}
       />
     );
     observacaoSystextilRender = (
-      <Observacao
+      <Observacao200
         ordemProducao={ordemProducao}
-        descEstagio={descricaoEstagio}
-        referencia={referencia}
-        tipoObservacao={ObservacaoTypes.SYSTEXTIL}
+        observacaoType={ObservacaoTypes.SYSTEXTIL}
       />
     );
     observacaoPEDRender = (
-      <Observacao
-        ordemProducao={ordemProducao}
-        descEstagio={descricaoEstagio}
+      <Observacao200
         referencia={referencia}
-        tipoObservacao={ObservacaoTypes.PeD}
+        observacaoType={ObservacaoTypes.PeD}
       />
     );
 
@@ -195,11 +190,13 @@ class PainelTotaisOP extends Component {
 PainelTotaisOP.propTypes = {
   imageList: PropTypes.array,
   row: PropTypes.instanceOf(Immutable.Map),
+  minHeight: PropTypes.number
 };
 
 PainelTotaisOP.defaultProps = {
   imageList: [],
-  row: []
+  row: [],
+  minHeight: 0
 };
 
 export default connect(mapStateToProps, null)(PainelTotaisOP);

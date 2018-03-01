@@ -20,7 +20,9 @@ const comments = (props) => {
       data={props.data}
     />);
   } else {
-    commentsListRender = <CommentSystextil />;
+    commentsListRender = (<CommentSystextil
+      commentText={props.commentText}
+    />);
   }
   return (
     <div className="observacao-wrapper">
