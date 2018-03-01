@@ -10,6 +10,7 @@ import {
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import CustomContextMenu from './CustomContextMenu';
+import ColumnsConfig from './ColumnsConfig';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -234,7 +235,7 @@ export default class Grid extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Cofigurações tabajara
+            <ColumnsConfig />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={() => {}}>Salvar</Button>
