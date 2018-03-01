@@ -20,6 +20,7 @@ const commentList = (props) => {
           componentClass="textarea"
           id="observacao-2"
           value={props.commentText}
+          readOnly
         />
       </FormGroup>
     </Form>

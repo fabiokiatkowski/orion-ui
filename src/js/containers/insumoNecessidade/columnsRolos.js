@@ -10,8 +10,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    order: 1,
-    locked: true
+    order: 1
   },
   {
     key: 'numeroLote',
@@ -20,8 +19,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 2,
-    locked: true
+    order: 2
   },
   {
     key: 'pesoRolo',
@@ -32,8 +30,7 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     summary: SummarySum,
-    order: 3,
-    locked: true
+    order: 3
   },
   {
     key: 'periodoProducao',
@@ -42,8 +39,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    order: 4,
-    locked: true
+    order: 4
   },
   {
     key: 'desOP',
@@ -52,8 +48,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 5,
-    locked: true
+    order: 5
   },
   {
     key: 'estagioOP',
@@ -62,8 +57,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 6,
-    locked: true
+    order: 6
   }
 ];
 
