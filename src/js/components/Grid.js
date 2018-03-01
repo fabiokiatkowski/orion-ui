@@ -235,7 +235,9 @@ export default class Grid extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ColumnsConfig />
+            <ColumnsConfig
+              columnsDef={this.state.columnsDef}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={() => {}}>Salvar</Button>
