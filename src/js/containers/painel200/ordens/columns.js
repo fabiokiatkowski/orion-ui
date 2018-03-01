@@ -441,7 +441,6 @@ const columns = [
     sortable: true,
     filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
     order: 34
   },
   {

@@ -10,8 +10,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 1,
-    locked: true
+    order: 1
   },
   {
     key: 'grupo',
@@ -20,8 +19,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 2,
-    locked: true
+    order: 2
   },
   {
     key: 'subgrupo',
@@ -30,8 +28,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 3,
-    locked: true
+    order: 3
   },
   {
     key: 'item',
@@ -40,8 +37,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 4,
-    locked: true
+    order: 4
   },
   {
     key: 'descricao',
@@ -50,8 +46,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 5,
-    locked: true
+    order: 5
   },
   {
     key: 'estoqueAtual',
@@ -62,8 +57,7 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     summary: SummarySum,
-    order: 6,
-    locked: true
+    order: 6
   },
   {
     key: 'quantidadeAReceber',
@@ -74,8 +68,7 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     summary: SummarySum,
-    order: 7,
-    locked: true
+    order: 7
   },
   {
     key: 'quantidadeReservada',
@@ -86,8 +79,7 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     summary: SummarySum,
-    order: 8,
-    locked: true
+    order: 8
   },
   {
     key: 'quantidadeReservaGlobal',
@@ -98,8 +90,7 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     summary: SummarySum,
-    order: 9,
-    locked: true
+    order: 9
   }
 ];
 

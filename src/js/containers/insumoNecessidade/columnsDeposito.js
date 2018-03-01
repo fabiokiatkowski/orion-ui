@@ -11,8 +11,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 1,
-    locked: true
+    order: 1
   },
   {
     key: 'quantidade',
@@ -23,8 +22,7 @@ const columns = [
     type: Types.NUMBER,
     formatter: IntegerFormat,
     summary: SummarySum,
-    order: 2,
-    locked: true
+    order: 2
   }
 ];
 
