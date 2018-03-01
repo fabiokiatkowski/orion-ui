@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fromJS } from 'immutable';
 import { Data, DraggableHeader } from 'react-data-grid-addons';
+import {
+  Button,
+  Modal
+} from 'react-bootstrap';
 // import ReactDataGrid from 'react-data-grid';
 import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
@@ -42,7 +46,8 @@ export default class Grid extends Component {
     sortColumn: null, //eslint-disable-line
     sortDirection: null, //eslint-disable-line
     rowIdx: -1,
-    filters: ''
+    filters: '',
+    showConfig: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -174,38 +179,69 @@ export default class Grid extends Component {
     return rows.get(rowIdx);
   };
 
+  openConfig = () => {
+    this.setState({ showConfig: true });
+  }
+
+  closeConfig = () => {
+    this.setState({ showConfig: false });
+  }
+
   render() {
     return (
-      <DraggableHeader.DraggableContainer
-        onHeaderDrop={this.onHeaderDrop}
-      >
-        <ReactDataGrid
-          canFilter={false}
-          contextMenu={
-            <CustomContextMenu onClearFilters={() => this.cleanFilters()} />}
-          minHeight={this.props.minHeight}
-          onGridSort={this.handleGridSort}
-          columns={this.getColumns(this.state.columnsDef)}
-          rowHeight={30}
-          rowGetter={this.rowGetter}
-          rowsCount={this.getSize()}
-          onAddFilter={this.handleFilterChange}
-          onClearFilters={this.onClearFilters}
-          getValidFilterValues={this.getValidFilterValues}
-          onCellSelected={this.onCellSelected}
-          onColumnResize={this.onColumnResize}
-          onRowClick={this.props.onRowClick}
-          enableSummary={this.props.enableSummary}
-          rowSelection={{
-            showCheckbox: this.props.showCheckbox,
-            onRowsSelected: this.props.onRowsSelected,
-            onRowsDeselected: this.props.onRowsDeselected,
-            selectBy: {
-              indexes: this.props.indexes
-            }
-          }}
-        />
-      </DraggableHeader.DraggableContainer>
+      <div>
+        <DraggableHeader.DraggableContainer
+          onHeaderDrop={this.onHeaderDrop}
+        >
+          <ReactDataGrid
+            canFilter={false}
+            contextMenu={
+              <CustomContextMenu
+                onClearFilters={this.cleanFilters}
+                openConfig={this.openConfig}
+              />}
+            minHeight={this.props.minHeight}
+            onGridSort={this.handleGridSort}
+            columns={this.getColumns(this.state.columnsDef)}
+            rowHeight={30}
+            rowGetter={this.rowGetter}
+            rowsCount={this.getSize()}
+            onAddFilter={this.handleFilterChange}
+            onClearFilters={this.onClearFilters}
+            getValidFilterValues={this.getValidFilterValues}
+            onCellSelected={this.onCellSelected}
+            onColumnResize={this.onColumnResize}
+            onRowClick={this.props.onRowClick}
+            enableSummary={this.props.enableSummary}
+            rowSelection={{
+              showCheckbox: this.props.showCheckbox,
+              onRowsSelected: this.props.onRowsSelected,
+              onRowsDeselected: this.props.onRowsDeselected,
+              selectBy: {
+                indexes: this.props.indexes
+              }
+            }}
+          />
+        </DraggableHeader.DraggableContainer>
+        <Modal
+          show={this.state.showConfig}
+          onHide={this.closeConfig}
+          dialogClassName="fullscreen-modal-container"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-lg">
+              Configurações
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Cofigurações tabajara
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => {}}>Salvar</Button>
+            <Button onClick={this.closeConfig}>Fechar</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   }
 }
