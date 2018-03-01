@@ -54,28 +54,34 @@ class Observacao200 extends Component {
   }
   componentDidMount() {
     if (this.props.ordemProducao) {
-      this.props.getObservacaoOrion(this.props.ordemProducao, false);
-      this.props.getObservacaoSystextil(this.props.ordemProducao);
+      if (this.props.observacaoType === ObservacaoTypes.ORION) {
+        this.props.getObservacaoOrion(this.props.ordemProducao, false);
+      } else if (this.props.observacaoType === ObservacaoTypes.SYSTEXTIL) {
+        this.props.getObservacaoSystextil(this.props.ordemProducao);
+      }
     }
     if (this.props.referencia) {
       this.props.getObservacaoPeD(fixReferencia(this.props.referencia));
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.ordemProducao !== this.props.ordemProducao) {
-      this.setState({ observacao: '' });
-      if (nextProps.ordemProducao) {
-        this.props.getObservacaoOrion(nextProps.ordemProducao, false);
-        this.props.getObservacaoSystextil(nextProps.ordemProducao);
-      } else {
-        this.props.clearList();
+    this.setState({ observacao: '' }, () => {
+      if (nextProps.ordemProducao !== this.props.ordemProducao) {
+        if (nextProps.ordemProducao) {
+          if (this.props.observacaoType === ObservacaoTypes.ORION) {
+            this.props.getObservacaoOrion(nextProps.ordemProducao, false);
+          } else if (this.props.observacaoType === ObservacaoTypes.SYSTEXTIL) {
+            this.props.getObservacaoSystextil(nextProps.ordemProducao);
+          }
+        } else {
+          this.props.clearList();
+        }
       }
-    }
-    if (this.props.referencia &&
-      nextProps.referencia !== this.props.referencia) {
-      this.setState({ observacao: '' });
-      this.props.getObservacaoPeD(fixReferencia(nextProps.referencia));
-    }
+      if (this.props.referencia &&
+        nextProps.referencia !== this.props.referencia) {
+        this.props.getObservacaoPeD(fixReferencia(nextProps.referencia));
+      }
+    });
   }
   onSave = (text) => {
     const observacao = text;
@@ -120,9 +126,9 @@ Observacao200.propTypes = {
   descEstagio: PropTypes.string,
   referencia: PropTypes.string,
   observacaoType: PropTypes.symbol.isRequired,
-  orionData: PropTypes.array.isRequired,
-  systextilData: PropTypes.array.isRequired,
-  peDData: PropTypes.array.isRequired,
+  orionData: PropTypes.array,
+  systextilData: PropTypes.string,
+  peDData: PropTypes.array,
   add: PropTypes.func.isRequired,
   getObservacaoOrion: PropTypes.func.isRequired,
   getObservacaoSystextil: PropTypes.func.isRequired,
@@ -133,7 +139,10 @@ Observacao200.propTypes = {
 Observacao200.defaultProps = {
   ordemProducao: 0,
   descEstagio: '',
-  referencia: ''
+  referencia: '',
+  orionData: [],
+  systextilData: '',
+  peDData: []
 };
 const mapStateToProps = state => ({
   orionData: state.observacao.obs,

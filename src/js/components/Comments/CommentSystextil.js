@@ -9,6 +9,7 @@ const commentSystextil = (props) => {
       componentClass="textarea"
       id="observacao-2"
       value={props.commentText}
+      readOnly
     />
   );
 };

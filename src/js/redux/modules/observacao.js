@@ -10,7 +10,7 @@ export const LIST_PED = 'observacao/LIST_PED';
 const initialState = {
   obs: [],
   ped: [],
-  systextil: null
+  systextil: ''
 };
 
 export default function reducer(state = initialState, action = {}) {

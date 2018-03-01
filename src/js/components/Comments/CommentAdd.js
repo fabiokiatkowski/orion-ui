@@ -31,7 +31,6 @@ class CommentAdd extends Component {
         <FormGroup bsClass="form-group save-button">
           <Button
             type="button"
-            btStyle="primary"
             onClick={this.handleOnClickSave}
           >Salvar
           </Button>
