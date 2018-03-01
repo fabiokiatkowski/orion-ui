@@ -218,6 +218,8 @@ class PainelEstagiosAbertos extends Component {
           {gridResultado}
           <Botoes
             disabled={!currentRow}
+            nivel="1"
+            grupo={currentRow && referencia}
             ordemProducao={currentRow && currentRow.get('ordemProducao')}
             ordemPrincipal={currentRow && currentRow.get('ordemPrincipal')}
             onMarcarUTI={() =>

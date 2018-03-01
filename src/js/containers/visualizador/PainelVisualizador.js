@@ -27,12 +27,17 @@ const mapDispathToProps = dispatch => ({
 
 class PainelVisualizador extends Component {
   static propTypes = {
+    location: PropTypes.object,
+    search: PropTypes.object,
     descricaoProduto: PropTypes.string.isRequired,
     getDescPeca: PropTypes.func.isRequired,
     getDescProduto: PropTypes.func.isRequired,
     clean: PropTypes.func.isRequired,
   }
-
+  static defaultProps = {
+    location: null,
+    search: null
+  }
   state = {
     nivel: '',
     grupo: '',
@@ -41,7 +46,29 @@ class PainelVisualizador extends Component {
     localizadorTabKey: 1,
     gridTabKey: 1
   }
+  componentDidMount() {
+    const { search } = this.props.location;
+    if (search) {
+      const q = new URLSearchParams(search);
+      const nivel = q.get('nivel');
+      const grupo = q.get('grupo');
+      this.handleDoFind(nivel, grupo);
+    }
+  }
+  handleDoFind = (nivel, grupo, subgrupo, item) => {
+    this.setState({
+      ...this.state,
+      nivel,
+      grupo
+    });
+    if (nivel === '1') {
+      this.props.getDescPeca(grupo);
+    } else {
+      this.props.getDescProduto(nivel, grupo, subgrupo, item);
+    }
 
+    if (this.ondeUsa) this.ondeUsa.wrappedInstance.list();
+  }
   handleConsultar = () => {
     const {
       nivel,
@@ -49,14 +76,7 @@ class PainelVisualizador extends Component {
       subGrupo,
       item
     } = this.state;
-
-    if (nivel === '1') {
-      this.props.getDescPeca(grupo);
-    } else {
-      this.props.getDescProduto(nivel, grupo, subGrupo, item);
-    }
-
-    if (this.ondeUsa) this.ondeUsa.wrappedInstance.list();
+    this.handleDoFind(nivel, grupo, subGrupo, item);
   }
 
   handleSelect = (nivel, grupo, subGrupo, item) => {
