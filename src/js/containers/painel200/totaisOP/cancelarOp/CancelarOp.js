@@ -7,12 +7,16 @@ import { cancelarOrdemProducao, limparCancelamento } from '../../../../redux/mod
 
 class CancelarOp extends Component {
   static propTypes = {
-    ordemProducao: PropTypes.number.isRequired,
-    ordemPrincipal: PropTypes.number.isRequired,
+    ordemProducao: PropTypes.number,
+    ordemPrincipal: PropTypes.number,
     cancelarOrdem: PropTypes.func.isRequired,
     limparCancelamento: PropTypes.func.isRequired,
     messages: PropTypes.array.isRequired,
     hasErrors: PropTypes.bool.isRequired
+  }
+  static defaultProps = {
+    ordemProducao: null,
+    ordemPrincipal: null
   }
   state = {
     showModal: false,
