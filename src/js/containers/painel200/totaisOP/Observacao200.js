@@ -65,23 +65,22 @@ class Observacao200 extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ observacao: '' }, () => {
-      if (nextProps.ordemProducao !== this.props.ordemProducao) {
-        if (nextProps.ordemProducao) {
-          if (this.props.observacaoType === ObservacaoTypes.ORION) {
-            this.props.getObservacaoOrion(nextProps.ordemProducao, false);
-          } else if (this.props.observacaoType === ObservacaoTypes.SYSTEXTIL) {
-            this.props.getObservacaoSystextil(nextProps.ordemProducao);
-          }
-        } else {
-          this.props.clearList();
+    this.setState({ ...this.state, observacao: '' });
+    if (nextProps.ordemProducao !== this.props.ordemProducao) {
+      if (nextProps.ordemProducao) {
+        if (this.props.observacaoType === ObservacaoTypes.ORION) {
+          this.props.getObservacaoOrion(nextProps.ordemProducao, false);
+        } else if (this.props.observacaoType === ObservacaoTypes.SYSTEXTIL) {
+          this.props.getObservacaoSystextil(nextProps.ordemProducao);
         }
+      } else {
+        this.props.clearList();
       }
-      if (this.props.referencia &&
-        nextProps.referencia !== this.props.referencia) {
-        this.props.getObservacaoPeD(fixReferencia(nextProps.referencia));
-      }
-    });
+    }
+    if (this.props.referencia &&
+      nextProps.referencia !== this.props.referencia) {
+      this.props.getObservacaoPeD(fixReferencia(nextProps.referencia));
+    }
   }
   onSave = (text) => {
     const observacao = text;

@@ -1,4 +1,5 @@
 import axios from '../../axios-orion';
+import updateObject from '../../utils/updateObject';
 import formatDate from '../../utils/date';
 
 export const CLEAR_LIST = 'observacao/CLEAR_LIST';
@@ -19,7 +20,10 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, obs: [] };
     }
     case LIST: {
-      return { ...state, obs: action.data };
+      return updateObject(state, {
+        obs: action.data,
+        systextil: initialState.systextil
+      });
     }
     case ADD: {
       const newData = action.data;
