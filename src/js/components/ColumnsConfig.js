@@ -28,21 +28,19 @@ const SortableItem = SortableElement((props) => {
         />
       </td>
       <td>
-        <div className="input-group">
-          <select
-            className="custom-select"
-            name="summary"
-            value={value.summary}
-            onChange={e => handleChange(e, value.key)}
-          >
-            <option value="0">Nenhum</option>
-            <option value="1">Contador de linhas</option>
-            <option value="2">Contador de linhas distintas</option>
-            <option value="3">Media de valores</option>
-            <option value="4">Soma de valores</option>
-            <option value="5">Soma de valores distintos</option>
-          </select>
-        </div>  
+        <select
+          className="form-control"
+          name="summary"
+          value={value.summary}
+          onChange={e => handleChange(e, value.key)}
+        >
+          <option value="0">Nenhum</option>
+          <option value="1">Contador de linhas</option>
+          <option value="2">Contador de linhas distintas</option>
+          <option value="3">Media de valores</option>
+          <option value="4">Soma de valores</option>
+          <option value="5">Soma de valores distintos</option>
+        </select>
       </td>
       <td>
         <input
