@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fromJS } from 'immutable';
-import { Data, DraggableHeader } from 'react-data-grid-addons';
+import { Data } from 'react-data-grid-addons';
 import {
   Button,
   Modal
@@ -11,6 +11,7 @@ import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
+import { getCurrentColumns } from '../utils/gridProfile';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -24,7 +25,8 @@ export default class Grid extends Component {
     indexes: PropTypes.array, //eslint-disable-line
     enableSummary: PropTypes.bool,
     showCheckbox: PropTypes.bool,
-    reflectShadowRows: PropTypes.func
+    reflectShadowRows: PropTypes.func,
+    gridName: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -43,7 +45,7 @@ export default class Grid extends Component {
   state = {
     shadowRows: fromJS(this.props.data),
     rows: fromJS(this.props.data),
-    columnsDef: this.props.columns,
+    columnsDef: [],
     sortColumn: null, //eslint-disable-line
     sortDirection: null, //eslint-disable-line
     rowIdx: -1,
@@ -53,6 +55,13 @@ export default class Grid extends Component {
     contextMenuScreenX: null,
     contextMenuScreenY: null
   };
+
+  componentDidMount() {
+    getCurrentColumns(this.props.gridName)
+      .then(res => this.setState({
+        columnsDef: this.getColumns(res.data)
+      }));
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
@@ -118,9 +127,10 @@ export default class Grid extends Component {
   }
 
   getColumns = (columnsDef) => {
+    console.log(columnsDef);
     let columns = columnsDef
       .filter(column => !column.hidden)
-      .sort((a, b) => a.order - b.order);
+      .sort((a, b) => a.position - b.position);
     columns = columns.map((column) => {
       const virtualColumn = column;
       virtualColumn.headerRenderer = (
@@ -132,6 +142,7 @@ export default class Grid extends Component {
           onSort={this.handleGridSort}
         />
       );
+      console.log(virtualColumn);
       return virtualColumn;
     });
     return columns;
@@ -208,34 +219,30 @@ export default class Grid extends Component {
   render() {
     return (
       <div onContextMenu={this.onContextMenu}>
-        <DraggableHeader.DraggableContainer
-          onHeaderDrop={this.onHeaderDrop}
-        >
-          <ReactDataGrid
-            canFilter={false}
-            minHeight={this.props.minHeight}
-            onGridSort={this.handleGridSort}
-            columns={this.getColumns(this.state.columnsDef)}
-            rowHeight={30}
-            rowGetter={this.rowGetter}
-            rowsCount={this.getSize()}
-            onAddFilter={this.handleFilterChange}
-            onClearFilters={this.onClearFilters}
-            getValidFilterValues={this.getValidFilterValues}
-            onCellSelected={this.onCellSelected}
-            onColumnResize={this.onColumnResize}
-            onRowClick={this.props.onRowClick}
-            enableSummary={this.props.enableSummary}
-            rowSelection={{
-              showCheckbox: this.props.showCheckbox,
-              onRowsSelected: this.props.onRowsSelected,
-              onRowsDeselected: this.props.onRowsDeselected,
-              selectBy: {
-                indexes: this.props.indexes
-              }
-            }}
-          />
-        </DraggableHeader.DraggableContainer>
+        <ReactDataGrid
+          canFilter={false}
+          minHeight={this.props.minHeight}
+          onGridSort={this.handleGridSort}
+          columns={this.getColumns(this.state.columnsDef)}
+          rowHeight={30}
+          rowGetter={this.rowGetter}
+          rowsCount={this.getSize()}
+          onAddFilter={this.handleFilterChange}
+          onClearFilters={this.onClearFilters}
+          getValidFilterValues={this.getValidFilterValues}
+          onCellSelected={this.onCellSelected}
+          onColumnResize={this.onColumnResize}
+          onRowClick={this.props.onRowClick}
+          enableSummary={this.props.enableSummary}
+          rowSelection={{
+            showCheckbox: this.props.showCheckbox,
+            onRowsSelected: this.props.onRowsSelected,
+            onRowsDeselected: this.props.onRowsDeselected,
+            selectBy: {
+              indexes: this.props.indexes
+            }
+          }}
+        />
         <Modal
           show={this.state.showConfig}
           onHide={this.closeConfig}

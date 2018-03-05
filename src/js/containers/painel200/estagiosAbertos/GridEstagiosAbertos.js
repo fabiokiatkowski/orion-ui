@@ -12,6 +12,7 @@ const GridEstagiosAbertos = (props) => {
       onRowsSelected={props.onRowsSelected}
       onRowsDeselected={props.onRowsDeselected}
       indexes={props.indexes}
+      gridName={props.gridName}
       showCheckbox
     />
   );
@@ -22,7 +23,8 @@ GridEstagiosAbertos.propTypes = {
   onRowsSelected: PropTypes.func.isRequired,
   onRowsDeselected: PropTypes.func.isRequired,
   indexes: PropTypes.array.isRequired, //eslint-disable-line
-  data: PropTypes.array.isRequired //eslint-disable-line
+  data: PropTypes.array.isRequired, //eslint-disable-line
+  gridName: PropTypes.string.isRequired
 };
 
 export default GridEstagiosAbertos;
