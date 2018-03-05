@@ -38,7 +38,6 @@ const SortableItem = SortableElement((props) => {
           <option value="2">Contador de linhas distintas</option>
           <option value="3">Media de valores</option>
           <option value="4">Soma de valores</option>
-          <option value="5">Soma de valores distintos</option>
         </select>
       </td>
       <td>

@@ -12,6 +12,8 @@ import CustomHeaderFormatter from './CustomHeaderFormatter';
 import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
 import { getCurrentColumns } from '../utils/gridProfile';
+import IntegerFormat from './NumeralFormat';
+import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from './Summary';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -126,8 +128,17 @@ export default class Grid extends Component {
     });
   }
 
+  getSummary = (summaryType) => {
+    switch (summaryType) {
+      case 1: return SummaryCount;
+      case 2: return SummaryDistinctCount;
+      case 3: return SummaryAverage;
+      case 4: return SummarySum;
+      default: return null;
+    }
+  }
+
   getColumns = (columnsDef) => {
-    console.log(columnsDef);
     let columns = columnsDef
       .filter(column => !column.hidden)
       .sort((a, b) => a.position - b.position);
@@ -142,7 +153,12 @@ export default class Grid extends Component {
           onSort={this.handleGridSort}
         />
       );
-      console.log(virtualColumn);
+      if (column.summary) {
+        virtualColumn.summary = this.getSummary(column.summary);
+      }
+      if (column.formatter) {
+        virtualColumn.formatter = IntegerFormat;
+      }
       return virtualColumn;
     });
     return columns;
@@ -223,7 +239,7 @@ export default class Grid extends Component {
           canFilter={false}
           minHeight={this.props.minHeight}
           onGridSort={this.handleGridSort}
-          columns={this.getColumns(this.state.columnsDef)}
+          columns={this.state.columnsDef}
           rowHeight={30}
           rowGetter={this.rowGetter}
           rowsCount={this.getSize()}
