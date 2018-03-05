@@ -3,20 +3,12 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 
 const SortableItem = SortableElement((props) => {
   const { value, order, handleChange } = props;
+  console.log(value.width);
   return (
     <tr>
       <th>{order}</th>
       <th>{value.key}</th>
-      <td>
-        <input
-          name="name"
-          className="form-control"
-          type="text"
-          placeholder="Descrição"
-          value={value.name}
-          onChange={e => handleChange(e, value.key)}
-        />
-      </td>
+      <td>{value.name}</td>
       <td>
         <input
           name="locked"
@@ -42,7 +34,7 @@ const SortableItem = SortableElement((props) => {
       </td>
       <td>
         <input
-          name={value.key}
+          name=width
           className="form-control"
           type="text"
           placeholder="Tamanho"
@@ -98,13 +90,21 @@ class SortableComponent extends Component {
     items: this.props.columnsDef
   };
   onSortEnd = ({ oldIndex, newIndex }) => {
+    console.log(oldIndex, newIndex);
     this.setState({
       items: arrayMove(this.state.items, oldIndex, newIndex),
     });
   };
 
   handleChange = (e, key) => {
-    console.log(key, e);
+    const items = this.state.items.map((item) => {
+      const virtualItem = item;
+      if (item.key === key) {
+        virtualItem[e.target.name] = e.target.value;
+      }
+      return virtualItem;
+    });
+    this.setState({ items });
   }
 
   render() {
