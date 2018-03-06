@@ -7,6 +7,9 @@ const SortableItem = SortableElement((props) => {
     position,
     handleChange
   } = props;
+
+  console.log(value.summary);
+
   return (
     <tr>
       <th>{position}</th>
@@ -92,7 +95,7 @@ const SortableList = SortableContainer(({
 
 class SortableComponent extends Component {
   onSortEnd = ({ oldIndex, newIndex }) => {
-    let newItems = arrayMove(this.props.columnsDef, oldIndex, newIndex);
+    let newItems = arrayMove(this.props.columns, oldIndex, newIndex);
     newItems = this.reordain(newItems);
     // this.setState({
     //   items: newItems
@@ -101,7 +104,7 @@ class SortableComponent extends Component {
   };
 
   handleChange = (e, key) => {
-    let items = this.props.columnsDef.map((item) => {
+    let items = this.props.columns.map((item) => {
       const virtualItem = item;
       if (item.key === key) {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -141,7 +144,7 @@ class SortableComponent extends Component {
 
   render() {
     return (<SortableList
-      items={this.props.columnsDef}
+      items={this.props.columns}
       handleChange={this.handleChange}
       onSortEnd={this.onSortEnd}
     />);

@@ -46,9 +46,9 @@ export default class Grid extends Component {
 
   state = {
     shadowRows: fromJS(this.props.data),
-    rows: fromJS(this.props.data),
+    rows: fromJS(this.props.data), //eslint-disable-line
     columnsDef: [],
-    rawColumnsDef: [],
+    rawDefinitions: [],
     sortColumn: null, //eslint-disable-line
     sortDirection: null, //eslint-disable-line
     rowIdx: -1,
@@ -61,16 +61,20 @@ export default class Grid extends Component {
 
   componentDidMount() {
     getCurrentColumns(this.props.gridName)
-      .then(res => this.setState({
-        columnsDef: this.getColumns(res.data),
-        rawColumnsDef: res.data
-      }));
+      .then((res) => {
+        const newState = {
+          ...this.state,
+          rawDefinitions: res.data,
+          columnsDef: this.getColumns(res.data)
+        };
+        this.setState(newState);
+      });
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
       this.setState({
-        rows: fromJS(nextProps.data),
+        rows: fromJS(nextProps.data), //eslint-disable-line
         shadowRows: fromJS(nextProps.data),
         filters: '',
         rowIdx: -1
@@ -98,28 +102,6 @@ export default class Grid extends Component {
     }
   }
 
-  onColumnResize = (index, newWidth) => {
-    const newColumns = this.state.columnsDef;
-    newColumns[index].width = newWidth;
-  }
-
-  onHeaderDrop = (source, target) => {
-    const columns = this.state.columnsDef;
-    const columnsSourceIndex = columns
-      .findIndex(i => i.key === source);
-    const columnTargetIndex = columns
-      .findIndex(i => i.key === target);
-
-    const orderSource = columns[columnsSourceIndex].order;
-    const orderTarget = columns[columnTargetIndex].order;
-    columns[columnsSourceIndex].order = orderTarget;
-    columns[columnTargetIndex].order = orderSource;
-
-    const newState = { ...this.state, columnsDef: columns };
-    this.setState({ ...this.state, columnsDef: [] });
-    this.setState(newState);
-  }
-
   onContextMenu = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -140,8 +122,8 @@ export default class Grid extends Component {
     }
   }
 
-  getColumns = (columnsDef) => {
-    let columns = columnsDef
+  getColumns = (definitions) => {
+    let columns = definitions
       .filter(column => !column.hidden)
       .sort((a, b) => a.position - b.position);
     columns = columns.map((column) => {
@@ -181,7 +163,7 @@ export default class Grid extends Component {
 
   cleanFilters = () => {
     this.setState({
-      rows: fromJS(this.props.data),
+      rows: fromJS(this.props.data), //eslint-disable-line
       shadowRows: fromJS(this.props.data),
       filters: ''
     });
@@ -198,7 +180,7 @@ export default class Grid extends Component {
   }
 
   handleGridSort = (sortColumn, sortDirection) => {
-    this.setState({ sortColumn, sortDirection }, () => {
+    this.setState({ sortColumn, sortDirection }, () => { //eslint-disable-line
       this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
     });
   };
@@ -217,8 +199,8 @@ export default class Grid extends Component {
     }
   };
 
-  handleChangeColunsDef = (rawColumnsDef) => {
-    this.setState({ rawColumnsDef });
+  handleChangeColunsDef = (items) => {
+    this.setState({ rawDefinitions: items });
   }
 
   rowGetter = (rowIdx) => {
@@ -235,9 +217,9 @@ export default class Grid extends Component {
   }
 
   saveConfig = () => {
-    updateColumns(this.state.rawColumnsDef);
+    updateColumns(this.state.rawDefinitions);
     this.setState({
-      columnsDef: this.getColumns(this.state.rawColumnsDef)
+      columnsDef: this.getColumns(this.state.rawDefinitions)
     });
   }
 
@@ -246,6 +228,7 @@ export default class Grid extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div onContextMenu={this.onContextMenu}>
         <ReactDataGrid
@@ -284,7 +267,7 @@ export default class Grid extends Component {
           </Modal.Header>
           <Modal.Body>
             <ColumnsConfig
-              columnsDef={this.state.rawColumnsDef}
+              columns={this.state.rawDefinitions}
               onChange={this.handleChangeColunsDef}
             />
           </Modal.Body>
