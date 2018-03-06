@@ -14,11 +14,11 @@ const SortableItem = SortableElement((props) => {
       <td>{value.name}</td>
       <td>
         <input
-          name="fixed"
+          name="locked"
           type="checkbox"
           aria-label="Checkbox for locked definition"
           onChange={e => handleChange(e, value.key)}
-          checked={value.fixed}
+          checked={value.locked}
         />
       </td>
       <td>
@@ -91,16 +91,6 @@ const SortableList = SortableContainer(({
 });
 
 class SortableComponent extends Component {
-  // state = {
-  //   items: this.props.columnsDef
-  // };
-
-  // componentWillReceiveProps() {
-  //   this.setState({
-  //     items: this.reordain(this.state.items)
-  //   });
-  // }
-
   onSortEnd = ({ oldIndex, newIndex }) => {
     let newItems = arrayMove(this.props.columnsDef, oldIndex, newIndex);
     newItems = this.reordain(newItems);
@@ -119,7 +109,7 @@ class SortableComponent extends Component {
       }
       return virtualItem;
     });
-    if (e.target.name === 'fixed') {
+    if (e.target.name === 'locked') {
       items = this.reordain(items);
     }
     // this.setState({ items });
@@ -140,10 +130,10 @@ class SortableComponent extends Component {
   }
 
   reordainSort = (a, b) => {
-    if (a.fixed && !b.fixed) {
+    if (a.locked && !b.locked) {
       return -1;
     }
-    if (b.fixed && !a.fixed) {
+    if (b.locked && !a.locked) {
       return 1;
     }
     return a.position - b.position;
