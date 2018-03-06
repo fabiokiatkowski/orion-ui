@@ -91,20 +91,27 @@ const SortableList = SortableContainer(({
 });
 
 class SortableComponent extends Component {
-  state = {
-    items: this.props.columnsDef
-  };
+  // state = {
+  //   items: this.props.columnsDef
+  // };
+
+  // componentWillReceiveProps() {
+  //   this.setState({
+  //     items: this.reordain(this.state.items)
+  //   });
+  // }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    let newItems = arrayMove(this.state.items, oldIndex, newIndex);
+    let newItems = arrayMove(this.props.columnsDef, oldIndex, newIndex);
     newItems = this.reordain(newItems);
-    this.setState({
-      items: newItems
-    });
+    // this.setState({
+    //   items: newItems
+    // });
+    this.props.onChange(newItems);
   };
 
   handleChange = (e, key) => {
-    let items = this.state.items.map((item) => {
+    let items = this.props.columnsDef.map((item) => {
       const virtualItem = item;
       if (item.key === key) {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -115,16 +122,22 @@ class SortableComponent extends Component {
     if (e.target.name === 'fixed') {
       items = this.reordain(items);
     }
-    this.setState({ items });
+    // this.setState({ items });
+    this.props.onChange(items);
   }
 
-  reordain = (item) => {
-    return item.sort(this.reordainSort).map((i, idx) => {
-      const aux = i;
-      aux.position = idx;
-      return aux;
-    });
+  /* This is a n3 loop, probability this can be improve */
+  reordain = (items) => {
+    return items.map(this.reordainPositions)
+      .sort(this.reordainSort)
+      .map(this.reordainPositions);
   };
+
+  reordainPositions = (item, index) => {
+    const virtualItem = item;
+    virtualItem.position = index;
+    return virtualItem;
+  }
 
   reordainSort = (a, b) => {
     if (a.fixed && !b.fixed) {
@@ -138,7 +151,7 @@ class SortableComponent extends Component {
 
   render() {
     return (<SortableList
-      items={this.state.items}
+      items={this.props.columnsDef}
       handleChange={this.handleChange}
       onSortEnd={this.onSortEnd}
     />);

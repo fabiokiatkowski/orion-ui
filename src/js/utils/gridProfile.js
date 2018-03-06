@@ -10,4 +10,8 @@ const getCurrentProfile = (gridName) => {
   return axios.get(url);
 };
 
-export { getCurrentColumns, getCurrentProfile };
+const updateColumns = (params) => {
+  console.log(params);
+};
+
+export { getCurrentColumns, getCurrentProfile, updateColumns };

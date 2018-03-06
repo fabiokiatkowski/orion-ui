@@ -11,7 +11,7 @@ import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
-import { getCurrentColumns } from '../utils/gridProfile';
+import { getCurrentColumns, updateColumns } from '../utils/gridProfile';
 import IntegerFormat from './NumeralFormat';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from './Summary';
 
@@ -48,6 +48,7 @@ export default class Grid extends Component {
     shadowRows: fromJS(this.props.data),
     rows: fromJS(this.props.data),
     columnsDef: [],
+    rawColumnsDef: [],
     sortColumn: null, //eslint-disable-line
     sortDirection: null, //eslint-disable-line
     rowIdx: -1,
@@ -61,7 +62,8 @@ export default class Grid extends Component {
   componentDidMount() {
     getCurrentColumns(this.props.gridName)
       .then(res => this.setState({
-        columnsDef: this.getColumns(res.data)
+        columnsDef: this.getColumns(res.data),
+        rawColumnsDef: res.data
       }));
   }
 
@@ -215,6 +217,10 @@ export default class Grid extends Component {
     }
   };
 
+  handleChangeColunsDef = (rawColumnsDef) => {
+    this.setState({ rawColumnsDef });
+  }
+
   rowGetter = (rowIdx) => {
     const rows = this.getRows();
     return rows.get(rowIdx);
@@ -226,6 +232,13 @@ export default class Grid extends Component {
 
   closeConfig = () => {
     this.setState({ showConfig: false });
+  }
+
+  saveConfig = () => {
+    updateColumns(this.state.rawColumnsDef);
+    this.setState({
+      columnsDef: this.getColumns(this.state.rawColumnsDef)
+    });
   }
 
   closeContextMenu = () => {
@@ -271,11 +284,12 @@ export default class Grid extends Component {
           </Modal.Header>
           <Modal.Body>
             <ColumnsConfig
-              columnsDef={this.state.columnsDef}
+              columnsDef={this.state.rawColumnsDef}
+              onChange={this.handleChangeColunsDef}
             />
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => {}}>Salvar</Button>
+            <Button onClick={this.saveConfig}>Salvar</Button>
             <Button onClick={this.closeConfig}>Fechar</Button>
           </Modal.Footer>
         </Modal>
