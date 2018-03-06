@@ -44,7 +44,7 @@ export default class Grid extends Component {
 
   state = {
     shadowRows: fromJS(this.props.data),
-    rows: fromJS(this.props.data), //eslint-disable-line
+    rows: fromJS(this.props.data), //eslint-disable-line 
     columnsDef: [],
     rawColumnsDef: [],
     sortColumn: null, //eslint-disable-line
@@ -62,7 +62,10 @@ export default class Grid extends Component {
       .then((res) => {
         this.setState({
           columnsDef: this.getColumns(res.data),
-          rawColumnsDef: res.data
+          rawColumnsDef: res.data,
+        }, () => {
+          /* POG - data grid não renderiza novamente se mudar apenas a ordem das colunas */
+          window.dispatchEvent(new Event('resize'));
         });
       });
   }
@@ -109,11 +112,11 @@ export default class Grid extends Component {
   }
 
   getSummary = (summaryType) => {
-    switch (summaryType) {
-      case 1: return SummaryCount;
-      case 2: return SummaryDistinctCount;
-      case 3: return SummaryAverage;
-      case 4: return SummarySum;
+    switch (`${summaryType}`) {
+      case '1': return SummaryCount;
+      case '2': return SummaryDistinctCount;
+      case '3': return SummaryAverage;
+      case '4': return SummarySum;
       default: return null;
     }
   }
@@ -134,6 +137,7 @@ export default class Grid extends Component {
         />
       );
       if (column.summary_index) {
+        console.log('summary_index', column.summary_index);
         virtualColumn.summary = this.getSummary(column.summary_index);
       }
       if (column.formatter_index) {

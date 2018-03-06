@@ -28,11 +28,11 @@ const SortableItem = SortableElement((props) => {
           value={value.summary_index}
           onChange={e => handleChange(e, value.key)}
         >
-          <option value="0">Nenhum</option>
-          <option value="1">Contador de linhas</option>
-          <option value="2">Contador de linhas distintas</option>
-          <option value="3">Media de valores</option>
-          <option value="4">Soma de valores</option>
+          <option value={0}>Nenhum</option>
+          <option value={1}>Contador de linhas</option>
+          <option value={2}>Contador de linhas distintas</option>
+          <option value={3}>Media de valores</option>
+          <option value={4}>Soma de valores</option>
         </select>
       </td>
       {/* <td>

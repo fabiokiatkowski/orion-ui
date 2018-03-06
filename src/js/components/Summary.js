@@ -63,7 +63,6 @@ SummaryAverage.propTypes = {
 
 const SummarySum = (props) => {
   const { rowsCount, rowGetter, column } = props;
-
   return (
     <div>
       <NumeralFormat value={sum(rowsCount, rowGetter, column)} />

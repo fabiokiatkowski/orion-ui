@@ -14,6 +14,7 @@ const GridEstagiosAbertos = (props) => {
       indexes={props.indexes}
       gridName={props.gridName}
       showCheckbox
+      enableSummary
     />
   );
 };
