@@ -48,7 +48,6 @@ export default class Grid extends Component {
     shadowRows: fromJS(this.props.data),
     rows: fromJS(this.props.data), //eslint-disable-line
     columnsDef: [],
-    rawDefinitions: [],
     sortColumn: null, //eslint-disable-line
     sortDirection: null, //eslint-disable-line
     rowIdx: -1,
@@ -62,12 +61,7 @@ export default class Grid extends Component {
   componentDidMount() {
     getCurrentColumns(this.props.gridName)
       .then((res) => {
-        const newState = {
-          ...this.state,
-          rawDefinitions: res.data,
-          columnsDef: this.getColumns(res.data)
-        };
-        this.setState(newState);
+        this.setState({ columnsDef: this.getColumns(res.data) });
       });
   }
 
@@ -137,11 +131,11 @@ export default class Grid extends Component {
           onSort={this.handleGridSort}
         />
       );
-      if (column.summary) {
-        virtualColumn.summary = this.getSummary(column.summary);
+      if (column.summary_index) {
+        virtualColumn.summary = this.getSummary(column.summary_index);
       }
-      if (column.formatter) {
-        virtualColumn.formatter = IntegerFormat;
+      if (column.formatter_index) {
+        virtualColumn.formatter = IntegerFormat;/* Just exists a formatter until now */
       }
       return virtualColumn;
     });
@@ -200,7 +194,7 @@ export default class Grid extends Component {
   };
 
   handleChangeColunsDef = (items) => {
-    this.setState({ rawDefinitions: items });
+    this.setState({ columnsDef: items });
   }
 
   rowGetter = (rowIdx) => {
@@ -217,9 +211,9 @@ export default class Grid extends Component {
   }
 
   saveConfig = () => {
-    updateColumns(this.state.rawDefinitions);
+    updateColumns(this.state.columnsDef);
     this.setState({
-      columnsDef: this.getColumns(this.state.rawDefinitions)
+      columnsDef: this.getColumns(this.state.columnsDef)
     });
   }
 
@@ -228,7 +222,6 @@ export default class Grid extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div onContextMenu={this.onContextMenu}>
         <ReactDataGrid
@@ -267,7 +260,7 @@ export default class Grid extends Component {
           </Modal.Header>
           <Modal.Body>
             <ColumnsConfig
-              columns={this.state.rawDefinitions}
+              columns={this.state.columnsDef}
               onChange={this.handleChangeColunsDef}
             />
           </Modal.Body>

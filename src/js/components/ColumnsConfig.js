@@ -7,9 +7,6 @@ const SortableItem = SortableElement((props) => {
     position,
     handleChange
   } = props;
-
-  console.log(value.summary);
-
   return (
     <tr>
       <th>{position}</th>
@@ -27,8 +24,8 @@ const SortableItem = SortableElement((props) => {
       <td>
         <select
           className="form-control"
-          name="summary"
-          value={value.summary}
+          name="summary_index"
+          value={value.summary_index}
           onChange={e => handleChange(e, value.key)}
         >
           <option value="0">Nenhum</option>
@@ -97,9 +94,6 @@ class SortableComponent extends Component {
   onSortEnd = ({ oldIndex, newIndex }) => {
     let newItems = arrayMove(this.props.columns, oldIndex, newIndex);
     newItems = this.reordain(newItems);
-    // this.setState({
-    //   items: newItems
-    // });
     this.props.onChange(newItems);
   };
 
@@ -109,6 +103,7 @@ class SortableComponent extends Component {
       if (item.key === key) {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         virtualItem[e.target.name] = value;
+        console.log(virtualItem[e.target.name], value);
       }
       return virtualItem;
     });
