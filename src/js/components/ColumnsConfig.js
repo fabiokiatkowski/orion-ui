@@ -94,14 +94,17 @@ class SortableComponent extends Component {
   state = {
     items: this.props.columnsDef
   };
+
   onSortEnd = ({ oldIndex, newIndex }) => {
+    let newItems = arrayMove(this.state.items, oldIndex, newIndex);
+    newItems = this.reordain(newItems);
     this.setState({
-      items: arrayMove(this.state.items, oldIndex, newIndex),
+      items: newItems
     });
   };
 
   handleChange = (e, key) => {
-    const items = this.state.items.map((item) => {
+    let items = this.state.items.map((item) => {
       const virtualItem = item;
       if (item.key === key) {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -109,7 +112,28 @@ class SortableComponent extends Component {
       }
       return virtualItem;
     });
+    if (e.target.name === 'fixed') {
+      items = this.reordain(items);
+    }
     this.setState({ items });
+  }
+
+  reordain = (item) => {
+    return item.sort(this.reordainSort).map((i, idx) => {
+      const aux = i;
+      aux.position = idx;
+      return aux;
+    });
+  };
+
+  reordainSort = (a, b) => {
+    if (a.fixed && !b.fixed) {
+      return -1;
+    }
+    if (b.fixed && !a.fixed) {
+      return 1;
+    }
+    return a.position - b.position;
   }
 
   render() {
