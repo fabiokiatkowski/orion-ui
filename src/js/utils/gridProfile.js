@@ -11,7 +11,9 @@ const getCurrentProfile = (gridName) => {
 };
 
 const updateColumns = (params) => {
-  console.log(params);
+  const url = '/api/grid/column/update';
+  axios.post(url, params)
+    .then(res => console.log(res));
 };
 
 export { getCurrentColumns, getCurrentProfile, updateColumns };
