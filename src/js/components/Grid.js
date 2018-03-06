@@ -214,8 +214,13 @@ export default class Grid extends Component {
 
   saveConfig = () => {
     updateColumns(this.state.rawColumnsDef);
-    this.setState({
+    const newState = {
+      ...this.state,
       columnsDef: this.getColumns(this.state.rawColumnsDef)
+    };
+    this.setState(newState, () => {
+      /* POG - data grid não renderiza novamente se mudar apenas a ordem das colunas */
+      window.dispatchEvent(new Event('resize'));
     });
   }
 

@@ -35,7 +35,7 @@ const SortableItem = SortableElement((props) => {
           <option value="4">Soma de valores</option>
         </select>
       </td>
-      <td>
+      {/* <td>
         <input
           name="width"
           className="form-control"
@@ -44,7 +44,7 @@ const SortableItem = SortableElement((props) => {
           value={value.width || ''}
           onChange={e => handleChange(e, value.key)}
         />
-      </td>
+      </td> */}
       <td>
         <input
           name="hidden"
@@ -70,8 +70,8 @@ const SortableList = SortableContainer(({
           <th scope="col">Descrição</th>
           <th scope="col">Fixo</th>
           <th scope="col">Totalizador</th>
-          <th scope="col">Tamanho(px)</th>
-          <th scope="col">Visivel</th>
+          {/* <th scope="col">Tamanho(px)</th> */}
+          <th scope="col">Esconder</th>
         </tr>
       </thead>
       <tbody>
