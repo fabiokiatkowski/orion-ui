@@ -18,7 +18,6 @@ import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '
 export default class Grid extends Component {
   static propTypes = {
     data: PropTypes.array, //eslint-disable-line
-    columns: PropTypes.array, //eslint-disable-line
     handleRowChange: PropTypes.func,
     minHeight: PropTypes.number,
     onRowsSelected: PropTypes.func,
@@ -33,7 +32,6 @@ export default class Grid extends Component {
 
   static defaultProps = {
     data: [],
-    columns: [],
     handleRowChange: () => {},
     minHeight: 50,
     onRowsSelected: () => {},
@@ -48,6 +46,7 @@ export default class Grid extends Component {
     shadowRows: fromJS(this.props.data),
     rows: fromJS(this.props.data), //eslint-disable-line
     columnsDef: [],
+    rawColumnsDef: [],
     sortColumn: null, //eslint-disable-line
     sortDirection: null, //eslint-disable-line
     rowIdx: -1,
@@ -61,7 +60,10 @@ export default class Grid extends Component {
   componentDidMount() {
     getCurrentColumns(this.props.gridName)
       .then((res) => {
-        this.setState({ columnsDef: this.getColumns(res.data) });
+        this.setState({
+          columnsDef: this.getColumns(res.data),
+          rawColumnsDef: res.data
+        });
       });
   }
 
@@ -194,7 +196,7 @@ export default class Grid extends Component {
   };
 
   handleChangeColunsDef = (items) => {
-    this.setState({ columnsDef: items });
+    this.setState({ rawColumnsDef: items });
   }
 
   rowGetter = (rowIdx) => {
@@ -211,9 +213,9 @@ export default class Grid extends Component {
   }
 
   saveConfig = () => {
-    updateColumns(this.state.columnsDef);
+    updateColumns(this.state.rawColumnsDef);
     this.setState({
-      columnsDef: this.getColumns(this.state.columnsDef)
+      columnsDef: this.getColumns(this.state.rawColumnsDef)
     });
   }
 
@@ -260,7 +262,7 @@ export default class Grid extends Component {
           </Modal.Header>
           <Modal.Body>
             <ColumnsConfig
-              columns={this.state.columnsDef}
+              columns={this.state.rawColumnsDef}
               onChange={this.handleChangeColunsDef}
             />
           </Modal.Body>

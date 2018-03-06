@@ -103,7 +103,6 @@ class SortableComponent extends Component {
       if (item.key === key) {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         virtualItem[e.target.name] = value;
-        console.log(virtualItem[e.target.name], value);
       }
       return virtualItem;
     });
