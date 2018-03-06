@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 const SortableItem = SortableElement((props) => {
-  const { value, order, handleChange } = props;
-  console.log(value.width);
+  const {
+    value,
+    position,
+    handleChange
+  } = props;
   return (
     <tr>
-      <th>{order}</th>
+      <th>{position}</th>
       <th>{value.key}</th>
       <td>{value.name}</td>
       <td>
         <input
-          name="locked"
+          name="fixed"
           type="checkbox"
           aria-label="Checkbox for locked definition"
           onChange={e => handleChange(e, value.key)}
-          value={value.locked}
+          checked={value.fixed}
         />
       </td>
       <td>
@@ -34,28 +37,30 @@ const SortableItem = SortableElement((props) => {
       </td>
       <td>
         <input
-          name=width
+          name="width"
           className="form-control"
           type="text"
           placeholder="Tamanho"
-          value={value.width}
+          value={value.width || ''}
           onChange={e => handleChange(e, value.key)}
         />
       </td>
       <td>
         <input
-          name={value.key}
+          name="hidden"
           type="checkbox"
           aria-label="Checkbox for hidden definition"
           onChange={e => handleChange(e, value.key)}
-          value={value.hidden}
+          checked={value.hidden}
         />
       </td>
     </tr>
   );
 });
 
-const SortableList = SortableContainer(({ items, handleChange }) => {
+const SortableList = SortableContainer(({
+  items, handleChange
+}) => {
   return (
     <table className="table">
       <thead>
@@ -75,7 +80,7 @@ const SortableList = SortableContainer(({ items, handleChange }) => {
           return (<SortableItem
             key={key}
             index={index}
-            order={index}
+            position={index}
             value={value}
             handleChange={handleChange}
           />);
@@ -90,7 +95,6 @@ class SortableComponent extends Component {
     items: this.props.columnsDef
   };
   onSortEnd = ({ oldIndex, newIndex }) => {
-    console.log(oldIndex, newIndex);
     this.setState({
       items: arrayMove(this.state.items, oldIndex, newIndex),
     });
@@ -100,7 +104,8 @@ class SortableComponent extends Component {
     const items = this.state.items.map((item) => {
       const virtualItem = item;
       if (item.key === key) {
-        virtualItem[e.target.name] = e.target.value;
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        virtualItem[e.target.name] = value;
       }
       return virtualItem;
     });
