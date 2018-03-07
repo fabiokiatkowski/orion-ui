@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 const SortableItem = SortableElement((props) => {
@@ -91,6 +92,11 @@ const SortableList = SortableContainer(({
 });
 
 class SortableComponent extends Component {
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+    columns: PropTypes.array.isRequired
+  }
+
   onSortEnd = ({ oldIndex, newIndex }) => {
     let newItems = arrayMove(this.props.columns, oldIndex, newIndex);
     newItems = this.reordain(newItems);
