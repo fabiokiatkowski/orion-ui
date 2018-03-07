@@ -14,6 +14,7 @@ import ColumnsConfig from './ColumnsConfig';
 import { getCurrentColumns, updateColumns } from '../utils/gridProfile';
 import IntegerFormat from './NumeralFormat';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from './Summary';
+import ColumnsConfigHeader from './ColumnsConfigHeader';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -265,37 +266,27 @@ export default class Grid extends Component {
             }
           }}
         />
-        <Modal
-          show={this.state.showConfig}
-          onHide={this.closeConfig}
-          dialogClassName="fullscreen-modal-container"
-        >
-          <Modal.Header closeButton>
-            <div className="config-header">
-              <h4 className="modal-title">Configurações</h4>
-              <select
-                className="form-control profile-options"
-                name="summary_index"
-              >
-                <option value={0}>Default</option>
-                <option value={1}>Default 2</option>
-                <option value={2}>Default 3</option>
-                <option value={3}>Default 4</option>
-                <option value={4}>Default 5</option>
-              </select>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <ColumnsConfig
-              columns={this.state.rawColumnsDef}
-              onChange={this.handleChangeColunsDef}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.saveConfig}>Salvar</Button>
-            <Button onClick={this.closeConfig}>Fechar</Button>
-          </Modal.Footer>
-        </Modal>
+        {this.state.showConfig &&
+          <Modal
+            show
+            onHide={this.closeConfig}
+            dialogClassName="fullscreen-modal-container"
+          >
+            <Modal.Header closeButton>
+              <ColumnsConfigHeader />
+            </Modal.Header>
+            <Modal.Body>
+              <ColumnsConfig
+                columns={this.state.rawColumnsDef}
+                onChange={this.handleChangeColunsDef}
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.saveConfig}>Salvar</Button>
+              <Button onClick={this.closeConfig}>Fechar</Button>
+            </Modal.Footer>
+          </Modal>
+        }
         {this.state.showContextMenu &&
           <GridContextMenu
             onClearFilters={this.cleanFilters}
