@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class ColumnsConfigHeader extends Component {
+  static propTypes = {
+    currentProfile: PropTypes.number,
+    onProfileChange: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    currentProfile: -1
+  }
+
   state = {
-    currentProfile: null,
     profiles: []
   }
 
@@ -13,7 +21,6 @@ class ColumnsConfigHeader extends Component {
 
   test = () => {
     this.setState({
-      currentProfile: { id: 5, nome: 'Default' },
       profiles: [
         { id: 1, nome: 'teste' },
         { id: 2, nome: 'teste 2' },
@@ -27,21 +34,33 @@ class ColumnsConfigHeader extends Component {
     });
   }
 
+  handleChangeProfile = (e) => {
+    this.props.onProfileChange(e.target.value);
+  }
+
   renderProfileOptions = () => {
     return this.state.profiles.map((profile) => {
-      return <option value={profile.id}>{profile.nome}</option>;
+      return (
+        <option
+          key={`profile-${profile.id}`}
+          value={profile.id}
+        >
+          {profile.nome}
+        </option>
+      );
     });
   }
 
   render() {
-    const { currentProfile } = this.state;
+    const { currentProfile } = this.props;
     return (
       <div className="config-header">
         <h4 className="modal-title">Configurações</h4>
         <select
           className="form-control profile-options"
           name="summary_index"
-          value={currentProfile && currentProfile.id}
+          value={currentProfile}
+          onChange={this.handleChangeProfile}
         >
           {this.renderProfileOptions()}
         </select>

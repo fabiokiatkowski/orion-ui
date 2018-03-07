@@ -33,11 +33,11 @@ export default class Grid extends Component {
 
   static defaultProps = {
     data: [],
-    handleRowChange: () => {},
+    handleRowChange: () => { },
     minHeight: 50,
-    onRowsSelected: () => {},
-    onRowsDeselected: () => {},
-    onRowClick: () => {},
+    onRowsSelected: () => { },
+    onRowsDeselected: () => { },
+    onRowClick: () => { },
     enableSummary: false,
     showCheckbox: false,
     reflectShadowRows: null,
@@ -53,6 +53,7 @@ export default class Grid extends Component {
     showContextMenu: false,
     contextMenuScreenX: null,
     contextMenuScreenY: null,
+    currentProfile: null,
     shadowRows: fromJS(this.props.data),
     rows: fromJS(this.props.data), //eslint-disable-line 
     sortDirection: null, //eslint-disable-line
@@ -62,9 +63,11 @@ export default class Grid extends Component {
   componentDidMount() {
     getCurrentColumns(this.props.gridName)
       .then((res) => {
+        const profileId = res.data[0] ? res.data[0].id : -1;
         this.setState({
           columnsDef: this.getColumns(res.data),
           rawColumnsDef: res.data,
+          currentProfile: profileId
         }, () => {
           this.hackRDGridRender();
         });
@@ -174,7 +177,7 @@ export default class Grid extends Component {
   cleanFiltesByRef = () => {
     /* TODO ter uma ideia melhor pra resolver isso */
     if (this.CustomHeaderFormatterRef &&
-        this.CustomHeaderFormatterRef.FilterRendererRef) {
+      this.CustomHeaderFormatterRef.FilterRendererRef) {
       this.CustomHeaderFormatterRef.FilterRendererRef.clean();
     }
   }
@@ -208,6 +211,10 @@ export default class Grid extends Component {
       chamar o resize do browse força o rdg a recomputar o tamanho das colunas e isso força o render
     */
     window.dispatchEvent(new Event('resize'));
+  }
+
+  handleChangeProfile = (idProfile) => {
+    this.setState({ currentProfile: idProfile });
   }
 
   rowGetter = (rowIdx) => {
@@ -273,7 +280,10 @@ export default class Grid extends Component {
             dialogClassName="fullscreen-modal-container"
           >
             <Modal.Header closeButton>
-              <ColumnsConfigHeader />
+              <ColumnsConfigHeader
+                currentProfile={this.state.currentProfile}
+                onProfileChange={this.handleChangeProfile}
+              />
             </Modal.Header>
             <Modal.Body>
               <ColumnsConfig
