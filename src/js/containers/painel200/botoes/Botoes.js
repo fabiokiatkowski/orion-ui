@@ -84,17 +84,12 @@ const botoes = (props) => {
           >Prorrogar
           </Button>
         </OverlayTrigger>
-        <OverlayTrigger
-          trigger={!props.disabled ? ['focus'] : null}
-          placement="bottom"
-          overlay={popoverHoverFocus}
-        >
-          <Button
-            disabled={props.disabled}
-            bsClass="btn btn-margin-top left"
-          >Consultar Avance
-          </Button>
-        </OverlayTrigger>
+        <NavLink
+          className={classes.join(' ')}
+          target="_blank"
+          to={{ pathname: '/avance', search: `?ordemProducao=${props.ordemProducao}` }}
+        >Consulta Avance
+        </NavLink>
         <OverlayTrigger
           trigger={!props.disabled ? ['focus'] : null}
           placement="bottom"

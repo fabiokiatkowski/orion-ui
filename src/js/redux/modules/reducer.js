@@ -11,6 +11,7 @@ import session from './session';
 import observacao from './observacao';
 import visualizador from './visualizador';
 import suprimento from './suprimento';
+import producao from './producao/producao';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   session,
   observacao,
   visualizador,
-  suprimento
+  suprimento,
+  producao
 });
 
 export default rootReducer;

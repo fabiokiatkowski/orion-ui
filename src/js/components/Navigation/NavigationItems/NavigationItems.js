@@ -22,7 +22,10 @@ const NavigationItems = (props) => {
           <MenuItem eventKey={1.1}>
             <NavigationItem link="/tela200">Tela 200</NavigationItem>
           </MenuItem>
-          <MenuItem eventKey={1.2} title="Visualizador">
+          <MenuItem eventKey={1.2} title="Consultar Avance">
+            <NavigationItem link="/avance">Consultar Avance</NavigationItem>
+          </MenuItem>
+          <MenuItem eventKey={1.3} title="Visualizador">
             <NavigationItem link="/visualizador">Visualizador</NavigationItem>
           </MenuItem>
         </NavDropdown>
