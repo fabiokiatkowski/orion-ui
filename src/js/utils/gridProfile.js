@@ -16,4 +16,14 @@ const updateColumns = (params) => {
     .then(res => console.log(res));
 };
 
-export { getCurrentColumns, getCurrentProfile, updateColumns };
+const getProfiles = (gridName) => {
+  const url = `/api/grid/${gridName}/get-profiles`;
+  return axios.get(url);
+};
+
+export {
+  getCurrentColumns,
+  getCurrentProfile,
+  updateColumns,
+  getProfiles
+};

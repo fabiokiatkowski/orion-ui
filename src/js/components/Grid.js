@@ -11,7 +11,7 @@ import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
-import { getCurrentColumns, updateColumns } from '../utils/gridProfile';
+import { getCurrentColumns, updateColumns, getProfiles } from '../utils/gridProfile';
 import IntegerFormat from './NumeralFormat';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from './Summary';
 import ColumnsConfigHeader from './ColumnsConfigHeader';
@@ -28,7 +28,7 @@ export default class Grid extends Component {
     enableSummary: PropTypes.bool,
     showCheckbox: PropTypes.bool,
     reflectShadowRows: PropTypes.func,
-    gridName: PropTypes.string.isRequired
+    gridName: PropTypes.string,
   }
 
   static defaultProps = {
@@ -41,7 +41,8 @@ export default class Grid extends Component {
     enableSummary: false,
     showCheckbox: false,
     reflectShadowRows: null,
-    indexes: []
+    indexes: [],
+    gridName: '',
   }
 
   state = {
@@ -54,6 +55,7 @@ export default class Grid extends Component {
     contextMenuScreenX: null,
     contextMenuScreenY: null,
     currentProfile: null,
+    profiles: [],
     shadowRows: fromJS(this.props.data),
     rows: fromJS(this.props.data), //eslint-disable-line 
     sortDirection: null, //eslint-disable-line
@@ -72,6 +74,15 @@ export default class Grid extends Component {
           this.hackRDGridRender();
         });
       });
+    /* TODO - melhorar
+      Não parece muito legal fazer dois requests e atualizar o state em dois callbacks diferentes,
+      Uma ideia boa é alterar o endpoint para trazer os coluns e os profiles em uma tupla, não
+      vou fazer isso agora porque gastei muito tempo nessa implementação já e nessa fase do projeto
+      temos que mostrar coisas prontas, depois refatoramos. Abraços.
+    */
+    getProfiles(this.props.gridName).then((res) => {
+      this.setState({ profiles: res.data });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -283,6 +294,7 @@ export default class Grid extends Component {
               <ColumnsConfigHeader
                 currentProfile={this.state.currentProfile}
                 onProfileChange={this.handleChangeProfile}
+                profiles={this.state.profiles}
               />
             </Modal.Header>
             <Modal.Body>
