@@ -271,9 +271,19 @@ export default class Grid extends Component {
           dialogClassName="fullscreen-modal-container"
         >
           <Modal.Header closeButton>
-            <Modal.Title>
-              Configurações
-            </Modal.Title>
+            <div className="config-header">
+              <h4 className="modal-title">Configurações</h4>
+              <select
+                className="form-control profile-options"
+                name="summary_index"
+              >
+                <option value={0}>Default</option>
+                <option value={1}>Default 2</option>
+                <option value={2}>Default 3</option>
+                <option value={3}>Default 4</option>
+                <option value={4}>Default 5</option>
+              </select>
+            </div>
           </Modal.Header>
           <Modal.Body>
             <ColumnsConfig

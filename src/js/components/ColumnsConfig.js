@@ -11,7 +11,6 @@ const SortableItem = SortableElement((props) => {
   return (
     <tr>
       <th>{position}</th>
-      <th>{value.key}</th>
       <td>{value.name}</td>
       <td>
         <input
@@ -36,16 +35,6 @@ const SortableItem = SortableElement((props) => {
           <option value={4}>Soma de valores</option>
         </select>
       </td>
-      {/* <td>
-        <input
-          name="width"
-          className="form-control"
-          type="text"
-          placeholder="Tamanho"
-          value={value.width || ''}
-          onChange={e => handleChange(e, value.key)}
-        />
-      </td> */}
       <td>
         <input
           name="hidden"
@@ -55,6 +44,15 @@ const SortableItem = SortableElement((props) => {
           checked={value.hidden}
         />
       </td>
+      {/* <td>
+        <input
+          name="width"
+          className="form-control"
+          type="text"
+          value={value.width || ''}
+          disabled
+        />
+      </td> */}
     </tr>
   );
 });
@@ -66,13 +64,12 @@ const SortableList = SortableContainer(({
     <table className="table">
       <thead>
         <tr>
-          <th scope="col">Order</th>
-          <th scope="col">Chave</th>
+          <th scope="col">Ordem</th>
           <th scope="col">Descrição</th>
           <th scope="col">Fixo</th>
           <th scope="col">Totalizador</th>
-          {/* <th scope="col">Tamanho(px)</th> */}
           <th scope="col">Esconder</th>
+          {/* <th scope="col">Tamanho(px)</th> */}
         </tr>
       </thead>
       <tbody>
