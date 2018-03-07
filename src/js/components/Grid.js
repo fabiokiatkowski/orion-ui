@@ -17,13 +17,13 @@ import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '
 
 export default class Grid extends Component {
   static propTypes = {
-    data: PropTypes.array, //eslint-disable-line
+    data: PropTypes.array,
     handleRowChange: PropTypes.func,
     minHeight: PropTypes.number,
     onRowsSelected: PropTypes.func,
     onRowsDeselected: PropTypes.func,
     onRowClick: PropTypes.func,
-    indexes: PropTypes.array, //eslint-disable-line
+    indexes: PropTypes.array,
     enableSummary: PropTypes.bool,
     showCheckbox: PropTypes.bool,
     reflectShadowRows: PropTypes.func,
@@ -39,22 +39,23 @@ export default class Grid extends Component {
     onRowClick: () => {},
     enableSummary: false,
     showCheckbox: false,
-    reflectShadowRows: null
+    reflectShadowRows: null,
+    indexes: []
   }
 
   state = {
-    shadowRows: fromJS(this.props.data),
-    rows: fromJS(this.props.data), //eslint-disable-line 
     columnsDef: [],
     rawColumnsDef: [],
-    sortColumn: null, //eslint-disable-line
-    sortDirection: null, //eslint-disable-line
     rowIdx: -1,
     filters: '',
     showConfig: false,
     showContextMenu: false,
     contextMenuScreenX: null,
-    contextMenuScreenY: null
+    contextMenuScreenY: null,
+    shadowRows: fromJS(this.props.data),
+    rows: fromJS(this.props.data), //eslint-disable-line 
+    sortDirection: null, //eslint-disable-line
+    sortColumn: null //eslint-disable-line
   };
 
   componentDidMount() {
@@ -64,8 +65,7 @@ export default class Grid extends Component {
           columnsDef: this.getColumns(res.data),
           rawColumnsDef: res.data,
         }, () => {
-          /* POG - data grid não renderiza novamente se mudar apenas a ordem das colunas */
-          window.dispatchEvent(new Event('resize'));
+          this.hackRDGridRender();
         });
       });
   }
@@ -137,7 +137,6 @@ export default class Grid extends Component {
         />
       );
       if (column.summary_index) {
-        console.log('summary_index', column.summary_index);
         virtualColumn.summary = this.getSummary(column.summary_index);
       }
       if (column.formatter_index) {
@@ -203,6 +202,13 @@ export default class Grid extends Component {
     this.setState({ rawColumnsDef: items });
   }
 
+  hackRDGridRender = () => {
+    /* POG - data grid não renderiza novamente se mudar apenas a ordem das colunas,
+      chamar o resize do browse força o rdg a recomputar o tamanho das colunas e isso força o render
+    */
+    window.dispatchEvent(new Event('resize'));
+  }
+
   rowGetter = (rowIdx) => {
     const rows = this.getRows();
     return rows.get(rowIdx);
@@ -220,11 +226,11 @@ export default class Grid extends Component {
     updateColumns(this.state.rawColumnsDef);
     const newState = {
       ...this.state,
-      columnsDef: this.getColumns(this.state.rawColumnsDef)
+      columnsDef: this.getColumns(this.state.rawColumnsDef),
+      showConfig: false
     };
     this.setState(newState, () => {
-      /* POG - data grid não renderiza novamente se mudar apenas a ordem das colunas */
-      window.dispatchEvent(new Event('resize'));
+      this.hackRDGridRender();
     });
   }
 
