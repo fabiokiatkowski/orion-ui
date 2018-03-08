@@ -50,6 +50,7 @@ export default class Grid extends Component {
     rawColumnsDef: [],
     rowIdx: -1,
     filters: '',
+    showAddPerfil: false,
     showConfig: false,
     showContextMenu: false,
     contextMenuScreenX: null,
@@ -175,6 +176,10 @@ export default class Grid extends Component {
     return rows.map(r => r.get(columnId)).toSet();
   };
 
+  addPerfil = () => {
+    console.log('teste');
+  }
+
   cleanFilters = () => {
     this.setState({
       rows: fromJS(this.props.data), //eslint-disable-line
@@ -237,8 +242,16 @@ export default class Grid extends Component {
     this.setState({ showConfig: true });
   }
 
+  openAddPerfil = () => {
+    this.setState({ showAddPerfil: true, showConfig: false });
+  }
+
   closeConfig = () => {
     this.setState({ showConfig: false });
+  }
+
+  closeAddPerfil = () => {
+    this.setState({ showAddPerfil: false, showConfig: true });
   }
 
   saveConfig = () => {
@@ -255,6 +268,27 @@ export default class Grid extends Component {
 
   closeContextMenu = () => {
     this.setState({ showContextMenu: false });
+  }
+
+  renderAddPerfil = () => {
+    return (
+      <Modal
+        show
+        onHide={this.closeAddPerfil}
+        dialogClassName="modal-container"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Criar Perfil</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          criar form pra adicionar perfil
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.addPerfil}>Salvar</Button>
+          <Button onClick={this.closeAddPerfil}>Fechar</Button>
+        </Modal.Footer>
+      </Modal>
+    );
   }
 
   render() {
@@ -304,11 +338,13 @@ export default class Grid extends Component {
               />
             </Modal.Body>
             <Modal.Footer>
+              <Button onClick={this.openAddPerfil}>Criar Novo Perfil</Button>
               <Button onClick={this.saveConfig}>Salvar</Button>
               <Button onClick={this.closeConfig}>Fechar</Button>
             </Modal.Footer>
           </Modal>
         }
+        {this.state.showAddPerfil && this.renderAddPerfil()}
         {this.state.showContextMenu &&
           <GridContextMenu
             onClearFilters={this.cleanFilters}
