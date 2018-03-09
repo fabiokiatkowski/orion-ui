@@ -11,7 +11,7 @@ import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
-import { getCurrentColumns, updateColumns, getProfiles } from '../utils/gridProfile';
+import { getCurrentColumns, updateColumns, getProfiles, createProfile } from '../utils/gridProfile';
 import IntegerFormat from './NumeralFormat';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from './Summary';
 import ColumnsConfigHeader from './ColumnsConfigHeader';
@@ -176,8 +176,23 @@ export default class Grid extends Component {
     return rows.map(r => r.get(columnId)).toSet();
   };
 
-  addPerfil = () => {
-    console.log('teste');
+  addPerfil = (e) => {
+    e.preventDefault();
+    createProfile(this.props.gridName, {
+      first: e.target.profileName.value,
+      second: this.state.rawColumnsDef
+    }).then((res) => {
+      const newProfile = res.data.first;
+      const newColumns = res.data.second;
+      this.setState({
+        showAddPerfil: false,
+        showConfig: true,
+        profiles: [...this.state.profiles, newProfile],
+        profileId: newProfile.id,
+        rawColumnsDef: newColumns,
+        columnsDef: this.getColumns(newColumns)
+      });
+    });
   }
 
   cleanFilters = () => {
@@ -281,10 +296,12 @@ export default class Grid extends Component {
           <Modal.Title>Criar Perfil</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          criar form pra adicionar perfil
+          <form id="formAddPerfil" className="form add-profile" onSubmit={this.addPerfil}>
+            <input name="profileName" type="text" className="form-control" placeholder="Nome" />
+          </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.addPerfil}>Salvar</Button>
+          <Button type="submit" form="formAddPerfil">Salvar</Button>
           <Button onClick={this.closeAddPerfil}>Fechar</Button>
         </Modal.Footer>
       </Modal>

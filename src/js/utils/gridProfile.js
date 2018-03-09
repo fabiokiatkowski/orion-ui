@@ -21,9 +21,15 @@ const getProfiles = (gridName) => {
   return axios.get(url);
 };
 
+const createProfile = (gridName, payload) => {
+  const url = `/api/grid/${gridName}/create-profile`;
+  return axios.post(url, payload);
+};
+
 export {
   getCurrentColumns,
   getCurrentProfile,
   updateColumns,
-  getProfiles
+  getProfiles,
+  createProfile
 };
