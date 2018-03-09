@@ -26,10 +26,16 @@ const createProfile = (gridName, payload) => {
   return axios.post(url, payload);
 };
 
+const changeProfile = (gridName, profileId) => {
+  const url = `/api/grid/${gridName}/profile/${profileId}/update-user-profile`;
+  return axios.post(url);
+};
+
 export {
   getCurrentColumns,
   getCurrentProfile,
   updateColumns,
   getProfiles,
-  createProfile
+  createProfile,
+  changeProfile
 };

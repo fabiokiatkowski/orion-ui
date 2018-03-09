@@ -11,7 +11,7 @@ import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
-import { getCurrentColumns, updateColumns, getProfiles, createProfile } from '../utils/gridProfile';
+import { getCurrentColumns, updateColumns, getProfiles, createProfile, changeProfile } from '../utils/gridProfile';
 import IntegerFormat from './NumeralFormat';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from './Summary';
 import ColumnsConfigHeader from './ColumnsConfigHeader';
@@ -245,7 +245,9 @@ export default class Grid extends Component {
   }
 
   handleChangeProfile = (idProfile) => {
-    this.setState({ currentProfile: idProfile });
+    changeProfile(this.props.gridName, idProfile).then((res) => {
+      this.setState({ currentProfile: idProfile, rawColumnsDef: res.data });
+    });
   }
 
   rowGetter = (rowIdx) => {
