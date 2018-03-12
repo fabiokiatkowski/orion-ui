@@ -1,6 +1,5 @@
-import Types from '../../utils/filterTypes';
-import { SummarySum } from '../../components/Summary';
-import IntegerFormat from '../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
+import { SummarySum } from '../src/js/components/Summary';
 
 const columns = [
   {
@@ -20,7 +19,6 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
     summary: SummarySum,
     order: 2
   }

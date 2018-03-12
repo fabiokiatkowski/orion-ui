@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { listarRolosEmpenhados } from '../../redux/modules/estoque/estoque';
 
 import Grid from '../../components/Grid';
-import columns from './columnsDeposito';
 
 const InsumoDeposito = (props) => {
   const handleRowChange = (data) => {
@@ -20,10 +19,10 @@ const InsumoDeposito = (props) => {
     <div className="deposito">
       <Grid
         minHeight={props.minHeight}
-        columns={columns}
         data={props.estoqueData.depositos}
         indexes={[]}
         handleRowChange={handleRowChange}
+        gridName="insumoDeposito"
       />
     </div>
   );
@@ -31,7 +30,8 @@ const InsumoDeposito = (props) => {
 
 InsumoDeposito.propTypes = {
   estoqueData: PropTypes.array.isRequired,
-  listarRolosEmpenhados: PropTypes.func
+  listarRolosEmpenhados: PropTypes.func,
+  minHeight: PropTypes.number.isRequired
 };
 
 InsumoDeposito.defaultProps = ({

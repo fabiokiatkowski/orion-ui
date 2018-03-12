@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { listarEstoqueReferencia } from '../../redux/modules/estoque/estoque';
 import { listarInsumoNecessidade } from '../../redux/modules/insumoNecessidade/insumoNecessidade';
 
-import columns from './columns';
 import Grid from '../../components/Grid';
 
 class InsumoNecessidade extends Component {
@@ -27,10 +26,10 @@ class InsumoNecessidade extends Component {
       <div className="insumo-estoque">
         <Grid
           minHeight={this.props.minHeight}
-          columns={columns}
           data={this.props.insumosData}
           indexes={[]}
           handleRowChange={this.handleRowChange}
+          gridName="insumoNecessidade"
         />
       </div>
     );
@@ -41,7 +40,8 @@ InsumoNecessidade.propTypes = {
   insumosData: PropTypes.array.isRequired,
   listarEstoqueReferencia: PropTypes.func.isRequired,
   listarInsumoNecessidade: PropTypes.func.isRequired,
-  ordemProducao: PropTypes.number.isRequired
+  ordemProducao: PropTypes.number.isRequired,
+  minHeight: PropTypes.number.isRequired
 };
 
 const mapStateToProps = state => ({

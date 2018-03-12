@@ -1,6 +1,9 @@
 import axios from '../axios-orion';
-import visualizador from '../../../tempColumns/visualizador';
-import ondeUsaVisualizador from '../../../tempColumns/ondeUsaVisualizador';
+import visualizador from '../../../oldColumnsDef/visualizador';
+import ondeUsaVisualizador from '../../../oldColumnsDef/ondeUsaVisualizador';
+import insumoNecessidade from '../../../oldColumnsDef/insumoNecessidade';
+import insumoDeposito from '../../../oldColumnsDef/insumoDeposito';
+import insumoRolos from '../../../oldColumnsDef/insumoRolos';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -35,7 +38,10 @@ const temporaryInsert = (gridName, columns) => {
 };
 
 export default () => {
-  // temporaryInsert('visualizador', visualizador);
-  // temporaryInsert('ondeUsaVisualizador', ondeUsaVisualizador);
+  temporaryInsert('visualizador', visualizador);
+  temporaryInsert('ondeUsaVisualizador', ondeUsaVisualizador);
+  temporaryInsert('insumoRolos', insumoRolos);
+  temporaryInsert('insumoNecessidade', insumoNecessidade);
+  temporaryInsert('insumoDeposito', insumoDeposito);
 };
 

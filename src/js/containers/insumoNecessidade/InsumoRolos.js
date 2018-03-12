@@ -4,17 +4,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Grid from '../../components/Grid';
-import columns from './columnsRolos';
 
 const InsumoRolos = (props) => {
   return (
     <div className="rolo">
       <Grid
         minHeight={props.minHeight}
-        columns={columns}
         data={props.rolosData}
         indexes={[]}
         handleRowChange={props.handleRowChange}
+        gridName="insumoRolos"
       />
     </div>
   );
@@ -22,7 +21,8 @@ const InsumoRolos = (props) => {
 
 InsumoRolos.propTypes = {
   rolosData: PropTypes.array.isRequired,
-  handleRowChange: PropTypes.func
+  handleRowChange: PropTypes.func,
+  minHeight: PropTypes.number.isRequired
 };
 
 InsumoRolos.defaultProps = {
