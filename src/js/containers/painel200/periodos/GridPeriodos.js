@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import columns from './columns';
 import Grid from '../../../components/Grid';
 
 const GridPeriodos = (props) => {
@@ -9,10 +7,10 @@ const GridPeriodos = (props) => {
     <Grid
       minHeight={props.minHeight}
       data={props.data}
-      columns={columns}
       onRowsSelected={props.onRowsSelected}
       onRowsDeselected={props.onRowsDeselected}
       indexes={props.indexes}
+      gridName="tela200periodos"
       enableSummary
       showCheckbox
     />

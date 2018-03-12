@@ -6,6 +6,7 @@ import insumoDeposito from '../../../oldColumnsDef/insumoDeposito';
 import insumoRolos from '../../../oldColumnsDef/insumoRolos';
 import estagiosAbertos from '../../../oldColumnsDef/estagiosAbertos';
 import tela200ordens from '../../../oldColumnsDef/tela200ordens';
+import tela200periodos from '../../../oldColumnsDef/tela200periodos';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -29,7 +30,7 @@ const temporaryInsert = (gridName, columns) => {
   const columnsS = columns.map((x) => {
     const y = x;
     y.summary_index = getSummaryIndex(y.summary);
-    y.formatter_index = 0;
+    y.formatter_index = y.formatter_index === 1 ? y.formatter_index : 0;
     delete y.summary;
     delete y.formatter;
     delete y.filterRenderer;
@@ -47,5 +48,6 @@ export default () => {
   temporaryInsert('insumoDeposito', insumoDeposito);
   temporaryInsert('tela200estagiosAbertos', estagiosAbertos);
   temporaryInsert('tela200ordens', tela200ordens);
+  temporaryInsert('tela200periodos', tela200periodos);
 };
 
