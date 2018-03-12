@@ -9,6 +9,7 @@ import tela200ordens from '../../../oldColumnsDef/tela200ordens';
 import tela200periodos from '../../../oldColumnsDef/tela200periodos';
 import totaisOPestagioParalelo from '../../../oldColumnsDef/totaisOPestagioParalelo';
 import totaisOPFilhos from '../../../oldColumnsDef/totaisOPFilhos';
+import totaisOPLogUti from '../../../oldColumnsDef/totaisOPLogUti';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -53,5 +54,6 @@ export default () => {
   temporaryInsert('tela200periodos', tela200periodos);
   temporaryInsert('totaisOPestagioParalelo', totaisOPestagioParalelo);
   temporaryInsert('totaisOPFilhos', totaisOPFilhos);
+  temporaryInsert('totaisOPLogUti', totaisOPLogUti);
 };
 
