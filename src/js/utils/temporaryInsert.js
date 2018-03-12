@@ -7,6 +7,7 @@ import insumoRolos from '../../../oldColumnsDef/insumoRolos';
 import estagiosAbertos from '../../../oldColumnsDef/estagiosAbertos';
 import tela200ordens from '../../../oldColumnsDef/tela200ordens';
 import tela200periodos from '../../../oldColumnsDef/tela200periodos';
+import totaisOPestagioParalelo from '../../../oldColumnsDef/totaisOPestagioParalelo';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -49,5 +50,6 @@ export default () => {
   temporaryInsert('tela200estagiosAbertos', estagiosAbertos);
   temporaryInsert('tela200ordens', tela200ordens);
   temporaryInsert('tela200periodos', tela200periodos);
+  temporaryInsert('totaisOPestagioParalelo', totaisOPestagioParalelo);
 };
 
