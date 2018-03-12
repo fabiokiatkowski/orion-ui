@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Checkbox, FormGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import columns from './columns';
 import Grid from '../../../../components/Grid';
 import { listarOndeTem } from '../../../../redux/modules/tela200';
 
@@ -93,8 +92,8 @@ class GridOndeTem extends Component {
         <Grid
           minHeight={this.props.minHeight}
           data={this.props.data}
-          columns={columns}
           indexes={[]}
+          gridName="totaisOpOndeTem"
         />
       </div>
     );
@@ -106,7 +105,8 @@ GridOndeTem.propTypes = {
   data: PropTypes.array,
   ordemProducao: PropTypes.number,
   grupo: PropTypes.string,
-  item: PropTypes.string
+  item: PropTypes.string,
+  minHeight: PropTypes.number.isRequired
 };
 
 GridOndeTem.defaultProps = {
