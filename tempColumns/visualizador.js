@@ -1,5 +1,5 @@
-import SuperFilter from '../../components/SuperFilter';
-import Types from '../../utils/filterTypes';
+import SuperFilter from '../src/js/components/SuperFilter';
+import Types from '../src/js/utils/filterTypes';
 
 const columns = [
   {

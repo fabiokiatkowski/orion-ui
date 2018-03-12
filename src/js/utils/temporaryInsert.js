@@ -1,6 +1,6 @@
 import axios from '../axios-orion';
-import visualizador from '../containers/visualizador/columns';
-import ondeUsaVisualizador from '../containers/visualizador/ondeUsa/columns';
+import visualizador from '../../../tempColumns/visualizador';
+import ondeUsaVisualizador from '../../../tempColumns/ondeUsaVisualizador';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -35,7 +35,7 @@ const temporaryInsert = (gridName, columns) => {
 };
 
 export default () => {
-  temporaryInsert('visualizador', visualizador);
-  temporaryInsert('ondeUsaVisualizador', ondeUsaVisualizador);
+  // temporaryInsert('visualizador', visualizador);
+  // temporaryInsert('ondeUsaVisualizador', ondeUsaVisualizador);
 };
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import columns from './columns';
 import Grid from '../../../components/Grid';
 import { getOndeUsa } from '../../../redux/modules/visualizador';
 
@@ -49,9 +48,9 @@ class OndeUsaGrid extends Component {
     return (
       <Grid
         minHeight={500}
-        columns={columns}
         data={this.props.data}
         handleRowChange={() => {}}
+        gridName="ondeUsaVisualizador"
       />
     );
   }
