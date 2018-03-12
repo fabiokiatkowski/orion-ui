@@ -1,4 +1,3 @@
-import SuperFilter from '../src/js/components/SuperFilter';
 import Types from '../src/js/utils/filterTypes';
 
 const columns = [
@@ -9,7 +8,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 0
   },
@@ -20,7 +19,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 1
   },
@@ -31,7 +30,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 2
   },
@@ -42,7 +41,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     order: 3,
     type: Types.TEXT
   },
@@ -53,7 +52,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 4
   },
@@ -64,7 +63,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 5
   },
@@ -75,7 +74,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 6
   },
@@ -86,7 +85,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 7
   },
@@ -97,7 +96,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 8
   }

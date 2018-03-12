@@ -1,6 +1,4 @@
-import SuperFilter from '../../../../components/SuperFilter';
-import Types from '../../../../utils/filterTypes';
-import IntegerFormat from '../../../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
 
 const columns = [
   {
@@ -10,7 +8,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 1
   },
@@ -21,7 +19,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 2
   },
@@ -32,7 +30,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 3
   },
@@ -43,7 +41,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 4
   },
@@ -54,7 +52,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 5
   },
@@ -65,7 +63,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 6
   },
@@ -76,9 +74,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     order: 7
   },
   {
@@ -88,7 +86,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 8
   },
@@ -99,8 +97,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
-    formatter: IntegerFormat,
+
+    formatter_index: 1,
     type: Types.NUMBER,
     order: 9
   },
@@ -111,7 +109,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 10
   }

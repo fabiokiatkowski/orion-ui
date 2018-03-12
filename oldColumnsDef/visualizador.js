@@ -1,4 +1,3 @@
-import SuperFilter from '../src/js/components/SuperFilter';
 import Types from '../src/js/utils/filterTypes';
 
 const columns = [
@@ -9,7 +8,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     position: 0
   },
@@ -20,7 +19,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     position: 1
   },
@@ -31,7 +30,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     position: 2,
     type: Types.TEXT
   },
@@ -42,7 +41,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     position: 3
   },
@@ -53,7 +52,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     position: 4
   },
@@ -64,7 +63,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     position: 5
   },
@@ -75,7 +74,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     position: 6
   },
@@ -86,7 +85,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     position: 7
   },
@@ -97,7 +96,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     position: 8
   },
@@ -108,7 +107,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     position: 9
   },
@@ -119,7 +118,7 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     position: 10
   }

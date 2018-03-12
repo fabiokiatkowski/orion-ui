@@ -1,7 +1,5 @@
-import SuperFilter from '../../../components/SuperFilter';
-import Types from '../../../utils/filterTypes';
-import { SummarySum } from '../../../components/Summary';
-import IntegerFormat from '../../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
+import { SummarySum } from '../src/js/components/Summary';
 
 const columns = [
   {
@@ -12,7 +10,6 @@ const columns = [
     width: 150,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
     order: 1
   },
@@ -25,7 +22,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 2
   },
@@ -38,7 +35,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 3
   },
@@ -51,7 +48,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
     order: 4
   },
@@ -64,7 +61,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
     order: 5
   },
@@ -77,7 +74,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 6
   },
@@ -90,7 +87,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 6
   },
@@ -103,7 +100,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 7
   },
@@ -116,7 +113,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 8
   },
@@ -129,7 +126,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 9
   },
@@ -142,7 +139,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 10
   },
@@ -155,7 +152,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 11
   },
@@ -168,7 +165,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 12
   },
@@ -181,10 +178,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     summary: SummarySum,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     order: 13
   },
   {
@@ -196,7 +193,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 14
   },
@@ -209,7 +206,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 15
   },
@@ -222,7 +219,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 16
   },
@@ -235,7 +232,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 17
   },
@@ -248,9 +245,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     order: 18
   },
   {
@@ -262,7 +259,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     order: 19
   },
@@ -275,7 +272,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
     order: 20
   },
@@ -288,7 +285,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
     order: 21
   },
@@ -301,7 +298,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
     order: 22
   },
@@ -314,7 +311,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
     order: 23
   },
@@ -327,7 +324,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
     order: 24
   },
@@ -340,9 +337,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     order: 25
   },
   {
@@ -354,10 +351,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     summary: SummarySum,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     order: 26
   }
 ];
