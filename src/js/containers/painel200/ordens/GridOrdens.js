@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import columns from './columns';
 import Grid from '../../../components/Grid';
 
 const GridOrdens = (props) => {
@@ -9,11 +8,11 @@ const GridOrdens = (props) => {
       <Grid
         minHeight={props.minHeight}
         data={props.data}
-        columns={columns}
         indexes={props.indexes}
         handleRowChange={props.handleRowChange}
         enableSummary
         reflectShadowRows={props.reflectShadowRows}
+        gridName="tela200ordens"
       />
     </div>
   );

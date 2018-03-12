@@ -11,7 +11,7 @@ const GridEstagiosAbertos = (props) => {
       onRowsDeselected={props.onRowsDeselected}
       indexes={props.indexes}
       showCheckbox
-      gridName="estagiosAbertos"
+      gridName="tela200estagiosAbertos"
     />
   );
 };

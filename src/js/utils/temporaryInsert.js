@@ -5,6 +5,7 @@ import insumoNecessidade from '../../../oldColumnsDef/insumoNecessidade';
 import insumoDeposito from '../../../oldColumnsDef/insumoDeposito';
 import insumoRolos from '../../../oldColumnsDef/insumoRolos';
 import estagiosAbertos from '../../../oldColumnsDef/estagiosAbertos';
+import tela200ordens from '../../../oldColumnsDef/tela200ordens';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -44,6 +45,7 @@ export default () => {
   temporaryInsert('insumoRolos', insumoRolos);
   temporaryInsert('insumoNecessidade', insumoNecessidade);
   temporaryInsert('insumoDeposito', insumoDeposito);
-  temporaryInsert('estagiosAbertos', estagiosAbertos);
+  temporaryInsert('tela200estagiosAbertos', estagiosAbertos);
+  temporaryInsert('tela200ordens', tela200ordens);
 };
 
