@@ -11,7 +11,7 @@ const columns = [
     hidden: false,
     sortable: true,
     type: Types.NUMBER,
-    order: 1
+    position: 1
   },
   {
     key: 'situacao',
@@ -24,7 +24,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 2
+    position: 2
   },
   {
     key: 'usuario',
@@ -37,7 +37,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 3
+    position: 3
   },
   {
     key: 'dataCorte',
@@ -50,7 +50,7 @@ const columns = [
     draggable: true,
 
     type: Types.DATE,
-    order: 4
+    position: 4
   },
   {
     key: 'dataSolicitacao',
@@ -63,7 +63,7 @@ const columns = [
     draggable: true,
 
     type: Types.DATE,
-    order: 5
+    position: 5
   },
   {
     key: 'referencia',
@@ -76,7 +76,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 6
+    position: 6
   },
   {
     key: 'nivel',
@@ -89,7 +89,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 6
+    position: 6
   },
   {
     key: 'grupo',
@@ -102,7 +102,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 7
+    position: 7
   },
   {
     key: 'subgrupo',
@@ -115,7 +115,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 8
+    position: 8
   },
   {
     key: 'item',
@@ -128,7 +128,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 9
+    position: 9
   },
   {
     key: 'descricao',
@@ -141,7 +141,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 10
+    position: 10
   },
   {
     key: 'complemento',
@@ -154,7 +154,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 11
+    position: 11
   },
   {
     key: 'unidadeMedida',
@@ -167,7 +167,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 12
+    position: 12
   },
   {
     key: 'qtdeNecessaria',
@@ -182,7 +182,7 @@ const columns = [
     type: Types.NUMBER,
     summary: SummarySum,
     formatter_index: 1,
-    order: 13
+    position: 13
   },
   {
     key: 'ordemProducao',
@@ -195,7 +195,7 @@ const columns = [
     draggable: true,
 
     type: Types.NUMBER,
-    order: 14
+    position: 14
   },
   {
     key: 'pedidoCompra',
@@ -208,7 +208,7 @@ const columns = [
     draggable: true,
 
     type: Types.NUMBER,
-    order: 15
+    position: 15
   },
   {
     key: 'dataEmissaoCorte',
@@ -221,7 +221,7 @@ const columns = [
     draggable: true,
 
     type: Types.NUMBER,
-    order: 16
+    position: 16
   },
   {
     key: 'fornecedor',
@@ -234,7 +234,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 17
+    position: 17
   },
   {
     key: 'qtdePedidoAtual',
@@ -248,7 +248,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 18
+    position: 18
   },
   {
     key: 'periodoProducao',
@@ -261,7 +261,7 @@ const columns = [
     draggable: true,
 
     type: Types.NUMBER,
-    order: 19
+    position: 19
   },
   {
     key: 'previsao1',
@@ -274,7 +274,7 @@ const columns = [
     draggable: true,
 
     type: Types.DATE,
-    order: 20
+    position: 20
   },
   {
     key: 'previsao2',
@@ -287,7 +287,7 @@ const columns = [
     draggable: true,
 
     type: Types.DATE,
-    order: 21
+    position: 21
   },
   {
     key: 'previsao3',
@@ -300,7 +300,7 @@ const columns = [
     draggable: true,
 
     type: Types.DATE,
-    order: 22
+    position: 22
   },
   {
     key: 'fornecedorUltNF',
@@ -313,7 +313,7 @@ const columns = [
     draggable: true,
 
     type: Types.TEXT,
-    order: 23
+    position: 23
   },
   {
     key: 'dataUltNF',
@@ -326,7 +326,7 @@ const columns = [
     draggable: true,
 
     type: Types.DATE,
-    order: 24
+    position: 24
   },
   {
     key: 'qtdeUltNF',
@@ -340,7 +340,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 25
+    position: 25
   },
   {
     key: 'vlrUltNF',
@@ -355,7 +355,7 @@ const columns = [
     type: Types.NUMBER,
     summary: SummarySum,
     formatter_index: 1,
-    order: 26
+    position: 26
   }
 ];
 

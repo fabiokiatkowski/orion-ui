@@ -10,7 +10,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 1
+    position: 1
   },
   {
     key: 'quantidade',
@@ -20,7 +20,7 @@ const columns = [
     hidden: false,
     type: Types.NUMBER,
     summary: SummarySum,
-    order: 2
+    position: 2
   }
 ];
 

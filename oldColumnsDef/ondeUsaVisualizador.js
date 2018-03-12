@@ -10,7 +10,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 0
+    position: 0
   },
   {
     key: 'nivelItem',
@@ -21,7 +21,7 @@ const columns = [
     sortable: true,
 
     type: Types.NUMBER,
-    order: 1
+    position: 1
   },
   {
     key: 'grupoItem',
@@ -32,7 +32,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 2
+    position: 2
   },
   {
     key: 'subItem',
@@ -42,7 +42,7 @@ const columns = [
     hidden: false,
     sortable: true,
 
-    order: 3,
+    position: 3,
     type: Types.TEXT
   },
   {
@@ -54,7 +54,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 4
+    position: 4
   },
   {
     key: 'descrColecao',
@@ -65,7 +65,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 5
+    position: 5
   },
   {
     key: 'unidadeMedida',
@@ -76,7 +76,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 6
+    position: 6
   },
   {
     key: 'alternativaComp',
@@ -87,7 +87,7 @@ const columns = [
     sortable: true,
 
     type: Types.NUMBER,
-    order: 7
+    position: 7
   },
   {
     key: 'pecasPrevistas',
@@ -98,7 +98,7 @@ const columns = [
     sortable: true,
 
     type: Types.NUMBER,
-    order: 8
+    position: 8
   }
 ];
 

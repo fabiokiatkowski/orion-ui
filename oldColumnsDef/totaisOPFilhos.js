@@ -10,7 +10,7 @@ const columns = [
     sortable: true,
 
     type: Types.NUMBER,
-    order: 1
+    position: 1
   },
   {
     key: 'ordemProducao',
@@ -21,7 +21,7 @@ const columns = [
     sortable: true,
 
     type: Types.NUMBER,
-    order: 2
+    position: 2
   },
   {
     key: 'grupo',
@@ -32,7 +32,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 3
+    position: 3
   },
   {
     key: 'item',
@@ -43,7 +43,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 4
+    position: 4
   },
   {
     key: 'descricaoEstagio',
@@ -54,7 +54,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 6
+    position: 6
   },
   {
     key: 'quantidadeProgramado',
@@ -66,7 +66,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 7
+    position: 7
   },
   {
     key: 'quantidadeProduzir',
@@ -78,7 +78,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 8
+    position: 8
   },
   {
     key: 'quantidadeProduzida',
@@ -90,7 +90,7 @@ const columns = [
 
     formatter_index: 1,
     type: Types.NUMBER,
-    order: 9
+    position: 9
   },
   {
     key: 'quantidadeSegunda',
@@ -102,7 +102,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 10
+    position: 10
   },
   {
     key: 'quantidadePerda',
@@ -114,7 +114,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 11
+    position: 11
   },
   {
     key: 'quantidadeConserto',
@@ -126,7 +126,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 12
+    position: 12
   },
   {
     key: 'quantidadePendente',
@@ -138,7 +138,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 13
+    position: 13
   },
   {
     key: 'ordemServico',
@@ -150,7 +150,7 @@ const columns = [
 
     type: Types.NUMBER,
     formatter_index: 1,
-    order: 14
+    position: 14
   },
   {
     key: 'nomeTerceiro',
@@ -161,7 +161,7 @@ const columns = [
     sortable: true,
 
     type: Types.TEXT,
-    order: 15
+    position: 15
   }
 ];
 

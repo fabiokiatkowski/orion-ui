@@ -11,7 +11,7 @@ const columns = [
     hidden: false,
     sortable: true,
     type: Types.TEXT,
-    order: 1,
+    position: 1,
     locked: true
   },
   {
@@ -24,7 +24,7 @@ const columns = [
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
-    order: 3
+    position: 3
   },
   {
     key: 'quantidadePecas',
@@ -36,7 +36,7 @@ const columns = [
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
-    order: 2
+    position: 2
   }
 ];
 
