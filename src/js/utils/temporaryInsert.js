@@ -4,6 +4,7 @@ import ondeUsaVisualizador from '../../../oldColumnsDef/ondeUsaVisualizador';
 import insumoNecessidade from '../../../oldColumnsDef/insumoNecessidade';
 import insumoDeposito from '../../../oldColumnsDef/insumoDeposito';
 import insumoRolos from '../../../oldColumnsDef/insumoRolos';
+import estagiosAbertos from '../../../oldColumnsDef/estagiosAbertos';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -43,5 +44,6 @@ export default () => {
   temporaryInsert('insumoRolos', insumoRolos);
   temporaryInsert('insumoNecessidade', insumoNecessidade);
   temporaryInsert('insumoDeposito', insumoDeposito);
+  temporaryInsert('estagiosAbertos', estagiosAbertos);
 };
 

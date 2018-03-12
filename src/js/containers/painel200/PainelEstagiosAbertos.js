@@ -167,7 +167,6 @@ class PainelEstagiosAbertos extends Component {
           onRowsSelected={this.onEstagioRowsSelectedHandler}
           onRowsDeselected={this.onEstagioRowsDeselectedHandler}
           indexes={this.state.estagiosSelectedRow}
-          gridName="tela200estagios"
         />
         <button
           className="btn pull-right btn-margin-top"
