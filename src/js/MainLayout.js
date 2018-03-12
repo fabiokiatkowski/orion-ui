@@ -6,14 +6,12 @@ import SignIn from './containers/SignIn';
 import Layout from './hoc/Layout/Layout';
 import PainelVisualizador from './containers/visualizador/PainelVisualizador';
 import SUS from './containers/suprimento/SUS/SUS';
-import temporaryInsert from './utils/temporaryInsert';
 
 const asyncTela200 = asyncComponent(() => {
   return import('./containers/painel200/PainelEstagiosAbertos');
 });
 
 const mainLayout = () => {
-  temporaryInsert();
   return (
     <div>
       <Switch>

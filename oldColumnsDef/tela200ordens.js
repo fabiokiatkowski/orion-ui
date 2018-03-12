@@ -161,7 +161,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 15
   },
@@ -173,7 +172,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     position: 16
@@ -186,7 +184,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 17
   },
@@ -198,7 +195,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 18
   },
@@ -210,7 +206,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 19
   },
@@ -222,7 +217,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 20
   },
@@ -234,7 +228,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     position: 21
@@ -247,7 +240,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 21
   },
@@ -259,7 +251,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 22
   },
@@ -271,7 +262,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
@@ -285,7 +275,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
@@ -299,7 +288,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
@@ -313,7 +301,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
@@ -327,7 +314,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
@@ -341,7 +327,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
@@ -355,7 +340,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     summary: SummarySum,
@@ -369,7 +353,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 30
   },
@@ -381,7 +364,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 31
   },
@@ -392,7 +374,6 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-
     type: Types.TEXT,
     position: 32
   },
@@ -404,7 +385,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.NUMBER,
     formatter_index: 1,
     position: 33
@@ -416,7 +396,6 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-
     type: Types.NUMBER,
     position: 34
   },
@@ -428,7 +407,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 35
   },
@@ -440,7 +418,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.DATE,
     position: 36
   },
@@ -452,8 +429,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
-    type: Types.DATA,
+    type: Types.DATE,
     position: 37
   },
   {
@@ -464,8 +440,7 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
-    type: Types.DATA,
+    type: Types.DATE,
     position: 38
   },
   {
@@ -476,7 +451,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 39
   },
@@ -488,7 +462,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 40
   },
@@ -500,7 +473,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.DATE,
     position: 41
   },
@@ -512,7 +484,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 42
   },
@@ -524,7 +495,6 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-
     type: Types.TEXT,
     position: 43
   }
