@@ -11,6 +11,7 @@ import totaisOPestagioParalelo from '../../../oldColumnsDef/totaisOPestagioParal
 import totaisOPFilhos from '../../../oldColumnsDef/totaisOPFilhos';
 import totaisOPLogUti from '../../../oldColumnsDef/totaisOPLogUti';
 import totaisOpOndeTem from '../../../oldColumnsDef/totaisOpOndeTem';
+import suprimentoSUS from '../../../oldColumnsDef/suprimentoSUS';
 import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from '../components/Summary';
 
 const getSummaryIndex = (summary) => {
@@ -57,5 +58,6 @@ export default () => {
   temporaryInsert('totaisOPFilhos', totaisOPFilhos);
   temporaryInsert('totaisOPLogUti', totaisOPLogUti);
   temporaryInsert('totaisOpOndeTem', totaisOpOndeTem);
+  temporaryInsert('suprimentoSUS', suprimentoSUS);
 };
 
