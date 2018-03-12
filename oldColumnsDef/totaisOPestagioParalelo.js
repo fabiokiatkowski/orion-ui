@@ -1,6 +1,4 @@
-import SuperFilter from '../../../../components/SuperFilter';
-import Types from '../../../../utils/filterTypes';
-import IntegerFormat from '../../../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
 
 const columns = [
   {
@@ -10,9 +8,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 1
+    position: 1
   },
   {
     key: 'ordemProducao',
@@ -21,9 +19,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 2
+    position: 2
   },
   {
     key: 'grupo',
@@ -32,9 +30,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 3
+    position: 3
   },
   {
     key: 'item',
@@ -43,9 +41,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 4
+    position: 4
   },
   {
     key: 'codigoEstagio',
@@ -54,9 +52,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 5
+    position: 5
   },
   {
     key: 'descricaoEstagio',
@@ -65,9 +63,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 6
+    position: 6
   },
   {
     key: 'quantidadePendente',
@@ -76,10 +74,10 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 7
+    formatter_index: 1,
+    position: 7
   },
   {
     key: 'tempoDesdeEstagio',
@@ -88,9 +86,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 8
+    position: 8
   },
   {
     key: 'ordemServico',
@@ -99,10 +97,10 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
-    formatter: IntegerFormat,
+
+    formatter_index: 1,
     type: Types.NUMBER,
-    order: 9
+    position: 9
   },
   {
     key: 'nomeTerceiro',
@@ -111,9 +109,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 10
+    position: 10
   }
 ];
 

@@ -9,7 +9,6 @@ import {
 } from 'react-bootstrap';
 import { Map } from 'immutable';
 import Grid from '../../components/Grid';
-import columns from './columns';
 import { listProdutosLocalizador } from '../../redux/modules/visualizador';
 
 const mapStateToProps = state => ({
@@ -119,9 +118,9 @@ class Localizador extends Component {
               <div className="wrapperWrapperWrapper">
                 <Grid
                   minHeight={500}
-                  columns={columns}
                   data={this.props.produtos}
                   handleRowChange={this.handleRowChange}
+                  gridName="visualizador"
                 />
               </div>
             </Modal.Body>

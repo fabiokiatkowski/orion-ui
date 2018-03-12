@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import joinClasses from 'classnames';
+import SuperFilter from './SuperFilter';
 
 const DEFINE_SORT = {
   ASC: 'ASC',
@@ -60,9 +61,8 @@ class CustomHeaderFormatter extends Component {
   };
 
   getFilter = () => {
-    if (this.props.column.filterRenderer !== undefined) {
-      const FilterRenderer = this.props.column.filterRenderer;
-      return (<FilterRenderer
+    if (this.props.column.filterable) {
+      return (<SuperFilter
         ref={((instance) => { this.FilterRendererRef = instance; })}
         {...this.props}
         onChange={this.props.onFilterChange}

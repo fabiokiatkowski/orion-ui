@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fromJS } from 'immutable';
-import { Data, DraggableHeader } from 'react-data-grid-addons';
+import { Data } from 'react-data-grid-addons';
 import {
   Button,
   Modal
@@ -11,53 +11,85 @@ import ReactDataGrid from '../../dependencies/react-data-grid';
 import CustomHeaderFormatter from './CustomHeaderFormatter';
 import GridContextMenu from './GridContextMenu';
 import ColumnsConfig from './ColumnsConfig';
+import { getCurrentColumns, updateColumns, getProfiles, createProfile, changeProfile } from '../utils/gridProfile';
+import IntegerFormat from './NumeralFormat';
+import { SummaryCount, SummaryAverage, SummaryDistinctCount, SummarySum } from './Summary';
+import ColumnsConfigHeader from './ColumnsConfigHeader';
 
 export default class Grid extends Component {
   static propTypes = {
-    data: PropTypes.array, //eslint-disable-line
-    columns: PropTypes.array, //eslint-disable-line
+    data: PropTypes.array,
     handleRowChange: PropTypes.func,
     minHeight: PropTypes.number,
     onRowsSelected: PropTypes.func,
     onRowsDeselected: PropTypes.func,
     onRowClick: PropTypes.func,
-    indexes: PropTypes.array, //eslint-disable-line
+    indexes: PropTypes.array,
     enableSummary: PropTypes.bool,
     showCheckbox: PropTypes.bool,
-    reflectShadowRows: PropTypes.func
+    reflectShadowRows: PropTypes.func,
+    gridName: PropTypes.string,
   }
 
   static defaultProps = {
     data: [],
-    columns: [],
-    handleRowChange: () => {},
+    handleRowChange: () => { },
     minHeight: 50,
-    onRowsSelected: () => {},
-    onRowsDeselected: () => {},
-    onRowClick: () => {},
+    onRowsSelected: () => { },
+    onRowsDeselected: () => { },
+    onRowClick: () => { },
     enableSummary: false,
     showCheckbox: false,
-    reflectShadowRows: null
+    reflectShadowRows: null,
+    indexes: [],
+    gridName: '',
   }
 
   state = {
-    shadowRows: fromJS(this.props.data),
-    rows: fromJS(this.props.data),
-    columnsDef: this.props.columns,
-    sortColumn: null, //eslint-disable-line
-    sortDirection: null, //eslint-disable-line
+    columnsDef: [],
+    rawColumnsDef: [],
     rowIdx: -1,
     filters: '',
+    showAddPerfil: false,
     showConfig: false,
     showContextMenu: false,
     contextMenuScreenX: null,
-    contextMenuScreenY: null
+    contextMenuScreenY: null,
+    currentProfile: null,
+    profiles: [],
+    shadowRows: fromJS(this.props.data),
+    rows: fromJS(this.props.data), //eslint-disable-line 
+    sortDirection: null, //eslint-disable-line
+    sortColumn: null //eslint-disable-line
   };
+
+  componentDidMount() {
+    getCurrentColumns(this.props.gridName)
+      .then((res) => {
+        const profileId = res.data[0] ? res.data[0].id : -1;
+        this.setState({
+          columnsDef: this.getColumns(res.data),
+          rawColumnsDef: res.data,
+          currentProfile: profileId
+        }, () => {
+          this.hackRDGridRender();
+        });
+      });
+    /* TODO - melhorar
+      Não parece muito legal fazer dois requests e atualizar o state em dois callbacks diferentes,
+      Uma ideia boa é alterar o endpoint para trazer os coluns e os profiles em uma tupla, não
+      vou fazer isso agora porque gastei muito tempo nessa implementação já e nessa fase do projeto
+      temos que mostrar coisas prontas, depois refatoramos. Abraços.
+    */
+    getProfiles(this.props.gridName).then((res) => {
+      this.setState({ profiles: res.data });
+    });
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
       this.setState({
-        rows: fromJS(nextProps.data),
+        rows: fromJS(nextProps.data), //eslint-disable-line
         shadowRows: fromJS(nextProps.data),
         filters: '',
         rowIdx: -1
@@ -85,28 +117,6 @@ export default class Grid extends Component {
     }
   }
 
-  onColumnResize = (index, newWidth) => {
-    const newColumns = this.state.columnsDef;
-    newColumns[index].width = newWidth;
-  }
-
-  onHeaderDrop = (source, target) => {
-    const columns = this.state.columnsDef;
-    const columnsSourceIndex = columns
-      .findIndex(i => i.key === source);
-    const columnTargetIndex = columns
-      .findIndex(i => i.key === target);
-
-    const orderSource = columns[columnsSourceIndex].order;
-    const orderTarget = columns[columnTargetIndex].order;
-    columns[columnsSourceIndex].order = orderTarget;
-    columns[columnTargetIndex].order = orderSource;
-
-    const newState = { ...this.state, columnsDef: columns };
-    this.setState({ ...this.state, columnsDef: [] });
-    this.setState(newState);
-  }
-
   onContextMenu = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -117,10 +127,20 @@ export default class Grid extends Component {
     });
   }
 
-  getColumns = (columnsDef) => {
-    let columns = columnsDef
+  getSummary = (summaryType) => {
+    switch (`${summaryType}`) {
+      case '1': return SummaryCount;
+      case '2': return SummaryDistinctCount;
+      case '3': return SummaryAverage;
+      case '4': return SummarySum;
+      default: return null;
+    }
+  }
+
+  getColumns = (definitions) => {
+    let columns = definitions
       .filter(column => !column.hidden)
-      .sort((a, b) => a.order - b.order);
+      .sort((a, b) => a.position - b.position);
     columns = columns.map((column) => {
       const virtualColumn = column;
       virtualColumn.headerRenderer = (
@@ -132,6 +152,12 @@ export default class Grid extends Component {
           onSort={this.handleGridSort}
         />
       );
+      if (column.summary_index) {
+        virtualColumn.summary = this.getSummary(column.summary_index);
+      }
+      if (column.formatter_index) {
+        virtualColumn.formatter = IntegerFormat;/* Just exists a formatter until now */
+      }
       return virtualColumn;
     });
     return columns;
@@ -150,9 +176,28 @@ export default class Grid extends Component {
     return rows.map(r => r.get(columnId)).toSet();
   };
 
+  addPerfil = (e) => {
+    e.preventDefault();
+    createProfile(this.props.gridName, {
+      first: e.target.profileName.value,
+      second: this.state.rawColumnsDef
+    }).then((res) => {
+      const newProfile = res.data.first;
+      const newColumns = res.data.second;
+      this.setState({
+        showAddPerfil: false,
+        showConfig: true,
+        profiles: [...this.state.profiles, newProfile],
+        profileId: newProfile.id,
+        rawColumnsDef: newColumns,
+        columnsDef: this.getColumns(newColumns)
+      });
+    });
+  }
+
   cleanFilters = () => {
     this.setState({
-      rows: fromJS(this.props.data),
+      rows: fromJS(this.props.data), //eslint-disable-line
       shadowRows: fromJS(this.props.data),
       filters: ''
     });
@@ -163,13 +208,13 @@ export default class Grid extends Component {
   cleanFiltesByRef = () => {
     /* TODO ter uma ideia melhor pra resolver isso */
     if (this.CustomHeaderFormatterRef &&
-        this.CustomHeaderFormatterRef.FilterRendererRef) {
+      this.CustomHeaderFormatterRef.FilterRendererRef) {
       this.CustomHeaderFormatterRef.FilterRendererRef.clean();
     }
   }
 
   handleGridSort = (sortColumn, sortDirection) => {
-    this.setState({ sortColumn, sortDirection }, () => {
+    this.setState({ sortColumn, sortDirection }, () => { //eslint-disable-line
       this.setState({ shadowRows: Data.Selectors.getRows(this.state) });
     });
   };
@@ -188,6 +233,23 @@ export default class Grid extends Component {
     }
   };
 
+  handleChangeColunsDef = (items) => {
+    this.setState({ rawColumnsDef: items });
+  }
+
+  hackRDGridRender = () => {
+    /* POG - data grid não renderiza novamente se mudar apenas a ordem das colunas,
+      chamar o resize do browse força o rdg a recomputar o tamanho das colunas e isso força o render
+    */
+    window.dispatchEvent(new Event('resize'));
+  }
+
+  handleChangeProfile = (idProfile) => {
+    changeProfile(this.props.gridName, idProfile).then((res) => {
+      this.setState({ currentProfile: idProfile, rawColumnsDef: res.data });
+    });
+  }
+
   rowGetter = (rowIdx) => {
     const rows = this.getRows();
     return rows.get(rowIdx);
@@ -197,65 +259,111 @@ export default class Grid extends Component {
     this.setState({ showConfig: true });
   }
 
+  openAddPerfil = () => {
+    this.setState({ showAddPerfil: true, showConfig: false });
+  }
+
   closeConfig = () => {
     this.setState({ showConfig: false });
+  }
+
+  closeAddPerfil = () => {
+    this.setState({ showAddPerfil: false, showConfig: true });
+  }
+
+  saveConfig = () => {
+    updateColumns(this.state.rawColumnsDef);
+    const newState = {
+      ...this.state,
+      columnsDef: this.getColumns(this.state.rawColumnsDef),
+      showConfig: false
+    };
+    this.setState(newState, () => {
+      this.hackRDGridRender();
+    });
   }
 
   closeContextMenu = () => {
     this.setState({ showContextMenu: false });
   }
 
+  renderAddPerfil = () => {
+    return (
+      <Modal
+        show
+        onHide={this.closeAddPerfil}
+        dialogClassName="modal-container"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Criar Perfil</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form id="formAddPerfil" className="form add-profile" onSubmit={this.addPerfil}>
+            <input name="profileName" type="text" className="form-control" placeholder="Nome" />
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button type="submit" form="formAddPerfil">Salvar</Button>
+          <Button onClick={this.closeAddPerfil}>Fechar</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
   render() {
     return (
       <div onContextMenu={this.onContextMenu}>
-        <DraggableHeader.DraggableContainer
-          onHeaderDrop={this.onHeaderDrop}
-        >
-          <ReactDataGrid
-            canFilter={false}
-            minHeight={this.props.minHeight}
-            onGridSort={this.handleGridSort}
-            columns={this.getColumns(this.state.columnsDef)}
-            rowHeight={30}
-            rowGetter={this.rowGetter}
-            rowsCount={this.getSize()}
-            onAddFilter={this.handleFilterChange}
-            onClearFilters={this.onClearFilters}
-            getValidFilterValues={this.getValidFilterValues}
-            onCellSelected={this.onCellSelected}
-            onColumnResize={this.onColumnResize}
-            onRowClick={this.props.onRowClick}
-            enableSummary={this.props.enableSummary}
-            rowSelection={{
-              showCheckbox: this.props.showCheckbox,
-              onRowsSelected: this.props.onRowsSelected,
-              onRowsDeselected: this.props.onRowsDeselected,
-              selectBy: {
-                indexes: this.props.indexes
-              }
-            }}
-          />
-        </DraggableHeader.DraggableContainer>
-        <Modal
-          show={this.state.showConfig}
-          onHide={this.closeConfig}
-          dialogClassName="fullscreen-modal-container"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>
-              Configurações
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ColumnsConfig
-              columnsDef={this.state.columnsDef}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={() => {}}>Salvar</Button>
-            <Button onClick={this.closeConfig}>Fechar</Button>
-          </Modal.Footer>
-        </Modal>
+        <ReactDataGrid
+          canFilter={false}
+          minHeight={this.props.minHeight}
+          onGridSort={this.handleGridSort}
+          columns={this.state.columnsDef}
+          rowHeight={30}
+          rowGetter={this.rowGetter}
+          rowsCount={this.getSize()}
+          onAddFilter={this.handleFilterChange}
+          onClearFilters={this.onClearFilters}
+          getValidFilterValues={this.getValidFilterValues}
+          onCellSelected={this.onCellSelected}
+          onColumnResize={this.onColumnResize}
+          onRowClick={this.props.onRowClick}
+          enableSummary={this.props.enableSummary}
+          rowSelection={{
+            showCheckbox: this.props.showCheckbox,
+            onRowsSelected: this.props.onRowsSelected,
+            onRowsDeselected: this.props.onRowsDeselected,
+            selectBy: {
+              indexes: this.props.indexes
+            }
+          }}
+        />
+        {this.state.showConfig &&
+          <Modal
+            show
+            onHide={this.closeConfig}
+            dialogClassName="fullscreen-modal-container"
+          >
+            <Modal.Header closeButton>
+              <ColumnsConfigHeader
+                currentProfile={this.state.currentProfile}
+                onProfileChange={this.handleChangeProfile}
+                profiles={this.state.profiles}
+              />
+            </Modal.Header>
+            <Modal.Body>
+              <ColumnsConfig
+                columns={this.state.rawColumnsDef}
+                onChange={this.handleChangeColunsDef}
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.openAddPerfil}>Criar Novo Perfil</Button>
+              <Button onClick={this.saveConfig}>Salvar</Button>
+              <Button onClick={this.closeConfig}>Fechar</Button>
+            </Modal.Footer>
+          </Modal>
+        }
+        {this.state.showAddPerfil && this.renderAddPerfil()}
         {this.state.showContextMenu &&
           <GridContextMenu
             onClearFilters={this.cleanFilters}

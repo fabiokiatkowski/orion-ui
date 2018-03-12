@@ -1,7 +1,5 @@
-import SuperFilter from '../../../components/SuperFilter';
-import Types from '../../../utils/filterTypes';
-import { SummarySum } from '../../../components/Summary';
-import IntegerFormat from '../../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
+import { SummarySum } from '../src/js/components/Summary';
 
 const columns = [
   {
@@ -12,9 +10,8 @@ const columns = [
     width: 150,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    order: 1
+    position: 1
   },
   {
     key: 'situacao',
@@ -25,9 +22,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 2
+    position: 2
   },
   {
     key: 'usuario',
@@ -38,9 +35,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 3
+    position: 3
   },
   {
     key: 'dataCorte',
@@ -51,9 +48,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
-    order: 4
+    position: 4
   },
   {
     key: 'dataSolicitacao',
@@ -64,9 +61,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
-    order: 5
+    position: 5
   },
   {
     key: 'referencia',
@@ -77,9 +74,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 6
+    position: 6
   },
   {
     key: 'nivel',
@@ -90,9 +87,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 6
+    position: 6
   },
   {
     key: 'grupo',
@@ -103,9 +100,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 7
+    position: 7
   },
   {
     key: 'subgrupo',
@@ -116,9 +113,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 8
+    position: 8
   },
   {
     key: 'item',
@@ -129,9 +126,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 9
+    position: 9
   },
   {
     key: 'descricao',
@@ -142,9 +139,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 10
+    position: 10
   },
   {
     key: 'complemento',
@@ -155,9 +152,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 11
+    position: 11
   },
   {
     key: 'unidadeMedida',
@@ -168,9 +165,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 12
+    position: 12
   },
   {
     key: 'qtdeNecessaria',
@@ -181,11 +178,11 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     summary: SummarySum,
-    formatter: IntegerFormat,
-    order: 13
+    formatter_index: 1,
+    position: 13
   },
   {
     key: 'ordemProducao',
@@ -196,9 +193,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 14
+    position: 14
   },
   {
     key: 'pedidoCompra',
@@ -209,9 +206,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 15
+    position: 15
   },
   {
     key: 'dataEmissaoCorte',
@@ -222,9 +219,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 16
+    position: 16
   },
   {
     key: 'fornecedor',
@@ -235,9 +232,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 17
+    position: 17
   },
   {
     key: 'qtdePedidoAtual',
@@ -248,10 +245,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 18
+    formatter_index: 1,
+    position: 18
   },
   {
     key: 'periodoProducao',
@@ -262,9 +259,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 19
+    position: 19
   },
   {
     key: 'previsao1',
@@ -275,9 +272,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
-    order: 20
+    position: 20
   },
   {
     key: 'previsao2',
@@ -288,9 +285,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
-    order: 21
+    position: 21
   },
   {
     key: 'previsao3',
@@ -301,9 +298,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
-    order: 22
+    position: 22
   },
   {
     key: 'fornecedorUltNF',
@@ -314,9 +311,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 23
+    position: 23
   },
   {
     key: 'dataUltNF',
@@ -327,9 +324,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.DATE,
-    order: 24
+    position: 24
   },
   {
     key: 'qtdeUltNF',
@@ -340,10 +337,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 25
+    formatter_index: 1,
+    position: 25
   },
   {
     key: 'vlrUltNF',
@@ -354,11 +351,11 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
     summary: SummarySum,
-    formatter: IntegerFormat,
-    order: 26
+    formatter_index: 1,
+    position: 26
   }
 ];
 

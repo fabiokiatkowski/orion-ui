@@ -1,7 +1,5 @@
-import SuperFilter from '../../../components/SuperFilter';
-import Types from '../../../utils/filterTypes';
-import { SummarySum } from '../../../components/Summary';
-import IntegerFormat from '../../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
+import { SummarySum } from '../src/js/components/Summary';
 
 const columns = [
   {
@@ -12,9 +10,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 1,
+    position: 1,
     locked: true
   },
   {
@@ -24,11 +21,10 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 3
+    position: 3
   },
   {
     key: 'quantidadePecas',
@@ -37,11 +33,10 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 2
+    position: 2
   }
 ];
 

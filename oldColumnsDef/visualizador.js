@@ -1,5 +1,4 @@
-import SuperFilter from '../../components/SuperFilter';
-import Types from '../../utils/filterTypes';
+import Types from '../src/js/utils/filterTypes';
 
 const columns = [
   {
@@ -9,9 +8,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 0
+    position: 0
   },
   {
     key: 'grupo_estrutura',
@@ -20,9 +19,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 1
+    position: 1
   },
   {
     key: 'subgru_estrutura',
@@ -31,8 +30,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
-    order: 2,
+
+    position: 2,
     type: Types.TEXT
   },
   {
@@ -42,9 +41,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 3
+    position: 3
   },
   {
     key: 'descricao',
@@ -53,9 +52,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.TEXT,
-    order: 4
+    position: 4
   },
   {
     key: 'complemento',
@@ -64,9 +63,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 5
+    position: 5
   },
   {
     key: 'unidade_medida',
@@ -75,9 +74,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 6
+    position: 6
   },
   {
     key: 'qtde_areceber',
@@ -86,9 +85,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 7
+    position: 7
   },
   {
     key: 'qtde_reservado',
@@ -97,9 +96,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 8
+    position: 8
   },
   {
     key: 'qtde_estq_tmrp',
@@ -108,9 +107,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 9
+    position: 9
   },
   {
     key: 'qtde_estq_global',
@@ -119,9 +118,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+
     type: Types.NUMBER,
-    order: 10
+    position: 10
   }
 ];
 

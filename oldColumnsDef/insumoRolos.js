@@ -1,6 +1,5 @@
-import Types from '../../utils/filterTypes';
-import { SummarySum } from '../../components/Summary';
-import IntegerFormat from '../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
+import { SummarySum } from '../src/js/components/Summary';
 
 const columns = [
   {
@@ -10,7 +9,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    order: 1
+    position: 1
   },
   {
     key: 'numeroLote',
@@ -19,7 +18,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 2
+    position: 2
   },
   {
     key: 'pesoRolo',
@@ -28,9 +27,9 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 3
+    position: 3
   },
   {
     key: 'periodoProducao',
@@ -39,7 +38,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    order: 4
+    position: 4
   },
   {
     key: 'desOP',
@@ -48,7 +47,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 5
+    position: 5
   },
   {
     key: 'estagioOP',
@@ -57,7 +56,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 6
+    position: 6
   }
 ];
 

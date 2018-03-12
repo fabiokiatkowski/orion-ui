@@ -1,5 +1,5 @@
 export default Object.freeze({
-  TEXT: Symbol('text'),
-  NUMBER: Symbol('number'),
-  DATE: Symbol('date')
+  TEXT: 'text',
+  NUMBER: 'number',
+  DATE: 'date'
 });

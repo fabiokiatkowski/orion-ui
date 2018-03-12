@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import columns from './columns';
 import Grid from '../../../../components/Grid';
 import { listarFilhos, limparFilhos } from '../../../../redux/modules/tela200';
 
@@ -33,7 +32,7 @@ class GridFilhos extends Component {
       <Grid
         minHeight={this.props.minHeight}
         data={this.props.data}
-        columns={columns}
+        grinName="totaisOPFilhos"
         indexes={[]}
       />
     );
@@ -45,7 +44,8 @@ GridFilhos.propTypes = {
   listarFilhos: PropTypes.func.isRequired,
   limparFilhos: PropTypes.func.isRequired,
   data: PropTypes.array,
-  ordemPrincipal: PropTypes.number
+  ordemPrincipal: PropTypes.number,
+  minHeight: PropTypes.number.isRequired
 };
 
 GridFilhos.defaultProps = {

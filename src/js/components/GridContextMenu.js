@@ -37,7 +37,9 @@ const GridContextMenu = (props) => {
 GridContextMenu.propTypes = {
   onClearFilters: PropTypes.func.isRequired,
   openConfig: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  screenY: PropTypes.number.isRequired,
+  screenX: PropTypes.number.isRequired
 };
 
 export default GridContextMenu;

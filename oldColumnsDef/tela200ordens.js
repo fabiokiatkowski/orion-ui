@@ -1,7 +1,5 @@
-import SuperFilter from '../../../components/SuperFilter';
-import Types from '../../../utils/filterTypes';
-import { SummarySum } from '../../../components/Summary';
-import IntegerFormat from '../../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
+import { SummarySum } from '../src/js/components/Summary';
 
 const columns = [
   {
@@ -11,11 +9,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     type: Types.NUMBER,
-    order: 1,
-    // locked: true
+    position: 1
   },
   {
     key: 'ordemPrincipal',
@@ -24,11 +20,9 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 2,
-    // locked: true
+    formatter_index: 1,
+    position: 2
   },
   {
     key: 'referenciaPeca',
@@ -37,10 +31,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 3,
-    // locked: true
+    position: 3
   },
   {
     key: 'codDesPeriodo',
@@ -49,10 +41,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 4,
-    // locked: true
+    position: 4
   },
   {
     key: 'proconfItem',
@@ -61,10 +51,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 5,
-    // locked: true
+    position: 5
   },
   {
     key: 'descrColecao',
@@ -73,10 +61,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 6,
-    // locked: true
+    position: 6
   },
   {
     key: 'descodEstagio',
@@ -85,10 +71,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 7,
-    // locked: true
+    position: 7
   },
   {
     key: 'tempoDesdeEstagio',
@@ -98,10 +82,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 8
+    formatter_index: 1,
+    position: 8
   },
   {
     key: 'temSus',
@@ -111,9 +94,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 9
+    position: 9
   },
   {
     key: 'desTipoOrdem',
@@ -123,9 +105,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 10
+    position: 10
   },
   {
     key: 'quemCosturou',
@@ -135,9 +116,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 11
+    position: 11
   },
   {
     key: 'cargaPrograma',
@@ -147,9 +127,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 12
+    position: 12
   },
   {
     key: 'situacao',
@@ -159,9 +138,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 13
+    position: 13
   },
   {
     key: 'minutoCostura',
@@ -171,10 +149,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 14
+    formatter_index: 1,
+    position: 14
   },
   {
     key: 'desDificuldade',
@@ -184,9 +161,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 15
+    position: 15
   },
   {
     key: 'diasCostura',
@@ -196,10 +172,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 16
+    formatter_index: 1,
+    position: 16
   },
   {
     key: 'descrSerie',
@@ -209,9 +184,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 17
+    position: 17
   },
   {
     key: 'estacao',
@@ -221,9 +195,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 18
+    position: 18
   },
   {
     key: 'marca',
@@ -233,9 +206,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 19
+    position: 19
   },
   {
     key: 'paiCancelado',
@@ -245,9 +217,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 20
+    position: 20
   },
   {
     key: 'qtdFilhos',
@@ -257,10 +228,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 21
+    formatter_index: 1,
+    position: 21
   },
   {
     key: 'desOpUti',
@@ -270,9 +240,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 21
+    position: 21
   },
   {
     key: 'desTemLavacao',
@@ -282,9 +251,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 22
+    position: 22
   },
   {
     key: 'qtdeProgramada',
@@ -294,11 +262,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 23
+    position: 23
   },
   {
     key: 'qtdeProduzir',
@@ -308,11 +275,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 24
+    position: 24
   },
   {
     key: 'qtdeProduzida',
@@ -322,11 +288,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 25
+    position: 25
   },
   {
     key: 'qtdeSegunda',
@@ -336,11 +301,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 26
+    position: 26
   },
   {
     key: 'qtdePerda',
@@ -350,11 +314,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 27
+    position: 27
   },
   {
     key: 'qtdeConserto',
@@ -364,11 +327,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 28
+    position: 28
   },
   {
     key: 'qtdePendente',
@@ -378,11 +340,10 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 29
+    position: 29
   },
   {
     key: 'artigoCotas',
@@ -392,9 +353,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 30
+    position: 30
   },
   {
     key: 'opMesmaRefCor',
@@ -404,9 +364,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 31
+    position: 31
   },
   {
     key: 'cancelouOp',
@@ -415,9 +374,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 32
+    position: 32
   },
   {
     key: 'ordemServicoCostura',
@@ -427,10 +385,9 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
-    order: 33
+    formatter_index: 1,
+    position: 33
   },
   {
     key: 'ordemServiço',
@@ -439,9 +396,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    order: 34
+    position: 34
   },
   {
     key: 'nomeServicoEstagi',
@@ -451,9 +407,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 35
+    position: 35
   },
   {
     key: 'dataEmissaoOs',
@@ -463,9 +418,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.DATE,
-    order: 36
+    position: 36
   },
   {
     key: 'dataPrevisaoOS',
@@ -475,9 +429,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
-    type: Types.DATA,
-    order: 37
+    type: Types.DATE,
+    position: 37
   },
   {
     key: 'dataProrrogacaoOS',
@@ -487,9 +440,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
-    type: Types.DATA,
-    order: 38
+    type: Types.DATE,
+    position: 38
   },
   {
     key: 'desCodfamilia',
@@ -499,9 +451,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 39
+    position: 39
   },
   {
     key: 'responsavel',
@@ -511,9 +462,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 40
+    position: 40
   },
   {
     key: 'dataPrimBixaUltEst',
@@ -523,9 +473,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.DATE,
-    order: 41
+    position: 41
   },
   {
     key: 'semRoteiroCostura',
@@ -535,9 +484,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 42
+    position: 42
   },
   {
     key: 'reservaZerada',
@@ -547,9 +495,8 @@ const columns = [
     hidden: false,
     sortable: true,
     draggable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 43
+    position: 43
   }
 ];
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import columns from './columns';
 import Grid from '../../../../components/Grid';
 import { listarEstagiosParalelos } from '../../../../redux/modules/tela200';
 
@@ -52,7 +51,7 @@ class GridEstagioParalelo extends Component {
       <Grid
         minHeight={this.props.minHeight}
         data={this.props.estagiosParalelos}
-        columns={columns}
+        gridName="totaisOPestagioParalelo"
         indexes={[]}
       />
     );
@@ -60,7 +59,8 @@ class GridEstagioParalelo extends Component {
 }
 
 GridEstagioParalelo.propTypes = {
-  listEstagiosParalelos: PropTypes.func.isRequired
+  listEstagiosParalelos: PropTypes.func.isRequired,
+  minHeight: PropTypes.number.isRequired
 };
 
 export default connect(

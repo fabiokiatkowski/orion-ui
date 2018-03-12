@@ -1,105 +1,107 @@
-import SuperFilter from '../../../components/SuperFilter';
-import Types from '../../../utils/filterTypes';
+import Types from '../src/js/utils/filterTypes';
 
 const columns = [
   {
-    key: 'referencia',
-    name: 'Referencia',
+    key: 'periodoProducao',
+    name: 'Período',
     filterable: true,
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
-    type: Types.TEXT,
-    order: 0
-  },
-  {
-    key: 'nivelItem',
-    name: 'Nivel',
-    filterable: true,
-    resizable: true,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    order: 1
+    position: 1
   },
   {
-    key: 'grupoItem',
+    key: 'ordemProducao',
+    name: 'Ordem Produção',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    type: Types.NUMBER,
+    position: 2
+  },
+  {
+    key: 'grupo',
     name: 'Grupo',
     filterable: true,
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 2
+    position: 3
   },
   {
-    key: 'subItem',
-    name: 'Sub Grupo',
-    filterable: true,
-    resizable: true,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
-    order: 3,
-    type: Types.TEXT
-  },
-  {
-    key: 'itemItem',
+    key: 'item',
     name: 'Item',
     filterable: true,
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 4
+    position: 4
   },
   {
-    key: 'descrColecao',
-    name: 'Coleção',
+    key: 'codigoEstagio',
+    name: 'Código Estágio',
     filterable: true,
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
-    type: Types.TEXT,
-    order: 5
-  },
-  {
-    key: 'unidadeMedida',
-    name: 'UM',
-    filterable: true,
-    resizable: true,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
-    type: Types.TEXT,
-    order: 6
-  },
-  {
-    key: 'alternativaComp',
-    name: 'Alternativa',
-    filterable: true,
-    resizable: true,
-    hidden: false,
-    sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.NUMBER,
-    order: 7
+    position: 5
   },
   {
-    key: 'pecasPrevistas',
-    name: 'Vendido',
+    key: 'descricaoEstagio',
+    name: 'Desc. Estágio',
     filterable: true,
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
+    type: Types.TEXT,
+    position: 6
+  },
+  {
+    key: 'quantidadePendente',
+    name: 'Pendente',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
     type: Types.NUMBER,
-    order: 8
+    formatter_index: 1,
+    position: 7
+  },
+  {
+    key: 'tempoDesdeEstagio',
+    name: 'Dias',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    type: Types.NUMBER,
+    position: 8
+  },
+  {
+    key: 'ordemServico',
+    name: 'Ordem Serviço',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    formatter_index: 1,
+    type: Types.NUMBER,
+    position: 9
+  },
+  {
+    key: 'nomeTerceiro',
+    name: 'Desc. Estágio',
+    filterable: true,
+    resizable: true,
+    hidden: false,
+    sortable: true,
+    type: Types.TEXT,
+    position: 10
   }
 ];
 

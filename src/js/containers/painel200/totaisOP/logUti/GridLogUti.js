@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import columns from './columns';
 import Grid from '../../../../components/Grid';
 import { listarLogUti } from '../../../../redux/modules/tela200';
 
@@ -29,8 +28,8 @@ class GridLogUti extends Component {
       <Grid
         minHeight={this.props.minHeight}
         data={this.props.data}
-        columns={columns}
         indexes={[]}
+        gridName="totaisOPLogUti"
       />
     );
   }
@@ -39,7 +38,8 @@ class GridLogUti extends Component {
 GridLogUti.propTypes = {
   listarLogUti: PropTypes.func.isRequired,
   data: PropTypes.array,
-  ordemProducao: PropTypes.number
+  ordemProducao: PropTypes.number,
+  minHeight: PropTypes.number.isRequired
 };
 
 GridLogUti.defaultProps = {

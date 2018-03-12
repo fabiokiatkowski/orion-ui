@@ -1,5 +1,4 @@
-import SuperFilter from '../../../../components/SuperFilter';
-import Types from '../../../../utils/filterTypes';
+import Types from '../src/js/utils/filterTypes';
 
 const columns = [
   {
@@ -9,9 +8,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.DATE,
-    order: 1
+    position: 1
   },
   {
     key: 'usuarioEntrada',
@@ -20,9 +18,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 2
+    position: 2
   },
   {
     key: 'dataSaida',
@@ -31,9 +28,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.DATE,
-    order: 3
+    position: 3
   },
   {
     key: 'usuarioSaida',
@@ -42,9 +38,8 @@ const columns = [
     resizable: true,
     hidden: false,
     sortable: true,
-    filterRenderer: SuperFilter,
     type: Types.TEXT,
-    order: 4
+    position: 4
   }
 ];
 

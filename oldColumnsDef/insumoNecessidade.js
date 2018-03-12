@@ -1,6 +1,5 @@
-import Types from '../../utils/filterTypes';
-import { SummarySum } from '../../components/Summary';
-import IntegerFormat from '../../components/NumeralFormat';
+import Types from '../src/js/utils/filterTypes';
+import { SummarySum } from '../src/js/components/Summary';
 
 const columns = [
   {
@@ -10,7 +9,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 1
+    position: 1
   },
   {
     key: 'grupo',
@@ -19,7 +18,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 2
+    position: 2
   },
   {
     key: 'subgrupo',
@@ -28,7 +27,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 3
+    position: 3
   },
   {
     key: 'item',
@@ -37,7 +36,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 4
+    position: 4
   },
   {
     key: 'descricao',
@@ -46,7 +45,7 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.TEXT,
-    order: 5
+    position: 5
   },
   {
     key: 'estoqueAtual',
@@ -55,9 +54,9 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 6
+    position: 6
   },
   {
     key: 'quantidadeAReceber',
@@ -66,9 +65,9 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 7
+    position: 7
   },
   {
     key: 'quantidadeReservada',
@@ -77,9 +76,9 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 8
+    position: 8
   },
   {
     key: 'quantidadeReservaGlobal',
@@ -88,9 +87,9 @@ const columns = [
     resizable: true,
     hidden: false,
     type: Types.NUMBER,
-    formatter: IntegerFormat,
+    formatter_index: 1,
     summary: SummarySum,
-    order: 9
+    position: 9
   }
 ];
 
