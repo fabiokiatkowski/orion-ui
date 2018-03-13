@@ -28,7 +28,8 @@ module.exports = {
     new ExtractTextPlugin('style.bundle.css'),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development'),
+        BASE_URL: JSON.stringify('http://localhost:8080')
       }
     }),
     new EncodingPlugin({
