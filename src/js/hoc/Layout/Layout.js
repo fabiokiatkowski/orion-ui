@@ -42,7 +42,7 @@ class Layout extends Component {
           </main>
         </LoadingSpinner>
         <footer id="footer" >
-          <b>Copyright © 2018 <a href="http://www.pacificosul.com.br/novo/">Pacifico Sul</a></b>.
+          <b>Copyright © 2018 <a href="https://github.com/paulorsouza/">Paulo Ricardo de Souza</a></b>.
           <span className="is-hidden-mobile">Todos os direitos reservados.</span>
         </footer>
       </div>
